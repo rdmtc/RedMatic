@@ -1,0 +1,19 @@
+License file for https://github.com/hobbyquaker/ccu-addon-node-red
+
+  The files contained in the repository are licensed under MIT (c) Sebastian Raff
+
+  Releases include different software modules with different licenses:
+
+    Node-RED
+        Apache 2.0 Copyright JS Foundation and other contributors
+        see https://github.com/node-red/node-red/blob/master/LICENSE
+
+    Node-RED Dashboard
+        Apache 2.0 Copyright 2016, 2018 JS Foundation and other contributors
+        Copyright 2016 IBM Corp.,
+        Copyright 2015 Andrei T
+        see https://github.com/node-red/node-red-dashboard/blob/master/LICENSE
+
+    node-red-contrib-ccu
+        MIT (c) Sebastian Raff
+        see https://github.com/hobbyquaker/node-red-contrib-ccu/blob/master/LICENSE

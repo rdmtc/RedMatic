@@ -1,0 +1,87 @@
+#!/bin/sh
+
+CONF_DIR=/usr/local/etc/config
+ADDON_DIR=/usr/local/addons/node-red
+
+NODE=$ADDON_DIR/bin/node
+
+RED_DIR=$ADDON_DIR/lib/node_modules/node-red
+RED=$RED_DIR/red.js
+
+SETTINGS=$ADDON_DIR/settings.js
+
+LOG=/var/log/node-red.log
+
+Stop () {
+    PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
+    if [ "$PSPID" != "" ]
+    then
+      echo -n "Stopping Node-RED: "
+      kill $1 $PSPID 2>/dev/null
+      sleep 1
+      kill -0 $PSPID 2>/dev/null
+      if [ $? -eq 0 ]
+      then
+        sleep 10
+        kill -KILL $PSPID 2>/dev/null
+      fi
+      logger -t homematic -p user.info "stopped node-red"
+      echo "OK"
+    fi
+}
+
+Start () {
+    echo -n "Starting Node-RED: "
+    $NODE $RED -s $SETTINGS >> $LOG &
+    logger -t homematic -p user.info "started node-red"
+    echo "OK"
+}
+
+case "$1" in
+
+  stop)
+    Stop
+  ;;
+
+  start)
+    Start
+  ;;
+
+  restart)
+    Stop
+    sleep 1
+    Start
+  ;;
+
+  info)
+    source $ADDON_DIR/versions
+    echo "Info: <b>Node-RED CCU Addon</b><br>"
+    echo "Info: <table><tr><td>Node.js</td><td>$NODE_VERSION</td></tr>"
+    echo "Info: <tr><td>npm</td><td>$NPM_VERSION</td></tr>"
+    echo "Info: <tr><td>Node-RED</td><td>$RED_VERSION</td></tr>"
+    echo "Info: <tr><td>Node-RED Dashboard</td><td>$DASHBOARD_VERSION</td></tr>"
+    echo "Info: <tr><td>node-red-contrib-ccu</td><td>$RED_CCU_VERSION</td></tr></table>"
+    echo "Info: <ul><li><a href="https://github.com/hobbyquaker/ccu-addon-node-red">ccu-addon-node-red on Github</a></li></ul>"
+    echo "Name: Node-RED"
+    echo "Version: $ADDON_VERSION"
+    echo "Operations: restart uninstall"
+  ;;
+
+  uninstall)
+     Stop
+     sed -i '/node-red/d' $CONF_DIR/hm_addons.cfg
+     rm -r $ADDON_DIR
+     rm $CONF_DIR/lighttpd/node-red.conf
+     rm $CONF_DIR/rc.d/node-red
+  ;;
+
+  *)
+    echo "Usage: node-red {start|stop|restart|info|uninstall}" >&2
+    exit 1
+  ;;
+
+esac
+
+
+
+exit 0

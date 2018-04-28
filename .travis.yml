@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - "8"
+addons:
+  apt:
+    packages:
+      - jq
+branches:
+  only:
+  - master
+before_deploy:
+  - ./build.sh
+  - git config --local user.name "hobbyquaker"
+  - git config --local user.email "hobbyquaker@gmail.com"
+  - git tag "Build-$TRAVIS_BUILD_NUMBER"
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file_glob: true
+  file: dist/*
+  skip_cleanup: true

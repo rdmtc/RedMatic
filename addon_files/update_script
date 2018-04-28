@@ -1,0 +1,27 @@
+#!/bin/sh
+
+RED_DIR=/usr/local/addons/node-red
+CONF_DIR=/usr/local/etc/config
+
+mount /usr/local
+
+mkdir -p /usr/local/addons && chmod 755 /usr/local/addons
+
+mkdir -p /usr/local/etc/profile.d
+echo "export NO_UPDATE_NOTIFIER=true" > /usr/local/etc/profile.d/node-red.sh
+
+cp -af node-red $RED_DIR
+ln -s $RED_DIR/lighttpd.conf $CONF_DIR/lighttpd/node-red.conf
+chmod a+x $RED_DIR/node-red
+ln -s $RED_DIR/node-red $CONF_DIR/rc.d/node-red
+
+if [ ! -f $RED_DIR/var/flows.json ]; then
+    mv $RED_DIR/var/example-flows.json $RED_DIR/var/flows.json
+fi
+
+touch $CONF_DIR/hm_addons.cfg
+sed -i '/node-red/d' $CONF_DIR/hm_addons.cfg
+echo "node-red {CONFIG_URL /addons/red CONFIG_DESCRIPTION {de {<li>Node-RED</li>} en {<li>Node-RED</li>}} ID node-red CONFIG_NAME Node-RED}" >> $CONF_DIR/hm_addons.cfg
+echo "node-red-dashboard {CONFIG_URL /addons/red/ui CONFIG_DESCRIPTION {de {<li>Node-RED Dashboard UI</li>} en {<li>Node-RED Dashboard UI</li>}} ID node-red-dashboard CONFIG_NAME \"Node-RED Dashboard\"}" >> $CONF_DIR/hm_addons.cfg
+
+sync
