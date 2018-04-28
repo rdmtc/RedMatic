@@ -12,7 +12,7 @@ before_deploy:
   - ./build.sh
   - git config --local user.name "hobbyquaker"
   - git config --local user.email "hobbyquaker@gmail.com"
-  - git tag "Build-$TRAVIS_BUILD_NUMBER"
+  - git tag "v$ADDON_VERSION-$TRAVIS_BUILD_NUMBER"
   - source ./addon_tmp/node-red/versions
 deploy:
   provider: releases
@@ -20,9 +20,4 @@ deploy:
   file_glob: true
   file: dist/*
   skip_cleanup: true
-  body: |
-    * Node.js $NODE_VERSION
-    * npm $NPM_VERSION
-    * Node-RED $RED_VERSION
-    * Node-RED Dashboard $DASHBOARD_VERSION
-    * node-red-contrib-ccu $RED_CCU_VERSION
+  body: Node.js $NODE_VERSION - npm $NPM_VERSION - Node-RED $RED_VERSION - Node-RED Dashboard $DASHBOARD_VERSION - node-red-contrib-ccu $RED_CCU_VERSION
