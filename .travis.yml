@@ -13,9 +13,11 @@ before_deploy:
   - git config --local user.name "hobbyquaker"
   - git config --local user.email "hobbyquaker@gmail.com"
   - git tag "Build-$TRAVIS_BUILD_NUMBER"
+  - source versions
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
   file_glob: true
   file: dist/*
   skip_cleanup: true
+  body: Node.js $NODE_VERSION - npm $NPM_VERSION - Node-RED $RED_VERSION - Node-RED Dashboard $DASHBOARD_VERSION - node-red-contrib-ccu $RED_CCU_VERSION
