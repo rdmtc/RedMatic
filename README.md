@@ -1,6 +1,6 @@
 # ccu-addon-node-red
 
-![Build Status](https://travis-ci.org/hobbyquaker/ccu-addon-node-red.svg?branch=master)](https://travis-ci.org/hobbyquaker/ccu-addon-node-red)
+[![Build Status](https://travis-ci.org/hobbyquaker/ccu-addon-node-red.svg?branch=master)](https://travis-ci.org/hobbyquaker/ccu-addon-node-red)
 
 > Node-RED Addon für die Homematic CCU3 und RaspberryMatic
 
