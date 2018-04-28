@@ -48,6 +48,8 @@ echo "export RED_VERSION=`jq -r '.version' $ADDON_TMP/node-red/lib/node_modules/
 echo "export DASHBOARD_VERSION=`jq -r '.version' $ADDON_TMP/node-red/lib/node_modules/node-red-dashboard/package.json`" >> $ADDON_TMP/node-red/versions
 echo "export RED_CCU_VERSION=`jq -r '.version' $ADDON_TMP/node-red/lib/node_modules/node-red-contrib-ccu/package.json`" >> $ADDON_TMP/node-red/versions
 
+cat $ADDON_TMP/node-red/versions
+
 ADDON_FILE=ccu-addon-node-red-$ADDON_VERSION.tar.gz
 echo "compressing addon package $ADDON_FILE ..."
 mkdir $BUILD_DIR/dist 2> /dev/null
