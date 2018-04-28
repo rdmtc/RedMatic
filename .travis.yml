@@ -20,4 +20,4 @@ deploy:
   file_glob: true
   file: dist/*
   skip_cleanup: true
-  body: Node.js $NODE_VERSION - npm $NPM_VERSION - Node-RED $RED_VERSION - Node-RED Dashboard $DASHBOARD_VERSION - node-red-contrib-ccu $RED_CCU_VERSION
+  body: * Node.js $NODE_VERSION\n* npm $NPM_VERSION\n* Node-RED $RED_VERSION\n* Node-RED Dashboard $DASHBOARD_VERSION\n* node-red-contrib-ccu $RED_CCU_VERSION
