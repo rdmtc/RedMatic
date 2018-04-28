@@ -13,7 +13,7 @@ before_deploy:
   - git config --local user.name "hobbyquaker"
   - git config --local user.email "hobbyquaker@gmail.com"
   - git tag "Build-$TRAVIS_BUILD_NUMBER"
-  - source versions
+  - source ./addon_tmp/node-red/versions
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
