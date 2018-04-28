@@ -4,6 +4,7 @@ CONF_DIR=/usr/local/etc/config
 ADDON_DIR=/usr/local/addons/node-red
 
 NODE=$ADDON_DIR/bin/node
+PATH=$PATH:$ADDON_DIR/bin
 
 RED_DIR=$ADDON_DIR/lib/node_modules/node-red
 RED=$RED_DIR/red.js

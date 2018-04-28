@@ -30,8 +30,8 @@ npm install --silent --no-package-lock --production --no-optional --global-style
 
 echo "adapt Node-RED..."
 rm -r $ADDON_TMP/node-red/node_modules/node-red/nodes/core/hardware
-mv $ADDON_TMP/node-red/node_modules/node-red/red/runtime/nodes/registry/installer.js $ADDON_TMP/node-red/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig
-sed "s/var npmCommand =.*/var npmCommand = '\/usr\/local\/addons\/node-red\/bin\/npm';/" $ADDON_TMP/node-red/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig > $ADDON_TMP/node-red/node_modules/node-red/red/runtime/nodes/registry/installer.js
+#mv $ADDON_TMP/node-red/node_modules/node-red/red/runtime/nodes/registry/installer.js $ADDON_TMP/node-red/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig
+#sed "s/var npmCommand =.*/var npmCommand = '\/usr\/local\/addons\/node-red\/bin\/npm';/" $ADDON_TMP/node-red/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig > $ADDON_TMP/node-red/node_modules/node-red/red/runtime/nodes/registry/installer.js
 
 echo "moving node modules to lib dir..."
 cp -r $ADDON_TMP/node-red/node_modules $ADDON_TMP/node-red/lib/
