@@ -11,7 +11,10 @@ mkdir -p /usr/local/etc/profile.d
 echo "export NO_UPDATE_NOTIFIER=true" > /usr/local/etc/profile.d/node-red.sh
 
 cp -af node-red $RED_DIR
+
+mkdir -p $CONF_DIR/lighttpd
 ln -s $RED_DIR/lighttpd.conf $CONF_DIR/lighttpd/node-red.conf
+
 chmod a+x $RED_DIR/node-red
 ln -s $RED_DIR/node-red $CONF_DIR/rc.d/node-red
 
