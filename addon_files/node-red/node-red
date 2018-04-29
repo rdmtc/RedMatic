@@ -31,7 +31,7 @@ Stop () {
 
 Start () {
     echo -n "Starting Node-RED: "
-    $NODE $RED -s $SETTINGS | logger -p user.info -t node-red &
+    $NODE $RED -s $SETTINGS 2>&1 | logger -p user.info -t node-red &
     logger -t homematic -p user.info "started node-red"
     echo "OK"
 }
