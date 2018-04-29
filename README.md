@@ -43,6 +43,9 @@ erreichbar.
 Die Dokumentation der CCU Nodes ist in Node-RED selbst verfügbar. Weitere Beispielflows sind im 
 [node-red-contrib-ccu Wiki](https://github.com/hobbyquaker/node-red-contrib-ccu/wiki) zu finden.
 
+Themen die nicht die CCU Nodes sondern speziell das ccu-addon-node-red betreffen sind 
+[hier im Wiki](https://github.com/hobbyquaker/ccu-addon-node-red/wiki) zu finden.
+
 Zu Node-RED im allgemeinen gibt es unzählige Tutorials, Dokumenationen und Youtube Videos, auch in Deutscher Sprache.
 
 
