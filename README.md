@@ -19,9 +19,13 @@ webbasierte User Interfaces erstellt werden können. Zur Anbindung an die Schnit
 CCU ist [node-red-contrib-ccu](https://github.com/hobbyquaker/node-red-contrib-ccu) im Addon enthalten. 
 
 
-## Installation
+__Work in Progress!__ Dieses Addon sowie node-red-contrib-ccu sind __noch nicht wirklich fertig__, kaum getestet, es ist
+davon auszugehen dass noch __viele Bugs__ gefixt werden müssen, es sind noch nicht alle geplanten Features 
+implementiert... Sobald ein Stand erreicht ist der als "feature-complete", gut getestet und anständig dokumentiert
+durchgeht wird die Versionsnummer auf 1.0 erhöht.
 
-#### Download
+
+## Download
 
 Unter [Releases](https://github.com/hobbyquaker/ccu-addon-node-red/releases) ist das Addon Paket zum Download verfügbar.
 
