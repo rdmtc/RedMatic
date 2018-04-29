@@ -11,8 +11,6 @@ RED=$RED_DIR/red.js
 
 SETTINGS=$ADDON_DIR/settings.js
 
-LOG=/var/log/node-red.log
-
 Stop () {
     PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
     if [ "$PSPID" != "" ]
@@ -33,7 +31,7 @@ Stop () {
 
 Start () {
     echo -n "Starting Node-RED: "
-    $NODE $RED -s $SETTINGS >> $LOG &
+    $NODE $RED -s $SETTINGS | logger -p user.info -t node-red &
     logger -t homematic -p user.info "started node-red"
     echo "OK"
 }
