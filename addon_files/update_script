@@ -14,12 +14,12 @@ fi
 cp -af node-red $RED_DIR
 
 mkdir -p $CONF_DIR/lighttpd
-ln -s $RED_DIR/lighttpd.conf $CONF_DIR/lighttpd/node-red.conf
+ln -sf $RED_DIR/lighttpd.conf $CONF_DIR/lighttpd/node-red.conf
 
 chmod a+x $RED_DIR/node-red
-ln -s $RED_DIR/node-red $CONF_DIR/rc.d/node-red
+ln -sf $RED_DIR/node-red $CONF_DIR/rc.d/node-red
 
-ln -s $RED_DIR/lib/node_modules/node-red-admin/node-red-admin.js /usr/local/bin/node-red-admin
+ln -sf $RED_DIR/lib/node_modules/node-red-admin/node-red-admin.js /usr/local/bin/node-red-admin
 
 if [ ! -f $RED_DIR/var/flows.json ]; then
     mv $RED_DIR/var/example-flows.json $RED_DIR/var/flows.json
@@ -36,3 +36,5 @@ echo "node-red {CONFIG_URL /addons/red CONFIG_DESCRIPTION {de {<li>Node-RED</li>
 echo "node-red-dashboard {CONFIG_URL /addons/red/ui CONFIG_DESCRIPTION {de {<li>Node-RED Dashboard UI</li>} en {<li>Node-RED Dashboard UI</li>}} ID node-red-dashboard CONFIG_NAME \"Node-RED Dashboard\"}" >> $CONF_DIR/hm_addons.cfg
 
 sync
+
+exit 0
