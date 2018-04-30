@@ -27,8 +27,6 @@ ln -sf $RED_DIR/lighttpd.conf $CONF_DIR/lighttpd/node-red.conf
 chmod a+x $RED_DIR/node-red
 ln -sf $RED_DIR/node-red $CONF_DIR/rc.d/node-red
 
-ln -sf $RED_DIR/lib/node_modules/node-red-admin/node-red-admin.js /usr/local/bin/node-red-admin
-
 if [ ! -f $RED_DIR/var/flows.json ]; then
     mv $RED_DIR/var/example-flows.json $RED_DIR/var/flows.json
 fi
