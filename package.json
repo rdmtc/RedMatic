@@ -14,7 +14,7 @@
     "node-red-contrib-combine": "latest"
   },
   "scripts": {
-    "test": "exit 0"
+    "test": "./build.sh"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "MIT"
