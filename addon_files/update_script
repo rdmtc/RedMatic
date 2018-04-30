@@ -1,25 +1,33 @@
 #!/bin/sh
 
-RED_DIR=/usr/local/addons/node-red
+ADDONS_DIR=/usr/local/addons
+RED_DIR=$ADDONS_DIR/node-red
 CONF_DIR=/usr/local/etc/config
 
-mount /usr/local
+mount | grep /usr/local 2>&1 >/dev/null
+if [ $? -eq 1 ]; then
+  mount /usr/local
+fi
 
-mkdir -p /usr/local/addons && chmod 755 /usr/local/addons
+mkdir -p $ADDONS_DIR && chmod 755 $ADDONS_DIR 
+
+if [ -f $CONF_DIR/rc.d/node-red ]; then
+    $CONF_DIR/rc.d/node-red stop
+fi
 
 if [ -f $RED_DIR/settings.js ]; then
     cp $RED_DIR/settings.js $RED_DIR/settings.js.old
 fi
 
-cp -af node-red $RED_DIR
+cp -af node-red $ADDONS_DIR/
 
 mkdir -p $CONF_DIR/lighttpd
-ln -s $RED_DIR/lighttpd.conf $CONF_DIR/lighttpd/node-red.conf
+ln -sf $RED_DIR/lighttpd.conf $CONF_DIR/lighttpd/node-red.conf
 
 chmod a+x $RED_DIR/node-red
-ln -s $RED_DIR/node-red $CONF_DIR/rc.d/node-red
+ln -sf $RED_DIR/node-red $CONF_DIR/rc.d/node-red
 
-ln -s $RED_DIR/lib/node_modules/node-red-admin/node-red-admin.js /usr/local/bin/node-red-admin
+ln -sf $RED_DIR/lib/node_modules/node-red-admin/node-red-admin.js /usr/local/bin/node-red-admin
 
 if [ ! -f $RED_DIR/var/flows.json ]; then
     mv $RED_DIR/var/example-flows.json $RED_DIR/var/flows.json
@@ -36,3 +44,5 @@ echo "node-red {CONFIG_URL /addons/red CONFIG_DESCRIPTION {de {<li>Node-RED</li>
 echo "node-red-dashboard {CONFIG_URL /addons/red/ui CONFIG_DESCRIPTION {de {<li>Node-RED Dashboard UI</li>} en {<li>Node-RED Dashboard UI</li>}} ID node-red-dashboard CONFIG_NAME \"Node-RED Dashboard\"}" >> $CONF_DIR/hm_addons.cfg
 
 sync
+
+exit 0

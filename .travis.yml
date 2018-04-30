@@ -11,6 +11,7 @@ branches:
 before_deploy:
   - git config --local user.name "hobbyquaker"
   - git config --local user.email "hobbyquaker@gmail.com"
+  - ./build.sh
   - source ./addon_tmp/node-red/versions
   - git tag "v$ADDON_VERSION-$TRAVIS_BUILD_NUMBER"
 deploy:
