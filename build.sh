@@ -27,28 +27,23 @@ cp -r $ADDON_FILES/* $ADDON_TMP/
 
 
 echo "installing node modules..."
-cp package.json $ADDON_TMP/node-red/
-cd $ADDON_TMP/node-red
+cp package.json $ADDON_TMP/node-red/lib/
+cd $ADDON_TMP/node-red/lib
 npm install --silent --no-package-lock --production --no-optional --global-style
-
+rm $ADDON_TMP/node-red/lib/package.json
 
 echo "adapt Node-RED..."
-rm -r $ADDON_TMP/node-red/node_modules/node-red/nodes/core/hardware
-#mv $ADDON_TMP/node-red/node_modules/node-red/red/runtime/nodes/registry/installer.js $ADDON_TMP/node-red/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig
-#sed "s/var npmCommand =.*/var npmCommand = '\/usr\/local\/addons\/node-red\/bin\/npm';/" $ADDON_TMP/node-red/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig > $ADDON_TMP/node-red/node_modules/node-red/red/runtime/nodes/registry/installer.js
-mv $ADDON_TMP/node-red/node_modules/node-red/red/runtime/log.js $ADDON_TMP/node-red/node_modules/node-red/red/runtime/log.js.orig
-sed "s/util\.log/console.log/g" $ADDON_TMP/node-red/node_modules/node-red/red/runtime/log.js.orig > $ADDON_TMP/node-red/node_modules/node-red/red/runtime/log.js
-
-
-echo "moving node modules to lib dir..."
-cp -r $ADDON_TMP/node-red/node_modules $ADDON_TMP/node-red/lib/
-rm -r $ADDON_TMP/node-red/node_modules
+rm -r $ADDON_TMP/node-red/lib/node_modules/node-red/nodes/core/hardware
+#mv $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig
+#sed "s/var npmCommand =.*/var npmCommand = '\/usr\/local\/addons\/node-red\/bin\/npm';/" $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig > $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js
+mv $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/log.js $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/log.js.orig
+sed "s/util\.log/console.log/g" $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/log.js.orig > $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/log.js
 
 cd $BUILD_DIR
 
 
 echo "creating version file"
-ADDON_VERSION=`jq -r '.version' $ADDON_TMP/node-red/package.json`
+ADDON_VERSION=`jq -r '.version' package.json`
 NPM_VERSION=`jq -r '.version' $ADDON_TMP/node-red/lib/node_modules/npm/package.json`
 RED_VERSION=`jq -r '.version' $ADDON_TMP/node-red/lib/node_modules/node-red/package.json`
 DASHBOARD_VERSION=`jq -r '.version' $ADDON_TMP/node-red/lib/node_modules/node-red-dashboard/package.json`
