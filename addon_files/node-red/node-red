@@ -5,8 +5,8 @@ ADDON_DIR=/usr/local/addons/node-red
 
 NODE=$ADDON_DIR/bin/node
 
-PATH=$ADDON_DIR/bin:$PATH
-NO_UPDATE_NOTIFIER=true
+export PATH=$ADDON_DIR/bin:$PATH
+export NO_UPDATE_NOTIFIER=true
 
 RED_DIR=$ADDON_DIR/lib/node_modules/node-red
 RED=$RED_DIR/red.js
