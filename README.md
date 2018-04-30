@@ -50,7 +50,7 @@ Zu Node-RED im allgemeinen gibt es unzählige Tutorials, Dokumentationen und You
 * __Sicherheitswarnung__: Node-RED ist (noch) ohne Authentifizierung ereichbar. Wer den Webserver der CCU erreichen
 kann hat vollen Zugriff auf Node-RED, es erfolgt keine Passwortabfrage. Bis in einer späteren Version eine 
 Authentifizierung an der CCU-Logikschicht implementiert ist gibt es einen 
-[möglichen Workaround](https://github.com/hobbyquaker/ccu-addon-node-red/wiki) um manuell einen Passwortschutz
+[möglichen Workaround](https://github.com/hobbyquaker/ccu-addon-node-red/wiki/Passwort) um manuell einen Passwortschutz
 einzurichten.
 * __Work in Progress!__ Dieses Addon sowie node-red-contrib-ccu sind __noch nicht wirklich fertig__, kaum getestet, 
 es ist davon auszugehen dass noch __viele Bugs__ gefixt werden müssen, es sind noch nicht alle geplanten Features 
