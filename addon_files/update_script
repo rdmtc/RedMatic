@@ -33,6 +33,8 @@ if [ ! -f $RED_DIR/var/flows.json ]; then
     mv $RED_DIR/var/example-flows.json $RED_DIR/var/flows.json
 fi
 
+ln -s $RED_DIR/update_check.tcl /usr/local/etc/config/addons/www/check_update_node_red.cgi
+
 touch $CONF_DIR/hm_addons.cfg
 sed -i '/node-red/d' $CONF_DIR/hm_addons.cfg
 x=$(tail -c 1 $CONF_DIR/hm_addons.cfg)
