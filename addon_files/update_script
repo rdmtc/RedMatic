@@ -7,9 +7,6 @@ mount /usr/local
 
 mkdir -p /usr/local/addons && chmod 755 /usr/local/addons
 
-mkdir -p /usr/local/etc/profile.d
-echo "export NO_UPDATE_NOTIFIER=true" > /usr/local/etc/profile.d/node-red.sh
-
 if [ -f $RED_DIR/settings.js ]; then
     cp $RED_DIR/settings.js $RED_DIR/settings.js.old
 fi
