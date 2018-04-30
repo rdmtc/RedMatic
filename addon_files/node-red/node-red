@@ -4,7 +4,7 @@ CONF_DIR=/usr/local/etc/config
 ADDON_DIR=/usr/local/addons/node-red
 
 NODE=$ADDON_DIR/bin/node
-PATH=$PATH:$ADDON_DIR/bin
+PATH=$ADDON_DIR/bin:$PATH
 
 RED_DIR=$ADDON_DIR/lib/node_modules/node-red
 RED=$RED_DIR/red.js
@@ -72,6 +72,7 @@ case "$1" in
      rm -r $ADDON_DIR
      rm $CONF_DIR/lighttpd/node-red.conf
      rm $CONF_DIR/rc.d/node-red
+     rm /usr/local/bin/node-red-admin
   ;;
 
   *)

@@ -1,12 +1,14 @@
 {
   "name": "ccu-addon-node-red",
-  "version": "0.0.8",
-  "description": "Node-RED packaged as Homematic CCU addon",
+  "version": "0.0.9",
+  "description": "Package Node-RED as Homematic CCU addon",
   "repository": "github:hobbyquaker/ccu-addon-node-red",
   "private": true,
   "main": "none",
   "dependencies": {
+    "npm": "*",
     "node-red": "latest",
+    "node-red-admin": "latest",
     "node-red-dashboard": "latest",
     "node-red-contrib-ccu": "latest",
     "node-red-contrib-combine": "latest"
@@ -15,5 +17,5 @@
     "test": "exit 0"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
-  "license": "see LICENSE in LICENSE"
+  "license": "MIT"
 }
