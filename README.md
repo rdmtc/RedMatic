@@ -4,13 +4,18 @@
 [![Current Release](https://img.shields.io/github/release/hobbyquaker/ccu-addon-node-red.svg)](https://github.com/hobbyquaker/ccu-addon-node-red/releases/latest)
 [![Total Downloads](https://img.shields.io/github/downloads/hobbyquaker/ccu-addon-node-red/total.svg)]()
 
-> Node-RED Addon für die Homematic CCU3 und RaspberryMatic
+> Node-RED als Addon für die Homematic CCU3 und RaspberryMatic
+
+## Was ist Node-RED?
 
 [Node-RED](https://nodered.org/about/) ist eine Nachrichtenflußbasierte, visuelle Programmierumgebung für das Internet 
 der Dinge. Node-RED wird seit 2013 von [IBM Emerging Technology](https://emerging-technology.co.uk/technologies/) 
 entwickelt und steht als kostenlose Open Source Software unter dem Dach der [JS Foundation](https://js.foundation/) zur 
 Verfügung. Node-RED kann durch zusätzliche [Node(-Sammlungen)](https://flows.nodered.org) erweitert werden, eine große 
 und aktive Community hat Stand Heute bereits weit über 1000 Nodes entwickelt.
+
+
+## Wofür?
 
 Mit diesem Addon ist es auf einfache und komfortable Weise möglich Regeln, Automationen, Scripte und Anbindungen von 
 externen Services und Systemen für ein Homematic System zu realisieren - ohne die Notwendigkeit neben der CCU einen 
