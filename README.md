@@ -61,11 +61,11 @@ einzurichten.
 es ist davon auszugehen dass noch __viele Bugs__ gefixt werden müssen, es sind noch nicht alle geplanten Features 
 implementiert... Sobald ein Stand erreicht ist der als "feature-complete", gut getestet und anständig dokumentiert
 durchgeht wird die Versionsnummer auf 1.0 erhöht.
-* Dieses Addon ist nur für die CCU3 und RaspberryMatic geeignet. Auf einer CCU1/CCU2 kann es aufgrund der CPU und des 
-verfügbaren RAM nicht verwendet werden.
-* Nicht alle verfügbaren Node-RED Nodes können über Node-RED Admin UI über "Manage palette" installiert werden. Die 
-Installation von Addons die Binärmodule compilieren müssen ist nicht möglich. Das betrifft u.A. Nodes die Zugriff auf 
-Hardware benötigen (z.B. Bluetooth).
+* Dieses Addon ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf einer CCU1/CCU2 kann es aufgrund der CPU und 
+des verfügbaren RAM nicht verwendet werden.
+* __Nicht alle verfügbaren Node-RED Nodes können__ im Node-RED Admin UI über "Manage palette" __installiert werden__. 
+Die Installation von Addons die Binärmodule compilieren müssen ist nicht möglich. Das betrifft u.A. Nodes die Zugriff 
+auf Hardware benötigen (z.B. Bluetooth).
 
 
 ## Support, Mitarbeit
