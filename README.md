@@ -8,21 +8,28 @@
 
 ## Was ist Node-RED?
 
-[Node-RED](https://nodered.org/about/) ist eine Nachrichtenflußbasierte, visuelle Programmierumgebung für das Internet 
-der Dinge. Node-RED wird seit 2013 von [IBM Emerging Technology](https://emerging-technology.co.uk/technologies/) 
+[Node-RED](https://nodered.org/about/) ist eine Nachrichtenflussbasierte, visuelle Programmierumgebung für das Internet 
+der Dinge.  
+Node-RED wird seit 2013 von [IBM Emerging Technology](https://emerging-technology.co.uk/technologies/) 
 entwickelt und steht als kostenlose Open Source Software unter dem Dach der [JS Foundation](https://js.foundation/) zur 
 Verfügung. Node-RED kann durch zusätzliche [Node(-Sammlungen)](https://flows.nodered.org) erweitert werden, eine große 
 und aktive Community hat Stand Heute bereits weit über 1000 Nodes entwickelt.
 
+Siehe auch:
+* https://entwickler.de/online/iot/node-red-iot-prototypen-2-579809637.html
+* https://jaxenter.de/baukasten-fuer-das-internet-dinge-13532
+
 
 ## Wofür?
 
-Mit diesem Addon ist es auf einfache und komfortable Weise möglich Regeln, Automationen, Scripte und Anbindungen von 
-externen Services und Systemen für ein Homematic System zu realisieren - ohne die Notwendigkeit neben der CCU einen 
-weiteren 24/7 laufenden Server zu betreiben.
+Mit diesem NODE-RED Addon ist es auf einfache und komfortable Weise möglich Regeln, Automationen, Scripte und 
+Anbindungen von externen Services und Systemen für ein Homematic System zu realisieren - ohne die Notwendigkeit neben 
+der CCU einen weiteren 24/7 laufenden Server zu betreiben.
 
 Darüber hinaus beinhaltet dieses Addon auch [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) womit
-webbasierte User Interfaces erstellt werden können. Zur Anbindung an die Schnittstellenprozesse und die Logikschicht der 
+webbasierte User Interfaces erstellt werden können. 
+
+Zur Anbindung an die Schnittstellenprozesse und die Logikschicht der 
 CCU ist [node-red-contrib-ccu](https://github.com/hobbyquaker/node-red-contrib-ccu) im Addon enthalten. 
 
 
@@ -47,7 +54,8 @@ Die Dokumentation der CCU Nodes ist in Node-RED selbst verfügbar. Weitere Beisp
 Themen die nicht die CCU Nodes sondern speziell das ccu-addon-node-red betreffen sind 
 [hier im Wiki](https://github.com/hobbyquaker/ccu-addon-node-red/wiki) zu finden.
 
-Zu Node-RED im allgemeinen gibt es unzählige Tutorials, Dokumentationen und Youtube Videos, auch in Deutscher Sprache.
+Zu Node-RED im allgemeinen gibt es unzählige Tutorials, Dokumentationen, Bücher und Youtube Videos, auch in Deutscher 
+Sprache.
 
 
 ## Hinweise
