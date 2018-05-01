@@ -22,7 +22,7 @@ Siehe auch:
 
 ## Wofür?
 
-Mit diesem NODE-RED Addon ist es auf einfache und komfortable Weise möglich Regeln, Automationen, Scripte und 
+Mit diesem Node-RED Addon ist es auf einfache und komfortable Weise möglich Regeln, Automationen, Scripte und 
 Anbindungen von externen Services und Systemen für ein Homematic System zu realisieren - ohne die Notwendigkeit neben 
 der CCU einen weiteren 24/7 laufenden Server zu betreiben.
 
