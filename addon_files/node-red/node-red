@@ -76,7 +76,6 @@ case "$1" in
      rm -r $ADDON_DIR
      rm $CONF_DIR/lighttpd/node-red.conf
      rm $CONF_DIR/rc.d/node-red
-     rm /usr/local/bin/node-red-admin
      rm /usr/local/etc/config/addons/www/check_update_node_red.cgi
   ;;
 
