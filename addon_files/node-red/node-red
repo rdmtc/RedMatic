@@ -71,7 +71,8 @@ case "$1" in
 
   uninstall)
      Stop
-     sed -i '/node-red/d' $CONF_DIR/hm_addons.cfg
+     $ADDON_DIR/update_addon node-red
+     $ADDON_DIR/update_addon node-red-dashboard
      rm -r $ADDON_DIR
      rm $CONF_DIR/lighttpd/node-red.conf
      rm $CONF_DIR/rc.d/node-red

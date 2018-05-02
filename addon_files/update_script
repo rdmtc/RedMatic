@@ -34,12 +34,10 @@ fi
 ln -s $RED_DIR/update_check.tcl /usr/local/etc/config/addons/www/check_update_node_red.cgi
 
 touch $CONF_DIR/hm_addons.cfg
-sed -i '/node-red/d' $CONF_DIR/hm_addons.cfg
-x=$(tail -c 1 $CONF_DIR/hm_addons.cfg)
-if [ "$x" != "" ]
-then
-    echo >> $CONF_DIR/hm_addons.cfg
-fi
+
+./update_addon node-red node-red.cfg
+./update_addon node-red-dashboard node-red-dashboard.cfg
+
 echo "node-red {CONFIG_URL /addons/red CONFIG_DESCRIPTION {de {<li>Node-RED</li>} en {<li>Node-RED</li>}} ID node-red CONFIG_NAME Node-RED}" >> $CONF_DIR/hm_addons.cfg
 echo "node-red-dashboard {CONFIG_URL /addons/red/ui CONFIG_DESCRIPTION {de {<li>Node-RED Dashboard UI</li>} en {<li>Node-RED Dashboard UI</li>}} ID node-red-dashboard CONFIG_NAME \"Node-RED Dashboard\"}" >> $CONF_DIR/hm_addons.cfg
 
