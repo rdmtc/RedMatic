@@ -38,9 +38,6 @@ touch $CONF_DIR/hm_addons.cfg
 ./update_addon node-red node-red.cfg
 ./update_addon node-red-dashboard node-red-dashboard.cfg
 
-echo "node-red {CONFIG_URL /addons/red CONFIG_DESCRIPTION {de {<li>Node-RED</li>} en {<li>Node-RED</li>}} ID node-red CONFIG_NAME Node-RED}" >> $CONF_DIR/hm_addons.cfg
-echo "node-red-dashboard {CONFIG_URL /addons/red/ui CONFIG_DESCRIPTION {de {<li>Node-RED Dashboard UI</li>} en {<li>Node-RED Dashboard UI</li>}} ID node-red-dashboard CONFIG_NAME \"Node-RED Dashboard\"}" >> $CONF_DIR/hm_addons.cfg
-
 sync
 
 exit 0
