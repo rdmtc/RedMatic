@@ -55,6 +55,7 @@ EOL
 cat >CHANGELOG.md <<EOL
 Module | Version
 ------ | -------
+[Node.js](https://nodejs.org/de/) | $NODE_VERSION
 EOL
 
 links() {
