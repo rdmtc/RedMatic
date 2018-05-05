@@ -78,7 +78,7 @@ links() {
     echo "export VERSION_`echo $1 | sed -e 's/-//g'`=$2" >> $VERSION_FILE
 
     if [ $URL ]; then
-        echo "[$URL]($1) | $2" >> CHANGELOG.md
+        echo "[$1]($URL) | $2" >> CHANGELOG.md
     else
         echo "$1 | $2" >> CHANGELOG.md
     fi
