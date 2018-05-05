@@ -58,13 +58,13 @@ case "$1" in
     source $ADDON_DIR/versions
     echo "Info: <b>Node-RED CCU Addon</b><br>"
     echo "Info: <table><tr><td>Node.js</td><td>$NODE_VERSION</td></tr>"
-    echo "Info: <tr><td>npm</td><td>$NPM_VERSION</td></tr>"
-    echo "Info: <tr><td>Node-RED</td><td>$RED_VERSION</td></tr>"
-    echo "Info: <tr><td>Node-RED Dashboard</td><td>$DASHBOARD_VERSION</td></tr>"
-    echo "Info: <tr><td>node-red-contrib-ccu</td><td>$RED_CCU_VERSION</td></tr></table>"
+    echo "Info: <tr><td>npm</td><td>$VERSION_npm</td></tr>"
+    echo "Info: <tr><td>Node-RED</td><td>$VERSION_nodered</td></tr>"
+    echo "Info: <tr><td>Node-RED Dashboard</td><td>$VERSION_nodereddashboard</td></tr>"
+    echo "Info: <tr><td>node-red-contrib-ccu</td><td>$VERSION_noderedcontribccu</td></tr></table>"
     echo "Info: <ul><li><a href="https://github.com/hobbyquaker/ccu-addon-node-red">ccu-addon-node-red on Github</a></li></ul>"
     echo "Name: Node-RED"
-    echo "Version: $ADDON_VERSION"
+    echo "Version: $VERSION_ADDON"
     echo "Update: /addons/check_update_node_red.cgi"
     echo "Operations: restart uninstall"
   ;;
