@@ -77,7 +77,7 @@ auf Hardware benötigen (z.B. Bluetooth).
 
 Diese Software ist ein Hobby-Projekt ohne Gewinnerzielungsabsicht und wird kostenlos unter der MIT-Lizenz zur
 Verfügung gestellt. Beteiligung in jeder Form ist willkommen und gewünscht, für Fragen, Vorschläge, Bug-Reports zu den
-CCU Nodes bitte den [Issue Tracker](https://github.com/hobbyquaker/node-red-contrib-ccu/issues) nutzen.
+CCU Nodes bitte den [Issue Tracker](https://github.com/hobbyquaker/ccu-addon-node-red/issues) nutzen.
 
 
 ## Lizenz
