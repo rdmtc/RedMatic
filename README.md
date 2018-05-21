@@ -82,7 +82,7 @@ CCU Nodes bitte den [Issue Tracker](https://github.com/hobbyquaker/ccu-addon-nod
 
 ## Lizenz
 
-Copyright (c) 2018 Sebastian Raff
+Copyright (c) 2018 Sebastian Raff and Contributors. All Rights reserved.
 
 Hiermit wird unentgeltlich jeder Person, die eine Kopie der Software und der zugehörigen Dokumentationen (die
 "Software") erhält, die Erlaubnis erteilt, sie uneingeschränkt zu nutzen, inklusive und ohne Ausnahme mit dem Recht, sie
@@ -101,8 +101,13 @@ SONSTIGER VERWENDUNG DER SOFTWARE ENTSTANDEN.
 
 #### Lizenzen enthaltener Softwaremodule
 
-* [node-red-contrib-ccu](https://github.com/hobbyquaker/node-red-contrib-ccu) - MIT Copyright (c) Sebastian Raff
-* [Node-RED](https://github.com/node-red/node-red/blob/master/LICENSE) - Apache 2.0 Copyright JS Foundation and other 
-contributors
-* [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard/blob/master/LICENSE) - Apache 2.0 Copyright 
-2016,2018 JS Foundation and other contributors, Copyright 2016 IBM Corp., Copyright 2015 Andrei Tatar
+* [node-red-contrib-ccu](https://github.com/hobbyquaker/node-red-contrib-ccu) - MIT 
+  * Copyright Sebastian Raff
+* [Node.js](https://github.com/nodejs/node/blob/master/LICENSE) - MIT 
+  * Copyright Node.js contributors
+* [Node-RED](https://github.com/node-red/node-red/blob/master/LICENSE) - Apache 2.0 
+  * Copyright JS Foundation and other contributors
+* [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard/blob/master/LICENSE) - Apache 2.0 
+  * Copyright 2016, 2018 JS Foundation and other contributors
+  * Copyright 2016 IBM Corp.
+  * Copyright 2015 Andrei Tatar
