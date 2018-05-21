@@ -2,7 +2,7 @@
 
 BUILD_DIR=`cd ${0%/*} && pwd -P`
 
-NODE_VERSION=${NODE_VERSION:-8.11.1}
+NODE_VERSION=${NODE_VERSION:-8.11.2}
 ARCH=${ARCH:-armv6l}
 
 NODE_NAME=node-v${NODE_VERSION}-linux-${ARCH}
