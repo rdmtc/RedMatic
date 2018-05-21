@@ -1,6 +1,6 @@
 {
   "name": "ccu-addon-node-red",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Package Node-RED as Homematic CCU addon",
   "repository": "github:hobbyquaker/ccu-addon-node-red",
   "private": true,
@@ -11,7 +11,8 @@
     "node-red-admin": "latest",
     "node-red-dashboard": "latest",
     "node-red-contrib-ccu": "latest",
-    "node-red-contrib-combine": "latest"
+    "node-red-contrib-combine": "latest",
+    "node-red-contrib-mqtt-json": "latest"
   },
   "scripts": {
     "test": "exit 0"
