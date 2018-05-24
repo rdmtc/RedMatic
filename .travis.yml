@@ -13,7 +13,7 @@ before_deploy:
   - git config --local user.email "hobbyquaker@gmail.com"
   - ./build.sh
   - source ./addon_tmp/node-red/versions
-  - git tag "v$VERSION_ADDON-$TRAVIS_BUILD_NUMBER"
+  - git tag "v$VERSION_ADDON+$TRAVIS_BUILD_NUMBER"
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
@@ -22,4 +22,4 @@ deploy:
   skip_cleanup: true
 after_deploy:
   - gem install octokit
-  - ./github_release.rb -s $GITHUB_OAUTH_TOKEN -r hobbyquaker/ccu-addon-node-red -c CHANGELOG.md -t v$VERSION_ADDON-$TRAVIS_BUILD_NUMBER
+  - ./github_release.rb -s $GITHUB_OAUTH_TOKEN -r hobbyquaker/ccu-addon-node-red -c CHANGELOG.md -t v$VERSION_ADDON+$TRAVIS_BUILD_NUMBER
