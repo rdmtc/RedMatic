@@ -24,7 +24,7 @@ Siehe auch:
 
 Mit diesem Node-RED Addon ist es auf einfache und komfortable Weise möglich Regeln, Automationen, Scripte und 
 Anbindungen von externen Services und Systemen für ein Homematic System zu realisieren - ohne die Notwendigkeit neben 
-der CCU einen weiteren 24/7 laufenden Server zu betreiben.
+der CCU einen weiteren 24/7 laufenden Server zu betreiben - und weitestgehend ohne Programmierkenntnisse.
 
 Darüber hinaus beinhaltet dieses Addon auch [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) womit
 webbasierte User Interfaces erstellt werden können. 
