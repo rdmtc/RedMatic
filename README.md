@@ -1,4 +1,4 @@
-<img width="200px" src="assets/logo-w-400.png"/>
+<img width="200px" src="assets/logo-w-400.png" align="baseline"/>
 
 [![Current Release](https://img.shields.io/github/release/hobbyquaker/ccu-addon-node-red.svg)](https://github.com/hobbyquaker/ccu-addon-node-red/releases/latest)
 [![Build Status](https://travis-ci.org/hobbyquaker/ccu-addon-node-red.svg?branch=master)](https://travis-ci.org/hobbyquaker/ccu-addon-node-red)
@@ -7,15 +7,15 @@
 > Node-RED als Addon für die Homematic CCU3 und RaspberryMatic
 
 Mit [Node-RED](https://nodered.org/about/) und den 
-[CCU Nodes für Node-RED](https://github.com/hobbyquaker/node-red-contrib-ccu) ist es auf einfache und komfortable Weise 
+[CCU Nodes für Node-RED](https://github.com/hobbyquaker/node-red-contrib-ccu) ist es auf einfache und visuelle Weise 
 möglich Regeln, Automationen, Scripte und Anbindungen von externen Services und Systemen für ein Homematic System zu 
 realisieren - und das weitgehend auch ohne Programmierkenntnisse. Die Node-RED Erweiterung 
-[Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) ermöglcht es zudem individuelle und ansprechende 
+[Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) ermöglicht es zudem individuelle und ansprechende 
 User Interfaces zu erstellen.
 
 _RedMatic_ fasst diese verschiedenen Softwarekomponenten und das zur Ausführung benötigte Node.js zu einem CCU Addon 
-zusammen, einem Softwarepaket, dass auf einer CCU3 und RaspberryMatic als Zusatzsoftware über das WebUI installiert 
-werden kann. Hiermit bieten sich dann oben genannte Möglichkeiten - ohne die Notwendigkeit neben der CCU einen 
+zusammen, einem Softwarepaket, dass auf einer Homematic CCU3 oder RaspberryMatic als Zusatzsoftware über das WebUI installiert 
+werden kann. Dadurch bieten sich dann oben genannte Möglichkeiten - ohne die Notwendigkeit neben der CCU einen 
 weiteren 24/7 laufenden Server zu betreiben.
 
 _RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf einer CCU1/CCU2 kann es aufgrund der CPU und 
