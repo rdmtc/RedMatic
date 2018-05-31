@@ -3,6 +3,7 @@
 <br><br><br>
 
 [![Current Release](https://img.shields.io/github/release/hobbyquaker/ccu-addon-node-red.svg)](https://github.com/hobbyquaker/ccu-addon-node-red/releases/latest)
+[![Dependencies Status](https://david-dm.org/hobbyquaker/redmatic/status.svg)](https://david-dm.org/hobbyquaker/redmatic)
 [![Build Status](https://travis-ci.org/hobbyquaker/ccu-addon-node-red.svg?branch=master)](https://travis-ci.org/hobbyquaker/ccu-addon-node-red)
 [![Total Downloads](https://img.shields.io/github/downloads/hobbyquaker/ccu-addon-node-red/total.svg)]()
 
