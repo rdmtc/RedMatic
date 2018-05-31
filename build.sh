@@ -24,6 +24,7 @@ mv $ADDON_TMP/node-red/LICENSE $ADDON_TMP/node-red/LICENSE_Nodejs
 
 echo "copying files to tmp dir..."
 cp -r $ADDON_FILES/* $ADDON_TMP/
+cp $BUILD_DIR/assets/logo-w-200.png $ADDON_TMP/node-red/
 
 
 echo "installing node modules..."
@@ -108,7 +109,7 @@ git log `git describe --tags --abbrev=0`..HEAD --pretty=format:'* %h @%an %s' >>
 
 
 echo "compressing addon package $ADDON_FILE ..."
-ADDON_FILE=ccu-addon-node-red-$VERSION_ADDON.tar.gz
+ADDON_FILE=redmatic-$VERSION_ADDON.tar.gz
 mkdir $BUILD_DIR/dist 2> /dev/null
 cd $ADDON_TMP
 tar --exclude=.DS_Store -czf $BUILD_DIR/dist/$ADDON_FILE *

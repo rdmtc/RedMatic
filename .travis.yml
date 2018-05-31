@@ -22,4 +22,4 @@ deploy:
   skip_cleanup: true
 after_deploy:
   - gem install octokit
-  - ./github_release.rb -s $GITHUB_OAUTH_TOKEN -r hobbyquaker/ccu-addon-node-red -c CHANGELOG.md -t v$VERSION_ADDON+$TRAVIS_BUILD_NUMBER
+  - ./github_release.rb -s $GITHUB_OAUTH_TOKEN -r hobbyquaker/RedMatic -c CHANGELOG.md -t v$VERSION_ADDON+$TRAVIS_BUILD_NUMBER
