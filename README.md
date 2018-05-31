@@ -42,32 +42,32 @@ Authentifizierung an der CCU-Logikschicht implementiert ist gibt es einen
 einzurichten.
 
 
-## Dokumentation
+## [Dokumentation](wiki)
 
 #### Administration
 
-* [Installation](Installation)
-* [Update](Update)
-* [Deinstallation](Deinstallation)
-* [Zusätzliche Nodes installieren, updaten, deinstallieren](Node-Installation)
-* [Passwort Schutz für Node-RED einrichten](Passwort)
-* [Log-Level erhöhen für Fehleranalyse](Loglevel)
+* [Installation](wiki/Installation)
+* [Update](wiki/Update)
+* [Deinstallation](wiki/Deinstallation)
+* [Zusätzliche Nodes installieren, updaten, deinstallieren](wiki/Node-Installation)
+* [Passwort Schutz für Node-RED einrichten](wiki/Passwort)
+* [Log-Level erhöhen für Fehleranalyse](wiki/Loglevel)
 
 #### Nutzung
 
-* [Node-RED Grundlagen](Node-RED)
-* [CCU Nodes](CCU-Nodes)
-* [Hilfreiche Nodes](Misc-Nodes)
-* [Flows exportieren und importieren](Flows)
+* [Node-RED Grundlagen](wiki/Node-RED)
+* [CCU Nodes](wiki/CCU-Nodes)
+* [Hilfreiche Nodes](wiki/Misc-Nodes)
+* [Flows exportieren und importieren](wiki/Flows)
 
 
 #### Beispiel Flows
 
-* [UNREACH Meldung unterdrücken](Flow-Unreach)
-* [RF-Taste für Wired-Dimmer nutzen](Flow-RF-Wired)
-* [Dashboard für Variablen und Programme](Flow-Sysvar-Dashboard)
-* [Offene Fenster im Dashboard anzeigen](Flow-Offene-Fenster)
-* [Textausgabe mittels Chromecast oder Google Home](Flow-speak-text-on-Google)
+* [UNREACH Meldung unterdrücken](wiki/Flow-Unreach)
+* [RF-Taste für Wired-Dimmer nutzen](wiki/Flow-RF-Wired)
+* [Dashboard für Variablen und Programme](wiki/Flow-Sysvar-Dashboard)
+* [Offene Fenster im Dashboard anzeigen](wiki/Flow-Offene-Fenster)
+* [Textausgabe mittels Chromecast oder Google Home](wiki/Flow-speak-text-on-Google)
 
 
 ## Support, Mitarbeit
