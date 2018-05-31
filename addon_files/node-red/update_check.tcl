@@ -17,7 +17,7 @@ if { [info exists cmd ] && $cmd == "download"} {
   puts "<html><head><meta http-equiv='refresh' content='0; url=$downloadURL' /></head></html>"
 } else {
   catch {
-    [regexp "tag_name\": \"v(\[0-9\]+\.\[0-9\]+\.\[0-9\]+)" [ exec /usr/bin/env wget -qO- --no-check-certificate $checkURL ] dummy newversion]
+    [regexp "tag_name\": \"v(\[0-9\]+\.\[0-9\]+\.\[0-9\]+[a-z0-9-.]*)" [ exec /usr/bin/env wget -qO- --no-check-certificate $checkURL ] dummy newversion]
   }
   if { [info exists newversion] } {
     puts -nonewline $newversion
