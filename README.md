@@ -27,19 +27,15 @@ _RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf einer CCU1
 des verfügbaren RAM nicht verwendet werden.
 
 
-## Download
-
-Unter [Releases](https://github.com/hobbyquaker/RedMatic/releases) steht das Addon Paket zum Download verfügbar.
-
-
 ## Schnellstart
 
-Nach der Installation des Addons über das Homematic WebUI (Systemsteuerung -> Zusatzsoftware) und dem darauf folgenden 
-Reboot der CCU ist Node-RED unter `http://<ccu-addresse>/addons/red` erreichbar. Einige Beispiel-Flows sowie ein 
-einfaches Dashboard sind bereits vorkonfiguriert, das Dashboard ist unter `http://<ccu-addresse>/addons/red/ui` 
+Unter [Releases](https://github.com/hobbyquaker/RedMatic/releases) steht die `redmatic-<version>.tar.gz` Datei zum 
+Download zur Verfügung. Nach der Installation des Addons über das Homematic WebUI (Systemsteuerung -> Zusatzsoftware) 
+und dem darauf folgenden Reboot der CCU ist Node-RED unter `http://<ccu-addresse>/addons/red` erreichbar. Einige 
+Beispiel-Flows sowie ein einfaches Dashboard sind bereits vorkonfiguriert, das Dashboard ist unter `http://<ccu-addresse>/addons/red/ui` 
 erreichbar.
 
-* __Sicherheitswarnung__: Node-RED ist per default (noch) ohne Authentifizierung ereichbar. Wer den Webserver der CCU 
+__Sicherheitswarnung__: Node-RED ist per default (noch) ohne Authentifizierung ereichbar. Wer den Webserver der CCU 
 erreichen kann hat vollen Zugriff auf Node-RED, es erfolgt __keine Passwortabfrage__. Bis in einer späteren Version eine 
 Authentifizierung an der CCU-Logikschicht implementiert ist gibt es einen 
 [möglichen Workaround](https://github.com/hobbyquaker/ccu-addon-node-red/wiki/Passwort) um manuell einen Passwortschutz
@@ -48,24 +44,30 @@ einzurichten.
 
 ## Dokumentation
 
-[Wiki](https://github.com/hobbyquaker/ccu-addon-node-red/wiki)
+#### Administration
+
+* [Installation](Installation)
+* [Update](Update)
+* [Deinstallation](Deinstallation)
+* [Zusätzliche Nodes installieren, updaten, deinstallieren](Node-Installation)
+* [Passwort Schutz für Node-RED einrichten](Passwort)
+* [Log-Level erhöhen für Fehleranalyse](Loglevel)
+
+#### Nutzung
+
+* [Node-RED Grundlagen](Node-RED)
+* [CCU Nodes](CCU-Nodes)
+* [Hilfreiche Nodes](Misc-Nodes)
+* [Flows exportieren und importieren](Flows)
 
 
-## Weitere Infos zu Node-RED
+#### Beispiel Flows
 
-[Node-RED](https://nodered.org/about/) ist eine Nachrichtenflussbasierte, visuelle Programmierumgebung für das Internet 
-der Dinge.  
-Node-RED wird seit 2013 von [IBM Emerging Technology](https://emerging-technology.co.uk/technologies/) 
-entwickelt und steht als kostenlose Open Source Software unter dem Dach der [JS Foundation](https://js.foundation/) zur 
-Verfügung. Node-RED kann durch zusätzliche [Node(-Sammlungen)](https://flows.nodered.org) erweitert werden, eine große 
-und aktive Community hat Stand Heute bereits weit über 1000 Nodes entwickelt.
-
-Siehe auch:
-* https://entwickler.de/online/iot/node-red-iot-prototypen-2-579809637.html
-* https://jaxenter.de/baukasten-fuer-das-internet-dinge-13532
-
-Zu Node-RED im allgemeinen gibt es unzählige Tutorials, Dokumentationen, Bücher und Youtube Videos, auch in Deutscher 
-Sprache.
+* [UNREACH Meldung unterdrücken](Flow-Unreach)
+* [RF-Taste für Wired-Dimmer nutzen](Flow-RF-Wired)
+* [Dashboard für Variablen und Programme](Flow-Sysvar-Dashboard)
+* [Offene Fenster im Dashboard anzeigen](Flow-Offene-Fenster)
+* [Textausgabe mittels Chromecast oder Google Home](Flow-speak-text-on-Google)
 
 
 ## Support, Mitarbeit
