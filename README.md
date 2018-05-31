@@ -42,32 +42,32 @@ Authentifizierung an der CCU-Logikschicht implementiert ist gibt es einen
 einzurichten.
 
 
-## [Dokumentation](wiki)
+## [Dokumentation](https://github.com/hobbyquaker/RedMatic/wiki)
 
 #### Administration
 
-* [Installation](wiki/Installation)
-* [Update](wiki/Update)
-* [Deinstallation](wiki/Deinstallation)
-* [Zusätzliche Nodes installieren, updaten, deinstallieren](wiki/Node-Installation)
-* [Passwort Schutz für Node-RED einrichten](wiki/Passwort)
-* [Log-Level erhöhen für Fehleranalyse](wiki/Loglevel)
+* [Installation](https://github.com/hobbyquaker/RedMatic/wiki/Installation)
+* [Update](https://github.com/hobbyquaker/RedMatic/wiki/Update)
+* [Deinstallation](https://github.com/hobbyquaker/RedMatic/wiki/Deinstallation)
+* [Zusätzliche Nodes installieren, updaten, deinstallieren](https://github.com/hobbyquaker/RedMatic/wiki/Node-Installation)
+* [Passwort Schutz für Node-RED einrichten](https://github.com/hobbyquaker/RedMatic/wiki/Passwort)
+* [Log-Level erhöhen für Fehleranalyse](https://github.com/hobbyquaker/RedMatic/wiki/Loglevel)
 
 #### Nutzung
 
-* [Node-RED Grundlagen](wiki/Node-RED)
-* [CCU Nodes](wiki/CCU-Nodes)
-* [Hilfreiche Nodes](wiki/Misc-Nodes)
-* [Flows exportieren und importieren](wiki/Flows)
+* [Node-RED Grundlagen](https://github.com/hobbyquaker/RedMatic/wiki/Node-RED)
+* [CCU Nodes](https://github.com/hobbyquaker/RedMatic/wiki/CCU-Nodes)
+* [Hilfreiche Nodes](https://github.com/hobbyquaker/RedMatic/wiki/Misc-Nodes)
+* [Flows exportieren und importieren](https://github.com/hobbyquaker/RedMatic/wiki/Flows)
 
 
 #### Beispiel Flows
 
-* [UNREACH Meldung unterdrücken](wiki/Flow-Unreach)
-* [RF-Taste für Wired-Dimmer nutzen](wiki/Flow-RF-Wired)
-* [Dashboard für Variablen und Programme](wiki/Flow-Sysvar-Dashboard)
-* [Offene Fenster im Dashboard anzeigen](wiki/Flow-Offene-Fenster)
-* [Textausgabe mittels Chromecast oder Google Home](wiki/Flow-speak-text-on-Google)
+* [UNREACH Meldung unterdrücken](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Unreach)
+* [RF-Taste für Wired-Dimmer nutzen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-RF-Wired)
+* [Dashboard für Variablen und Programme](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Sysvar-Dashboard)
+* [Offene Fenster im Dashboard anzeigen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Offene-Fenster)
+* [Textausgabe mittels Chromecast oder Google Home](https://github.com/hobbyquaker/RedMatic/wiki/Flow-speak-text-on-Google)
 
 
 ## Support, Mitarbeit
