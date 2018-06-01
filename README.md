@@ -2,12 +2,12 @@
 
 <br><br><br>
 
-[![Current Release](https://img.shields.io/github/release/hobbyquaker/ccu-addon-node-red.svg)](https://github.com/hobbyquaker/ccu-addon-node-red/releases/latest)
+[![Current Release](https://img.shields.io/github/release/hobbyquaker/RedMatic.svg)](https://github.com/hobbyquaker/RedMatic/releases/latest)
 [![Dependencies Status](https://david-dm.org/hobbyquaker/redmatic/status.svg)](https://david-dm.org/hobbyquaker/redmatic)
-[![Build Status](https://travis-ci.org/hobbyquaker/ccu-addon-node-red.svg?branch=master)](https://travis-ci.org/hobbyquaker/ccu-addon-node-red)
-[![Total Downloads](https://img.shields.io/github/downloads/hobbyquaker/ccu-addon-node-red/total.svg)]()
 
-> Node-RED als Addon für die Homematic CCU3 und RaspberryMatic
+<br>
+
+Node-RED als Addon für die Homematic CCU3 und RaspberryMatic
 
 <br>
 
@@ -38,7 +38,7 @@ erreichbar.
 __Sicherheitswarnung__: Node-RED ist per default (noch) ohne Authentifizierung ereichbar. Wer den Webserver der CCU 
 erreichen kann hat vollen Zugriff auf Node-RED, es erfolgt __keine Passwortabfrage__. Bis in einer späteren Version eine 
 Authentifizierung an der CCU-Logikschicht implementiert ist gibt es einen 
-[möglichen Workaround](https://github.com/hobbyquaker/ccu-addon-node-red/wiki/Passwort) um manuell einen Passwortschutz
+[möglichen Workaround](https://github.com/hobbyquaker/RedMatic/wiki/Passwort) um manuell einen Passwortschutz
 einzurichten.
 
 
@@ -74,12 +74,12 @@ einzurichten.
 
 Diese Software ist ein Hobby-Projekt ohne Gewinnerzielungsabsicht und wird kostenlos unter der MIT-Lizenz zur
 Verfügung gestellt. Beteiligung in jeder Form ist willkommen und gewünscht, für Fragen, Vorschläge, Bug-Reports zu den
-CCU Nodes bitte den [Issue Tracker](https://github.com/hobbyquaker/ccu-addon-node-red/issues) nutzen.
+CCU Nodes bitte den [Issue Tracker](https://github.com/hobbyquaker/RedMatic/issues) nutzen.
 
 
 ## Lizenz
 
-Copyright (c) 2018 Sebastian Raff and Contributors. All Rights reserved.
+Copyright (c) 2018 RedMatic Contributors. All Rights reserved.
 
 Hiermit wird unentgeltlich jeder Person, die eine Kopie der Software und der zugehörigen Dokumentationen (die
 "Software") erhält, die Erlaubnis erteilt, sie uneingeschränkt zu nutzen, inklusive und ohne Ausnahme mit dem Recht, sie
