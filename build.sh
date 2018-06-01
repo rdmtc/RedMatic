@@ -54,6 +54,8 @@ export VERSION_ADDON=$VERSION_ADDON
 EOL
 
 cat >CHANGELOG.md <<EOL
+![](https://img.shields.io/github/downloads/hobbyquaker/RedMatic/v$VERSION_ADDON+$TRAVIS_BUILD_NUMBER/total.svg)
+
 Module | Version
 ------ | -------
 [Node.js](https://nodejs.org/de/) | $NODE_VERSION
