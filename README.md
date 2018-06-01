@@ -59,13 +59,7 @@ einzurichten.
 * [Flows exportieren und importieren](https://github.com/hobbyquaker/RedMatic/wiki/Flows)
 
 
-#### Beispiel Flows
-
-* [UNREACH Meldung unterdrücken](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Unreach)
-* [RF-Taste für Wired-Dimmer nutzen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-RF-Wired)
-* [Dashboard für Variablen und Programme](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Sysvar-Dashboard)
-* [Offene Fenster im Dashboard anzeigen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Offene-Fenster)
-* [Textausgabe mittels Chromecast oder Google Home](https://github.com/hobbyquaker/RedMatic/wiki/Flow-speak-text-on-Google)
+#### [Beispiel Flows](https://github.com/hobbyquaker/RedMatic/wiki/Flows)
 
 
 ## Support, Mitarbeit
