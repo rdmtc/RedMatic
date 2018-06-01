@@ -6,13 +6,13 @@
 [![Dependencies Status](https://david-dm.org/hobbyquaker/redmatic/status.svg)](https://david-dm.org/hobbyquaker/redmatic)
 [![Build Status](https://travis-ci.org/hobbyquaker/RedMatic.svg?branch=master)](https://travis-ci.org/hobbyquaker/RedMatic)
 
-Node-RED als Addon für die 
+[Node-RED](https://nodered.org/about/) als Addon für die 
 [Homematic CCU3](https://www.eq-3.de/produkte/homematic/zentralen-und-gateways/smart-home-zentrale-ccu3.html) und 
 [RaspberryMatic](https://github.com/jens-maus/RaspberryMatic)
 
 <br>
 
-Mit [Node-RED](https://nodered.org/about/) und den 
+Mit Node-RED und den 
 [CCU Nodes für Node-RED](https://github.com/hobbyquaker/node-red-contrib-ccu) ist es auf einfache und visuelle Weise 
 möglich Regeln, Automationen, Scripte und Anbindungen von externen Services und Systemen für ein Homematic System zu 
 realisieren - und das weitgehend auch ohne Programmierkenntnisse. Die Node-RED Erweiterung 
