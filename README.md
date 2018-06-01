@@ -4,6 +4,7 @@
 
 [![Current Release](https://img.shields.io/github/release/hobbyquaker/RedMatic.svg)](https://github.com/hobbyquaker/RedMatic/releases/latest)
 [![Dependencies Status](https://david-dm.org/hobbyquaker/redmatic/status.svg)](https://david-dm.org/hobbyquaker/redmatic)
+[![Build Status](https://travis-ci.org/hobbyquaker/RedMatic.svg?branch=master)](https://travis-ci.org/hobbyquaker/RedMatic)
 
 Node-RED als Addon für die Homematic CCU3 und RaspberryMatic
 
