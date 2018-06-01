@@ -17,13 +17,12 @@ realisieren - und das weitgehend auch ohne Programmierkenntnisse. Die Node-RED E
 [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) ermöglicht es zudem individuelle und ansprechende 
 User Interfaces zu erstellen.
 
-_RedMatic_ fasst diese verschiedenen Softwarekomponenten und das zur Ausführung benötigte Node.js zu einem CCU Addon 
-zusammen, einem Softwarepaket, dass auf einer Homematic CCU3 oder RaspberryMatic als Zusatzsoftware über das WebUI installiert 
-werden kann. Dadurch bieten sich dann oben genannte Möglichkeiten - ohne die Notwendigkeit neben der CCU einen 
-weiteren 24/7 laufenden Server zu betreiben.
+_RedMatic_ fasst diese Softwarekomponenten und das zur Ausführung benötigte Node.js zu einem CCU Addon zusammen, einem 
+Softwarepaket, dass auf einer Homematic CCU3 oder RaspberryMatic als Zusatzsoftware komfortabel über das WebUI 
+installiert werden kann. Dadurch bieten sich dann oben genannte Möglichkeiten - ohne die Notwendigkeit neben der CCU 
+einen weiteren 24/7 laufenden Server zu betreiben.
 
-_RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf einer CCU1/CCU2 kann es aufgrund der CPU und 
-des verfügbaren RAM nicht verwendet werden.
+_RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden.
 
 
 ## Schnellstart
@@ -48,7 +47,7 @@ einzurichten.
 * [Installation](https://github.com/hobbyquaker/RedMatic/wiki/Installation)
 * [Update](https://github.com/hobbyquaker/RedMatic/wiki/Update)
 * [Deinstallation](https://github.com/hobbyquaker/RedMatic/wiki/Deinstallation)
-* [Zusätzliche Nodes installieren, updaten, deinstallieren](https://github.com/hobbyquaker/RedMatic/wiki/Node-Installation)
+* [Zusätzliche Nodes installieren](https://github.com/hobbyquaker/RedMatic/wiki/Node-Installation)
 * [Passwort Schutz für Node-RED einrichten](https://github.com/hobbyquaker/RedMatic/wiki/Passwort)
 * [Log-Level erhöhen für Fehleranalyse](https://github.com/hobbyquaker/RedMatic/wiki/Loglevel)
 
@@ -65,9 +64,10 @@ einzurichten.
 
 ## Support, Mitarbeit
 
-Diese Software ist ein Hobby-Projekt ohne Gewinnerzielungsabsicht und wird kostenlos unter der MIT-Lizenz zur
-Verfügung gestellt. Beteiligung in jeder Form ist willkommen und gewünscht, für Fragen, Vorschläge, Bug-Reports zu den
-CCU Nodes bitte den [Issue Tracker](https://github.com/hobbyquaker/RedMatic/issues) nutzen.
+Diese Software ist ein Hobby-Projekt ohne Gewinnerzielungsabsicht und wird kostenlos unter der MIT-Lizenz zur Verfügung 
+gestellt.    
+Beteiligung in jeder Form ist willkommen und gewünscht, für Feedback, Fragen, Vorschläge und 
+Fehlerberichte bitte den [Issue Tracker](https://github.com/hobbyquaker/RedMatic/issues) nutzen.
 
 
 ## Lizenz
