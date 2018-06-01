@@ -6,7 +6,9 @@
 [![Dependencies Status](https://david-dm.org/hobbyquaker/redmatic/status.svg)](https://david-dm.org/hobbyquaker/redmatic)
 [![Build Status](https://travis-ci.org/hobbyquaker/RedMatic.svg?branch=master)](https://travis-ci.org/hobbyquaker/RedMatic)
 
-Node-RED als Addon für die Homematic CCU3 und RaspberryMatic
+Node-RED als Addon für die 
+[Homematic CCU3](https://www.eq-3.de/produkte/homematic/zentralen-und-gateways/smart-home-zentrale-ccu3.html) und 
+[RaspberryMatic](https://github.com/jens-maus/RaspberryMatic)
 
 <br>
 
