@@ -44,24 +44,19 @@ einzurichten.
 
 ## [Dokumentation](https://github.com/hobbyquaker/RedMatic/wiki)
 
-#### Administration
-
-* [Installation](https://github.com/hobbyquaker/RedMatic/wiki/Installation)
-* [Update](https://github.com/hobbyquaker/RedMatic/wiki/Update)
-* [Deinstallation](https://github.com/hobbyquaker/RedMatic/wiki/Deinstallation)
-* [Zusätzliche Nodes installieren](https://github.com/hobbyquaker/RedMatic/wiki/Node-Installation)
-* [Passwort Schutz für Node-RED einrichten](https://github.com/hobbyquaker/RedMatic/wiki/Passwort)
-* [Log-Level erhöhen für Fehleranalyse](https://github.com/hobbyquaker/RedMatic/wiki/Loglevel)
-
-#### Nutzung
-
-* [Node-RED Grundlagen](https://github.com/hobbyquaker/RedMatic/wiki/Node-RED)
-* [CCU Nodes](https://github.com/hobbyquaker/RedMatic/wiki/CCU-Nodes)
-* [Hilfreiche Nodes](https://github.com/hobbyquaker/RedMatic/wiki/Misc-Nodes)
-* [Flows exportieren und importieren](https://github.com/hobbyquaker/RedMatic/wiki/Flows)
-
-
-#### [Beispiel Flows](https://github.com/hobbyquaker/RedMatic/wiki/Flows)
+* Administration
+  * [Installation](Installation)
+  * [Update](Update)
+  * [Deinstallation](Deinstallation)
+  * [Zusätzliche Nodes installieren](Node-Installation)
+  * [Passwort Schutz für Node-RED einrichten](Passwort)
+  * [Log-Level erhöhen für Fehleranalyse](Loglevel)
+* Nutzung
+  * [Node-RED Grundlagen](Node-RED)
+  * [CCU Nodes](CCU-Nodes)
+  * [Hilfreiche Nodes](Misc-Nodes)
+  * [Flows exportieren und importieren](Flow-Export-Import)
+* [Beispiel Flows](Flows)
 
 
 ## Support, Mitarbeit
