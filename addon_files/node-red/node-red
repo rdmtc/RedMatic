@@ -75,7 +75,7 @@ case "$1" in
      $ADDON_DIR/update_addon node-red-dashboard
      rm -r $ADDON_DIR
      rm -r $WWW_DIR
-     rm $CONF_DIR/addons/www/check_update_node_red.cgi
+     rm $CONF_DIR/addons/www/check_update_node_red.cgi &> /dev/null || true
      rm $CONF_DIR/lighttpd/node-red.conf
      rm $CONF_DIR/rc.d/node-red
   ;;
