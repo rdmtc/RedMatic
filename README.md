@@ -15,9 +15,12 @@
 Mit Node-RED und den 
 [CCU Nodes für Node-RED](https://github.com/hobbyquaker/node-red-contrib-ccu) ist es auf einfache und visuelle Weise 
 möglich Regeln, Automationen, Scripte und Anbindungen von externen Services und Systemen für ein Homematic System zu 
-realisieren - und das weitgehend auch ohne Programmierkenntnisse. Die Node-RED Erweiterung 
-[Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) ermöglicht es zudem individuelle und ansprechende 
-User Interfaces zu erstellen.
+realisieren - und das weitgehend auch ohne Programmierkenntnisse. Im 
+[Wiki](https://github.com/hobbyquaker/RedMatic/wiki) gibt es weitere Informationen zu Node-RED und einige Beispiel-Flows
+mit Screenshots.    
+Die Node-RED Erweiterung [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) ermöglicht es zudem 
+ansprechende User Interfaces für Mobilgeräte und den Browser zu erstellen 
+([Beispiel Screenshots](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots)).
 
 _RedMatic_ fasst diese Softwarekomponenten und das zur Ausführung benötigte Node.js zu einem CCU Addon zusammen, einem 
 Softwarepaket, dass auf einer Homematic CCU3 oder RaspberryMatic als Zusatzsoftware komfortabel über das WebUI 
