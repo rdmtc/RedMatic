@@ -45,21 +45,9 @@ Authentifizierung an der CCU-Logikschicht implementiert ist gibt es einen
 einzurichten.
 
 
-## [Dokumentation](https://github.com/hobbyquaker/RedMatic/wiki)
+## Dokumentation
 
-* Administration
-  * [Installation](https://github.com/hobbyquaker/RedMatic/wiki/Installation)
-  * [Update](https://github.com/hobbyquaker/RedMatic/wiki/Update)
-  * [Deinstallation](https://github.com/hobbyquaker/RedMatic/wiki/Deinstallation)
-  * [Zusätzliche Nodes installieren](https://github.com/hobbyquaker/RedMatic/wiki/Node-Installation)
-  * [Passwort Schutz für Node-RED einrichten](https://github.com/hobbyquaker/RedMatic/wiki/Passwort)
-  * [Log-Level erhöhen für Fehleranalyse](https://github.com/hobbyquaker/RedMatic/wiki/Loglevel)
-* Nutzung
-  * [Node-RED Grundlagen](https://github.com/hobbyquaker/RedMatic/wiki/Node-RED)
-  * [CCU Nodes](https://github.com/hobbyquaker/RedMatic/wiki/CCU-Nodes)
-  * [Hilfreiche Nodes](https://github.com/hobbyquaker/RedMatic/wiki/Misc-Nodes)
-  * [Flows exportieren und importieren](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Export-Import)
-* [Beispiel Flows](https://github.com/hobbyquaker/RedMatic/wiki/Flows)
+Eine ausführliche deutschsprachige Dokumentation ist im [Wiki](https://github.com/hobbyquaker/RedMatic/wiki) zu finden.
 
 
 ## Support, Mitarbeit
