@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CONF_DIR=/usr/local/etc/config
-ADDON_DIR=/usr/local/addons/node-red
+ADDON_DIR=/usr/local/addons/redmatic
 WWW_DIR=/usr/local/etc/config/addons/www/redmatic
 
 NODE=$ADDON_DIR/bin/node
@@ -60,9 +60,7 @@ case "$1" in
     echo "Info: <a href="https://github.com/hobbyquaker/RedMatic"><img src="/addons/redmatic/logo-w-200.png" align="right"/></a>"
     echo "Info: <table><tr><td>Node.js</td><td>$NODE_VERSION</td></tr>"
     echo "Info: <tr><td>npm</td><td>$VERSION_npm</td></tr>"
-    echo "Info: <tr><td>Node-RED</td><td>$VERSION_nodered</td></tr>"
-    echo "Info: <tr><td>Node-RED Dashboard</td><td>$VERSION_nodereddashboard</td></tr>"
-    echo "Info: <tr><td>node-red-contrib-ccu</td><td>$VERSION_noderedcontribccu</td></tr></table>"
+    echo "Info: <tr><td>Node-RED</td><td>$VERSION_nodered</td></tr></table>"
     echo "Name: RedMatic"
     echo "Version: $VERSION_ADDON"
     echo "Update: /addons/redmatic/update_check.cgi"
@@ -70,15 +68,20 @@ case "$1" in
   ;;
 
   uninstall)
-     Stop
-     $ADDON_DIR/update_addon node-red
-     $ADDON_DIR/update_addon node-red-dashboard
-     rm -r $ADDON_DIR
-     rm -r $WWW_DIR
-     rm $CONF_DIR/addons/www/check_update_node_red.cgi &> /dev/null || true
-     rm $CONF_DIR/lighttpd/node-red.conf
-     rm $CONF_DIR/rc.d/node-red
-  ;;
+    Stop
+    $ADDON_DIR/update_addon node-red
+    $ADDON_DIR/update_addon node-red-dashboard
+    rm -r $ADDON_DIR
+    rm -r $WWW_DIR
+    rm $CONF_DIR/lighttpd/redmatic.conf
+    rm $CONF_DIR/rc.d/redmatic
+
+    # migration
+    if [ -f $CONF_DIR/addons/www/check_update_node_red.cgi ]; then
+        rm $CONF_DIR/addons/www/check_update_node_red.cgi
+    fi
+
+    ;;
 
   *)
     echo "Usage: node-red {start|stop|restart|info|uninstall}" >&2

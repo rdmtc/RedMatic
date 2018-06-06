@@ -1,0 +1,11 @@
+{
+  "name": "node-red-project",
+  "description": "A Node-RED Project",
+  "version": "0.0.1",
+  "dependencies": {
+    "node-red-dashboard": "2.9.4",
+    "node-red-contrib-ccu": "0.5.0",
+    "node-red-contrib-combine": "1.2.0",
+    "node-red-contrib-mqtt-json": "1.0.1"
+  }
+}

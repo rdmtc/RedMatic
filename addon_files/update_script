@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ADDONS_DIR=/usr/local/addons
-RED_DIR=$ADDONS_DIR/node-red
+RED_DIR=$ADDONS_DIR/redmatic
 CONF_DIR=/usr/local/etc/config
 WWW_DIR=$CONF_DIR/addons/www/redmatic
 
@@ -13,21 +13,43 @@ fi
 mkdir -p $ADDONS_DIR && chmod 755 $ADDONS_DIR 
 mkdir -p $WWW_DIR && chmod 755 $WWW_DIR
 
-if [ -f $CONF_DIR/rc.d/node-red ]; then
-    $CONF_DIR/rc.d/node-red stop
+if [ -f $CONF_DIR/rc.d/redmatic ]; then
+    $CONF_DIR/rc.d/redmatic stop
 fi
 
 if [ -f $RED_DIR/settings.js ]; then
     cp $RED_DIR/settings.js $RED_DIR/settings.js.old
 fi
 
-cp -af node-red $ADDONS_DIR/
+cp -af redmatic $ADDONS_DIR/
+
+
+# migration
+if [ -d $ADDONS_DIR/node-red ]; then
+
+    if [ -f $CONF_DIR/rc.d/node-red ]; then
+        $CONF_DIR/rc.d/node-red stop
+    fi
+    if [ -f $CONF_DIR/addons/www/check_update_node_red.cgi ]; then
+        rm $CONF_DIR/addons/www/check_update_node_red.cgi
+    fi
+    if [ -f $CONF_DIR/lighttpd/node-red.conf ]; then
+        rm $CONF_DIR/lighttpd/node-red.conf
+    fi
+
+    cp $ADDONS_DIR/node-red/var/flows.json $RED_DIR/var/flows.json
+    cp $ADDONS_DIR/node-red/settings.js $RED_DIR/var/settings.js.old
+
+    rm -rf $ADDONS_DIR/node-red
+fi
+
 
 mkdir -p $CONF_DIR/lighttpd
-ln -sf $RED_DIR/lighttpd.conf $CONF_DIR/lighttpd/node-red.conf
+ln -sf $RED_DIR/lighttpd.conf $CONF_DIR/lighttpd/redmatic.conf
+
 
 chmod a+x $RED_DIR/node-red
-ln -sf $RED_DIR/node-red $CONF_DIR/rc.d/node-red
+ln -sf $RED_DIR/redmatic $CONF_DIR/rc.d/redmatic
 
 if [ ! -f $RED_DIR/var/flows.json ]; then
     mv $RED_DIR/var/example-flows.json $RED_DIR/var/flows.json

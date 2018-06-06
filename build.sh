@@ -16,36 +16,43 @@ mkdir $ADDON_TMP 2> /dev/null || rm -r $ADDON_TMP/*
 
 echo "download and extract Node.js $NODE_URL ..."
 curl --silent $NODE_URL | tar -xJf - -C $ADDON_TMP
-mv $ADDON_TMP/$NODE_NAME $ADDON_TMP/node-red
-rm $ADDON_TMP/node-red/README.md
-rm $ADDON_TMP/node-red/CHANGELOG.md
-mv $ADDON_TMP/node-red/LICENSE $ADDON_TMP/node-red/LICENSE_Nodejs
+mv $ADDON_TMP/$NODE_NAME $ADDON_TMP/redmatic
+rm $ADDON_TMP/redmatic/README.md
+rm $ADDON_TMP/redmatic/CHANGELOG.md
+mv $ADDON_TMP/redmatic/LICENSE $ADDON_TMP/redmatic/LICENSE_Nodejs
 
 
 echo "copying files to tmp dir..."
 cp -r $ADDON_FILES/* $ADDON_TMP/
-cp $BUILD_DIR/assets/logo-w-200.png $ADDON_TMP/node-red/
+cp $BUILD_DIR/assets/logo-w-200.png $ADDON_TMP/redmatic/
 
 
 echo "installing node modules..."
-cp package.json $ADDON_TMP/node-red/lib/
-cd $ADDON_TMP/node-red/lib
+cp package.json $ADDON_TMP/redmatic/lib/
+cd $ADDON_TMP/redmatic/lib
 npm install --silent --no-package-lock --production --no-optional --global-style
-rm $ADDON_TMP/node-red/lib/package.json
+rm $ADDON_TMP/redmatic/lib/package.json
+
+
+echo "installing additional Node-RED nodes..."
+cd $ADDON_TMP/redmatic/var
+npm install --silent --no-package-lock --production --no-optional
+
 
 echo "adapt Node-RED..."
-rm -r $ADDON_TMP/node-red/lib/node_modules/node-red/nodes/core/hardware
-#mv $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig
-#sed "s/var npmCommand =.*/var npmCommand = '\/usr\/local\/addons\/node-red\/bin\/npm';/" $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig > $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js
-mv $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/log.js $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/log.js.orig
-sed "s/util\.log/console.log/g" $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/log.js.orig > $ADDON_TMP/node-red/lib/node_modules/node-red/red/runtime/log.js
+rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/nodes/core/hardware
+#mv $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig
+#sed "s/var npmCommand =.*/var npmCommand = '\/usr\/local\/addons\/node-red\/bin\/npm';/" $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig > $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js
+mv $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js.orig
+sed "s/util\.log/console.log/g" $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js.orig > $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js
+
 
 cd $BUILD_DIR
 
 
 echo "creating version files"
-MODULES_DIR=$ADDON_TMP/node-red/lib/node_modules
-VERSION_FILE=$ADDON_TMP/node-red/versions
+MODULES_DIR=$ADDON_TMP/redmatic/lib/node_modules
+VERSION_FILE=$ADDON_TMP/redmatic/versions
 VERSION_ADDON=`jq -r '.version' package.json`
 
 cat > $VERSION_FILE <<EOL
@@ -69,12 +76,6 @@ links() {
         'node-red')
             URL=https://nodered.org/
             ;;
-        'node-red-dashboard')
-            URL=https://github.com/node-red/node-red-dashboard/releases
-            ;;
-        'node-red-contrib-ccu')
-            URL=https://github.com/hobbyquaker/node-red-contrib-ccu
-            ;;
         *)
             URL=
     esac
@@ -94,9 +95,7 @@ do
     links $DIR $VERSION
 done
 
-RED_VERSION=`jq -r '.version' $ADDON_TMP/node-red/lib/node_modules/node-red/package.json`
-DASHBOARD_VERSION=`jq -r '.version' $ADDON_TMP/node-red/lib/node_modules/node-red-dashboard/package.json`
-RED_CCU_VERSION=`jq -r '.version' $ADDON_TMP/node-red/lib/node_modules/node-red-contrib-ccu/package.json`
+RED_VERSION=`jq -r '.version' $ADDON_TMP/redmatic/lib/node_modules/node-red/package.json`
 
 
 echo "creating changelog file"
