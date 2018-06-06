@@ -12,7 +12,7 @@ before_deploy:
   - git config --local user.name "hobbyquaker"
   - git config --local user.email "hobbyquaker@gmail.com"
   - ./build.sh
-  - source ./addon_tmp/node-red/versions
+  - source ./addon_tmp/redmatic/versions
   - git tag "v$VERSION_ADDON+$TRAVIS_BUILD_NUMBER"
 deploy:
   provider: releases
