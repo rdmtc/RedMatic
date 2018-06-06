@@ -19,7 +19,7 @@ Stop () {
     if [ "$PSPID" != "" ]
     then
       echo -n "Stopping Node-RED: "
-      kill $1 $PSPID 2>/dev/null
+      kill $1 $PSPID 2>/dev/null || true
       sleep 1
       kill -0 $PSPID 2>/dev/null
       if [ $? -eq 0 ]
@@ -53,6 +53,7 @@ case "$1" in
     Stop
     sleep 1
     Start
+    exit 0
   ;;
 
   info)
