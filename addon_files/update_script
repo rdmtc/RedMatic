@@ -43,10 +43,8 @@ if [ -d $ADDONS_DIR/node-red ]; then
     rm -rf $ADDONS_DIR/node-red
 fi
 
-
 mkdir -p $CONF_DIR/lighttpd
 ln -sf $RED_DIR/lighttpd.conf $CONF_DIR/lighttpd/redmatic.conf
-
 
 chmod a+x $RED_DIR/node-red
 ln -sf $RED_DIR/redmatic $CONF_DIR/rc.d/redmatic
@@ -55,8 +53,8 @@ if [ ! -f $RED_DIR/var/flows.json ]; then
     mv $RED_DIR/var/example-flows.json $RED_DIR/var/flows.json
 fi
 
-ln -s $RED_DIR/update_check.tcl $WWW_DIR/update_check.cgi
-ln -s $RED_DIR/logo-w-200.png $WWW_DIR/logo-w-200.png
+ln -sf $RED_DIR/update_check.tcl $WWW_DIR/update_check.cgi
+ln -sf $RED_DIR/logo-w-200.png $WWW_DIR/logo-w-200.png
 
 touch $CONF_DIR/hm_addons.cfg
 
