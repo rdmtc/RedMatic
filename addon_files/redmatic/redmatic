@@ -58,10 +58,8 @@ case "$1" in
 
   info)
     source $ADDON_DIR/versions
-    echo "Info: <a href="https://github.com/hobbyquaker/RedMatic"><img src="/addons/redmatic/logo-w-200.png" align="right"/></a>"
-    echo "Info: <table><tr><td>Node.js</td><td>$NODE_VERSION</td></tr>"
-    echo "Info: <tr><td>npm</td><td>$VERSION_npm</td></tr>"
-    echo "Info: <tr><td>Node-RED</td><td>$VERSION_nodered</td></tr></table>"
+    echo "Info: <div><a target=\"_blank\" href=\"https://github.com/hobbyquaker/RedMatic\"><img src=\"/addons/redmatic/logo-x-120.png\"/></a></div>"
+    echo "Info: <center><div style=\"font-size: 10px !important; padding-bottom: 1px;\">Node.js: $NODE_VERSION - Node-RED: $VERSION_nodered</div></center>"
     echo "Name: RedMatic"
     echo "Version: $VERSION_ADDON"
     echo "Update: /addons/redmatic/update_check.cgi"
@@ -90,7 +88,5 @@ case "$1" in
   ;;
 
 esac
-
-
 
 exit 0
