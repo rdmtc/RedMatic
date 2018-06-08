@@ -24,7 +24,7 @@ mv $ADDON_TMP/redmatic/LICENSE $ADDON_TMP/redmatic/LICENSE_Nodejs
 
 echo "copying files to tmp dir..."
 cp -r $ADDON_FILES/* $ADDON_TMP/
-cp $BUILD_DIR/assets/logo-w-200.png $ADDON_TMP/redmatic/
+cp $BUILD_DIR/assets/logo-x-120.png $ADDON_TMP/redmatic/www/
 
 
 echo "installing node modules..."
