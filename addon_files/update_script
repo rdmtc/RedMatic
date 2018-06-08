@@ -28,7 +28,7 @@ cp -af redmatic $ADDONS_DIR/
 if [ -d $ADDONS_DIR/node-red ]; then
 
     if [ -f $CONF_DIR/rc.d/node-red ]; then
-        $CONF_DIR/rc.d/node-red stop
+        rm $CONF_DIR/rc.d/node-red
     fi
     if [ -f $CONF_DIR/addons/www/check_update_node_red.cgi ]; then
         rm $CONF_DIR/addons/www/check_update_node_red.cgi
@@ -53,8 +53,11 @@ if [ ! -f $RED_DIR/var/flows.json ]; then
     mv $RED_DIR/var/example-flows.json $RED_DIR/var/flows.json
 fi
 
-ln -sf $RED_DIR/update_check.tcl $WWW_DIR/update_check.cgi
-ln -sf $RED_DIR/logo-w-200.png $WWW_DIR/logo-w-200.png
+if [ -d $WWW_DIR/redmatic ]; then
+    rm -rf $WWW_DIR/redmatic
+fi
+
+ln -sf $RED_DIR/www $WWW_DIR/redmatic
 
 touch $CONF_DIR/hm_addons.cfg
 
