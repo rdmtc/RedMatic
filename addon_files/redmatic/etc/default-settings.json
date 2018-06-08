@@ -1,0 +1,14 @@
+{
+  "uiPort": 1880,
+  "uiHost": "127.0.0.1",
+  "flowFile": "flows.json",
+  "userDir": "/usr/local/addons/redmatic/var",
+  "httpRoot": "/addons/red",
+  "logging": {
+    "console": {
+      "level": "info",
+      "metrics": false,
+      "audit": false
+    }
+  }
+}

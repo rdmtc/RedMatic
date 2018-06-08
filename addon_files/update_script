@@ -12,19 +12,23 @@ fi
 
 mkdir -p $ADDONS_DIR && chmod 755 $ADDONS_DIR 
 mkdir -p $WWW_DIR && chmod 755 $WWW_DIR
+mkdir -p $CONF_DIR/lighttpd && chmod 755 $CONF_DIR/lighttpd
 
+#
+#   Stop service on update
+#
 if [ -f $CONF_DIR/rc.d/redmatic ]; then
     $CONF_DIR/rc.d/redmatic stop
 fi
 
-if [ -f $RED_DIR/settings.js ]; then
-    cp $RED_DIR/settings.js $RED_DIR/settings.js.old
-fi
-
+#
+#   Install addon files
+#
 cp -af redmatic $ADDONS_DIR/
 
-
-# migration
+#
+#   Migration from <= 1.0.0-beta.7
+#
 if [ -d $ADDONS_DIR/node-red ]; then
 
     if [ -f $CONF_DIR/rc.d/node-red ]; then
@@ -38,32 +42,54 @@ if [ -d $ADDONS_DIR/node-red ]; then
     fi
 
     cp $ADDONS_DIR/node-red/var/flows.json $RED_DIR/var/flows.json
-    cp $ADDONS_DIR/node-red/settings.js $RED_DIR/var/settings.js.old
 
     rm -rf $ADDONS_DIR/node-red
 fi
 
-mkdir -p $CONF_DIR/lighttpd
-ln -sf $RED_DIR/lighttpd.conf $CONF_DIR/lighttpd/redmatic.conf
+#
+#   Migration from <= 1.0.0-beta.9
+#
+if [ -d $WWW_DIR ]; then
+    rm -rf $WWW_DIR
+fi
+if [ -f $RED_DIR/lighttpd-error-503.html ]; then
+    rm $RED_DIR/lighttpd-error-503.html
+fi
+if [ -f $RED_DIR/lighttpd.conf ]; then
+    rm $RED_DIR/lighttpd.conf
+fi
+if [ -f $RED_DIR/logo-w-200.png ]; then
+    rm $RED_DIR/logo-w-200.png
+fi
 
-chmod a+x $RED_DIR/node-red
-ln -sf $RED_DIR/redmatic $CONF_DIR/rc.d/redmatic
 
+#
+#   Create default config on first install
+#
+if [ ! -f $RED_DIR/etc/settings.json ]; then
+    mv $RED_DIR/etc/default-settings.json $RED_DIR/etc/settings.json
+fi
+
+#
+#   Create example flows on first install
+#
 if [ ! -f $RED_DIR/var/flows.json ]; then
     mv $RED_DIR/var/example-flows.json $RED_DIR/var/flows.json
 fi
 
-if [ -d $WWW_DIR/redmatic ]; then
-    rm -rf $WWW_DIR/redmatic
-fi
+#
+#   Create Links
+#
+ln -sf $RED_DIR/www $WWW_DIR
+ln -sf $RED_DIR/bin/redmatic $CONF_DIR/rc.d/redmatic
+ln -sf $RED_DIR/etc/lighttpd.conf $CONF_DIR/lighttpd/redmatic.conf
 
-ln -sf $RED_DIR/www $WWW_DIR/redmatic
-
+#
+#   Create Buttons in Homematic WebUI
+#
 touch $CONF_DIR/hm_addons.cfg
-
 ./update_addon node-red node-red.cfg
 ./update_addon node-red-dashboard node-red-dashboard.cfg
 
 sync
-
 exit 0

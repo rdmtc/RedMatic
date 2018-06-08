@@ -12,7 +12,7 @@ export NO_UPDATE_NOTIFIER=true
 RED_DIR=$ADDON_DIR/lib/node_modules/node-red
 RED=$RED_DIR/red.js
 
-SETTINGS=$ADDON_DIR/settings.js
+SETTINGS=$ADDON_DIR/lib/settings.js
 
 Stop () {
     PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
@@ -68,18 +68,12 @@ case "$1" in
 
   uninstall)
     Stop
-    $ADDON_DIR/update_addon node-red
-    $ADDON_DIR/update_addon node-red-dashboard
+    $ADDON_DIR/bin/update_addon node-red
+    $ADDON_DIR/bin/update_addon node-red-dashboard
     rm -r $ADDON_DIR
     rm -r $WWW_DIR
     rm $CONF_DIR/lighttpd/redmatic.conf
     rm $CONF_DIR/rc.d/redmatic
-
-    # migration
-    if [ -f $CONF_DIR/addons/www/check_update_node_red.cgi ]; then
-        rm $CONF_DIR/addons/www/check_update_node_red.cgi
-    fi
-
     ;;
 
   *)
