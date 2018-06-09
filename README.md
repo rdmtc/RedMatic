@@ -47,15 +47,13 @@ einzurichten.
 
 ## Dokumentation
 
-Eine ausführliche deutschsprachige Dokumentation ist im [Wiki](https://github.com/hobbyquaker/RedMatic/wiki) zu finden.
+Die Dokumentation ist im [Wiki](https://github.com/hobbyquaker/RedMatic/wiki) zu finden.
 
 
-## Support, Mitarbeit
+## Mitarbeit
 
-Diese Software ist ein Hobby-Projekt ohne Gewinnerzielungsabsicht und wird kostenlos unter der MIT-Lizenz zur Verfügung 
-gestellt.    
 Beteiligung in jeder Form ist willkommen und gewünscht, für Feedback, Fragen, Vorschläge und 
-Fehlerberichte bitte den [Issue Tracker](https://github.com/hobbyquaker/RedMatic/issues) nutzen.
+Fehlerberichte bitte den [Issue Tracker](https://github.com/hobbyquaker/RedMatic/issues) nutzen. 
 
 
 ## Lizenz
