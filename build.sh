@@ -38,6 +38,9 @@ echo "installing additional Node-RED nodes..."
 cd $ADDON_TMP/redmatic/var
 npm install --silent --no-package-lock --production --no-optional
 
+echo "installing www node modules"
+cd $ADDON_TMP/redmatic/www
+npm install --silent --no-package-lock --production --no-optional
 
 echo "adapt Node-RED..."
 rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/nodes/core/hardware

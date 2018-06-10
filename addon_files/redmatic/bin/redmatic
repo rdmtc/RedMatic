@@ -24,19 +24,29 @@ Stop () {
       kill -0 $PSPID 2>/dev/null
       if [ $? -eq 0 ]
       then
-        sleep 10
+        sleep 3
         kill -KILL $PSPID 2>/dev/null
       fi
       logger -t homematic -p user.info "stopped node-red"
       echo "OK"
+    else
+        echo "Node-RED not running"
+        exit 1
     fi
 }
 
 Start () {
-    echo -n "Starting Node-RED: "
-    $NODE $RED -s $SETTINGS 2>&1 | logger -p user.info -t node-red &
-    logger -t homematic -p user.info "started node-red"
-    echo "OK"
+    PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
+    if [ "$PSPID" != "" ]
+    then
+        echo "Node-RED already running"
+        exit 1
+    else
+        echo -n "Starting Node-RED: "
+        start-stop-daemon -S -q -b --exec $ADDON_DIR/bin/redmaticLoader
+        logger -t homematic -p user.info "started node-red"
+        echo "OK"
+    fi
 }
 
 case "$1" in
@@ -53,7 +63,6 @@ case "$1" in
     Stop
     sleep 1
     Start
-    exit 0
   ;;
 
   info)
@@ -63,6 +72,7 @@ case "$1" in
     echo "Name: RedMatic"
     echo "Version: $VERSION_ADDON"
     echo "Update: /addons/redmatic/update_check.cgi"
+    echo "Config-Url: /addons/redmatic/settings.cgi"
     echo "Operations: restart uninstall"
   ;;
 

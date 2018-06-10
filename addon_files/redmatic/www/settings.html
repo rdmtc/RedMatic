@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+
+<title>RedMatic Config</title>
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/bcryptjs/dist/bcrypt.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+
+<nav class="navbar sticky-top navbar-light bg-light mb-4">
+    <img src="logo-x-120.png" style="height: 42px; ">
+</nav>
+
+<div class="container">
+
+
+    <div id="alert-saved" class="fixed-top mx-auto alert alert-success alert-dismissible fade" role="alert">
+        <strong>Settings saved</strong>
+    </div>
+
+    <div id="alert-error" class="fixed-top mx-auto alert alert-error alert-dismissible fade" role="alert">
+        <strong>An error occured</strong>
+    </div>
+
+    <div id="alert-restart" class="fixed-top mx-auto alert alert-success alert-dismissible fade" role="alert">
+        <strong>Node-RED restarted</strong>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="loglevel">Log Level</label>
+                <select class="form-control" id="loglevel">
+                    <option>fatal</option>
+                    <option>error</option>
+                    <option>warn</option>
+                    <option>info</option>
+                    <option>debug</option>
+                    <option>trace</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="adminauth-type">Admin Auth</label>
+                <select class="form-control" id="adminauth-type">
+                    <option value="none">None</option>
+                    <option value="credentials">Credentials</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="adminauth-credentials" style="display:none">
+                <div class="row">
+                    <div class="col-sm">
+                        <input class="form-control" id="adminauth-user" placeholder="User" required>
+                    </div>
+                    <div class="col-sm">
+                        <input class="form-control" type="password" id="adminauth-pass1" placeholder="Password">
+                    </div>
+                    <div class="col-sm">
+                        <input class="form-control" type="password" id="adminauth-pass2" placeholder="Repeat password">
+                    </div>
+                    <div class="col-md-auto">
+                        <button id="adminauth-set" type="button" class="btn btn-primary">Set</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="nodeauth-type">Node Auth</label>
+                <select class="form-control" id="nodeauth-type">
+                    <option value="none">None</option>
+                    <option value="basic">Basic</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="nodeauth-credentials" style="display:none">
+                <div class="row">
+                    <div class="col-sm">
+                        <input class="form-control" id="nodeauth-user" placeholder="User">
+                    </div>
+                    <div class="col-sm">
+                        <input class="form-control" type="password" id="nodeauth-pass1" placeholder="Password">
+                    </div>
+                    <div class="col-sm">
+                        <input class="form-control" type="password" id="nodeauth-pass2" placeholder="Repeat password">
+                    </div>
+                    <div class="col-md-auto">
+                        <button id="nodeauth-set" type="button" class="btn btn-primary">Set</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="staticauth-type">Static Auth</label>
+                <select class="form-control" id="staticauth-type">
+                    <option value="none">None</option>
+                    <option value="basic">Basic</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="staticauth-credentials" style="display:none">
+                <div class="row">
+                    <div class="col-sm">
+                        <input class="form-control" id="staticauth-user" placeholder="User">
+                    </div>
+                    <div class="col-sm">
+                        <input class="form-control" type="password" id="staticauth-pass1" placeholder="Password">
+                    </div>
+                    <div class="col-sm">
+                        <input class="form-control" type="password" id="staticauth-pass2" placeholder="Repeat password">
+                    </div>
+                    <div class="col-md-auto">
+                        <button id="staticauth-set" type="button" class="btn btn-primary">Set</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="restart" type="button" class="btn btn-primary mb-4">Restart Node-RED</button>
+</div>
+
+<script src="js/script.js"></script>

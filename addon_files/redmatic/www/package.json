@@ -1,0 +1,9 @@
+{
+  "name": "redmatic-www",
+  "private": true,
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^4.1.1",
+    "jquery": "^3.3.1"
+  }
+}
