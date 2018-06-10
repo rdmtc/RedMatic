@@ -38,12 +38,6 @@ und dem darauf folgenden Reboot der CCU ist Node-RED unter `http://<ccu-addresse
 Beispiel-Flows sowie ein einfaches Dashboard sind bereits vorkonfiguriert, das Dashboard ist unter `http://<ccu-addresse>/addons/red/ui` 
 erreichbar.
 
-__Sicherheitswarnung__: Node-RED ist per default (noch) ohne Authentifizierung ereichbar. Wer den Webserver der CCU 
-erreichen kann hat vollen Zugriff auf Node-RED, es erfolgt __keine Passwortabfrage__. Bis in einer späteren Version eine 
-Authentifizierung an der CCU-Logikschicht implementiert ist gibt es einen 
-[möglichen Workaround](https://github.com/hobbyquaker/RedMatic/wiki/Passwort) um manuell einen Passwortschutz
-einzurichten.
-
 
 ## Dokumentation
 
