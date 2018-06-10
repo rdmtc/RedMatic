@@ -36,7 +36,7 @@ rm $ADDON_TMP/redmatic/lib/package.json
 
 echo "installing additional Node-RED nodes..."
 cd $ADDON_TMP/redmatic/var
-npm install --silent --no-package-lock --production --no-optional
+npm install --silent --no-package-lock --production --no-optional --global-style
 
 echo "installing www node modules"
 cd $ADDON_TMP/redmatic/www
@@ -63,7 +63,17 @@ export NODE_VERSION=$NODE_VERSION
 export VERSION_ADDON=$VERSION_ADDON
 EOL
 
+echo "creating changelog file"
 cat >CHANGELOG.md <<EOL
+
+
+### Changelog
+
+EOL
+
+git log `git describe --tags --abbrev=0`..HEAD --pretty=format:'* %h @%an %s' >> CHANGELOG.md
+
+cat >>CHANGELOG.md <<EOL
 ![](https://img.shields.io/github/downloads/hobbyquaker/RedMatic/v$VERSION_ADDON+$TRAVIS_BUILD_NUMBER/total.svg)
 
 Module | Version
@@ -78,6 +88,12 @@ links() {
             ;;
         'node-red')
             URL=https://nodered.org/
+            ;;
+        'node-red-dashboard')
+            URL=https://github.com/node-red/node-red-dashboard/releases
+            ;;
+        'node-red-contrib-ccu')
+            URL=https://github.com/hobbyquaker/node-red-contrib-ccu
             ;;
         *)
             URL=
@@ -98,18 +114,16 @@ do
     links $DIR $VERSION
 done
 
+for DIR in $(find $ADDON_TMP/redmatic/var/node_modules/ -type d -maxdepth 1 -not -name "node_modules" -not -name ".bin"  -exec basename {} \; | sort -t '\0' -n)
+do
+    VERSION=$(jq -r '.version' $ADDON_TMP/redmatic/var/node_modules/$DIR/package.json)
+    links $DIR $VERSION
+done
+
 RED_VERSION=`jq -r '.version' $ADDON_TMP/redmatic/lib/node_modules/node-red/package.json`
 
 
-echo "creating changelog file"
-cat >>CHANGELOG.md <<EOL
 
-
-### Changelog
-
-EOL
-
-git log `git describe --tags --abbrev=0`..HEAD --pretty=format:'* %h @%an %s' >> CHANGELOG.md
 
 
 echo "compressing addon package $ADDON_FILE ..."
