@@ -65,7 +65,7 @@ EOL
 
 echo "creating changelog file"
 cat >CHANGELOG.md <<EOL
-
+![](https://img.shields.io/github/downloads/hobbyquaker/RedMatic/v$VERSION_ADDON+$TRAVIS_BUILD_NUMBER/total.svg)
 
 ### Changelog
 
@@ -74,7 +74,6 @@ EOL
 git log `git describe --tags --abbrev=0`..HEAD --pretty=format:'* %h @%an %s' >> CHANGELOG.md
 
 cat >>CHANGELOG.md <<EOL
-![](https://img.shields.io/github/downloads/hobbyquaker/RedMatic/v$VERSION_ADDON+$TRAVIS_BUILD_NUMBER/total.svg)
 
 Module | Version
 ------ | -------
