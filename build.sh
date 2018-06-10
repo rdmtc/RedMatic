@@ -76,6 +76,8 @@ git log `git describe --tags --abbrev=0`..HEAD --pretty=format:'* %h @%an %s' >>
 
 cat >>CHANGELOG.md <<EOL
 
+
+
 Module | Version
 ------ | -------
 [Node.js](https://nodejs.org/de/) | $NODE_VERSION
