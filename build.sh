@@ -57,6 +57,7 @@ echo "creating version files"
 MODULES_DIR=$ADDON_TMP/redmatic/lib/node_modules
 VERSION_FILE=$ADDON_TMP/redmatic/versions
 VERSION_ADDON=`jq -r '.version' package.json`
+RED_VERSION=`jq -r '.version' $ADDON_TMP/redmatic/lib/node_modules/node-red/package.json`
 
 cat > $VERSION_FILE <<EOL
 export NODE_VERSION=$NODE_VERSION
@@ -118,11 +119,6 @@ do
     VERSION=$(jq -r '.version' $ADDON_TMP/redmatic/var/node_modules/$DIR/package.json)
     links $DIR $VERSION
 done
-
-RED_VERSION=`jq -r '.version' $ADDON_TMP/redmatic/lib/node_modules/node-red/package.json`
-
-
-
 
 
 echo "compressing addon package $ADDON_FILE ..."
