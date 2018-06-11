@@ -2,7 +2,7 @@
 
 BUILD_DIR=`cd ${0%/*} && pwd -P`
 
-NODE_VERSION=${NODE_VERSION:-8.11.2}
+NODE_VERSION=`jq -r '.engines.node' package.json `
 ARCH=${ARCH:-armv6l}
 
 NODE_NAME=node-v${NODE_VERSION}-linux-${ARCH}

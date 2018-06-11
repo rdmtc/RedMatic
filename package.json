@@ -5,6 +5,9 @@
   "repository": "github:hobbyquaker/redmatic",
   "private": true,
   "main": "none",
+  "engines": {
+    "node": "8.11.2"
+  },
   "dependencies": {
     "npm": "6.1.0",
     "node-red": "0.18.7",
