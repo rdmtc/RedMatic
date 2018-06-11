@@ -1,0 +1,8 @@
+{
+  "name": "redmatic-base",
+  "private": true,
+  "dependencies": {
+    "npm": "6.1.0",
+    "node-red": "0.18.7"
+  }
+}

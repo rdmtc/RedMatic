@@ -9,3 +9,5 @@ cd ../www
 ncu -u
 
 cd ../../../
+
+node combine_package.js

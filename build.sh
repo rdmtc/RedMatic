@@ -28,7 +28,6 @@ cp $BUILD_DIR/assets/logo-x-120.png $ADDON_TMP/redmatic/www/
 
 
 echo "installing node modules..."
-cp package.json $ADDON_TMP/redmatic/lib/
 cd $ADDON_TMP/redmatic/lib
 npm install --silent --no-package-lock --production --no-optional --global-style
 rm $ADDON_TMP/redmatic/lib/package.json
@@ -56,7 +55,7 @@ cd $BUILD_DIR
 echo "creating version files"
 MODULES_DIR=$ADDON_TMP/redmatic/lib/node_modules
 VERSION_FILE=$ADDON_TMP/redmatic/versions
-VERSION_ADDON=`jq -r '.version' package.json`
+VERSION_ADDON=`jq -r '.version' $ADDON_TMP/redmatic/lib/package.json`
 RED_VERSION=`jq -r '.version' $ADDON_TMP/redmatic/lib/node_modules/node-red/package.json`
 
 cat > $VERSION_FILE <<EOL
