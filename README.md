@@ -27,7 +27,9 @@ Softwarepaket, dass auf einer Homematic CCU3 oder RaspberryMatic als Zusatzsoftw
 installiert werden kann. Dadurch bieten sich dann oben genannte Möglichkeiten - ohne die Notwendigkeit neben der CCU 
 einen weiteren 24/7 laufenden Server zu betreiben.
 
-_RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden.
+_RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden. Stand 
+heute ist RedMatic mangels Verfügbarkeit der CCU3 nur auf RaspberryMatic getestet, es ist nicht auszuschließen dass
+noch Anpassungen an die CCU3 vorgenommen werden müssen.
 
 
 ## Schnellstart
