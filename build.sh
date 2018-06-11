@@ -109,13 +109,13 @@ links() {
     fi
 }
 
-for DIR in $(find $MODULES_DIR/ -type d -maxdepth 1 -not -name "node_modules" -not -name ".bin"  -exec basename {} \; | sort -t '\0' -n)
+for DIR in $(find $MODULES_DIR/ -maxdepth 1 -type d -not -name "node_modules" -not -name ".bin"  -exec basename {} \; | sort -t '\0' -n)
 do
     VERSION=$(jq -r '.version' $MODULES_DIR/$DIR/package.json)
     links $DIR $VERSION
 done
 
-for DIR in $(find $ADDON_TMP/redmatic/var/node_modules/ -type d -maxdepth 1 -not -name "node_modules" -not -name ".bin"  -exec basename {} \; | sort -t '\0' -n)
+for DIR in $(find $ADDON_TMP/redmatic/var/node_modules/ -maxdepth 1 -type d -not -name "node_modules" -not -name ".bin"  -exec basename {} \; | sort -t '\0' -n)
 do
     VERSION=$(jq -r '.version' $ADDON_TMP/redmatic/var/node_modules/$DIR/package.json)
     links $DIR $VERSION
