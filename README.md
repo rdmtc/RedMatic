@@ -29,7 +29,7 @@ einen weiteren 24/7 laufenden Server zu betreiben.
 
 _RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden. Stand 
 heute ist RedMatic mangels Verfügbarkeit der CCU3 nur auf RaspberryMatic getestet, es ist nicht auszuschließen dass
-noch Anpassungen an die CCU3 vorgenommen werden müssen.
+noch Anpassungen für die CCU3 vorgenommen werden müssen.
 
 
 ## Schnellstart
