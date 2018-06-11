@@ -9,7 +9,9 @@ branches:
   only:
   - master
 install:
-  - echo "..."
+  - echo "not executing npm install"
+script:
+  - echo "not executing npm test"
 before_deploy:
   - git config --local user.name "hobbyquaker"
   - git config --local user.email "hobbyquaker@gmail.com"
