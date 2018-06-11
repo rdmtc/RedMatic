@@ -8,6 +8,8 @@ addons:
 branches:
   only:
   - master
+install:
+  - echo "..."
 before_deploy:
   - git config --local user.name "hobbyquaker"
   - git config --local user.email "hobbyquaker@gmail.com"
