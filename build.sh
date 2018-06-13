@@ -126,7 +126,7 @@ echo "compressing addon package $ADDON_FILE ..."
 ADDON_FILE=redmatic-$VERSION_ADDON.tar.gz
 mkdir $BUILD_DIR/dist 2> /dev/null
 cd $ADDON_TMP
-tar --exclude=.DS_Store -czf $BUILD_DIR/dist/$ADDON_FILE *
+tar --owner=root --group=root --exclude=.DS_Store -czf $BUILD_DIR/dist/$ADDON_FILE *
 cd $BUILD_DIR
 
 
