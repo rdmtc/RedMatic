@@ -85,6 +85,12 @@ ln -sf $RED_DIR/bin/redmatic $CONF_DIR/rc.d/redmatic
 ln -sf $RED_DIR/etc/lighttpd.conf $CONF_DIR/lighttpd/redmatic.conf
 
 #
+#   Decompress git-core
+#
+tar -xzf $RED_DIR/libexec/git-core.tar.gz --directory $RED_DIR/libexec/
+rm $RED_DIR/libexec/git-core.tar.gz
+
+#
 #   Create Buttons in Homematic WebUI
 #
 touch $CONF_DIR/hm_addons.cfg
