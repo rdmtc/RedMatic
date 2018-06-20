@@ -22,46 +22,16 @@ if [ -f $CONF_DIR/rc.d/redmatic ]; then
 fi
 
 #
+#   Rename extra nodes package.json on update
+#
+if [ -f $RED_DIR/var/package.json ]; then
+    mv $RED_DIR/var/package.json $RED_DIR/var/package.json.old
+fi
+
+#
 #   Install addon files
 #
 cp -af redmatic $ADDONS_DIR/
-
-#
-#   Migration from <= 1.0.0-beta.7
-#
-if [ -d $ADDONS_DIR/node-red ]; then
-
-    if [ -f $CONF_DIR/rc.d/node-red ]; then
-        rm $CONF_DIR/rc.d/node-red
-    fi
-    if [ -f $CONF_DIR/addons/www/check_update_node_red.cgi ]; then
-        rm $CONF_DIR/addons/www/check_update_node_red.cgi
-    fi
-    if [ -f $CONF_DIR/lighttpd/node-red.conf ]; then
-        rm $CONF_DIR/lighttpd/node-red.conf
-    fi
-
-    cp $ADDONS_DIR/node-red/var/flows.json $RED_DIR/var/flows.json
-
-    rm -rf $ADDONS_DIR/node-red
-fi
-
-#
-#   Migration from <= 1.0.0-beta.9
-#
-if [ -d $WWW_DIR ]; then
-    rm -rf $WWW_DIR
-fi
-if [ -f $RED_DIR/lighttpd-error-503.html ]; then
-    rm $RED_DIR/lighttpd-error-503.html
-fi
-if [ -f $RED_DIR/lighttpd.conf ]; then
-    rm $RED_DIR/lighttpd.conf
-fi
-if [ -f $RED_DIR/logo-w-200.png ]; then
-    rm $RED_DIR/logo-w-200.png
-fi
-
 
 #
 #   Create default config on first install
@@ -75,6 +45,16 @@ fi
 #
 if [ ! -f $RED_DIR/var/flows.json ]; then
     mv $RED_DIR/var/example-flows.json $RED_DIR/var/flows.json
+fi
+
+#
+#   Extend extra nodes package.json
+#
+if [ -f $RED_DIR/var/package.json.old ]; then
+    mv $RED_DIR/var/package.json $RED_DIR/var/package.json.new
+    export LD_LIBRARY_PATH=$RED_DIR/lib
+    $RED_DIR/bin/jq -s '.[0] * .[1]' $RED_DIR/var/package.json.old $RED_DIR/var/package.json.new > $RED_DIR/var/package.json
+    rm $RED_DIR/var/package.json.old $RED_DIR/var/package.json.new
 fi
 
 #
