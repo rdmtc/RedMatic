@@ -85,11 +85,11 @@ function getLicense(url) {
             let lic = '';
             if (res && res.statusCode === 200) {
                 if (!files[i].endsWith('.md')) {
-                    lic += '```\n';
+                    lic += '\n```\n';
                 }
                 lic += res.getBody().toString();
                 if (!files[i].endsWith('.md')) {
-                    lic += '```\n';
+                    lic += '\n```\n';
                 }
                 return lic;
             }
