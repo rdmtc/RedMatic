@@ -94,7 +94,16 @@ links() {
             URL=https://github.com/node-red/node-red-dashboard/releases
             ;;
         'node-red-contrib-ccu')
-            URL=https://github.com/hobbyquaker/node-red-contrib-ccu
+            URL=https://flows.nodered.org/node/node-red-contrib-ccu
+            ;;
+        'node-red-contrib-combine')
+            URL=https://flows.nodered.org/node/node-red-contrib-combine
+            ;;
+        'node-red-contrib-mqtt-json')
+            URL=https://flows.nodered.org/node/node-red-contrib-mqtt-json
+            ;;
+        'node-red-contrib-time-range-switch')
+            URL=https://flows.nodered.org/node/node-red-contrib-time-range-switch
             ;;
         *)
             URL=
@@ -126,7 +135,15 @@ echo "compressing addon package $ADDON_FILE ..."
 ADDON_FILE=redmatic-$VERSION_ADDON.tar.gz
 mkdir $BUILD_DIR/dist 2> /dev/null
 cd $ADDON_TMP
-tar --owner=root --group=root --exclude=.DS_Store -czf $BUILD_DIR/dist/$ADDON_FILE *
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [[ -f /usr/local/bin/gtar ]]; then
+        gtar --exclude=.DS_Store --owner=root --group=root -czf $BUILD_DIR/dist/$ADDON_FILE *
+    else
+        tar --exclude=.DS_Store -czf $BUILD_DIR/dist/$ADDON_FILE *
+    fi
+else
+    tar --owner=root --group=root -czf $BUILD_DIR/dist/$ADDON_FILE *
+fi
 cd $BUILD_DIR
 
 
