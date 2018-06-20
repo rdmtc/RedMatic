@@ -12,44 +12,50 @@
 
 <br>
 
-Mit Node-RED und den 
-[CCU Nodes für Node-RED](https://github.com/hobbyquaker/node-red-contrib-ccu) ist es auf einfache und visuelle Weise 
-möglich Regeln, Automationen, Scripte und Anbindungen von externen Services und Systemen für ein Homematic System zu 
-realisieren - und das weitgehend auch ohne Programmierkenntnisse. Im 
-[Wiki](https://github.com/hobbyquaker/RedMatic/wiki) gibt es weitere Informationen zu Node-RED und einige Beispiel-Flows
-mit Screenshots.    
-Die Node-RED Erweiterung [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) ermöglicht es zudem 
-ansprechende User Interfaces für Mobilgeräte und den Browser zu erstellen 
+_RedMatic_ fasst mehrere Softwarekomponenten zu einem CCU Addon zusammen, einem Softwarepaket, dass auf einer Homematic 
+CCU3 oder RaspberryMatic als Zusatzsoftware komfortabel über das WebUI installiert werden kann.
+
+Die Grundlage bildet [Node-RED](https://nodered.org/about/) mit den 
+[CCU Nodes für Node-RED](https://github.com/hobbyquaker/node-red-contrib-ccu). Hiermit ist es auf einfache, visuelle 
+Weise möglich Regeln, Automationen, Scripte und Anbindungen von externen Services und Systemen für ein Homematic System 
+zu realisieren - und das weitgehend auch ohne Programmierkenntnisse. Im 
+[Wiki](https://github.com/hobbyquaker/RedMatic/wiki) gibt es weitere Informationen zu Node-RED und einige 
+Anwendungsbeispiele (sogenannte _Flows_).
+
+Außerdem ist die Node-RED Erweiterung [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) enthalten, 
+mit der ansprechende User Interfaces für Mobilgeräte und den Browser erstellt werden können
 ([Beispiel Screenshots](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots)).
 
-_RedMatic_ fasst diese Softwarekomponenten und das zur Ausführung benötigte Node.js zu einem CCU Addon zusammen, einem 
-Softwarepaket, dass auf einer Homematic CCU3 oder RaspberryMatic als Zusatzsoftware komfortabel über das WebUI 
-installiert werden kann. Dadurch bieten sich dann oben genannte Möglichkeiten - ohne die Notwendigkeit neben der CCU 
-einen weiteren 24/7 laufenden Server zu betreiben.
-
-_RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden. Stand 
-heute ist RedMatic mangels Verfügbarkeit der CCU3 nur auf RaspberryMatic getestet, es ist nicht auszuschließen dass
-noch Anpassungen für die CCU3 vorgenommen werden müssen.
+_RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden. Bisher ist
+_RedMatic_ mangels Verfügbarkeit der CCU3 Firmware nur auf RaspberryMatic getestet, es ist nicht auszuschließen, dass 
+noch Anpassungen an die CCU3 Firmware vorgenommen werden müssen.
 
 
 ## Schnellstart
 
-Unter [Releases](https://github.com/hobbyquaker/RedMatic/releases) steht die `redmatic-<version>.tar.gz` Datei zum 
-Download zur Verfügung. Nach der Installation des Addons über das Homematic WebUI (Systemsteuerung -> Zusatzsoftware) 
-und dem darauf folgenden Reboot der CCU ist Node-RED unter `http://<ccu-addresse>/addons/red` erreichbar. Einige 
-Beispiel-Flows sowie ein einfaches Dashboard sind bereits vorkonfiguriert, das Dashboard ist unter `http://<ccu-addresse>/addons/red/ui` 
-erreichbar.
+Unter [Releases](https://github.com/hobbyquaker/RedMatic/releases/latest) steht die Datei `redmatic-<version>.tar.gz` 
+zum Download zur Verfügung. Nach der Installation des Addons über das Homematic WebUI (Systemsteuerung -> 
+Zusatzsoftware) und dem darauf folgenden Reboot der CCU ist Node-RED unter `http://<ccu-addresse>/addons/red` 
+erreichbar. Einige Beispiel-Flows sowie ein einfaches Dashboard sind bereits vorkonfiguriert, das Dashboard ist unter 
+`http://<ccu-addresse>/addons/red/ui` erreichbar.
 
 
 ## Dokumentation
 
-Die Dokumentation ist im [Wiki](https://github.com/hobbyquaker/RedMatic/wiki) zu finden.
+Die [Dokumentation](https://github.com/hobbyquaker/RedMatic/wiki) ist im Wiki zu finden.
 
 
-## Mitarbeit
+## Support, Mitarbeit
 
-Beteiligung in jeder Form ist willkommen und gewünscht, für Feedback, Fragen, Vorschläge und 
-Fehlerberichte bitte den [Issue Tracker](https://github.com/hobbyquaker/RedMatic/issues) nutzen. 
+Für Feedback jeglicher Art, Fragen, Vorschläge, Wünsche und Fehlerberichte bitte den 
+[Issue Tracker](https://github.com/hobbyquaker/RedMatic/issues) nutzen. 
+
+Beteiligung in jeder Form ist willkommen und gewünscht, insbesondere sind alle Nutzer aufgefordert an der Verbesserung
+und Vervollständigung der [Dokumentation im Wiki](https://github.com/hobbyquaker/RedMatic/wiki) mitzuarbeiten, 
+die [Liste erfolgreich getesteter Nodes](https://github.com/hobbyquaker/RedMatic/wiki/Erfolgreich-getestete-Nodes) zu 
+ergänzen und Beispiel-Flows zu veröffentlichen.
+
+Es werden keine Spenden angenommen.
 
 
 ## Lizenz
@@ -62,16 +68,3 @@ BESCHRÄNKT. IN KEINEM FALL SIND DIE AUTOREN ODER COPYRIGHTINHABER FÜR JEGLICHE
 ZU MACHEN, OB INFOLGE DER ERFÜLLUNG EINES VERTRAGES, EINES DELIKTES ODER ANDERS IM ZUSAMMENHANG MIT DER SOFTWARE ODER 
 SONSTIGER VERWENDUNG DER SOFTWARE ENTSTANDEN.
 
-
-#### Lizenzen enthaltener Softwaremodule
-
-* [node-red-contrib-ccu](https://github.com/hobbyquaker/node-red-contrib-ccu) - MIT 
-  * Copyright Sebastian Raff
-* [Node.js](https://github.com/nodejs/node/blob/master/LICENSE) - MIT 
-  * Copyright Node.js contributors
-* [Node-RED](https://github.com/node-red/node-red/blob/master/LICENSE) - Apache 2.0 
-  * Copyright JS Foundation and other contributors
-* [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard/blob/master/LICENSE) - Apache 2.0 
-  * Copyright 2016, 2018 JS Foundation and other contributors
-  * Copyright 2016 IBM Corp.
-  * Copyright 2015 Andrei Tatar
