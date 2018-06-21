@@ -60,7 +60,8 @@ fi
 #
 #   Create Links
 #
-ln -sf $RED_DIR/www $WWW_DIR
+rmdir $WWW_DIR rmdir $WWW_DIR
+ln -sfT $RED_DIR/www $WWW_DIR
 ln -sf $RED_DIR/bin/redmatic $CONF_DIR/rc.d/redmatic
 ln -sf $RED_DIR/etc/lighttpd.conf $CONF_DIR/lighttpd/redmatic.conf
 
