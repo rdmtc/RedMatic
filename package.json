@@ -23,6 +23,9 @@
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",
   "devDependencies": {
+    "github-markdown-css": "^2.10.0",
+    "npm-check-updates": "^2.14.2",
+    "showdown": "^1.8.6",
     "sync-request": "^6.0.0"
   }
 }
