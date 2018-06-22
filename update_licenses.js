@@ -1,18 +1,21 @@
 const fs = require('fs');
 const request = require('sync-request');
+const showdown  = require('showdown');
+const converter = new showdown.Converter();
 
 const outfile = __dirname + '/LICENSES.md';
+const outfileHtml = __dirname + '/addon_files/redmatic/www/licenses.html';
 
 const paths = [
     __dirname + '/addon_tmp/redmatic/var',
-    __dirname + '/addon_tmp/redmatic/var/lib',
+    __dirname + '/addon_tmp/redmatic/lib',
     __dirname + '/addon_tmp/redmatic/www'
 ];
 
 const files = [
-    'master/NOTICE',
     'master/LICENSE',
     'master/LICENSE.md',
+   /*
     'master/LICENSE.txt',
     'master/LICENSE-MIT.txt',
     'latest/NOTICE',
@@ -20,6 +23,7 @@ const files = [
     'latest/LICENSE.md',
     'latest/LICENSE.txt',
     'latest/LICENSE-MIT.txt',
+    */
 ];
 
 let modules = {};
@@ -30,7 +34,7 @@ function getModules(path) {
         const dir = fs.readdirSync(path);
         dir.forEach((d, i) => {
             if (fs.existsSync(path + '/' + d + '/package.json')) {
-                console.log(i + ' / ' + dir.length);
+                console.log((i + 1) + ' / ' + dir.length);
                 const pkg = require(path + '/' + d + '/package.json');
 
                 let author = '';
@@ -80,7 +84,7 @@ function getLicense(url) {
     console.log('   ', url);
     for (let i = 0; i < files.length; i++) {
         try {
-            const res = request('GET', url + files[i]);
+            const res = request('GET', url + files[i], {timeout: 5000, cache: 'file'});
             console.log('   ', res && res.statusCode, files[i]);
             let lic = '';
             if (res && res.statusCode === 200) {
@@ -100,18 +104,51 @@ function getLicense(url) {
     return '';
 }
 
-fs.writeFileSync(outfile, '');
-Object.keys(modules).sort().forEach(name => {
-    let out = `# ${name}
+let out = '';
+
+modules['Node.js'] = {
+    license: 'MIT',
+    licTxt: '\n' + fs.readFileSync(__dirname + '/addon_tmp/redmatic/LICENSE_Nodejs').toString().replace(/"""/g, '\n```\n') + '\n',
+    url: 'https://nodejs.org'
+};
+
+modules['RedMatic'] = {
+    license: 'Apache-2.0',
+    author: 'Sebastian Raff <hobbyquaker@gmail.com>',
+    licTxt: '\n```\n' + fs.readFileSync(__dirname + '/LICENSE').toString() + '\n```\n',
+    url: 'https://github.com/hobbyquaker/RedMatic'
+};
+
+Object.keys(modules).sort((a, b) => {
+    return a.toLowerCase().localeCompare(b.toLowerCase());
+}).forEach(name => {
+    out += `
+   
+# ${name}
     
 License: ${modules[name].license}    
 Author: ${modules[name].author}    
-Repository: ${modules[name].url}    
+Repository: [${modules[name].url}](${modules[name].url})      
 
 ${modules[name].licTxt}
 
 
 `;
-
-    fs.appendFileSync(outfile, out);
 });
+
+let htmlHead = `
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+`;
+
+htmlHead += fs.readFileSync(__dirname + '/node_modules/github-markdown-css/github-markdown.css').toString();
+
+htmlHead += `
+</style>
+<body class="markdown-body">
+`;
+
+const htmlFoot = `</body>`;
+
+fs.writeFileSync(outfile, out);
+fs.writeFileSync(outfileHtml, htmlHead + converter.makeHtml(out) + htmlFoot);
