@@ -28,14 +28,23 @@ $(document).ready(() => {
     const $alertError = $('#alert-error');
     const $alertRestart = $('#alert-restart');
 
+    $alertSaved.hide();
+    $alertError.hide();
+    $alertRestart.hide();
+
     const $restart = $('#restart');
 
     let config;
 
+
     function alert($elem) {
+        $elem.show();
         $elem.addClass('show');
         setTimeout(() => {
             $elem.removeClass('show');
+            setTimeout(() => {
+                $elem.hide();
+            }, 200);
         }, 1600);
     }
 
