@@ -10,129 +10,150 @@
 <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
 
-<nav class="navbar sticky-top navbar-light bg-light mb-4">
+<nav class="navbar sticky-top navbar-light bg-light mb-4" >
     <img src="logo-x-120.png" style="height: 42px; ">
+
+    <ul class="nav navbar-nav mr-auto d-flex flex-row mt-2" role="tablist" id="myTab">
+        <li class="nav-item ml-3">
+            <a class="nav-link active pb-0" id="configuration-tab" data-toggle="tab" role="tab" aria-controls="configuration" aria-selected href="#configuration">Configuration</a>
+        </li>
+        <li class="nav-item ml-3">
+            <a class="nav-link pb-0" id="licenses-tab" data-toggle="tab" role="tab" aria-controls="licenses" href="#licenses">Licenses</a>
+        </li>
+    </ul>
 </nav>
 
-<div class="container">
+<div id="container" class="container">
 
 
-    <div id="alert-saved" class="fixed-top mx-auto alert alert-success alert-dismissible fade" role="alert">
+    <div id="alert-saved" style="display: none;" class="fixed-top mx-auto alert alert-success alert-dismissible fade" role="alert">
         <strong>Settings saved</strong>
     </div>
 
-    <div id="alert-error" class="fixed-top mx-auto alert alert-error alert-dismissible fade" role="alert">
+    <div id="alert-error" style="display: none;" class="fixed-top mx-auto alert alert-error alert-dismissible fade" role="alert">
         <strong>An error occured</strong>
     </div>
 
-    <div id="alert-restart" class="fixed-top mx-auto alert alert-success alert-dismissible fade" role="alert">
+    <div id="alert-restart" style="display: none;" class="fixed-top mx-auto alert alert-success alert-dismissible fade" role="alert">
         <strong>Node-RED restarted</strong>
     </div>
 
-    <div class="card mb-4">
-        <div class="card-body">
-            <div class="form-group">
-                <label for="loglevel">Log Level</label>
-                <select class="form-control" id="loglevel">
-                    <option>fatal</option>
-                    <option>error</option>
-                    <option>warn</option>
-                    <option>info</option>
-                    <option>debug</option>
-                    <option>trace</option>
-                </select>
-            </div>
-        </div>
-    </div>
 
-    <div class="card mb-4">
-        <div class="card-body">
-            <div class="form-group">
-                <label for="adminauth-type">Admin Auth</label>
-                <select class="form-control" id="adminauth-type">
-                    <option value="none">None</option>
-                    <option value="credentials">Credentials</option>
-                </select>
-            </div>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">
 
-            <div class="form-group" id="adminauth-credentials" style="display:none">
-                <div class="row">
-                    <div class="col-sm">
-                        <input class="form-control" id="adminauth-user" placeholder="User" required>
-                    </div>
-                    <div class="col-sm">
-                        <input class="form-control" type="password" id="adminauth-pass1" placeholder="Password">
-                    </div>
-                    <div class="col-sm">
-                        <input class="form-control" type="password" id="adminauth-pass2" placeholder="Repeat password">
-                    </div>
-                    <div class="col-md-auto">
-                        <button id="adminauth-set" type="button" class="btn btn-primary">Set</button>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="loglevel">Log Level</label>
+                        <select class="form-control" id="loglevel">
+                            <option>fatal</option>
+                            <option>error</option>
+                            <option>warn</option>
+                            <option>info</option>
+                            <option>debug</option>
+                            <option>trace</option>
+                        </select>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="card mb-4">
-        <div class="card-body">
-            <div class="form-group">
-                <label for="nodeauth-type">Node Auth</label>
-                <select class="form-control" id="nodeauth-type">
-                    <option value="none">None</option>
-                    <option value="basic">Basic</option>
-                </select>
-            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="adminauth-type">Admin Auth</label>
+                        <select class="form-control" id="adminauth-type">
+                            <option value="none">None</option>
+                            <option value="credentials">Credentials</option>
+                        </select>
+                    </div>
 
-            <div class="form-group" id="nodeauth-credentials" style="display:none">
-                <div class="row">
-                    <div class="col-sm">
-                        <input class="form-control" id="nodeauth-user" placeholder="User">
-                    </div>
-                    <div class="col-sm">
-                        <input class="form-control" type="password" id="nodeauth-pass1" placeholder="Password">
-                    </div>
-                    <div class="col-sm">
-                        <input class="form-control" type="password" id="nodeauth-pass2" placeholder="Repeat password">
-                    </div>
-                    <div class="col-md-auto">
-                        <button id="nodeauth-set" type="button" class="btn btn-primary">Set</button>
+                    <div class="form-group" id="adminauth-credentials" style="display:none">
+                        <div class="row">
+                            <div class="col-sm">
+                                <input class="form-control" id="adminauth-user" placeholder="User" required>
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-control" type="password" id="adminauth-pass1" placeholder="Password">
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-control" type="password" id="adminauth-pass2" placeholder="Repeat password">
+                            </div>
+                            <div class="col-md-auto">
+                                <button id="adminauth-set" type="button" class="btn btn-primary">Set</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="card mb-4">
-        <div class="card-body">
-            <div class="form-group">
-                <label for="staticauth-type">Static Auth</label>
-                <select class="form-control" id="staticauth-type">
-                    <option value="none">None</option>
-                    <option value="basic">Basic</option>
-                </select>
-            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="nodeauth-type">Node Auth</label>
+                        <select class="form-control" id="nodeauth-type">
+                            <option value="none">None</option>
+                            <option value="basic">Basic</option>
+                        </select>
+                    </div>
 
-            <div class="form-group" id="staticauth-credentials" style="display:none">
-                <div class="row">
-                    <div class="col-sm">
-                        <input class="form-control" id="staticauth-user" placeholder="User">
-                    </div>
-                    <div class="col-sm">
-                        <input class="form-control" type="password" id="staticauth-pass1" placeholder="Password">
-                    </div>
-                    <div class="col-sm">
-                        <input class="form-control" type="password" id="staticauth-pass2" placeholder="Repeat password">
-                    </div>
-                    <div class="col-md-auto">
-                        <button id="staticauth-set" type="button" class="btn btn-primary">Set</button>
+                    <div class="form-group" id="nodeauth-credentials" style="display:none">
+                        <div class="row">
+                            <div class="col-sm">
+                                <input class="form-control" id="nodeauth-user" placeholder="User">
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-control" type="password" id="nodeauth-pass1" placeholder="Password">
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-control" type="password" id="nodeauth-pass2" placeholder="Repeat password">
+                            </div>
+                            <div class="col-md-auto">
+                                <button id="nodeauth-set" type="button" class="btn btn-primary">Set</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="staticauth-type">Static Auth</label>
+                        <select class="form-control" id="staticauth-type">
+                            <option value="none">None</option>
+                            <option value="basic">Basic</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="staticauth-credentials" style="display:none">
+                        <div class="row">
+                            <div class="col-sm">
+                                <input class="form-control" id="staticauth-user" placeholder="User">
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-control" type="password" id="staticauth-pass1" placeholder="Password">
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-control" type="password" id="staticauth-pass2" placeholder="Repeat password">
+                            </div>
+                            <div class="col-md-auto">
+                                <button id="staticauth-set" type="button" class="btn btn-primary">Set</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="restart" type="button" class="btn btn-primary mb-4">Restart Node-RED</button>
+
+        </div>
+
+        <div class="tab-pane fade show" id="licenses" role="tabpanel" aria-labelledby="licenses-tab">
+            <iframe src="licenses.html"></iframe>
         </div>
     </div>
 
-    <button id="restart" type="button" class="btn btn-primary mb-4">Restart Node-RED</button>
 </div>
 
 <script src="js/script.js"></script>

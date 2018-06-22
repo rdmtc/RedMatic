@@ -2,3 +2,29 @@
     width: 300px;
     margin: 4px;
 }
+
+html, body {
+    height: 100%;
+}
+
+#container {
+    height: calc(100% - 82px);
+}
+
+#licenses {
+    height: calc(100% - 40px);
+    width: 100%;
+}
+
+iframe {
+    border: 1px solid lightgrey;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+
+}
+
+#myTabContent {
+    height: 100%;
+}
