@@ -71,15 +71,12 @@ erreichbar. Einige Beispiel-Flows sowie ein einfaches Dashboard sind bereits vor
 Für Feedback jeglicher Art, Fragen, Vorschläge, Wünsche und Fehlerberichte bitte den 
 [Issue Tracker](https://github.com/hobbyquaker/RedMatic/issues) nutzen. 
 
-Beteiligung in jeder Form ist willkommen und gewünscht, insbesondere sind alle Nutzer aufgefordert an der Verbesserung
-und Vervollständigung der [Dokumentation im Wiki](https://github.com/hobbyquaker/RedMatic/wiki) mitzuarbeiten, 
-die [Liste erfolgreich getesteter Nodes](https://github.com/hobbyquaker/RedMatic/wiki/Erfolgreich-getestete-Nodes) zu 
-ergänzen und Beispiel-Flows zu veröffentlichen.
+Beteiligung in jeder Form ist willkommen und gewünscht, insbesondere sind alle Nutzer aufgefordert die [Liste erfolgreich getesteter Nodes](https://github.com/hobbyquaker/RedMatic/wiki/Erfolgreich-getestete-Nodes) zu ergänzen, Beispiel-Flows zu veröffentlichenan und an der Verbesserung und Erweiterung der [Dokumentation im Wiki](https://github.com/hobbyquaker/RedMatic/wiki) mitzuarbeiten.
 
 Es werden keine Spenden angenommen.
 
 
-## Lizenz
+## Lizenzen
 
 * [RedMatic](https://github.com/hobbyquaker/RedMatic) Copyright © 2018 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
 * [RedMatic Documentation](https://github.com/hobbyquaker/RedMatic/wiki) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
