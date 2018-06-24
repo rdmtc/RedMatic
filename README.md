@@ -78,7 +78,7 @@ Es werden keine Spenden angenommen.
 
 ## Lizenzen
 
-* [RedMatic](https://github.com/hobbyquaker/RedMatic) Copyright © 2018 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
+* [RedMatic](https://github.com/hobbyquaker/RedMatic) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
 * [RedMatic Documentation](https://github.com/hobbyquaker/RedMatic/wiki) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 * [Licenses of included software modules](LICENSES.md)
 
