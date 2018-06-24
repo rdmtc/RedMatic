@@ -81,7 +81,7 @@ Es werden keine Spenden angenommen.
 
 ## Lizenz
 
-[Apache 2.0 - Copyright © 2018 Sebastian Raff and RedMatic Contributors](LICENSE)
+RedMatic Copyright © 2018 Sebastian Raff and RedMatic Contributors, licensed under [Apache 2.0 License](LICENSE)
 
 DIE SOFTWARE WIRD OHNE JEDE AUSDRÜCKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, EINSCHLIEẞLICH DER GARANTIE ZUR 
 BENUTZUNG FÜR DEN VORGESEHENEN ODER EINEM BESTIMMTEN ZWECK SOWIE JEGLICHER RECHTSVERLETZUNG, JEDOCH NICHT DARAUF 
