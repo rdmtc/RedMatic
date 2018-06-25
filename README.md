@@ -59,6 +59,8 @@ erreichbar. Einige Beispiel-Flows sowie ein einfaches Dashboard sind bereits vor
   * [UNREACH Meldung unterdrücken](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Unreach)
   * [Anzeigen und Setzen von Systemvariablen im Dashboard](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Sysvar-Dashboard)
   * [DutyCycle Graph im Dashboard anzeigen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-DutyCycle)
+  * [Per Pushover benachrichtigen wenn Fenster länger als 10 Minuten offen ist](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Window-Pushover)
+* Von Usern bereitgestellte Flows
   * [Textausgabe mittels Chromecast oder Google Home](https://github.com/hobbyquaker/RedMatic/wiki/Flow-speak-text-on-Google)
   * [Berechnung von Feiertagen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-to-calculate-german-holidays)
   * [Funktion nur innerhalb einer bestimmten Uhr-Zeit ausführen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-within-time)
