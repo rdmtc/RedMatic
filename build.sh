@@ -130,7 +130,7 @@ do
     links $DIR $VERSION
 done
 
-echo "\n[Travis Build #$TRAVIS_BUILD_NUMBER](https://travis-ci.org/hobbyquaker/RedMatic/builds/$TRAVIS_BUILD_ID)" >> CHANGELOG.md
+echo -e "\n\n[Travis Build #$TRAVIS_BUILD_NUMBER](https://travis-ci.org/hobbyquaker/RedMatic/builds/$TRAVIS_BUILD_ID)" >> CHANGELOG.md
 
 
 echo "compressing addon package $ADDON_FILE ..."
