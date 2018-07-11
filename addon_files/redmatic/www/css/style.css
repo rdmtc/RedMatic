@@ -28,3 +28,15 @@ iframe {
 #myTabContent {
     height: 100%;
 }
+
+.status-running {
+    color: darkgreen;
+}
+
+.status-starting {
+    color: orange;
+}
+
+.status-stopped {
+    color: red;
+}
