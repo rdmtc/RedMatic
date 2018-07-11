@@ -26,16 +26,103 @@ $(document).ready(() => {
     
     const $alertSaved = $('#alert-saved');
     const $alertError = $('#alert-error');
-    const $alertRestart = $('#alert-restart');
+    const $alertExec = $('#alert-exec');
+
+    const $status = $('#node-red-status');
+    const $memory = $('#node-red-memory');
 
     $alertSaved.hide();
     $alertError.hide();
-    $alertRestart.hide();
+    $alertExec.hide();
 
     const $restart = $('#restart');
+    const $start = $('#start');
+    const $stop = $('#stop');
+
+    const $linkRed = $('#link-red');
+    const $linkUi = $('#link-ui');
 
     let config;
 
+    const qs = location.search;
+    let sid = '';
+    let tmp = qs.match(/sid=(@[0-9a-zA-Z]{10}@)/);
+    if (tmp) {
+        sid = tmp[1];
+        $('#backup').removeClass('disabled').attr('href', 'backup.cgi?sid=' + sid);
+    }
+
+    let psTimeout;
+    let psInterval = 5000;
+
+    function ps() {
+        clearTimeout(psTimeout);
+        $.get(`service.cgi?sid=${sid}&cmd=ps`, (data, success) => {
+            console.log(data);
+            const lines = data.split('\n');
+            let found = false;
+            lines.forEach(line => {
+                let match;
+                match = line.match(/([0-9]+[a-z]?)\s+([0-9]+[a-z]?)\s+node-red\s+node-red/);
+                if (match) {
+                    let [, vsz, rss] = match;
+                    vsz = vsz.replace('m', 'MB').replace('g', 'GB');
+                    rss = rss.replace('m', 'MB').replace('g', 'GB');
+                    if (!vsz.endsWith('B')) {
+                        vsz += 'kB';
+                    }
+                    if (!rss.endsWith('B')) {
+                        rss += 'kB';
+                    }
+                    $status.html('<span class="status-running">running</span>');
+                    $memory.html(`vsz ${vsz}, rss ${rss}`);
+                    found = true;
+                    $restart.removeClass('disabled');
+                    $stop.removeClass('disabled');
+                    $linkRed.removeClass('disabled');
+                    $linkUi.removeClass('disabled');
+                    $start.addClass('disabled');
+                    psInterval = 10000;
+                    return;
+                }
+                match = line.match(/([0-9]+[a-z]?)\s+([0-9]+[a-z]?)\s+.*red.js/);
+                if (match) {
+                    let [, vsz, rss] = match;
+                    vsz = vsz.replace('m', 'MB').replace('g', 'GB');
+                    rss = rss.replace('m', 'MB').replace('g', 'GB');
+                    if (!vsz.endsWith('B')) {
+                        vsz += 'kB';
+                    }
+                    if (!rss.endsWith('B')) {
+                        rss += 'kB';
+                    }
+                    $status.html('<span class="status-starting">starting</span>');
+                    $memory.html(`vsz ${vsz}, rss ${rss}`);
+                    found = true;
+                    $restart.addClass('disabled');
+                    $stop.addClass('disabled');
+                    $start.addClass('disabled');
+                    $linkRed.addClass('disabled');
+                    $linkUi.addClass('disabled');
+                    psInterval = 2500;
+                    return;
+                }
+            });
+            if (!found) {
+                $status.html('<span class="status-stopped">stopped</span>');
+                $memory.html('');
+                $restart.addClass('disabled');
+                $stop.addClass('disabled');
+                $start.removeClass('disabled');
+                $linkRed.addClass('disabled');
+                $linkUi.addClass('disabled');
+                psInterval = 10000;
+            }
+            psTimeout = setTimeout(ps, psInterval);
+        });
+    }
+
+    ps();
 
     function alert($elem) {
         $elem.show();
@@ -240,12 +327,57 @@ $(document).ready(() => {
 
     $restart.click(() => {
         $restart.addClass('disabled');
+        $stop.addClass('disabled');
+        $start.addClass('disabled');
+        $status.html('<span class="status-starting">stopping</span>');
+        $memory.html('');
         $.get({
-            url: 'restart.cgi' + location.search,
+            url: `service.cgi?sid=${sid}&cmd=restart`,
             success: data => {
-                $restart.removeClass('disabled');
                 if (data.match(/Starting Node-RED: OK/)) {
-                    alert($alertRestart);
+                    psInterval = 2000;
+                    ps();
+                    alert($alertExec);
+                } else {
+                    alert($alertError);
+                }
+            }
+        });
+    });
+
+    $start.click(() => {
+        $restart.addClass('disabled');
+        $stop.addClass('disabled');
+        $start.addClass('disabled');
+        $status.html('<span class="status-starting">starting</span>');
+        $memory.html('');
+        $.get({
+            url: `service.cgi?sid=${sid}&cmd=start`,
+            success: data => {
+                if (data.match(/Starting Node-RED: OK/)) {
+                    psInterval = 2000;
+                    ps();
+                    alert($alertExec);
+                } else {
+                    alert($alertError);
+                }
+            }
+        });
+    });
+
+    $stop.click(() => {
+        $restart.addClass('disabled');
+        $stop.addClass('disabled');
+        $start.addClass('disabled');
+        $status.html('<span class="status-starting">stopping</span>');
+        $memory.html('');
+        $.get({
+            url: `service.cgi?sid=${sid}&cmd=stop`,
+            success: data => {
+                if (data.match(/Stopping Node-RED: OK/)) {
+                    alert($alertExec);
+                    psInterval = 2000;
+                    ps();
                 } else {
                     alert($alertError);
                 }

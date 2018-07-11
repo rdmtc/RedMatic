@@ -18,9 +18,15 @@
             <a class="nav-link active pb-0" id="configuration-tab" data-toggle="tab" role="tab" aria-controls="configuration" aria-selected href="#configuration">Configuration</a>
         </li>
         <li class="nav-item ml-3">
+            <a class="nav-link pb-0" id="link-wiki" target="_blank" href="https://github.com/hobbyquaker/RedMatic/wiki">Documentation</a>
+        </li>
+        <li class="nav-item ml-3">
             <a class="nav-link pb-0" id="licenses-tab" data-toggle="tab" role="tab" aria-controls="licenses" href="#licenses">Licenses</a>
         </li>
     </ul>
+
+
+
 </nav>
 
 <div id="container" class="container">
@@ -34,13 +40,31 @@
         <strong>An error occured</strong>
     </div>
 
-    <div id="alert-restart" style="display: none;" class="fixed-top mx-auto alert alert-success alert-dismissible fade" role="alert">
-        <strong>Node-RED restarted</strong>
+    <div id="alert-exec" style="display: none;" class="fixed-top mx-auto alert alert-success alert-dismissible fade" role="alert">
+        <strong>Command executed</strong>
     </div>
 
 
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <a id="link-red" role="button" class="btn btn-sm btn-outline-info" target="_blank" href="/addons/red/">Node-RED</a>
+                    <a id="link-ui" role="button" class="btn btn-sm btn-outline-info mr-3" target="_blank" href="/addons/red/ui/">Dashboard</a>
+
+                    <!--<a id="backup" role="button" class="btn btn-sm btn-primary mr-3 disabled">Backup</a>-->
+
+                    <button id="restart" type="button" class="btn btn-sm btn-warning">Restart</button>
+                    <button id="stop" type="button" class="btn btn-sm btn-warning">Stop</button>
+                    <button id="start" type="button" class="btn btn-sm btn-warning mr-1">Start</button>
+
+                    <div style="vertical-align: middle; display: inline-block; width: 148px; font-size: 11px; color: grey;" class="">
+                        <div>Node-RED: <span id="node-red-status" style="font-weight: bold;"></span></div>
+                        <div><span id="node-red-memory"  style="font-weight: bold;"></span>&nbsp;</div>
+                    </div>
+                </div>
+            </div>
 
             <div class="card mb-4">
                 <div class="card-body">
@@ -145,7 +169,6 @@
                 </div>
             </div>
 
-            <button id="restart" type="button" class="btn btn-primary mb-4">Restart Node-RED</button>
 
         </div>
 
