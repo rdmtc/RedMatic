@@ -19,7 +19,7 @@ curl --silent $NODE_URL | tar -xJf - -C $ADDON_TMP
 mv $ADDON_TMP/$NODE_NAME $ADDON_TMP/redmatic
 rm $ADDON_TMP/redmatic/README.md
 rm $ADDON_TMP/redmatic/CHANGELOG.md
-rm $ADDON_TMP/redmatic/LICENSE
+mv $ADDON_TMP/redmatic/LICENSE $BUILD_DIR/LICENSE_Nodejs
 
 
 echo "copying files to tmp dir..."

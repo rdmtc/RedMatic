@@ -108,7 +108,7 @@ let out = '';
 
 modules['Node.js'] = {
     license: 'MIT',
-    licTxt: '\n' + fs.readFileSync(__dirname + '/addon_tmp/redmatic/LICENSE_Nodejs').toString().replace(/"""/g, '\n```\n') + '\n',
+    licTxt: '\n' + fs.readFileSync(__dirname + '/LICENSE_Nodejs').toString().replace(/"""/g, '\n```\n') + '\n',
     url: 'https://nodejs.org'
 };
 
