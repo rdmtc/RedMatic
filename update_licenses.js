@@ -14,14 +14,24 @@ const paths = [
 
 const files = [
     'master/LICENSE',
+    'master/license',
+    'master/License',
     'master/LICENSE.md',
+    'master/license.md',
     'master/LICENSE.txt',
     'master/LICENSE-MIT.txt',
     'latest/NOTICE',
     'latest/LICENSE',
+    'latest/License',
+    'latest/license',
     'latest/LICENSE.md',
+    'latest/license.md',
     'latest/LICENSE.txt',
-    'latest/LICENSE-MIT.txt'
+    'latest/LICENSE-MIT.txt',
+    'master/README.md',
+    'master/Readme.md',
+    'latest/README.md',
+    'latest/Readme.md'
 ];
 
 let modules = {};
@@ -91,6 +101,14 @@ function getLicense(url) {
                     lic += '\n```\n';
                 }
                 lic += res.getBody().toString();
+                if (files[i].endsWith('README.md')) {
+                    if (lic.match(/# License\s*\n/)) {
+                        lic = lic.split('# License')[1];
+                    } else {
+                        return '';
+                    }
+                }
+
                 if (!files[i].endsWith('.md')) {
                     lic += '\n```\n';
                 }
