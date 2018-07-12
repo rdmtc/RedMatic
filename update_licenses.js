@@ -15,21 +15,18 @@ const paths = [
 const files = [
     'master/LICENSE',
     'master/LICENSE.md',
-   /*
     'master/LICENSE.txt',
     'master/LICENSE-MIT.txt',
     'latest/NOTICE',
     'latest/LICENSE',
     'latest/LICENSE.md',
     'latest/LICENSE.txt',
-    'latest/LICENSE-MIT.txt',
-    */
+    'latest/LICENSE-MIT.txt'
 ];
 
 let modules = {};
 
 function getModules(path) {
-    path += '/node_modules';
     if (fs.existsSync(path)) {
         const dir = fs.readdirSync(path);
         dir.forEach((d, i) => {
@@ -70,6 +67,8 @@ function getModules(path) {
                     url,
                     licTxt: license
                 };
+                getModules(path + '/' + d + '/node_modules');
+            } else if (d.startsWith('@')) {
                 getModules(path + '/' + d);
             }
         });
@@ -77,7 +76,7 @@ function getModules(path) {
 }
 
 paths.forEach(path => {
-    getModules(path);
+    getModules(path + '/node_modules');
 });
 
 function getLicense(url) {
