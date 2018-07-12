@@ -101,7 +101,7 @@ function getLicense(url) {
                     lic += '\n```\n';
                 }
                 lic += res.getBody().toString();
-                if (files[i].endsWith('README.md')) {
+                if (files[i].match(/README/i)) {
                     if (lic.match(/# License\s*\n/)) {
                         lic = lic.split('# License')[1];
                     } else {
