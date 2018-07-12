@@ -82,6 +82,7 @@ case "$1" in
     Stop
     $ADDON_DIR/bin/update_addon node-red
     $ADDON_DIR/bin/update_addon node-red-dashboard
+    $ADDON_DIR/bin/update_addon redmatic
     rm -r $ADDON_DIR
     rm -r $WWW_DIR
     rm $CONF_DIR/lighttpd/redmatic.conf

@@ -81,7 +81,7 @@ rm $RED_DIR/libexec/git-core.tar.gz
 #   Create Buttons in Homematic WebUI
 #
 touch $CONF_DIR/hm_addons.cfg
-./update_addon redmatic.cfg
+./update_addon redmatic redmatic.cfg
 
 sync
 exit 0
