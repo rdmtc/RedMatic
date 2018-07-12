@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
 
-<title>RedMatic Config</title>
+<title>RedMatic</title>
 
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="node_modules/bcryptjs/dist/bcrypt.min.js"></script>
@@ -11,26 +11,19 @@
 <link rel="stylesheet" href="css/style.css">
 
 <nav class="navbar sticky-top navbar-light bg-light mb-4" >
-    <img src="logo-x-120.png" style="height: 42px; ">
+    <a href="https://github.com/hobbyquaker/RedMatic" target="_blank"><img src="logo-x-120.png" style="height: 42px; "></a>
 
     <ul class="nav navbar-nav mr-auto d-flex flex-row mt-2" role="tablist" id="myTab">
         <li class="nav-item ml-3">
             <a class="nav-link active pb-0" id="configuration-tab" data-toggle="tab" role="tab" aria-controls="configuration" aria-selected href="#configuration">Configuration</a>
         </li>
         <li class="nav-item ml-3">
-            <a class="nav-link pb-0" id="link-wiki" target="_blank" href="https://github.com/hobbyquaker/RedMatic/wiki">Documentation</a>
-        </li>
-        <li class="nav-item ml-3">
             <a class="nav-link pb-0" id="licenses-tab" data-toggle="tab" role="tab" aria-controls="licenses" href="#licenses">Licenses</a>
         </li>
     </ul>
-
-
-
 </nav>
 
 <div id="container" class="container">
-
 
     <div id="alert-saved" style="display: none;" class="fixed-top mx-auto alert alert-success alert-dismissible fade" role="alert">
         <strong>Settings saved</strong>
@@ -43,7 +36,6 @@
     <div id="alert-exec" style="display: none;" class="fixed-top mx-auto alert alert-success alert-dismissible fade" role="alert">
         <strong>Command executed</strong>
     </div>
-
 
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">
@@ -169,14 +161,12 @@
                 </div>
             </div>
 
-
         </div>
 
         <div class="tab-pane fade show" id="licenses" role="tabpanel" aria-labelledby="licenses-tab">
             <iframe src="licenses.html"></iframe>
         </div>
     </div>
-
 </div>
 
 <script src="js/script.js"></script>
