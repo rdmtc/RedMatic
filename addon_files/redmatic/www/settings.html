@@ -8,6 +8,7 @@
 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
 <link rel="stylesheet" href="css/style.css">
 
 <nav class="navbar sticky-top navbar-light bg-light mb-4" >
@@ -42,14 +43,14 @@
 
             <div class="card mb-4">
                 <div class="card-body">
-                    <a id="link-red" role="button" class="btn btn-sm btn-outline-info" target="_blank" href="/addons/red/">Node-RED</a>
-                    <a id="link-ui" role="button" class="btn btn-sm btn-outline-info mr-3" target="_blank" href="/addons/red/ui/">Dashboard</a>
+                    <a id="link-red" role="button" class="btn btn-sm btn-outline-info" target="_blank" href="/addons/red/"><i class="fa fa-external-link-alt"></i> Node-RED</a>
+                    <a id="link-ui" role="button" class="btn btn-sm btn-outline-info mr-3" target="_blank" href="/addons/red/ui/"><i class="fa fa-external-link-alt"></i> Dashboard</a>
 
                     <!--<a id="backup" role="button" class="btn btn-sm btn-primary mr-3 disabled">Backup</a>-->
 
-                    <button id="restart" type="button" class="btn btn-sm btn-warning">Restart</button>
-                    <button id="stop" type="button" class="btn btn-sm btn-warning">Stop</button>
-                    <button id="start" type="button" class="btn btn-sm btn-warning mr-1">Start</button>
+                    <button id="restart" type="button" class="btn btn-sm btn-warning"><i class="fa fa-sync-alt"></i> Restart</button>
+                    <button id="stop" type="button" class="btn btn-sm btn-warning"><i class="fa fa-stop"></i> Stop</button>
+                    <button id="start" type="button" class="btn btn-sm btn-warning mr-1"><i class="fa fa-play"></i> Start</button>
 
                     <div style="vertical-align: middle; display: inline-block; width: 148px; font-size: 11px; color: grey;" class="">
                         <div>Node-RED: <span id="node-red-status" style="font-weight: bold;"></span></div>
