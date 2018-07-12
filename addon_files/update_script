@@ -72,11 +72,16 @@ tar -xzf $RED_DIR/libexec/git-core.tar.gz --directory $RED_DIR/libexec/
 rm $RED_DIR/libexec/git-core.tar.gz
 
 #
+#   Migration: Remove old Buttons (=< v1.0.3)
+#
+./update_addon node-red
+./update_addon node-red-dashboard
+
+#
 #   Create Buttons in Homematic WebUI
 #
 touch $CONF_DIR/hm_addons.cfg
-./update_addon node-red node-red.cfg
-./update_addon node-red-dashboard node-red-dashboard.cfg
+./update_addon redmatic.cfg
 
 sync
 exit 0
