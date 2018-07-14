@@ -34,6 +34,8 @@ const files = [
     'latest/Readme.md'
 ];
 
+const notFound = [];
+
 let modules = {};
 
 function getModules(path) {
@@ -71,6 +73,12 @@ function getModules(path) {
                     license = getLicense(licUrl);
                 }
 
+                if (!license) {
+                    if (notFound.indexOf(pkg.name + '\t' +  url) === -1) {
+                        notFound.push(pkg.name + '\t' +  url);
+                    }
+                }
+
                 modules[pkg.name] = {
                     license: pkg.license || '',
                     author,
@@ -89,6 +97,9 @@ paths.forEach(path => {
     getModules(path + '/node_modules');
 });
 
+console.log('\n\nNo License Texts found for:');
+console.log(notFound.join('\n'));
+
 function getLicense(url) {
     console.log('   ', url);
     for (let i = 0; i < files.length; i++) {
@@ -104,6 +115,10 @@ function getLicense(url) {
                 if (files[i].match(/README/i)) {
                     if (lic.match(/# License\s*\n/)) {
                         lic = lic.split('# License')[1];
+                    } else if (lic.match(/# license\s*\n/)) {
+                        lic = lic.split('# license')[1];
+                    } else if (lic.match(/# LICENSE\s*\n/)) {
+                        lic = lic.split('# LICENSE')[1];
                     } else {
                         return '';
                     }
