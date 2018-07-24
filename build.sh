@@ -65,7 +65,7 @@ EOL
 
 echo "creating changelog file"
 cat >CHANGELOG.md <<EOL
-![](https://img.shields.io/github/downloads/hobbyquaker/RedMatic/v$VERSION_ADDON/total.svg)
+[![](https://img.shields.io/github/downloads/hobbyquaker/RedMatic/v$VERSION_ADDON/total.svg)](https://github.com/hobbyquaker/RedMatic/releases/download/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz)
 
 ### Changelog
 
