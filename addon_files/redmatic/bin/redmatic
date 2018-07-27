@@ -87,7 +87,7 @@ case "$1" in
     rm -r $WWW_DIR
     rm $CONF_DIR/lighttpd/redmatic.conf
     rm $CONF_DIR/rc.d/redmatic
-    logger -t $USER -p user.info "uninstalled node-red"
+    logger -t redmatic -p user.info "Uninstalled RedMatic"
     ;;
 
   *)
