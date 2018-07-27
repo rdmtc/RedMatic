@@ -9,6 +9,7 @@ NODE_NAME=node-v${NODE_VERSION}-linux-${ARCH}
 NODE_URL=https://nodejs.org/dist/v${NODE_VERSION}/${NODE_NAME}.tar.xz
 
 ADDON_FILES=$BUILD_DIR/addon_files
+PREBUILT=$BUILD_DIR/prebuilt/$ARCH
 ADDON_TMP=$BUILD_DIR/addon_tmp
 
 mkdir $ADDON_TMP 2> /dev/null || rm -r $ADDON_TMP/*
@@ -26,12 +27,15 @@ echo "copying files to tmp dir..."
 cp -r $ADDON_FILES/* $ADDON_TMP/
 cp $BUILD_DIR/assets/logo-x-120.png $ADDON_TMP/redmatic/www/
 
-
 echo "installing node modules..."
 cd $ADDON_TMP/redmatic/lib
 npm install --silent --no-package-lock --production --no-optional --global-style
 rm $ADDON_TMP/redmatic/lib/package.json
 
+echo "copying prebuilt binaries to tmp dir..."
+cp -r $PREBUILT/* $ADDON_TMP/redmatic/
+cd $ADDON_TMP
+ln -s redmatic/bin/update_addon ./
 
 echo "installing additional Node-RED nodes..."
 cd $ADDON_TMP/redmatic/var
@@ -45,8 +49,8 @@ echo "adapt Node-RED..."
 rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/nodes/core/hardware
 #mv $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig
 #sed "s/var npmCommand =.*/var npmCommand = '\/usr\/local\/addons\/node-red\/bin\/npm';/" $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig > $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js
-mv $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js.orig
-sed "s/util\.log/console.log/g" $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js.orig > $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js
+#mv $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js.orig
+#sed "s/util\.log/console.log/g" $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js.orig > $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js
 
 
 cd $BUILD_DIR
