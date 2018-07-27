@@ -47,6 +47,7 @@ erreichbar. Einige Beispiel-Flows sowie ein einfaches Dashboard sind bereits vor
   * [Update](https://github.com/hobbyquaker/RedMatic/wiki/Update)
   * [Deinstallation](https://github.com/hobbyquaker/RedMatic/wiki/Deinstallation)
   * [Zusätzliche Nodes installieren](https://github.com/hobbyquaker/RedMatic/wiki/Node-Installation)
+  * [Erfolgreich mit RedMatic getestete Nodes](https://github.com/hobbyquaker/RedMatic/wiki/https://github.com/hobbyquaker/RedMatic/wiki/Erfolgreich-getestete-Nodes) - bitte diese Liste ergänzen!
   * [Log-Level erhöhen für Fehleranalyse](https://github.com/hobbyquaker/RedMatic/wiki/Loglevel)
   * [Passwort Schutz für Node-RED einrichten](https://github.com/hobbyquaker/RedMatic/wiki/Passwort)
 * Nutzung
