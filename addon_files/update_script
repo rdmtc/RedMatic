@@ -41,6 +41,13 @@ if [ ! -f $RED_DIR/etc/settings.json ]; then
 fi
 
 #
+#   Create credentials encryption key
+#
+if [ ! -f $RED_DIR/etc/credentials.key ]; then
+    tr -dc '[:alnum:]' < /dev/urandom  | dd bs=4 count=8 2>/dev/null > $RED_DIR/etc/credentials.key
+fi
+
+#
 #   Create example flows on first install
 #
 if [ ! -f $RED_DIR/var/flows.json ]; then
