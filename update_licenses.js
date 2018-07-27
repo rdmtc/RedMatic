@@ -80,7 +80,7 @@ function getModules(path) {
                 }
 
                 modules[pkg.name] = {
-                    license: pkg.license || '',
+                    license: (typeof pkg.license === 'object' ? pkg.license.type : pkg.license) || '',
                     author,
                     url,
                     licTxt: license
@@ -149,6 +149,27 @@ modules['RedMatic'] = {
     author: 'Sebastian Raff <hobbyquaker@gmail.com>',
     licTxt: '\n```\n' + fs.readFileSync(__dirname + '/LICENSE').toString() + '\n```\n',
     url: 'https://github.com/hobbyquaker/RedMatic'
+};
+
+modules['git'] = {
+    license: 'GPL-2.0',
+    author: '',
+    licTxt: '',
+    url: 'https://git.kernel.org/pub/scm/git/git.git/'
+};
+
+modules['jq'] = {
+    license: 'MIT',
+    author: 'Stephen Dolan <mu@netsoc.tcd.ie>',
+    licTxt: '',
+    url: 'https://github.com/stedolan/jq/blob/master/COPYING'
+};
+
+modules['libcurl'] = {
+    license: 'MIT',
+    author: 'Daniel Stenberg, daniel@haxx.se',
+    licTxt: '',
+    url: 'https://curl.haxx.se/libcurl/'
 };
 
 Object.keys(modules).sort((a, b) => {
