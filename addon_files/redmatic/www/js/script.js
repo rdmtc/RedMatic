@@ -156,7 +156,7 @@ $(document).ready(() => {
     $.get('getconfig.cgi' + location.search, (data, success) => {
         config = JSON.parse(data);
         console.log(config, success);
-        $loglevel.val(config.logging.console.level);
+        $loglevel.val(config.logging.ain.level);
 
         if (config.adminAuth) {
             $adminauthType.val(config.adminAuth.type);
@@ -179,7 +179,7 @@ $(document).ready(() => {
     });
 
     $loglevel.change(() => {
-        config.logging.console.level = $loglevel.val();
+        config.logging.ain.level = $loglevel.val();
         save();
     });
 
