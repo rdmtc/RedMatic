@@ -5,7 +5,7 @@
   "userDir": "/usr/local/addons/redmatic/var",
   "httpRoot": "/addons/red",
   "logging": {
-    "console": {
+    "ain": {
       "level": "info",
       "metrics": false,
       "audit": false

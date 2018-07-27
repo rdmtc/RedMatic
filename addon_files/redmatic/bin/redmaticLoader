@@ -14,4 +14,4 @@ RED=$RED_DIR/red.js
 
 SETTINGS=$ADDON_DIR/lib/settings.js
 
-$NODE $RED -s $SETTINGS 2>&1 | logger -p user.info -t node-red
+$NODE $RED -s $SETTINGS 2>&1 | logger -p daemon.err -t node-red
