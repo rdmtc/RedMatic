@@ -20,16 +20,14 @@ Stop () {
     if [ "$PSPID" != "" ]
     then
         echo -n "Stopping Node-RED: "
-        kill $1 $PSPID 2>/dev/null || true
-        sleep 1
-        kill -0 $PSPID 2>/dev/null
-        if [ $? -eq 0 ]
+        kill -SIGINT $PSPID 2>/dev/null
+        if [ $? -ne "0" ]
         then
             sleep 3
             kill -KILL $PSPID 2>/dev/null
         fi
-        logger -t homematic -p user.info "stopped node-red"
         echo "OK"
+        logger -t redmatic -p user.info "Stopped Node-RED"
         return 0
     else
         echo "Node-RED not running"
@@ -46,8 +44,10 @@ Start () {
     else
         echo -n "Starting Node-RED: "
         start-stop-daemon -S -q -b --exec $ADDON_DIR/bin/redmaticLoader
-        logger -t homematic -p user.info "started node-red"
         echo "OK"
+        source $ADDON_DIR/versions
+        logger -t redmatic -p user.info "RedMatic v$VERSION_ADDON (c) Sebastian Raff https://github.com/hobbyquaker/RedMatic"
+        logger -t redmatic -p user.info "Started Node-RED"
     fi
 }
 
@@ -63,7 +63,7 @@ case "$1" in
 
   restart)
     Stop
-    sleep 1
+    sleep 3
     Start
   ;;
 
@@ -87,6 +87,7 @@ case "$1" in
     rm -r $WWW_DIR
     rm $CONF_DIR/lighttpd/redmatic.conf
     rm $CONF_DIR/rc.d/redmatic
+    logger -t $USER -p user.info "uninstalled node-red"
     ;;
 
   *)
