@@ -30,6 +30,8 @@ _RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 k
 _RedMatic_ mangels Verfügbarkeit der CCU3 Firmware nur auf RaspberryMatic getestet, es ist nicht auszuschließen, dass 
 noch Anpassungen an die CCU3 Firmware vorgenommen werden müssen.
 
+Für die Nutzung der CCU Nodes ist ein moderner Browser notwendig, der Internet Explorer ist nicht unterstützt.
+
 
 ## Schnellstart
 
