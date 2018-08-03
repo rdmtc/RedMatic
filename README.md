@@ -67,6 +67,7 @@ erreichbar. Einige Beispiel-Flows sowie ein einfaches Dashboard sind bereits vor
   * [Textausgabe mittels Chromecast oder Google Home](https://github.com/hobbyquaker/RedMatic/wiki/Flow-speak-text-on-Google)
   * [Berechnung von Feiertagen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-to-calculate-german-holidays)
   * [Funktion nur innerhalb einer bestimmten Uhr-Zeit ausführen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-within-time)
+  * [Fehlerüberwachung der CCU](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Syslog)
 * Sonstiges
   * [Dashboard Screenshots](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots)
 
