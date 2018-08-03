@@ -9,7 +9,7 @@
     "node": "8.11.3"
   },
   "dependencies": {
-    "npm": "6.2.0",
+    "npm": "6.3.0",
     "node-red": "0.18.7",
     "node-red-dashboard": "2.9.6",
     "node-red-contrib-ccu": "1.1.15",
