@@ -12,7 +12,7 @@
     "npm": "6.3.0",
     "node-red": "0.18.7",
     "node-red-dashboard": "2.9.6",
-    "node-red-contrib-ccu": "1.1.15",
+    "node-red-contrib-ccu": "1.1.16",
     "node-red-contrib-combine": "1.6.1",
     "node-red-contrib-mqtt-json": "1.0.1",
     "node-red-contrib-time-range-switch": "0.6.0",
