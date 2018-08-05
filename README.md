@@ -65,6 +65,8 @@ erreichbar. Einige Beispiel-Flows sowie ein einfaches Dashboard sind bereits vor
   * [DutyCycle Graph im Dashboard anzeigen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-DutyCycle)
   * [Per Pushover benachrichtigen wenn Fenster länger als 10 Minuten offen ist](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Window-Pushover)
   * [CPU Auslastung als Graph im Dashboard anzeigen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-CPU-Usage)
+  * [JSON Daten von Webservice abfragen und in Systemvariable schreiben](https://github.com/hobbyquaker/RedMatic/wiki/Flow-HTTP-Client)
+  * [Inhalt einer Systemvariablen über einfachen Webservice bereitstellen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-HTTP-Server)
 * Von Usern bereitgestellte Flows
   * [Textausgabe mittels Chromecast oder Google Home](https://github.com/hobbyquaker/RedMatic/wiki/Flow-speak-text-on-Google)
   * [Berechnung von Feiertagen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-to-calculate-german-holidays)
