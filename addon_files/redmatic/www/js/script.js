@@ -326,6 +326,7 @@ $(document).ready(() => {
     });
 
     $restart.click(() => {
+        clearTimeout(psTimeout);
         $restart.addClass('disabled');
         $stop.addClass('disabled');
         $start.addClass('disabled');
@@ -336,7 +337,9 @@ $(document).ready(() => {
             success: data => {
                 if (data.match(/Starting Node-RED: OK/)) {
                     psInterval = 2000;
-                    ps();
+                    setTimeout(() => {
+                        ps();
+                    }, 3000);
                     alert($alertExec);
                 } else {
                     alert($alertError);
@@ -366,6 +369,7 @@ $(document).ready(() => {
     });
 
     $stop.click(() => {
+        clearTimeout(psTimeout);
         $restart.addClass('disabled');
         $stop.addClass('disabled');
         $start.addClass('disabled');
@@ -377,7 +381,9 @@ $(document).ready(() => {
                 if (data.match(/Stopping Node-RED: OK/)) {
                     alert($alertExec);
                     psInterval = 2000;
-                    ps();
+                    setTimeout(() => {
+                        ps();
+                    }, 3000);
                 } else {
                     alert($alertError);
                 }
