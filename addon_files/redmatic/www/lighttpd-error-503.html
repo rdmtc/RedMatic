@@ -1,4 +1,63 @@
-<html>
-<title>HomeMatic Node-RED</title>
-<h1>Fehler: Node-RED Webserver antwortet nicht.</h1>
-</html>
+<!DOCTYPE html>
+<meta charset="UTF-8">
+
+<title>RedMatic</title>
+
+<script src="/addons/redmatic/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/addons/redmatic/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<link rel="stylesheet" href="/addons/redmatic/node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/addons/redmatic/node_modules/@fortawesome/fontawesome-free/css/all.css">
+<link rel="stylesheet" href="/addons/redmatic/css/style.css">
+
+<nav class="navbar sticky-top navbar-light bg-light mb-4" >
+    <img src="/addons/redmatic/logo-x-120.png" style="height: 42px; ">
+</nav>
+
+<div id="container">
+    <div style="display: table; margin: 0 auto;">
+        <h4><i class="fa fa-exclamation-triangle"></i> Fehler 503: Node-RED Webserver nicht erreichbar.</h4>
+        <p>Status: <span id="status"></span></p>
+    </div>
+</div>
+
+<script>
+    let psInterval;
+    let psTimeout;
+
+    const $status = $('#status');
+
+    function ps() {
+        $.get(`/addons/redmatic/service.cgi?cmd=ps`, (data, success) => {
+            console.log(data);
+            const lines = data.split('\n');
+            let found = false;
+            lines.forEach(line => {
+                let match;
+                match = line.match(/([0-9]+[a-z]?)\s+([0-9]+[a-z]?)\s+node-red\s+node-red/);
+                if (match) {
+                    $status.html('<span class="status-running">Node-RED gestarted.</span>');
+                    found = true;
+                    psInterval = 10000;
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                    return;
+                }
+                match = line.match(/([0-9]+[a-z]?)\s+([0-9]+[a-z]?)\s+.*red.js/);
+                if (match) {
+                    $status.html('<span class="status-starting">Node-RED startet...</span><br>Bitte warten, sie werden automatisch weitergeleitet.');
+                    found = true;
+                    psInterval = 1000;
+                }
+            });
+            if (!found) {
+                $status.html('<span class="status-stopped">Node-RED gestoppt.</span><br>Bitte den Dienst in der Systemsteuerung-RedMatic starten.');
+                psInterval = 1000;
+
+            }
+            psTimeout = setTimeout(ps, psInterval);
+        });
+    }
+    ps();
+</script>
