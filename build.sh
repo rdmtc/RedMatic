@@ -14,6 +14,9 @@ ADDON_TMP=$BUILD_DIR/addon_tmp
 
 mkdir $ADDON_TMP 2> /dev/null || rm -r $ADDON_TMP/*
 
+#echo "download and install node-prune"
+#curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash
+#PRUNE=$BUILD_DIR/bin/node-prune
 
 echo "download and extract Node.js $NODE_URL ..."
 curl --silent $NODE_URL | tar -xJf - -C $ADDON_TMP
@@ -30,16 +33,23 @@ cp $BUILD_DIR/assets/logo-x-120.png $ADDON_TMP/redmatic/www/
 echo "installing node modules..."
 cd $ADDON_TMP/redmatic/lib
 npm install --silent --no-package-lock --production --no-optional --global-style
+npm install --slient --no-package-lock --production --global-style ain2
 rm $ADDON_TMP/redmatic/lib/package.json
+
+echo "installing additional Node-RED nodes..."
+cd $ADDON_TMP/redmatic/var
+npm install --silent --no-package-lock --production --no-optional --global-style
+
+echo "cleanup node_modules..."
+rm -r $ADDON_TMP/redmatic/var/node_modules/node-red-node-sqlite/node_modules/sqlite3/lib/binding
+rm -r $ADDON_TMP/redmatic/var/node_modules/node-red-node-sqlite/node_modules/sqlite3/deps
+#$PRUNE $ADDON_TMP/redmatic/lib/node_modules
+#$PRUNE $ADDON_TMP/redmatic/var/node_modules
 
 echo "copying prebuilt binaries to tmp dir..."
 cp -r $PREBUILT/* $ADDON_TMP/redmatic/
 cd $ADDON_TMP
 ln -s redmatic/bin/update_addon ./
-
-echo "installing additional Node-RED nodes..."
-cd $ADDON_TMP/redmatic/var
-npm install --silent --no-package-lock --production --no-optional --global-style
 
 echo "installing www node modules"
 cd $ADDON_TMP/redmatic/www
@@ -54,7 +64,6 @@ rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/nodes/core/hardware
 
 
 cd $BUILD_DIR
-
 
 echo "creating version files"
 MODULES_DIR=$ADDON_TMP/redmatic/lib/node_modules

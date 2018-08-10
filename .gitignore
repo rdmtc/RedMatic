@@ -5,3 +5,4 @@ dist
 live
 CHANGELOG.md
 LICENSE_Nodejs
+bin/node-prune
