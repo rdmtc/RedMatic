@@ -6,13 +6,13 @@
   "private": true,
   "main": "none",
   "engines": {
-    "node": "8.11.3"
+    "node": "8.11.4"
   },
   "dependencies": {
-    "npm": "6.3.0",
-    "node-red": "0.18.7",
+    "npm": "6.4.0",
+    "node-red": "0.19.1",
     "node-red-dashboard": "2.9.6",
-    "node-red-contrib-ccu": "1.1.18",
+    "node-red-contrib-ccu": "1.1.19",
     "node-red-contrib-combine": "1.6.1",
     "node-red-contrib-mqtt-json": "1.0.1",
     "node-red-contrib-time-range-switch": "0.6.1",
