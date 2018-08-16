@@ -2,6 +2,7 @@ $(document).ready(() => {
     const bcrypt = dcodeIO.bcrypt;
 
     const $loglevel = $('#loglevel');
+    const $contextStorage = $('#context-storage');
 
     const $adminauthType = $('#adminauth-type');
     const $adminauthCreds = $('#adminauth-credentials');
@@ -139,7 +140,7 @@ $(document).ready(() => {
         console.log(config);
         $.post({
             url: 'setconfig.cgi' + location.search,
-            data: JSON.stringify(config),
+            data: JSON.stringify(config, null, '  '),
             success: function (data) {
                 console.log(data);
                 if ($.trim(data) === 'ok') {
@@ -157,6 +158,7 @@ $(document).ready(() => {
         config = JSON.parse(data);
         console.log(config, success);
         $loglevel.val(config.logging.ain.level);
+        $contextStorage.val(config.contextStorage.default.module);
 
         if (config.adminAuth) {
             $adminauthType.val(config.adminAuth.type);
@@ -180,6 +182,14 @@ $(document).ready(() => {
 
     $loglevel.change(() => {
         config.logging.ain.level = $loglevel.val();
+        save();
+    });
+
+    $contextStorage.change(() => {
+        if (!config.contextStorage) {
+            config.contextStorage = {default: {}};
+        }
+        config.contextStorage.default.module = $contextStorage.val();
         save();
     });
 

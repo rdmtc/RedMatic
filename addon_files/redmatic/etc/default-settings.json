@@ -10,5 +10,10 @@
       "metrics": false,
       "audit": false
     }
+  },
+  "contextStorage": {
+    "default": {
+      "module": "localfilesystem"
+    }
   }
 }
