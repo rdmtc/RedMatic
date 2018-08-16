@@ -29,6 +29,19 @@ if [ -f $RED_DIR/var/package.json ]; then
 fi
 
 #
+#   Delete lib/node_modules on update
+#
+if [ -d $RED_DIR/lib/node_modules/node-red ]; then
+    rm -r $RED_DIR/lib/node_modules/node-red
+fi
+if [ -d $RED_DIR/lib/node_modules/npm ]; then
+    rm -r $RED_DIR/lib/node_modules/npm
+fi
+if [ -d $RED_DIR/lib/node_modules/ain ]; then
+    rm -r $RED_DIR/lib/node_modules/ain
+fi
+
+#
 #   Install addon files
 #
 cp -af redmatic $ADDONS_DIR/
