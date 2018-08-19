@@ -57,11 +57,10 @@ npm install --silent --no-package-lock --production --no-optional
 
 echo "adapt Node-RED..."
 rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/nodes/core/hardware
-#mv $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig
-#sed "s/var npmCommand =.*/var npmCommand = '\/usr\/local\/addons\/node-red\/bin\/npm';/" $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js.orig > $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js
-#mv $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js.orig
-#sed "s/util\.log/console.log/g" $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js.orig > $ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/log.js
 
+INSTALLER=$ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js
+sed "s/var args = \['install','--save'/var args = ['install','--save','--no-package-lock','--global-style'/" $INSTALLER > $INSTALLER.tmp && mv $INSTALLER.tmp $INSTALLER
+sed "s/var args = \['remove','--save'/var args = ['remove','--save','--no-package-lock'/" $INSTALLER > $INSTALLER.tmp && mv $INSTALLER.tmp $INSTALLER
 
 cd $BUILD_DIR
 

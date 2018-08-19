@@ -77,6 +77,10 @@ if [ -f $RED_DIR/var/package.json.old ]; then
     rm $RED_DIR/var/package.json.old $RED_DIR/var/package.json.new
 fi
 
+if [ -f $RED_DIR/var/package-lock.json ]; then
+    rm $RED_DIR/var/package-lock.json
+fi
+
 #
 #   Create Links
 #
