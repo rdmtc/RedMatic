@@ -26,11 +26,9 @@ Außerdem ist die Node-RED Erweiterung [Node-RED Dashboard](https://github.com/n
 mit der ansprechende User Interfaces für Mobilgeräte und den Browser erstellt werden können
 ([Beispiel Screenshots](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots)).
 
-_RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden. Bisher ist
-_RedMatic_ mangels Verfügbarkeit der CCU3 Firmware nur auf RaspberryMatic getestet, es ist nicht auszuschließen, dass 
-noch Anpassungen an die CCU3 Firmware vorgenommen werden müssen.
+_RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden.
 
-Für die Nutzung der CCU Nodes ist ein moderner Browser notwendig, der Internet Explorer ist nicht unterstützt.
+Für die Nutzung der CCU Nodes ist ein moderner Browser notwendig, der Internet Explorer wird nicht unterstützt.
 
 
 ## Schnellstart

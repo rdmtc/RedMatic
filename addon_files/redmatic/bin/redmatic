@@ -36,6 +36,15 @@ Stop () {
 }
 
 Start () {
+    if ! grep -Fq "/etc/config/lighttpd/" /etc/lighttpd/lighttpd.conf
+    then
+      echo "patching /etc/lighttpd/lighttpd.conf"
+      mount -o remount,rw /
+      echo "include_shell \"test -d /etc/config/lighttpd && cat /etc/config/lighttpd/*.conf\"" >> /etc/lighttpd/lighttpd.conf
+      mount -o remount,ro /
+      /etc/init.d/S50lighttpd restart
+    fi
+
     PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
     if [ "$PSPID" != "" ]
     then

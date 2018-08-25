@@ -26,11 +26,9 @@ Außerdem ist die Node-RED Erweiterung [Node-RED Dashboard](https://github.com/n
 mit der ansprechende User Interfaces für Mobilgeräte und den Browser erstellt werden können
 ([Beispiel Screenshots](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots)).
 
-_RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden. Bisher ist
-_RedMatic_ mangels Verfügbarkeit der CCU3 Firmware nur auf RaspberryMatic getestet, es ist nicht auszuschließen, dass 
-noch Anpassungen an die CCU3 Firmware vorgenommen werden müssen.
+_RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden.
 
-Für die Nutzung der CCU Nodes ist ein moderner Browser notwendig, der Internet Explorer ist nicht unterstützt.
+Für die Nutzung der CCU Nodes ist ein moderner Browser notwendig, der Internet Explorer wird nicht unterstützt.
 
 
 ## Schnellstart
@@ -68,6 +66,8 @@ erreichbar. Einige Beispiel-Flows sowie ein einfaches Dashboard sind bereits vor
   * [JSON Daten von Webservice abfragen und in Systemvariable schreiben](https://github.com/hobbyquaker/RedMatic/wiki/Flow-HTTP-Client)
   * [Inhalt einer Systemvariablen über einfachen Webservice bereitstellen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-HTTP-Server)
 * Von Usern bereitgestellte Flows
+  * sehr einfache Beispiele
+    * [Licht mittels Tastendruck aus und einschalten](https://github.com/hobbyquaker/RedMatic/wiki/Flow-simple-toggle-light)
   * [Textausgabe mittels Chromecast oder Google Home](https://github.com/hobbyquaker/RedMatic/wiki/Flow-speak-text-on-Google)
   * [Berechnung von Feiertagen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-to-calculate-german-holidays)
   * [Funktion nur innerhalb einer bestimmten Uhr-Zeit ausführen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-within-time)
