@@ -36,8 +36,21 @@ Für die Nutzung der CCU Nodes ist ein moderner Browser notwendig, der Internet 
 Unter [Releases](https://github.com/hobbyquaker/RedMatic/releases/latest) steht die Datei `redmatic-<version>.tar.gz` 
 zum Download zur Verfügung. Nach der Installation des Addons über das Homematic WebUI (Systemsteuerung -> 
 Zusatzsoftware) und dem darauf folgenden Reboot der CCU ist Node-RED unter `http://<ccu-addresse>/addons/red` 
-erreichbar. Einige Beispiel-Flows sowie ein einfaches Dashboard sind bereits vorkonfiguriert, das Dashboard ist unter 
-`http://<ccu-addresse>/addons/red/ui` erreichbar.
+erreichbar. Bei der Installation ist Geduld erforderlich, es kann bis zu ~10 Minuten dauern. Einige Beispiel-Flows sowie
+ein einfaches Dashboard sind bereits vorkonfiguriert, das Dashboard ist unter `http://<ccu-addresse>/addons/red/ui` 
+erreichbar.
+
+
+## Support, Mitarbeit
+
+Für Feedback jeglicher Art, Fragen, Vorschläge, Wünsche und Fehlerberichte bitte den 
+[Issue Tracker](https://github.com/hobbyquaker/RedMatic/issues) nutzen. Alternativ steht auch 
+[Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNDE2MjAwOTI0OTgzLWNmMzIzMTZlZWYxMWU0MWJiY2NmMWQ0NWQ2MDViMjllN2M5ZTMxMTZjNmIxNTlkZTRhMTExM2I2ZDJjN2M3ZjU) 
+zur Verfügung. 
+
+Beteiligung in jeder Form ist willkommen und gewünscht, insbesondere sind alle Nutzer aufgefordert die [Liste erfolgreich getesteter Nodes](https://github.com/hobbyquaker/RedMatic/wiki/Erfolgreich-getestete-Nodes) zu ergänzen, Beispiel-Flows zu veröffentlichen und an der Verbesserung und Erweiterung der [Dokumentation](https://github.com/hobbyquaker/RedMatic/wiki) mitzuarbeiten.
+
+Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn der erfolgreiche Einsatz dieser Software mit einem Github Sternchen ⭐️ honoriert wird (Github Account ist schnell angelegt! ;-)
 
 
 ## Dokumentation
@@ -66,26 +79,13 @@ erreichbar. Einige Beispiel-Flows sowie ein einfaches Dashboard sind bereits vor
   * [JSON Daten von Webservice abfragen und in Systemvariable schreiben](https://github.com/hobbyquaker/RedMatic/wiki/Flow-HTTP-Client)
   * [Inhalt einer Systemvariablen über einfachen Webservice bereitstellen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-HTTP-Server)
 * Von Usern bereitgestellte Flows
-  * sehr einfache Beispiele
-    * [Licht mittels Tastendruck aus und einschalten](https://github.com/hobbyquaker/RedMatic/wiki/Flow-simple-toggle-light)
+  * [Licht mittels Tastendruck aus und einschalten](https://github.com/hobbyquaker/RedMatic/wiki/Flow-simple-toggle-light)
   * [Textausgabe mittels Chromecast oder Google Home](https://github.com/hobbyquaker/RedMatic/wiki/Flow-speak-text-on-Google)
   * [Berechnung von Feiertagen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-to-calculate-german-holidays)
   * [Funktion nur innerhalb einer bestimmten Uhr-Zeit ausführen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-within-time)
   * [Fehlerüberwachung der CCU](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Syslog)
 * Sonstiges
   * [Dashboard Screenshots](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots)
-
-
-## Support, Mitarbeit
-
-Für Feedback jeglicher Art, Fragen, Vorschläge, Wünsche und Fehlerberichte bitte den 
-[Issue Tracker](https://github.com/hobbyquaker/RedMatic/issues) nutzen. Alternativ steht auch 
-[Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNDE2MjAwOTI0OTgzLWNmMzIzMTZlZWYxMWU0MWJiY2NmMWQ0NWQ2MDViMjllN2M5ZTMxMTZjNmIxNTlkZTRhMTExM2I2ZDJjN2M3ZjU) 
-zur Verfügung. 
-
-Beteiligung in jeder Form ist willkommen und gewünscht, insbesondere sind alle Nutzer aufgefordert die [Liste erfolgreich getesteter Nodes](https://github.com/hobbyquaker/RedMatic/wiki/Erfolgreich-getestete-Nodes) zu ergänzen, Beispiel-Flows zu veröffentlichen und an der Verbesserung und Erweiterung der [Dokumentation](https://github.com/hobbyquaker/RedMatic/wiki) mitzuarbeiten.
-
-Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn der erfolgreiche Einsatz dieser Software mit einem Github Sternchen ⭐️ honoriert wird (Github Account ist schnell angelegt! ;-)
 
 
 ## Lizenzen

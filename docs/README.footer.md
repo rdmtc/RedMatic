@@ -1,15 +1,3 @@
-## Support, Mitarbeit
-
-Für Feedback jeglicher Art, Fragen, Vorschläge, Wünsche und Fehlerberichte bitte den 
-[Issue Tracker](https://github.com/hobbyquaker/RedMatic/issues) nutzen. Alternativ steht auch 
-[Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNDE2MjAwOTI0OTgzLWNmMzIzMTZlZWYxMWU0MWJiY2NmMWQ0NWQ2MDViMjllN2M5ZTMxMTZjNmIxNTlkZTRhMTExM2I2ZDJjN2M3ZjU) 
-zur Verfügung. 
-
-Beteiligung in jeder Form ist willkommen und gewünscht, insbesondere sind alle Nutzer aufgefordert die [Liste erfolgreich getesteter Nodes](https://github.com/hobbyquaker/RedMatic/wiki/Erfolgreich-getestete-Nodes) zu ergänzen, Beispiel-Flows zu veröffentlichen und an der Verbesserung und Erweiterung der [Dokumentation](https://github.com/hobbyquaker/RedMatic/wiki) mitzuarbeiten.
-
-Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn der erfolgreiche Einsatz dieser Software mit einem Github Sternchen ⭐️ honoriert wird (Github Account ist schnell angelegt! ;-)
-
-
 ## Lizenzen
 
 * [RedMatic](https://github.com/hobbyquaker/RedMatic) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
