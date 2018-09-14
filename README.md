@@ -78,6 +78,8 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [CPU Auslastung als Graph im Dashboard anzeigen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-CPU-Usage)
   * [JSON Daten von Webservice abfragen und in Systemvariable schreiben](https://github.com/hobbyquaker/RedMatic/wiki/Flow-HTTP-Client)
   * [Inhalt einer Systemvariablen über einfachen Webservice bereitstellen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-HTTP-Server)
+  * [Schnelles Blinken der LED im Offline-Betrieb unterbinden](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Offline-LED)
+  * [CCU an MQTT anbinden](https://github.com/hobbyquaker/RedMatic/wiki/Flow-MQTT)
 * Von Usern bereitgestellte Flows
   * [Licht mittels Tastendruck aus und einschalten](https://github.com/hobbyquaker/RedMatic/wiki/Flow-simple-toggle-light)
   * [Textausgabe mittels Chromecast oder Google Home](https://github.com/hobbyquaker/RedMatic/wiki/Flow-speak-text-on-Google)
