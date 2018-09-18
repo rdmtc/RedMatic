@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "npm": "6.4.1",
-    "node-red": "0.19.3",
+    "node-red": "0.19.4",
     "ain2": "2.0.0"
   }
 }
