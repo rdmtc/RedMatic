@@ -80,6 +80,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Inhalt einer Systemvariablen über einfachen Webservice bereitstellen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-HTTP-Server)
   * [Schnelles Blinken der LED im Offline-Betrieb unterbinden](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Offline-LED)
   * [CCU an MQTT anbinden](https://github.com/hobbyquaker/RedMatic/wiki/Flow-MQTT)
+  * [Bidcos-Wired Dimmer mit Bidcos-RF Tasten steuern](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Wired-Dimmer)
 * Von Usern bereitgestellte Flows
   * [Licht mittels Tastendruck aus und einschalten](https://github.com/hobbyquaker/RedMatic/wiki/Flow-simple-toggle-light)
   * [Textausgabe mittels Chromecast oder Google Home](https://github.com/hobbyquaker/RedMatic/wiki/Flow-speak-text-on-Google)
