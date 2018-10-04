@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "dependencies": {
     "node-red-dashboard": "2.9.8",
-    "node-red-contrib-ccu": "1.6.7",
+    "node-red-contrib-ccu": "1.6.10",
     "node-red-contrib-combine": "1.6.1",
     "node-red-contrib-mqtt-json": "1.0.1",
     "node-red-contrib-time-range-switch": "0.6.1",
