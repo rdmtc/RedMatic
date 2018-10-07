@@ -1,6 +1,6 @@
 {
   "name": "redmatic",
-  "version": "1.5.3",
+  "version": "1.6.0",
   "description": "Node-RED packaged as Homematic CCU addon",
   "repository": "github:hobbyquaker/redmatic",
   "private": true,
@@ -12,7 +12,7 @@
     "npm": "6.4.1",
     "node-red": "0.19.4",
     "node-red-dashboard": "2.9.8",
-    "node-red-contrib-ccu": "1.6.10",
+    "node-red-contrib-ccu": "1.6.12",
     "node-red-contrib-combine": "1.6.1",
     "node-red-contrib-mqtt-json": "1.0.1",
     "node-red-contrib-time-range-switch": "0.6.1",
@@ -22,7 +22,8 @@
     "@fortawesome/fontawesome-free": "^5.1.0",
     "ain2": "2.0.0",
     "node-red-node-sqlite": "0.3.5",
-    "redmatic-led": "0.0.3"
+    "redmatic-led": "0.0.3",
+    "redmatic-webapp": "0.2.0"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",
