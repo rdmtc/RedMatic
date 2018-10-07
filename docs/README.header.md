@@ -22,8 +22,9 @@ zu realisieren - und das weitgehend auch ohne Programmierkenntnisse. Im
 [Wiki](https://github.com/hobbyquaker/RedMatic/wiki) gibt es weitere Informationen zu Node-RED und einige 
 Anwendungsbeispiele (sogenannte _Flows_).
 
-Außerdem ist die Node-RED Erweiterung [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) enthalten, 
-mit der ansprechende User Interfaces für Mobilgeräte und den Browser erstellt werden können
+Außerdem sind [RedMatic-WebApp](https://github.com/hobbyquaker/RedMatic-WebApp) und 
+[Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) enthalten, mittels derer ansprechende User 
+Interfaces für Mobilgeräte und den Browser erstellt werden können 
 ([Beispiel Screenshots](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots)).
 
 _RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden.
