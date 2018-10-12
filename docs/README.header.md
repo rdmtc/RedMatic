@@ -22,16 +22,17 @@ zu realisieren - und das weitgehend auch ohne Programmierkenntnisse. Im
 [Wiki](https://github.com/hobbyquaker/RedMatic/wiki) gibt es weitere Informationen zu Node-RED und einige 
 Anwendungsbeispiele (sogenannte _Flows_).
 
-Für die Visualisierung und Fernsteuerung sind [RedMatic-WebApp](https://github.com/hobbyquaker/RedMatic-WebApp) und 
-[Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) enthalten. RedMatic-WebApp ist eine
-Bedienoberfläche die ohne weitere Konfiguration sofort genutzt werden kann (vergleichbar mit "WebMatic" oder "Yahui").
-Node-RED Dashboard ist ein konfigurierbares User Interface, kann mehr Möglichkeiten als die RedMatic-WebApp bieten, ist 
-aber mit Konfigurationsaufwand verbunden. Beispiel Screenshots: 
+Für die Visualisierung und Fernsteuerung sind [RedMatic WebApp](https://github.com/hobbyquaker/RedMatic-WebApp) und 
+[Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) enthalten. _RedMatic WebApp_ ist eine
+Bedienoberfläche die ohne weitere Konfiguration sofort genutzt werden kann (vergleichbar mit _WebMatic_ oder _Yahui_).
+_Node-RED Dashboard_ ist ein konfigurierbares User Interface, kann mehr Möglichkeiten als die _RedMatic WebApp_ bieten, 
+ist aber mit Konfigurationsaufwand verbunden. 
+Beispiel Screenshots: 
 [Node-RED Dashboard](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots), 
 [RedMatic WebApp](https://github.com/hobbyquaker/RedMatic/wiki/Webapp).
 
 Außerdem ist es mit der ebenfalls enthaltenen Erweiterung 
-[RedMatic-HomeKit](https://github.com/hobbyquaker/RedMatic/wiki/Homekit) möglich die Geräte der CCU über Siri und mit 
+[RedMatic HomeKit](https://github.com/hobbyquaker/RedMatic/wiki/Homekit) möglich die Geräte der CCU über Siri und mit 
 HomeKit-Apps zu anzusteuern (befindet sich noch in einem frühen Entwicklungsstadium).
 
 _RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden.
