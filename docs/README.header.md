@@ -22,10 +22,14 @@ zu realisieren - und das weitgehend auch ohne Programmierkenntnisse. Im
 [Wiki](https://github.com/hobbyquaker/RedMatic/wiki) gibt es weitere Informationen zu Node-RED und einige 
 Anwendungsbeispiele (sogenannte _Flows_).
 
-Außerdem sind [RedMatic-WebApp](https://github.com/hobbyquaker/RedMatic-WebApp) und 
+Für die Visualisierung und Fernsteuerung sind [RedMatic-WebApp](https://github.com/hobbyquaker/RedMatic-WebApp) und 
 [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) enthalten, mittels derer ansprechende User 
 Interfaces für Mobilgeräte und den Browser erstellt werden können 
 ([Beispiel Screenshots](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots)).
+
+Außerdem ist es mit der ebenfalls enthaltenen Erweiterung 
+[RedMatic-HomeKit](https://github.com/hobbyquaker/RedMatic-HomeKit) möglich die Geräte der CCU über Siri und mit 
+HomeKit-Apps zu anzusteuern (befindet sich noch in einem frühen Entwicklungsstadium).
 
 _RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden.
 
@@ -47,7 +51,7 @@ erreichbar.
 Für Feedback jeglicher Art, Fragen, Vorschläge, Wünsche und Fehlerberichte bitte den 
 [Issue Tracker](https://github.com/hobbyquaker/RedMatic/issues) nutzen. Alternativ steht auch 
 [Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNDE2MjAwOTI0OTgzLWNmMzIzMTZlZWYxMWU0MWJiY2NmMWQ0NWQ2MDViMjllN2M5ZTMxMTZjNmIxNTlkZTRhMTExM2I2ZDJjN2M3ZjU) 
-zur Verfügung. 
+und ein [Unterforum im Homematic-Forum](https://homematic-forum.de/forum/viewforum.php?f=77) zur Verfügung. 
 
 Beteiligung in jeder Form ist willkommen und gewünscht, insbesondere sind alle Nutzer aufgefordert die [Liste erfolgreich getesteter Nodes](https://github.com/hobbyquaker/RedMatic/wiki/Erfolgreich-getestete-Nodes) zu ergänzen, Beispiel-Flows zu veröffentlichen und an der Verbesserung und Erweiterung der [Dokumentation](https://github.com/hobbyquaker/RedMatic/wiki) mitzuarbeiten.
 
