@@ -22,7 +22,7 @@ zu realisieren - und das weitgehend auch ohne Programmierkenntnisse. Im
 [Wiki](https://github.com/hobbyquaker/RedMatic/wiki) gibt es weitere Informationen zu Node-RED und einige 
 Anwendungsbeispiele (sogenannte _Flows_).
 
-Für die Visualisierung und Fernsteuerung sind [RedMatic WebApp](https://github.com/hobbyquaker/RedMatic-WebApp) und 
+Für die Visualisierung und Steuerung sind [RedMatic WebApp](https://github.com/hobbyquaker/RedMatic-WebApp) und 
 [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) enthalten. _RedMatic WebApp_ ist eine
 Bedienoberfläche die ohne weitere Konfiguration sofort genutzt werden kann (vergleichbar mit _WebMatic_ oder _Yahui_).
 _Node-RED Dashboard_ ist ein konfigurierbares User Interface, kann mehr Möglichkeiten als die _RedMatic WebApp_ bieten, 
