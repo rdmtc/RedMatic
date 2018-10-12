@@ -38,9 +38,13 @@ HomeKit-Apps zu anzusteuern (befindet sich noch in einem frühen Entwicklungssta
 Eine Anbindung der CCU an einen [MQTT](https://github.com/hobbyquaker/RedMatic/wiki/Flow-MQTT) Broker mit komfortabel 
 konfigurierbarer Topic- und Payload-Struktur wird durch einen speziellen Node vereinfacht.
 
-_RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden.
+## Voraussetzungen
 
-Für die Nutzung der CCU Nodes ist ein moderner Browser notwendig, der Internet Explorer wird nicht unterstützt.
+_RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Da RedMatic unter Umständen über 100MB Speicher 
+benötigt ist dazu zu raten einen RaspberryPi mit 1GB RAM zu nutzen (ab Pi 2B). Auf der CCU1/2 kann es nicht verwendet 
+werden.
+
+Für die Nutzung der Weboberflächen ist ein moderner Browser notwendig, der Internet Explorer wird nicht unterstützt.
 
 
 ## Schnellstart
