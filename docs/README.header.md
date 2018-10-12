@@ -34,7 +34,8 @@ Beispiel Screenshots:
 Außerdem ist es mit der ebenfalls enthaltenen Erweiterung 
 [RedMatic HomeKit](https://github.com/hobbyquaker/RedMatic/wiki/Homekit) möglich die Geräte der CCU über Siri und mit 
 HomeKit-Apps zu anzusteuern (befindet sich noch in einem frühen Entwicklungsstadium).
-Eine Anbindung an einen [MQTT](https://github.com/hobbyquaker/RedMatic/wiki/Flow-MQTT) Broker mit komfortabel 
+
+Eine Anbindung der CCU an einen [MQTT](https://github.com/hobbyquaker/RedMatic/wiki/Flow-MQTT) Broker mit komfortabel 
 konfigurierbarer Topic- und Payload-Struktur wird durch einen speziellen Node vereinfacht.
 
 _RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden.
