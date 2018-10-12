@@ -23,9 +23,12 @@ zu realisieren - und das weitgehend auch ohne Programmierkenntnisse. Im
 Anwendungsbeispiele (sogenannte _Flows_).
 
 Für die Visualisierung und Fernsteuerung sind [RedMatic-WebApp](https://github.com/hobbyquaker/RedMatic-WebApp) und 
-[Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) enthalten, mittels derer ansprechende User 
-Interfaces für Mobilgeräte und den Browser erstellt werden können 
-([Beispiel Screenshots](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots)).
+[Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) enthalten. RedMatic-WebApp ist eine
+Bedienoberfläche die ohne weitere Konfiguration sofort genutzt werden kann (vergleichbar mit "WebMatic" oder "Yahui").
+Node-RED Dashboard ist ein konfigurierbares User Interface, kann mehr Möglichkeiten als die RedMatic-WebApp bieten, ist 
+aber mit Konfigurationsaufwand verbunden. Beispiel Screenshots: 
+[Node-RED Dashboard](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots), 
+[RedMatic WebApp](https://github.com/hobbyquaker/RedMatic/wiki/Webapp).
 
 Außerdem ist es mit der ebenfalls enthaltenen Erweiterung 
 [RedMatic-HomeKit](https://github.com/hobbyquaker/RedMatic-HomeKit) möglich die Geräte der CCU über Siri und mit 
