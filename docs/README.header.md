@@ -32,8 +32,8 @@ Beispiel Screenshots:
 [RedMatic WebApp](https://github.com/hobbyquaker/RedMatic/wiki/Webapp).
 
 Außerdem ist es mit der ebenfalls enthaltenen Erweiterung 
-[RedMatic HomeKit](https://github.com/hobbyquaker/RedMatic/wiki/Homekit) möglich die Geräte der CCU über Siri und mit 
-HomeKit-Apps zu anzusteuern (befindet sich noch in einem frühen Entwicklungsstadium).
+[RedMatic HomeKit](https://github.com/hobbyquaker/RedMatic/wiki/Homekit) möglich Homematic Geräte und andere in Node-RED 
+verügbare Systeme über Siri und mit HomeKit-Apps zu anzusteuern.
 
 Eine Anbindung der CCU an einen [MQTT](https://github.com/hobbyquaker/RedMatic/wiki/Flow-MQTT) Broker mit komfortabel 
 konfigurierbarer Topic- und Payload-Struktur wird durch einen speziellen Node vereinfacht.
@@ -41,8 +41,8 @@ konfigurierbarer Topic- und Payload-Struktur wird durch einen speziellen Node ve
 ## Voraussetzungen
 
 _RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Da RedMatic unter Umständen über 100MB Speicher 
-benötigt ist dazu zu raten einen RaspberryPi mit 1GB RAM zu nutzen (ab Pi 2B). Auf der CCU1/2 kann es nicht verwendet 
-werden.
+benötigt ist es ratsam einen RaspberryPi mit 1GB RAM zu nutzen (ab Pi 2B). Auf der CCU1/2 kann _RedMatic_ nicht 
+verwendet werden.
 
 Für die Nutzung der Weboberflächen ist ein moderner Browser notwendig, der Internet Explorer wird nicht unterstützt.
 
