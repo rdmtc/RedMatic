@@ -31,7 +31,7 @@ aber mit Konfigurationsaufwand verbunden. Beispiel Screenshots:
 [RedMatic WebApp](https://github.com/hobbyquaker/RedMatic/wiki/Webapp).
 
 Außerdem ist es mit der ebenfalls enthaltenen Erweiterung 
-[RedMatic-HomeKit](https://github.com/hobbyquaker/RedMatic-HomeKit) möglich die Geräte der CCU über Siri und mit 
+[RedMatic-HomeKit](https://github.com/hobbyquaker/RedMatic/wiki/Homekit) möglich die Geräte der CCU über Siri und mit 
 HomeKit-Apps zu anzusteuern (befindet sich noch in einem frühen Entwicklungsstadium).
 
 _RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Auf der CCU2 kann es nicht verwendet werden.
