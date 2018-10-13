@@ -38,17 +38,18 @@ verügbare Systeme über Siri und mit HomeKit-Apps zu anzusteuern.
 Eine Anbindung der CCU an einen [MQTT](https://github.com/hobbyquaker/RedMatic/wiki/Flow-MQTT) Broker mit komfortabel 
 konfigurierbarer Topic- und Payload-Struktur wird durch einen speziellen Node vereinfacht.
 
-Eine große und aktive Community rund um Node-RED hat zudem eine 
+Die große und aktive Node-RED Community hat zudem eine 
 [Bibliothek von tausenden zusätzlichen Nodes](https://flows.nodered.org/?type=node&num_pages=1) geschaffen die auf 
 einfache Weise [installiert werden können](https://github.com/hobbyquaker/RedMatic/wiki/Node-Installation) und es 
 ermöglichen spezielle Automatismen zu implementieren und diverse weitere Services und Systeme komfortabel anzubinden - 
 wie z.B. das Xiaomi Aqara Smart Home System, Loxone, den Logitech Harmony Hub, verschiedene Smart TVs und AV-Receiver, 
-Sonoff, Hue, Lightify, Tradfri, ArtNET/DMX, Modbus, Amazon Alexa, Google Home, diverse Datenbanken, Webservices und 
-vieles mehr.
+Sonoff, Hue, Lightify, Tradfri, ArtNET/DMX, Modbus, Amazon Alexa, Google Home, diverse Datenbanken wie z.B. InfluxDB 
+oder MySQL, Webservices zur Abfrage von beispielsweise Wetterdaten und vieles mehr.
 
-_RedMatic_ kann damit - für diejenigen die neben der CCU keinen weiteren Server betreiben möchten - eine Alternative zu 
-einem "ausgewachsenen" Smart Home System wie z.B. OpenHAB, ioBroker, HASS oder FHEM darstellen. Für die Automatisierung 
-eines Homematic Systems kann _RedMatic_ auch als Alternative oder Ergänzung für "Rega" Programme/Scripte dienen. 
+_RedMatic_ kann damit - insbesondere für diejenigen die neben der CCU keinen weiteren Server betreiben möchten - eine 
+Alternative zu einem "ausgewachsenen" Smart Home System wie z.B. OpenHAB, ioBroker, Home Assistent oder FHEM darstellen. 
+Für die Automatisierung eines Homematic Systems kann _RedMatic_ auch als Alternative oder Ergänzung für "Rega" 
+Programme/Scripte dienen. 
 
 
 ## Voraussetzungen
