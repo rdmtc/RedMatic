@@ -1,6 +1,6 @@
 {
   "name": "redmatic",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "description": "Node-RED packaged as Homematic CCU addon",
   "repository": "github:hobbyquaker/redmatic",
   "private": true,
@@ -24,7 +24,7 @@
     "node-red-node-sqlite": "0.3.5",
     "redmatic-led": "1.0.0",
     "redmatic-webapp": "0.2.1",
-    "redmatic-homekit": "0.4.3"
+    "redmatic-homekit": "0.4.4"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",
