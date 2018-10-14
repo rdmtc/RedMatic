@@ -11,6 +11,6 @@
     "node-red-node-sqlite": "0.3.5",
     "redmatic-led": "1.0.0",
     "redmatic-webapp": "0.2.1",
-    "redmatic-homekit": "0.4.2"
+    "redmatic-homekit": "0.4.3"
   }
 }
