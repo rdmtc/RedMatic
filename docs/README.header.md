@@ -27,18 +27,17 @@ Für die Visualisierung und Steuerung sind [RedMatic WebApp](https://github.com/
 Bedienoberfläche die ohne weitere Konfiguration sofort genutzt werden kann (vergleichbar mit _WebMatic_ oder _Yahui_).
 _Node-RED Dashboard_ ist ein konfigurierbares User Interface, kann mehr Möglichkeiten als die _RedMatic WebApp_ bieten, 
 ist aber mit Konfigurationsaufwand verbunden. 
-Beispiel Screenshots: 
-[Node-RED Dashboard](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots), 
-[RedMatic WebApp](https://github.com/hobbyquaker/RedMatic/wiki/Webapp).
+Beispiel Screenshots: [RedMatic WebApp](https://github.com/hobbyquaker/RedMatic/wiki/Webapp), 
+[Node-RED Dashboard](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots).
 
 Außerdem ist es mit der ebenfalls enthaltenen Erweiterung 
 [RedMatic HomeKit](https://github.com/hobbyquaker/RedMatic/wiki/Homekit) möglich Homematic Geräte und andere in Node-RED 
-verügbare Systeme über Siri und mit HomeKit-Apps zu anzusteuern.
+verfügbare Systeme über Siri und mit HomeKit-Apps anzusteuern.
 
 Eine Anbindung der CCU an einen [MQTT](https://github.com/hobbyquaker/RedMatic/wiki/Flow-MQTT) Broker mit komfortabel 
 konfigurierbarer Topic- und Payload-Struktur wird durch einen speziellen Node vereinfacht.
 
-Die große und aktive Node-RED Community hat zudem eine 
+Eine große und aktive Community rund um Node-RED hat zudem eine 
 [Bibliothek von tausenden zusätzlichen Nodes](https://flows.nodered.org/?type=node&num_pages=1) geschaffen die auf 
 einfache Weise [installiert werden können](https://github.com/hobbyquaker/RedMatic/wiki/Node-Installation) und es 
 ermöglichen spezielle Automatismen zu implementieren und diverse weitere Services und Systeme komfortabel anzubinden - 
@@ -47,7 +46,7 @@ Sonoff, Hue, Lightify, Tradfri, ArtNET/DMX, Modbus, Amazon Alexa, Google Home, d
 oder MySQL, Webservices zur Abfrage von beispielsweise Wetterdaten und vieles mehr.
 
 _RedMatic_ kann damit - insbesondere für diejenigen die neben der CCU keinen weiteren Server betreiben möchten - eine 
-Alternative zu einem "ausgewachsenen" Smart Home System wie z.B. OpenHAB, ioBroker, Home Assistent oder FHEM darstellen. 
+Alternative zu einem "ausgewachsenen" Smart Home System wie z.B. ioBroker, Home Assistent, OpenHAB oder FHEM darstellen. 
 Für die Automatisierung eines Homematic Systems kann _RedMatic_ auch als Alternative oder Ergänzung für "Rega" 
 Programme/Scripte dienen. 
 
