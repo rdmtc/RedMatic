@@ -4,13 +4,13 @@
   "version": "0.0.1",
   "dependencies": {
     "node-red-dashboard": "2.9.8",
-    "node-red-contrib-ccu": "1.6.14",
+    "node-red-contrib-ccu": "1.6.15",
     "node-red-contrib-combine": "1.6.1",
     "node-red-contrib-mqtt-json": "1.0.1",
     "node-red-contrib-time-range-switch": "0.6.1",
     "node-red-node-sqlite": "0.3.5",
     "redmatic-led": "1.0.0",
     "redmatic-webapp": "0.2.1",
-    "redmatic-homekit": "0.6.0"
+    "redmatic-homekit": "0.6.2"
   }
 }
