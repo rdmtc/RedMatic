@@ -97,6 +97,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [CCU Nodes](https://github.com/hobbyquaker/RedMatic/wiki/CCU-Nodes)
   * [Tipps](https://github.com/hobbyquaker/RedMatic/wiki/Tipps)
   * [Flows exportieren](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Export)
+  * [Flows importieren](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Import)
 * Beispiel Flows
   * [Anzahl und Liste offener Fenster im Dashboard anzeigen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Windows)
   * [Hue Lampen mit langem Tastendruck dimmen](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Hue)
