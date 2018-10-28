@@ -7,6 +7,8 @@ WWW_DIR=/usr/local/etc/config/addons/www/redmatic
 NODE=$ADDON_DIR/bin/node
 
 export PATH=$ADDON_DIR/bin:$PATH
+export HOME=$ADDON_DIR/home
+
 export NO_UPDATE_NOTIFIER=true
 
 RED_DIR=$ADDON_DIR/lib/node_modules/node-red
