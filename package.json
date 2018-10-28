@@ -1,6 +1,6 @@
 {
   "name": "redmatic",
-  "version": "1.7.12",
+  "version": "1.7.13",
   "description": "Node-RED packaged as Homematic CCU addon",
   "repository": "github:hobbyquaker/redmatic",
   "private": true,
@@ -12,7 +12,7 @@
     "npm": "6.4.1",
     "node-red": "0.19.4",
     "node-red-dashboard": "2.10.0",
-    "node-red-contrib-ccu": "1.6.19",
+    "node-red-contrib-ccu": "1.6.20",
     "node-red-contrib-combine": "1.6.1",
     "node-red-contrib-mqtt-json": "1.0.1",
     "node-red-contrib-time-range-switch": "0.6.1",

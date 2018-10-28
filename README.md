@@ -121,6 +121,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Integration Weatherman (JSON, httpStatic, SteelSeries Gauges)](https://github.com/hobbyquaker/RedMatic/wiki/https://github.com/Sineos/node-red-contrib-weatherman/blob/master/README_DE.md)
   * [Systeminformationen der CCU Zentrale](https://github.com/hobbyquaker/RedMatic/wiki/https://github.com/Sineos/redmatic-flow-sysinfo/blob/master/README_DE.md)
   * [Werte in InfluxDB speichern](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Influx)
+  * [Diverse Flows von](https://github.com/hobbyquaker/RedMatic/wiki/https://github.com/Sineos/redmatic-flow-misc) [@Sineos](https://github.com/hobbyquaker/RedMatic/wiki/https://github.com/Sineos/)
 * Erweiterungen
   * [RedMatic WebApp](https://github.com/hobbyquaker/RedMatic/wiki/Webapp)
   * [RedMatic HomeKit](https://github.com/hobbyquaker/RedMatic/wiki/Homekit)
