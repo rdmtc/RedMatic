@@ -24,7 +24,11 @@
     "node-red-node-sqlite": "0.3.5",
     "redmatic-led": "1.0.0",
     "redmatic-webapp": "0.2.1",
-    "redmatic-homekit": "0.6.4"
+    "redmatic-homekit": "0.6.4",
+    "node-red-node-email": "1.0.6",
+    "node-red-node-feedparser": "0.1.14",
+    "node-red-node-rbe": "0.2.4",
+    "node-red-node-twitter": "1.1.4"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",

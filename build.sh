@@ -36,6 +36,12 @@ npm install --silent --no-package-lock --production --no-optional --global-style
 npm install --slient --no-package-lock --production --global-style ain2
 rm $ADDON_TMP/redmatic/lib/package.json
 
+echo "removing included extra nodes..."
+rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/node_modules/node-red-node-email
+rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/node_modules/node-red-node-feedparser
+rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/node_modules/node-red-node-rbe
+rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/node_modules/node-red-node-twitter
+
 echo "installing additional Node-RED nodes..."
 cd $ADDON_TMP/redmatic/var
 npm install --silent --no-package-lock --production --no-optional --global-style
