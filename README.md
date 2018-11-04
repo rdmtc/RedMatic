@@ -124,11 +124,11 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Werte in InfluxDB speichern](https://github.com/hobbyquaker/RedMatic/wiki/Flow-Influx)
   * [Diverse Flows von](https://github.com/hobbyquaker/RedMatic/wiki/https://github.com/Sineos/redmatic-flow-misc) [@Sineos](https://github.com/hobbyquaker/RedMatic/wiki/https://github.com/Sineos/)
   * [Harmony Activities mit Homekit nutzen](https://github.com/hobbyquaker/RedMatic/wiki/Harmony-Activities-mit-Homekit-nutzen)
+  * [Homekit: Öffnen einer Tür mit Keymatic HM-Sec-Key-(S)](https://github.com/hobbyquaker/RedMatic/wiki/https://github.com/hobbyquaker/RedMatic/wiki/workaround:-open-für-HM-Sec-Key-(S))
 * Erweiterungen
   * [RedMatic WebApp](https://github.com/hobbyquaker/RedMatic/wiki/Webapp)
   * [RedMatic HomeKit](https://github.com/hobbyquaker/RedMatic/wiki/Homekit)
   * [Node-RED Dashboard](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots)
-
 
 ## Lizenzen
 
