@@ -47,8 +47,8 @@ cd $ADDON_TMP/redmatic/var
 npm install --silent --no-package-lock --production --no-optional --global-style
 
 echo "cleanup node_modules..."
-rm -r $ADDON_TMP/redmatic/var/node_modules/node-red-node-sqlite/node_modules/sqlite3/lib/binding
-rm -r $ADDON_TMP/redmatic/var/node_modules/node-red-node-sqlite/node_modules/sqlite3/deps
+rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red-node-sqlite/node_modules/sqlite3/lib/binding
+rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red-node-sqlite/node_modules/sqlite3/deps
 #$PRUNE $ADDON_TMP/redmatic/lib/node_modules
 #$PRUNE $ADDON_TMP/redmatic/var/node_modules
 
