@@ -68,15 +68,39 @@ if [ ! -f $RED_DIR/var/flows.json ]; then
 fi
 
 #
+#   export lib path for jq usage
+#
+export LD_LIBRARY_PATH=$RED_DIR/lib
+
+#
 #   Extend extra nodes package.json
 #
 if [ -f $RED_DIR/var/package.json.old ]; then
     mv $RED_DIR/var/package.json $RED_DIR/var/package.json.new
-    export LD_LIBRARY_PATH=$RED_DIR/lib
     $RED_DIR/bin/jq -s '.[0] * .[1]' $RED_DIR/var/package.json.old $RED_DIR/var/package.json.new > $RED_DIR/var/package.json
     rm $RED_DIR/var/package.json.old $RED_DIR/var/package.json.new
 fi
 
+#
+#   Migration <= 1.9.0 to > 1.9.0
+#   Remove Packages that where moved to lib dir
+#
+if [ -d $RED_DIR/var/node_modules/node-red-node-sqlite ]; then
+    rm -r $RED_DIR/var/node_modules/node-red-node-sqlite
+    cp $RED_DIR/var/package.json $RED_DIR/var/package.json.bak
+    cat $RED_DIR/var/package.json.bak | $RED_DIR/bin/jq 'del(.dependencies."node-red-node-sqlite")' > $RED_DIR/var/package.json
+    rm $RED_DIR/var/package.json.bak
+fi
+if [ -d $RED_DIR/var/node_modules/node-red-node-serialport ]; then
+    rm -r $RED_DIR/var/node_modules/node-red-node-serialport
+    cp $RED_DIR/var/package.json $RED_DIR/var/package.json.bak
+    cat $RED_DIR/var/package.json.bak | $RED_DIR/bin/jq 'del(.dependencies."node-red-node-serialport")' > $RED_DIR/var/package.json
+    rm $RED_DIR/var/package.json.bak
+fi
+
+#
+#   Remove package-lock
+#
 if [ -f $RED_DIR/var/package-lock.json ]; then
     rm $RED_DIR/var/package-lock.json
 fi
