@@ -129,7 +129,8 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [RedMatic WebApp](https://github.com/hobbyquaker/RedMatic/wiki/Webapp)
   * [RedMatic HomeKit](https://github.com/hobbyquaker/RedMatic/wiki/Homekit)
   * [Node-RED Dashboard](https://github.com/hobbyquaker/RedMatic/wiki/Dashboard-Screenshots)
-
+* Sonstiges
+  * [Link Sammlung](https://github.com/hobbyquaker/RedMatic/wiki/Links)
 ## Lizenzen
 
 * [RedMatic](https://github.com/hobbyquaker/RedMatic) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
