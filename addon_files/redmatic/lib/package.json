@@ -4,7 +4,7 @@
   "dependencies": {
     "npm": "6.4.1",
     "node-red": "0.19.5",
-    "ain2": "2.0.0",
+    "ain2": "3.0.0",
     "node-red-node-serialport": "0.6.8",
     "node-red-node-sqlite": "0.3.5"
   }
