@@ -3,7 +3,7 @@
 <br><br><br>
 
 [![Current Release](https://img.shields.io/github/release/HM-RedMatic/RedMatic.svg?colorB=4cc61e)](https://github.com/HM-RedMatic/RedMatic/releases/latest)
-[![Dependencies Status](https://david-dm.org/HM-Red;atoc/redmatic/status.svg)](https://david-dm.org/HM-Red;atoc/redmatic)
+[![Dependencies Status](https://david-dm.org/HM-RedMatic/redmatic/status.svg)](https://david-dm.org/HM-RedMatic/redmatic)
 [![Build Status](https://travis-ci.org/HM-RedMatic/RedMatic.svg?branch=master)](https://travis-ci.org/HM-RedMatic/RedMatic)
 
 [Node-RED](https://nodered.org/about/) als Addon für die 
