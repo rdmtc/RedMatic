@@ -148,7 +148,7 @@ modules['RedMatic'] = {
     license: 'Apache-2.0',
     author: 'Sebastian Raff <hobbyquaker@gmail.com>',
     licTxt: '\n```\n' + fs.readFileSync(__dirname + '/LICENSE').toString() + '\n```\n',
-    url: 'https://github.com/hobbyquaker/RedMatic'
+    url: 'https://github.com/HM-RedMatic/RedMatic'
 };
 
 modules['git'] = {

@@ -19518,7 +19518,7 @@ IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     
 License: Apache-2.0    
 Author: Sebastian Raff <hobbyquaker@gmail.com>    
-Repository: [https://github.com/hobbyquaker/RedMatic](https://github.com/hobbyquaker/RedMatic)      
+Repository: [https://github.com/HM-RedMatic/RedMatic](https://github.com/HM-RedMatic/RedMatic)      
 
 
 ```
@@ -19721,7 +19721,7 @@ Repository: []()
     
 License: MIT    
 Author: Sebastian Raff <hobbyquaker@gmail.com>    
-Repository: [https://github.com/hobbyquaker/RedMatic-LED](https://github.com/hobbyquaker/RedMatic-LED)      
+Repository: [https://github.com/HM-RedMatic/RedMatic-LED](https://github.com/HM-RedMatic/RedMatic-LED)      
 
 
 ```

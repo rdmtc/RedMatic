@@ -67,7 +67,7 @@ Start () {
         start-stop-daemon -S -q -b --exec $ADDON_DIR/bin/redmaticLoader
         echo "OK"
         source $ADDON_DIR/versions
-        logger -t redmatic -p user.info "RedMatic v$VERSION_ADDON (c) Sebastian Raff https://github.com/hobbyquaker/RedMatic"
+        logger -t redmatic -p user.info "RedMatic v$VERSION_ADDON (c) Sebastian Raff https://github.com/HM-RedMatic/RedMatic"
         logger -t redmatic -p user.info "Started Node-RED"
     fi
 }
@@ -90,7 +90,7 @@ case "$1" in
 
   info)
     source $ADDON_DIR/versions
-    echo "Info: <div><a target=\"_blank\" href=\"https://github.com/hobbyquaker/RedMatic\"><img src=\"/addons/redmatic/logo-x-120.png\"/></a></div>"
+    echo "Info: <div><a target=\"_blank\" href=\"https://github.com/HM-RedMatic/RedMatic\"><img src=\"/addons/redmatic/logo-x-120.png\"/></a></div>"
     echo "Info: <center><div style=\"font-size: 10px !important; padding-bottom: 1px;\">Node.js: $NODE_VERSION - Node-RED: $VERSION_nodered</div></center>"
     echo "Name: RedMatic"
     echo "Version: $VERSION_ADDON"

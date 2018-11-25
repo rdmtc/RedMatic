@@ -20,7 +20,7 @@ if (fs.existsSync('/usr/local/addons/redmatic/etc/credentials.key')) {
 delete defaults.logging.console;
 Object.assign(logging.logging.ain, settings.logging.ain);
 
-// https://github.com/hobbyquaker/RedMatic/issues/45
+// https://github.com/HM-RedMatic/RedMatic/issues/45
 if (!defaults.editorTheme) {
     defaults.editorTheme = {};
 }
