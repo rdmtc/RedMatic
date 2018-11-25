@@ -1,7 +1,7 @@
 #!/usr/bin/env tclsh
 
-set checkURL    "https://api.github.com/repos/hobbyquaker/RedMatic/releases/latest"
-set downloadURL "https://github.com/hobbyquaker/RedMatic/releases/latest"
+set checkURL    "https://api.github.com/repos/HM-RedMatic/RedMatic/releases/latest"
+set downloadURL "https://github.com/HM-RedMatic/RedMatic/releases/latest"
 
 catch {
   set input $env(QUERY_STRING)
