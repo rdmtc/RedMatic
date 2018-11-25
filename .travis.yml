@@ -24,4 +24,4 @@ deploy:
   skip_cleanup: true
 after_deploy:
   - gem install octokit
-  - ./github_release.rb -s $GITHUB_OAUTH_TOKEN -r hobbyquaker/RedMatic -c CHANGELOG.md -t v$VERSION_ADDON
+  - ./github_release.rb -s $GITHUB_OAUTH_TOKEN -r HM-RedMatic/RedMatic -c CHANGELOG.md -t v$VERSION_ADDON
