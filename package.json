@@ -1,6 +1,6 @@
 {
   "name": "redmatic",
-  "version": "1.9.8",
+  "version": "1.9.9",
   "description": "Node-RED packaged as Homematic CCU addon",
   "repository": "github:hobbyquaker/redmatic",
   "private": true,
