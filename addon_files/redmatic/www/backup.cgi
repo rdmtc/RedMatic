@@ -23,6 +23,7 @@ if {[info exists sid] && [check_session $sid]} {
 
 
 } else {
+    puts "Content-Type: text/plain\n"
     puts {error: invalid session}
 }
 

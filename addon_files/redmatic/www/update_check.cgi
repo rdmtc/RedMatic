@@ -14,6 +14,7 @@ catch {
 }
 
 if { [info exists cmd ] && $cmd == "download"} {
+  puts "Content-Type: text/html\n"
   puts "<html><head><meta http-equiv='refresh' content='0; url=$downloadURL' /></head></html>"
 } else {
   catch {

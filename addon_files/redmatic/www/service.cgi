@@ -2,6 +2,8 @@
 
 source ../lib/querystring.tcl
 
+puts "Content-Type: text/plain\n"
+
 if {[info exists cmd]} {
 
     if {$cmd == "stop" || $cmd == "start" || $cmd == "restart"} {
