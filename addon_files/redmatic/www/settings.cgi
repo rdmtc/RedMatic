@@ -12,6 +12,8 @@ catch {
   }
 }
 
+puts "Content-Type: text/html\n"
+
 if {[info exists sid] > 0} {
     # Session prüfen
     if {
