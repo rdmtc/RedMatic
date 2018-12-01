@@ -20,6 +20,7 @@ Stop () {
     if [ "$PSPID" != "" ]
     then
         echo -n "Stopping Node-RED: "
+        killall redmaticLoader 2>/dev/null
         kill -SIGINT $PSPID 2>/dev/null
         if [ $? -ne "0" ]
         then
@@ -27,7 +28,7 @@ Stop () {
             kill -KILL $PSPID 2>/dev/null
         fi
         echo "OK"
-        logger -t redmatic -p user.info "Stopped Node-RED"
+        logger -t redmatic -p daemon.info "Stopping Node-RED"
         return 0
     else
         echo "Node-RED not running"
@@ -64,11 +65,10 @@ Start () {
         exit 1
     else
         echo -n "Starting Node-RED: "
+        source $ADDON_DIR/versions
+        logger -t redmatic -p daemon.info "RedMatic v$VERSION_ADDON (c) Sebastian Raff https://github.com/HM-RedMatic/RedMatic"
         start-stop-daemon -S -q -b --exec $ADDON_DIR/bin/redmaticLoader
         echo "OK"
-        source $ADDON_DIR/versions
-        logger -t redmatic -p user.info "RedMatic v$VERSION_ADDON (c) Sebastian Raff https://github.com/HM-RedMatic/RedMatic"
-        logger -t redmatic -p user.info "Started Node-RED"
     fi
 }
 
@@ -91,7 +91,6 @@ case "$1" in
   info)
     source $ADDON_DIR/versions
     echo "Info: <div><a target=\"_blank\" href=\"https://github.com/HM-RedMatic/RedMatic\"><img src=\"/addons/redmatic/logo-x-120.png\"/></a></div>"
-    echo "Info: <center><div style=\"font-size: 10px !important; padding-bottom: 1px;\">Node.js: $NODE_VERSION - Node-RED: $VERSION_nodered</div></center>"
     echo "Name: RedMatic"
     echo "Version: $VERSION_ADDON"
     echo "Update: /addons/redmatic/update_check.cgi"
@@ -108,7 +107,7 @@ case "$1" in
     rm -r $WWW_DIR
     rm $CONF_DIR/lighttpd/redmatic.conf
     rm $CONF_DIR/rc.d/redmatic
-    logger -t redmatic -p user.info "Uninstalled RedMatic"
+    logger -t redmatic -p daemon.info "Uninstalled RedMatic"
     ;;
 
   *)
