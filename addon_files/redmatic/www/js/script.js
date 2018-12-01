@@ -137,12 +137,10 @@ $(document).ready(() => {
     }
 
     function save() {
-        console.log(config);
         $.post({
             url: 'setconfig.cgi' + location.search,
             data: JSON.stringify(config, null, '  '),
             success: function (data) {
-                console.log(data);
                 if ($.trim(data) === 'ok') {
                     alert($alertSaved);
                 } else {
@@ -156,7 +154,6 @@ $(document).ready(() => {
 
     $.get('getconfig.cgi' + location.search, (data, success) => {
         config = JSON.parse(data);
-        console.log(config, success);
         $loglevel.val(config.logging.ain.level);
         $contextStorage.val(config.contextStorage.default.module);
 
@@ -399,6 +396,31 @@ $(document).ready(() => {
                 }
             }
         });
+    });
+
+    function setHeader(xhr) {
+        xhr.setRequestHeader('accept', 'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*');
+    }
+
+    $.get('restart_count', data => {
+        $('#restarts').html(data || 'keine');
+    });
+
+    function download(filename, dataUrl) {
+
+        let link = document.createElement("a");
+        link.download = filename;
+        link.target = "_blank";
+
+        link.href = dataUrl;
+        document.body.appendChild(link);
+        link.click();
+
+        document.body.removeChild(link);
+    }
+
+    $('#log').on('click', () => {
+        download('redmatic.' + (new Date()).toISOString() + '.log', 'log.cgi' + location.search);
     });
 
 });
