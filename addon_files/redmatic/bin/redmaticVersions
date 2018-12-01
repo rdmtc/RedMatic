@@ -1,0 +1,34 @@
+#!/bin/sh
+
+ADDON_DIR=/usr/local/addons/redmatic
+GLOBAL_MODULES=$ADDON_DIR/lib/node_modules
+LOCAL_MODULES=$ADDON_DIR/var/node_modules
+
+NODE=$ADDON_DIR/bin/node
+
+export PATH=$ADDON_DIR/bin:$PATH
+export LD_LIBRARY_PATH=$ADDON_DIR/lib:$LD_LIBRARY_PATH
+export NO_UPDATE_NOTIFIER=true
+
+source $ADDON_DIR/versions
+
+JO_ARGS=""
+
+for dir in $GLOBAL_MODULES/*
+do
+    dir=${dir%*/}
+    PKG=${dir##*/}
+    JO_ARGS="$JO_ARGS $PKG=`jq -r '.version' $GLOBAL_MODULES/$PKG/package.json`"
+done
+
+for dir in $LOCAL_MODULES/*
+do
+    dir=${dir%*/}
+    PKG=${dir##*/}
+    JO_ARGS="$JO_ARGS $PKG=`jq -r '.version' $LOCAL_MODULES/$PKG/package.json`"
+done
+
+jo -p ccu=`cat /VERSION | jo` \
+    redmatic=$VERSION_ADDON \
+    nodejs=`node --version | cut -c 2-` \
+    $JO_ARGS
