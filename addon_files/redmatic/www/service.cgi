@@ -2,7 +2,7 @@
 
 source ../lib/querystring.tcl
 
-puts "Content-Type: text/plain\n"
+puts "Content-Type: text/plain\r\n"
 
 if {[info exists cmd]} {
 
