@@ -5,6 +5,10 @@
 [![Current Release](https://img.shields.io/github/release/HM-RedMatic/RedMatic.svg?colorB=4cc61e)](https://github.com/HM-RedMatic/RedMatic/releases/latest)
 [![Dependencies Status](https://david-dm.org/HM-RedMatic/redmatic/status.svg)](https://david-dm.org/HM-RedMatic/redmatic)
 [![Build Status](https://travis-ci.org/HM-RedMatic/RedMatic.svg?branch=master)](https://travis-ci.org/HM-RedMatic/RedMatic)
+[![Total GitHub Downloads](https://img.shields.io/github/downloads/HM-RedMatic/RedMatic/total.svg)](https://github.com/HM-RedMatic/RedMatic/releases)
+[![Release Downloads](https://img.shields.io/github/downloads/HM-RedMatic/RedMatic/latest/total.svg)](https://github.com/HM-RedMatic/RedMatic/releases)
+[![Total Downloads](https://img.shields.io/github/downloads/HM-RedMatic/RedMatic/total.svg)](https://github.com/HM-RedMatic/RedMatic/releases)
+
 
 [Node-RED](https://nodered.org/about/) als Addon für die 
 [Homematic CCU3](https://www.eq-3.de/produkte/homematic/zentralen-und-gateways/smart-home-zentrale-ccu3.html) und 
