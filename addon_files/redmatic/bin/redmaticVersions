@@ -32,3 +32,4 @@ jo -p ccu=`cat /VERSION | jo` \
     redmatic=$VERSION_ADDON \
     nodejs=`node --version | cut -c 2-` \
     $JO_ARGS
+
