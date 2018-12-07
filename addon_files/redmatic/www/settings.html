@@ -180,10 +180,31 @@
         </div>
 
         <div class="tab-pane fade show" id="versions" role="tabpanel" aria-labelledby="versions-tab">
-            <p>
-                <button id="log" type="button" class="btn btn-sm btn-info"><i class="fa fa-link"></i> Log herunterladen</button>
-            </p>
-            <p>Node-RED Abstürze seit letztem RedMatic-Start: <span id="restarts">keine</span></p>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <button id="log" type="button" class="btn btn-sm btn-info"><i class="fa fa-link"></i> Log herunterladen</button>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="autorestart">Node-RED im Falle eines Absturzes neu starten</label>
+                        <select class="form-control" id="autorestart">
+                            <option value="0">Deaktiviert</option>
+                            <option value="1">Einmal</option>
+                            <option value="2">Zweimal</option>
+                            <option value="3">Dreimal</option>
+                            <option value="4">Viermal</option>
+                            <option value="5">Fünfmal</option>
+                            <option value="2147483647">Unbegrenzt</option>
+                        </select>
+                    </div>
+                    <p>Node-RED Abstürze seit letztem RedMatic-Start: <span id="restarts">keine</span></p>
+                </div>
+            </div>
+
         </div>
 
         <div class="tab-pane fade show" id="licenses" role="tabpanel" aria-labelledby="licenses-tab">

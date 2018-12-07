@@ -18,6 +18,8 @@ SETTINGS=$ADDON_DIR/lib/settings.js
 
 status=1
 restarts=0
+limit=`jq '.restartOnCrash' $ADDON_DIR/etc/settings.json`
+
 while [[ $status != 0 ]]; do
   echo $restarts > $ADDON_DIR/var/restart_count
   echo "Starting Node-RED" | logger -p daemon.info -t redmatic
@@ -27,6 +29,8 @@ while [[ $status != 0 ]]; do
   if [[ $status != 0 ]]; then
     echo "Node-RED exited with non-zero exit status $status" | logger -p daemon.err -t node-red
     let "restarts=restarts+1"
+    if [[ $restarts -gt $limit ]]; then
+        status=0
+    fi
   fi
 done
-

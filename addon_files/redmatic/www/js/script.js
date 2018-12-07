@@ -175,6 +175,8 @@ $(document).ready(() => {
             $staticauthUser.val(config.httpStaticAuth.user);
         }
 
+        $('#autorestart').find('option[value="' + config.restartOnCrash + '"]').attr('selected', true);
+
     });
 
     $loglevel.change(() => {
@@ -407,7 +409,6 @@ $(document).ready(() => {
     });
 
     function download(filename, dataUrl) {
-
         let link = document.createElement("a");
         link.download = filename;
         link.target = "_blank";
@@ -421,6 +422,11 @@ $(document).ready(() => {
 
     $('#log').on('click', () => {
         download('redmatic.' + (new Date()).toISOString() + '.log', 'log.cgi' + location.search);
+    });
+
+    $('#autorestart').on('change', event => {
+        config.restartOnCrash = parseInt(event.target.value, 10);
+        save();
     });
 
 });
