@@ -33,6 +33,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "github-markdown-css": "^2.10.0",
+    "latest-semver": "^1.0.0",
     "npm-check-updates": "^2.15.0",
     "showdown": "^1.8.6",
     "sync-request": "^6.0.0"

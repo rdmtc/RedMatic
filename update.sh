@@ -13,4 +13,5 @@ $BUILD_DIR/node_modules/.bin/ncu -u
 
 cd $BUILD_DIR
 node update_package.js
+node update_nodejs.js
 node update_readme.js
