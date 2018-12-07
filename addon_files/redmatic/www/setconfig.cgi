@@ -3,7 +3,7 @@
 source ../lib/querystring.tcl
 source ../lib/session.tcl
 
-puts "Content-Type: text/plain\r\n"
+puts -nonewline "Content-Type: text/plain; charset=utf-8\r\n\r\n"
 
 if {[info exists sid] && [check_session $sid]} {
     set filename "/usr/local/addons/redmatic/etc/settings.json"

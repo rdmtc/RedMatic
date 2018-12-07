@@ -13,7 +13,7 @@ catch {
   }
 }
 
-puts "Content-Type: text/html\r\n"
+puts -nonewline "Content-Type: text/html; charset=utf-8\r\n\r\n"
 
 if { [info exists cmd ] && $cmd == "download"} {
   puts "<html><head><meta http-equiv='refresh' content='0; url=$downloadURL' /></head></html>"

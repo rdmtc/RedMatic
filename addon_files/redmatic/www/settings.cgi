@@ -12,7 +12,7 @@ catch {
   }
 }
 
-puts "Content-Type: text/html\r\n"
+puts -nonewline "Content-Type: text/html; charset=utf-8\r\n\r\n"
 
 if {[info exists sid] > 0} {
     # Session prüfen
