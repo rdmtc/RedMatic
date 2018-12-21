@@ -9,7 +9,7 @@
     "node-red-contrib-ccu": "1.10.3",
     "node-red-contrib-combine": "1.6.2",
     "node-red-contrib-mqtt-json": "1.0.1",
-    "node-red-contrib-time-range-switch": "0.6.1",
+    "node-red-contrib-sun-position": "0.1.16",
     "redmatic-led": "1.0.0",
     "redmatic-webapp": "0.2.1",
     "redmatic-homekit": "1.0.0"
