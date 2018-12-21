@@ -1,18 +1,18 @@
 {
   "name": "redmatic",
-  "version": "1.9.15",
+  "version": "1.10.0",
   "description": "Node-RED packaged as Homematic CCU addon",
   "repository": "github:hobbyquaker/redmatic",
   "private": true,
   "main": "none",
   "engines": {
-    "node": "8.14.0"
+    "node": "8.14.1"
   },
   "dependencies": {
-    "npm": "6.4.1",
+    "npm": "6.5.0",
     "node-red": "0.19.5",
-    "node-red-dashboard": "2.12.0",
-    "node-red-contrib-ccu": "1.9.2",
+    "node-red-dashboard": "2.12.2",
+    "node-red-contrib-ccu": "1.10.3",
     "node-red-contrib-combine": "1.6.2",
     "node-red-contrib-mqtt-json": "1.0.1",
     "node-red-contrib-time-range-switch": "0.6.1",
@@ -21,11 +21,11 @@
     "jquery": "^3.3.1",
     "@fortawesome/fontawesome-free": "^5.5.0",
     "ain2": "3.0.0",
-    "node-red-node-sqlite": "0.3.5",
+    "node-red-node-sqlite": "0.3.6",
     "redmatic-led": "1.0.0",
     "redmatic-webapp": "0.2.1",
-    "redmatic-homekit": "0.7.11",
-    "node-red-node-email": "1.0.6",
+    "redmatic-homekit": "1.0.0",
+    "node-red-node-email": "1.0.7",
     "node-red-node-rbe": "0.2.4",
     "node-red-node-serialport": "0.6.8"
   },

@@ -114,7 +114,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Bidcos-Wired Dimmer mit Bidcos-RF Tasten steuern](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-Wired-Dimmer)
 * Von Usern bereitgestellte Flows
   * [Licht mittels Tastendruck aus und einschalten](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-simple-toggle-light)
-  * [Licht schalten mit Toogle-Element](https://github.com/HM-RedMatic/RedMatic/wiki/Use-a-toggle-function-node-for-light-on-and-off)
+  * [Licht schalten mit einem Dashboard button](https://github.com/HM-RedMatic/RedMatic/wiki/combine-logic-node-for-toggle-state)
   * [Textausgabe mittels Chromecast oder Google Home](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-speak-text-on-Google)
   * [Berechnung von Feiertagen](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-to-calculate-german-holidays)
   * [Funktion nur innerhalb einer bestimmten Uhr-Zeit ausführen](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-within-time)
