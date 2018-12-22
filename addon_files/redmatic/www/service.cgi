@@ -29,7 +29,7 @@ if {[info exists cmd]} {
         exit 0
     }
     if {$cmd == "cpu"} {
-        puts [exec top -b -n 1 | grep "% node-red$" | tr -s " " | cut -d " " -f7]
+        puts [exec top -b -n 1 | grep "% node-red$" | awk "\{print \$7\}"]
         exit 0
     }
 }
