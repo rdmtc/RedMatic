@@ -31,6 +31,7 @@ $(document).ready(() => {
 
     const $status = $('#node-red-status');
     const $memory = $('#node-red-memory');
+    const $cpu = $('#node-red-cpu');
 
     $alertSaved.hide();
     $alertError.hide();
@@ -56,10 +57,16 @@ $(document).ready(() => {
     let psTimeout;
     let psInterval = 5000;
 
+    function cpu() {
+        $.get(`service.cgi?sid=${sid}&cmd=cpu`, (data, success) => {
+            $cpu.html(data ? 'cpu ' + data : '');
+        });
+    }
+
     function ps() {
         clearTimeout(psTimeout);
         $.get(`service.cgi?sid=${sid}&cmd=ps`, (data, success) => {
-            console.log(data);
+            cpu();
             const lines = data.split('\n');
             let found = false;
             lines.forEach(line => {
@@ -83,7 +90,7 @@ $(document).ready(() => {
                     $linkRed.removeClass('disabled');
                     $linkUi.removeClass('disabled');
                     $start.addClass('disabled');
-                    psInterval = 10000;
+                    psInterval = 5000;
                     return;
                 }
                 match = line.match(/([0-9]+[a-z]?)\s+([0-9]+[a-z]?)\s+.*red.js/);
@@ -117,7 +124,7 @@ $(document).ready(() => {
                 $start.removeClass('disabled');
                 $linkRed.addClass('disabled');
                 $linkUi.addClass('disabled');
-                psInterval = 10000;
+                psInterval = 5000;
             }
             psTimeout = setTimeout(ps, psInterval);
         });
@@ -348,7 +355,7 @@ $(document).ready(() => {
                     psInterval = 2000;
                     setTimeout(() => {
                         ps();
-                    }, 3000);
+                    }, 4000);
                     alert($alertExec);
                 } else {
                     alert($alertError);

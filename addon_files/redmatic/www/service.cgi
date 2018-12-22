@@ -28,6 +28,10 @@ if {[info exists cmd]} {
         puts [exec ps -o vsz,rss,comm,args | grep node]
         exit 0
     }
+    if {$cmd == "cpu"} {
+        puts [exec top -b -n 1 | grep "% node-red$" | tr -s " " | cut -d " " -f7]
+        exit 0
+    }
 }
 
 puts {error: invalid command}
