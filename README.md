@@ -125,13 +125,14 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Diverse Flows von](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/Sineos/redmatic-flow-misc) [@Sineos](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/Sineos/)
   * [Harmony Activities mit Homekit nutzen](https://github.com/HM-RedMatic/RedMatic/wiki/Harmony-Activities-mit-Homekit-nutzen)
   * [Homekit: Öffnen einer Tür mit Keymatic HM-Sec-Key-(S)](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/HM-RedMatic/RedMatic/wiki/Open-Workaround-für-HM-Sec-Key)
+  * [Nachrichten an Telegram versenden](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/HM-RedMatic/RedMatic/wiki/Nachrichten-an-Telegram-versenden)
 * Erweiterungen
   * [RedMatic WebApp](https://github.com/HM-RedMatic/RedMatic/wiki/Webapp)
   * [RedMatic HomeKit](https://github.com/HM-RedMatic/RedMatic/wiki/Homekit)
   * [Node-RED Dashboard](https://github.com/HM-RedMatic/RedMatic/wiki/Dashboard-Screenshots)
 * Sonstiges
   * [Link Sammlung](https://github.com/HM-RedMatic/RedMatic/wiki/Links)
-## Lizenzen
+  * [Nützliche Tipps](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/HM-RedMatic/RedMatic/wiki/Nuetzliche-Tipps)## Lizenzen
 
 * [RedMatic](https://github.com/HM-RedMatic/RedMatic) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
 * [RedMatic Documentation](https://github.com/HM-RedMatic/RedMatic/wiki) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
