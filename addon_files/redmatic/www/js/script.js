@@ -355,7 +355,7 @@ $(document).ready(() => {
                     psInterval = 2000;
                     setTimeout(() => {
                         ps();
-                    }, 4000);
+                    }, 6000);
                     alert($alertExec);
                 } else {
                     alert($alertError);
@@ -375,7 +375,9 @@ $(document).ready(() => {
             success: data => {
                 if (data.match(/Starting Node-RED: OK/)) {
                     psInterval = 2000;
-                    ps();
+                    setTimeout(() => {
+                        ps();
+                    }, 6000);
                     alert($alertExec);
                 } else {
                     alert($alertError);
@@ -399,7 +401,7 @@ $(document).ready(() => {
                     psInterval = 2000;
                     setTimeout(() => {
                         ps();
-                    }, 3000);
+                    }, 6000);
                 } else {
                     alert($alertError);
                 }
