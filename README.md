@@ -132,7 +132,10 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Node-RED Dashboard](https://github.com/HM-RedMatic/RedMatic/wiki/Dashboard-Screenshots)
 * Sonstiges
   * [Link Sammlung](https://github.com/HM-RedMatic/RedMatic/wiki/Links)
-  * [Nützliche Tipps](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/HM-RedMatic/RedMatic/wiki/Nuetzliche-Tipps)## Lizenzen
+  * [Nützliche Tipps](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/HM-RedMatic/RedMatic/wiki/Nuetzliche-Tipps)
+
+
+## Lizenzen
 
 * [RedMatic](https://github.com/HM-RedMatic/RedMatic) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
 * [RedMatic Documentation](https://github.com/HM-RedMatic/RedMatic/wiki) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
