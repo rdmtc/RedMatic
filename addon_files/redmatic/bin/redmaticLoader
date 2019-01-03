@@ -7,6 +7,7 @@ WWW_DIR=/usr/local/etc/config/addons/www/redmatic
 NODE=$ADDON_DIR/bin/node
 
 export PATH=$ADDON_DIR/bin:$PATH
+export LD_LIBRARY_PATH=$ADDON_DIR/lib:$LD_LIBRARY_PATH
 export HOME=$ADDON_DIR/home
 
 export NO_UPDATE_NOTIFIER=true
@@ -20,9 +21,17 @@ status=1
 restarts=0
 limit=`jq '.restartOnCrash' $ADDON_DIR/etc/settings.json`
 
+if [[ -z $limit ]]; then
+  limit = 0
+fi
+
 while [[ $status != 0 ]]; do
   echo $restarts > $ADDON_DIR/var/restart_count
-  echo "Starting Node-RED" | logger -p daemon.info -t redmatic
+  if [[ $restarts -gt 0 ]]; then
+    echo "Restarting Node-RED ($restarts/$limit)" | logger -p daemon.warn -t redmatic
+  else
+    echo "Starting Node-RED" | logger -p daemon.info -t redmatic
+  fi
   set -o pipefail
   $NODE $RED -s $SETTINGS 2>&1 | logger -p daemon.err -t node-red
   status=$?
@@ -30,6 +39,9 @@ while [[ $status != 0 ]]; do
     echo "Node-RED exited with non-zero exit status $status" | logger -p daemon.err -t node-red
     let "restarts=restarts+1"
     if [[ $restarts -gt $limit ]]; then
+        if [[ $limit -gt 0 ]]; then
+            echo "Maximum Node-RED restarts exceeded" | logger -p daemon.err -t redmatic
+        fi
         status=0
     fi
   fi

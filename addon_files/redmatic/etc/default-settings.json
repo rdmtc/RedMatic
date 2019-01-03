@@ -15,5 +15,6 @@
     "default": {
       "module": "localfilesystem"
     }
-  }
+  },
+  "restartOnCrash": 0
 }
