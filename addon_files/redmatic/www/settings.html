@@ -19,7 +19,7 @@
             <a class="nav-link active pb-0" id="configuration-tab" data-toggle="tab" role="tab" aria-controls="configuration" aria-selected href="#configuration">Configuration</a>
         </li>
         <li class="nav-item ml-3">
-            <a class="nav-link pb-0" id="versions-tab" data-toggle="tab" role="tab" aria-controls="versions" aria-selected href="#versions">Log</a>
+            <a class="nav-link pb-0" id="versions-tab" data-toggle="tab" role="tab" aria-controls="versions" aria-selected href="#versions">Debug</a>
         </li>
         <li class="nav-item ml-3">
             <a class="nav-link pb-0" id="licenses-tab" data-toggle="tab" role="tab" aria-controls="licenses" href="#licenses">Licenses</a>
@@ -63,6 +63,165 @@
                 </div>
             </div>
 
+
+
+            <div class="card mb-4 pr-4">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Context Storage</code></label>
+                        <div class="row mb-2">
+                            <div class="col-sm-3" style="line-height: 38px;">
+                                default
+                            </div>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="context-storage-default">
+                                    <option>memory</option>
+                                    <option>file</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-3" style="line-height: 38px;">
+                                <code id="context-memory-title">memory</code>
+                            </div>
+                            <div class="col-sm-9" style="min-height: 26px; padding: 6px 22px; vertical-align: middle; color: grey; font-style: italic;">
+                                memory - no options
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-sm-3" style="line-height: 38px;">
+                                <code id="context-file-title">file</code>
+                            </div>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="context-storage-file-path" placeholder="Path" required>
+                            </div>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="number" id="context-storage-file-interval" placeholder="Flush Interval">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4 pr-4">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="projects">Projects</label>
+                        <select class="form-control" id="projects">
+                            <option value="false">Disabled</option>
+                            <option value="true">Enabled</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Authentication</label>
+                        <div class="row mb-3">
+                            <div class="col-sm-3" style="line-height: 38px;">
+                                Admin
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row mb-1 col-sm-12">
+                                    <select class="form-control" id="adminauth-type">
+                                        <option value="none">None</option>
+                                        <option value="credentials">Credentials</option>
+                                        <option value="rega">ReGaHSS</option>
+                                    </select>
+                                </div>
+                                <div id="adminauth-expiry" class="col-sm-12 row mb-1" style="display: none">
+                                    <input class="form-control" id="adminauth-sessionExpiryTime" placeholder="sessionExpiryTime" type="number">
+                                </div>
+                                <div id="adminauth-credentials" class="col-sm-12 row pl-0 pr-0" style="display: none">
+                                    <div class="col-sm">
+                                        <input class="form-control" id="adminauth-user" placeholder="User" required>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-control" type="password" id="adminauth-pass1" placeholder="Password">
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-control" type="password" id="adminauth-pass2" placeholder="Repeat password">
+                                    </div>
+                                    <div class="col-md-auto">
+                                        <button id="adminauth-set" type="button" class="btn btn-primary">Set</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3" style="line-height: 38px;">
+                                Node
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row mb-1 col-sm-12">
+                                    <select class="form-control" id="nodeauth-type">
+                                        <option value="none">None</option>
+                                        <option value="basic">Basic</option>
+                                    </select>
+                                </div>
+                                <div id="nodeauth-credentials" class="col-sm-12 row pl-0 pr-0" style="display: none">
+                                    <div class="col-sm">
+                                        <input class="form-control" id="nodeauth-user" placeholder="User">
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-control" type="password" id="nodeauth-pass1" placeholder="Password">
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-control" type="password" id="nodeauth-pass2" placeholder="Repeat password">
+                                    </div>
+                                    <div class="col-md-auto">
+                                        <button id="nodeauth-set" type="button" class="btn btn-primary">Set</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3" style="line-height: 38px;">
+                                Static
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row mb-1 col-sm-12">
+                                    <select class="form-control" id="staticauth-type">
+                                        <option value="none">None</option>
+                                        <option value="basic">Basic</option>
+                                    </select>
+                                </div>
+                                <div id="staticauth-credentials" class="col-sm-12 row pl-0 pr-0" style="display: none">
+                                    <div class="col-sm">
+                                        <input class="form-control" id="staticauth-user" placeholder="User">
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-control" type="password" id="staticauth-pass1" placeholder="Password">
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-control" type="password" id="staticauth-pass2" placeholder="Repeat password">
+                                    </div>
+                                    <div class="col-md-auto">
+                                        <button id="staticauth-set" type="button" class="btn btn-primary">Set</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tab-pane fade show" id="versions" role="tabpanel" aria-labelledby="versions-tab">
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <button id="log" type="button" class="btn btn-sm btn-info"><i class="fa fa-link"></i> Log herunterladen</button>
+                </div>
+            </div>
+
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="form-group">
@@ -76,115 +235,6 @@
                             <option>trace</option>
                         </select>
                     </div>
-                </div>
-            </div>
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="loglevel">Context Storage</label>
-                        <select class="form-control" id="context-storage">
-                            <option>memory</option>
-                            <option>localfilesystem</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="adminauth-type">Admin Auth</label>
-                        <select class="form-control" id="adminauth-type">
-                            <option value="none">None</option>
-                            <option value="credentials">Credentials</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" id="adminauth-credentials" style="display:none">
-                        <div class="row">
-                            <div class="col-sm">
-                                <input class="form-control" id="adminauth-user" placeholder="User" required>
-                            </div>
-                            <div class="col-sm">
-                                <input class="form-control" type="password" id="adminauth-pass1" placeholder="Password">
-                            </div>
-                            <div class="col-sm">
-                                <input class="form-control" type="password" id="adminauth-pass2" placeholder="Repeat password">
-                            </div>
-                            <div class="col-md-auto">
-                                <button id="adminauth-set" type="button" class="btn btn-primary">Set</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="nodeauth-type">Node Auth</label>
-                        <select class="form-control" id="nodeauth-type">
-                            <option value="none">None</option>
-                            <option value="basic">Basic</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" id="nodeauth-credentials" style="display:none">
-                        <div class="row">
-                            <div class="col-sm">
-                                <input class="form-control" id="nodeauth-user" placeholder="User">
-                            </div>
-                            <div class="col-sm">
-                                <input class="form-control" type="password" id="nodeauth-pass1" placeholder="Password">
-                            </div>
-                            <div class="col-sm">
-                                <input class="form-control" type="password" id="nodeauth-pass2" placeholder="Repeat password">
-                            </div>
-                            <div class="col-md-auto">
-                                <button id="nodeauth-set" type="button" class="btn btn-primary">Set</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="staticauth-type">Static Auth</label>
-                        <select class="form-control" id="staticauth-type">
-                            <option value="none">None</option>
-                            <option value="basic">Basic</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" id="staticauth-credentials" style="display:none">
-                        <div class="row">
-                            <div class="col-sm">
-                                <input class="form-control" id="staticauth-user" placeholder="User">
-                            </div>
-                            <div class="col-sm">
-                                <input class="form-control" type="password" id="staticauth-pass1" placeholder="Password">
-                            </div>
-                            <div class="col-sm">
-                                <input class="form-control" type="password" id="staticauth-pass2" placeholder="Repeat password">
-                            </div>
-                            <div class="col-md-auto">
-                                <button id="staticauth-set" type="button" class="btn btn-primary">Set</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="tab-pane fade show" id="versions" role="tabpanel" aria-labelledby="versions-tab">
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <button id="log" type="button" class="btn btn-sm btn-info"><i class="fa fa-link"></i> Log herunterladen</button>
                 </div>
             </div>
 

@@ -2,10 +2,14 @@ $(document).ready(() => {
     const bcrypt = dcodeIO.bcrypt;
 
     const $loglevel = $('#loglevel');
-    const $contextStorage = $('#context-storage');
+    const $contextStorageDefault = $('#context-storage-default');
+    const $contextStorageFilePath = $('#context-storage-file-path');
+    const $contextStorageFileInterval = $('#context-storage-file-interval');
 
     const $adminauthType = $('#adminauth-type');
     const $adminauthCreds = $('#adminauth-credentials');
+    const $adminauthExpiry = $('#adminauth-expiry');
+    const $adminauthSessionExpiryTime = $('#adminauth-sessionExpiryTime');
     const $adminauthUser = $('#adminauth-user');
     const $adminauthPass1 = $('#adminauth-pass1');
     const $adminauthPass2 = $('#adminauth-pass2');
@@ -24,6 +28,8 @@ $(document).ready(() => {
     const $staticauthPass1 = $('#staticauth-pass1');
     const $staticauthPass2 = $('#staticauth-pass2');
     const $staticauthSet = $('#staticauth-set');
+
+    const $projects = $('#projects');
     
     const $alertSaved = $('#alert-saved');
     const $alertError = $('#alert-error');
@@ -144,6 +150,7 @@ $(document).ready(() => {
     }
 
     function save() {
+        console.log('save', config)
         $.post({
             url: 'setconfig.cgi' + location.search,
             data: JSON.stringify(config, null, '  '),
@@ -162,12 +169,18 @@ $(document).ready(() => {
     $.get('getconfig.cgi' + location.search, (data, success) => {
         config = JSON.parse(data);
         $loglevel.val(config.logging.ain.level);
-        $contextStorage.val(config.contextStorage.default.module);
 
         if (config.adminAuth) {
+            $adminauthSessionExpiryTime.val(config.adminAuth.sessionExpiryTime || '604800');
             $adminauthType.val(config.adminAuth.type);
-            $adminauthCreds.show();
-            $adminauthUser.val(config.adminAuth.users[0].username);
+            if (config.adminAuth.type === 'credentials') {
+                $adminauthCreds.show();
+                $adminauthExpiry.show();
+                $adminauthUser.val(config.adminAuth.users[0].username);
+
+            } else if (config.adminAuth.type === 'rega') {
+                $adminauthExpiry.show();
+            }
         }
 
         if (config.httpNodeAuth) {
@@ -182,6 +195,53 @@ $(document).ready(() => {
             $staticauthUser.val(config.httpStaticAuth.user);
         }
 
+        if (!config.contextStorage) {
+            config.contextStorage = {};
+        }
+        if (!config.contextStorage.default || !config.contextStorage.default.module) {
+            config.contextStorage.default = {module: 'memory'};
+        }
+        if (!config.contextStorage.memory) {
+            config.contextStorage.memory = {
+                'module': 'memory'
+            };
+        }
+        if (!config.contextStorage.file) {
+            config.contextStorage.file = {
+                'module': 'localfilesystem',
+                dir: '/usr/local/addons/redmatic/var',
+                flushInterval: 30
+            };
+        }
+
+        if (!config.editorTheme) {
+            config.editorTheme = {};
+        }
+        if (!config.editorTheme.projects) {
+            config.editorTheme.projects = {};
+        }
+        config.editorTheme.projects.enabled = config.editorTheme.projects.enabled || false;
+
+        $projects.val(String(config.editorTheme.projects.enabled));
+
+        if (config.editorTheme.projects.enabled) {
+            $projects.prop('disabled', true);
+        }
+
+        // Migration from 1.x to 2.x
+        if (config.contextStorage.default && config.contextStorage.default.module === 'localfilesystem') {
+            config.contextStorage.default.module = 'file';
+        }
+
+        config.contextStorage.default.module = config.contextStorage.default.module || 'memory';
+
+        updateContextTitle();
+
+        $contextStorageDefault.val(config.contextStorage.default.module);
+
+        $contextStorageFilePath.val(config.contextStorage.file.dir);
+        $contextStorageFileInterval.val(config.contextStorage.file.flushInterval);
+
         $('#autorestart').find('option[value="' + config.restartOnCrash + '"]').attr('selected', true);
 
     });
@@ -191,12 +251,51 @@ $(document).ready(() => {
         save();
     });
 
-    $contextStorage.change(() => {
-        if (!config.contextStorage) {
-            config.contextStorage = {default: {}};
+    function updateContextTitle() {
+        switch (config.contextStorage.default.module) {
+            case 'memory':
+                $('#context-file-title').html('file');
+                $('#context-memory-title').html('default');
+                break;
+            case 'file':
+                $('#context-file-title').html('default');
+                $('#context-memory-title').html('memory');
+                break;
+            default:
         }
-        config.contextStorage.default.module = $contextStorage.val();
+    }
+
+    $projects.change(() => {
+        config.editorTheme.projects.enabled = $projects.val() === 'true';
         save();
+        if (config.editorTheme.projects.enabled) {
+            $projects.prop('disabled', true)
+        }
+    });
+
+    $contextStorageDefault.change(() => {
+        if (!config.contextStorage) {
+            config.contextStorage = {};
+        }
+        if (!config.contextStorage.default) {
+            config.contextStorage.default = {};
+        }
+
+        config.contextStorage.default.module = $contextStorageDefault.val();
+        updateContextTitle();
+
+        save();
+    });
+
+    $adminauthSessionExpiryTime.change(() => {
+        if (!config.adminAuth) {
+            config.adminAuth = {};
+        }
+        const time = parseInt($adminauthSessionExpiryTime.val(), 10) || 604800;
+        if (config.adminAuth.sessionExpiryTime !== time) {
+            config.adminAuth.sessionExpiryTime = time;
+            save();
+        }
     });
 
     $adminauthType.change(() => {
@@ -204,8 +303,22 @@ $(document).ready(() => {
             case 'credentials':
                 $adminauthCreds.show();
                 break;
-            default:
+            case 'rega':
+                $adminauthExpiry.show();
                 $adminauthCreds.hide();
+                $adminauthUser.val('');
+                if (!config.adminAuth) {
+                    config.adminAuth = {};
+                }
+                delete config.adminAuth.users;
+                config.adminAuth.type = 'rega';
+                config.adminAuth.sessionExpiryTime = parseInt($adminauthSessionExpiryTime.val(), 10) || 604800;
+                save();
+                break;
+            default:
+                $adminauthExpiry.hide();
+                $adminauthCreds.hide();
+                $adminauthUser.val('');
                 delete config.adminAuth;
                 save();
         }
@@ -218,6 +331,7 @@ $(document).ready(() => {
                 break;
             default:
                 $nodeauthCreds.hide();
+                $nodeauthUser.val('');
                 delete config.httpNodeAuth;
                 save();
         }
@@ -230,6 +344,7 @@ $(document).ready(() => {
                 break;
             default:
                 $staticauthCreds.hide();
+                $staticauthUser.val('');
                 delete config.httpStaticAuth;
                 save();
         }
@@ -262,6 +377,7 @@ $(document).ready(() => {
             config = Object.assign(config, {
                 adminAuth: {
                     type: 'credentials',
+                    sessionExpiryTime: parseInt($adminauthSessionExpiryTime.val(), 10) || 604800,
                     users: [{
                         username: user,
                         password: bcrypt.hashSync(pw1, 8),

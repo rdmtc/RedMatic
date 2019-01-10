@@ -13,7 +13,20 @@
   },
   "contextStorage": {
     "default": {
-      "module": "localfilesystem"
+      "module": "memory"
+    },
+    "memory": {
+      "module": "memory"
+    },
+    "file": {
+      "module": "localfilesystem",
+      "dir": "/usr/local/addons/redmatic/var",
+      "flushInterval": 30
+    }
+  },
+  "editorTheme": {
+    "projects": {
+      "enabled": false
     }
   },
   "restartOnCrash": 0

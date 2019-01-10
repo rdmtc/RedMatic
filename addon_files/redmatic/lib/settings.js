@@ -20,14 +20,32 @@ if (fs.existsSync('/usr/local/addons/redmatic/etc/credentials.key')) {
 delete defaults.logging.console;
 Object.assign(logging.logging.ain, settings.logging.ain);
 
-// https://github.com/HM-RedMatic/RedMatic/issues/45
+// Enable Projects Feature
 if (!defaults.editorTheme) {
     defaults.editorTheme = {};
 }
 if (!defaults.editorTheme.projects) {
     defaults.editorTheme.projects = {};
 }
-defaults.editorTheme.projects.enabled = false;
+defaults.editorTheme.projects.enabled = defaults.editorTheme.projects.enabled || false;
+
+// Inject sessionExpiryTime to Rega Authentication
+if (settings.adminAuth && settings.adminAuth.type === 'rega') {
+    const regaAuth = require('/usr/local/addons/redmatic/lib/rega-auth.js');
+    if (settings.adminAuth.sessionExpiryTime) {
+        regaAuth.sessionExpiryTime = settings.adminAuth.sessionExpiryTime;
+    }
+    settings.adminAuth = regaAuth;
+}
+
+// Context Storage
+if (settings.contextStorage.default.module === 'localfilesystem') {
+    settings.contextStorage.default.module = 'sd';
+}
+
+const defaultContextStorage = Object.assign({}, settings.contextStorage[settings.contextStorage.default.module]);
+delete settings.contextStorage[settings.contextStorage.default.module];
+settings.contextStorage.default = defaultContextStorage;
 
 module.exports = Object.assign(
     defaults,
