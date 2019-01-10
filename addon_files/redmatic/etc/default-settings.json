@@ -29,5 +29,9 @@
       "enabled": false
     }
   },
+  "adminAuth": {
+    "type": "rega",
+    "sessionExpiryTime": 86400
+  },
   "restartOnCrash": 0
 }
