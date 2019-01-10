@@ -140,7 +140,7 @@ let out = '';
 
 modules['Node.js'] = {
     license: 'MIT',
-    licTxt: '\n' + fs.readFileSync(__dirname + '/LICENSE_Nodejs').toString().replace(/"""/g, '\n```\n') + '\n',
+    licTxt: '\n' + fs.readFileSync(__dirname + '/licenses/nodejs').toString().replace(/"""/g, '\n```\n') + '\n',
     url: 'https://nodejs.org'
 };
 
@@ -165,12 +165,37 @@ modules['jq'] = {
     url: 'https://github.com/stedolan/jq/blob/master/COPYING'
 };
 
+modules['jo'] = {
+    license: 'GPL-2.0',
+    author: 'Jan-Piet Mens <jpmens@gmail.com>',
+    licTxt: '\n```\n' + fs.readFileSync(__dirname + '/licenses/jo').toString() + '\n```\n',
+    url: 'https://github.com/jpmens/jo'
+};
+
+
 modules['libcurl'] = {
     license: 'MIT',
     author: 'Daniel Stenberg, daniel@haxx.se',
     licTxt: '',
     url: 'https://curl.haxx.se/libcurl/'
 };
+
+modules['libcoap'] = {
+    license: 'BSD',
+    author: 'Olaf Bergmann and others',
+    licTxt: '\n```\n' + fs.readFileSync(__dirname + '/licenses/libcoap').toString() + '\n```\n',
+    url: 'https://libcoap.net/'
+};
+
+modules['ffmpeg'] = {
+    license: 'LGPL-2.1',
+    author: 'Fabrice Bellard',
+    licTxt: '\n```\n' + fs.readFileSync(__dirname + '/licenses/ffmpeg').toString() + '\n```\n',
+    url: 'https://www.ffmpeg.org/'
+};
+
+
+
 
 Object.keys(modules).sort((a, b) => {
     return a.toLowerCase().localeCompare(b.toLowerCase());
