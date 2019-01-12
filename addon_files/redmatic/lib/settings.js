@@ -43,6 +43,19 @@ if (settings.contextStorage.default.module === 'localfilesystem') {
     settings.contextStorage.default.module = 'sd';
 }
 
+if (!settings.contextStorage.memory) {
+    settings.contextStorage.memory = {
+        'module': 'memory'
+    }
+}
+if (!settings.contextStorage.file) {
+    settings.contextStorage.file = {
+        'module': 'localfilesystem',
+        dir: '/usr/local/addons/redmatic/var',
+        flushInterval: 30
+    }
+}
+
 const defaultContextStorage = Object.assign({}, settings.contextStorage[settings.contextStorage.default.module]);
 delete settings.contextStorage[settings.contextStorage.default.module];
 settings.contextStorage.default = defaultContextStorage;
