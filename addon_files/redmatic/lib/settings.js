@@ -39,10 +39,18 @@ if (settings.adminAuth && settings.adminAuth.type === 'rega') {
 }
 
 // Context Storage
+if (!settings.contextStorage) {
+    settings.contextStorage = {};
+}
+if (!settings.contextStorage.default) {
+    settings.contextStorage.default = {};
+}
+if (!settings.contextStorage.default.module) {
+    settings.contextStorage.default.module = 'memory';
+}
 if (settings.contextStorage.default.module === 'localfilesystem') {
     settings.contextStorage.default.module = 'sd';
 }
-
 if (!settings.contextStorage.memory) {
     settings.contextStorage.memory = {
         'module': 'memory'
