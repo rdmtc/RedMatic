@@ -49,8 +49,13 @@ if (!settings.contextStorage.default.module) {
     settings.contextStorage.default.module = 'memory';
 }
 if (settings.contextStorage.default.module === 'localfilesystem') {
-    settings.contextStorage.default.module = 'sd';
+    settings.contextStorage.default.module = 'file';
 }
+
+if (!['file', 'memory'].includes(settings.contextStorage.default.module)) {
+    settings.contextStorage.default.module = 'memory';
+}
+
 if (!settings.contextStorage.memory) {
     settings.contextStorage.memory = {
         'module': 'memory'
