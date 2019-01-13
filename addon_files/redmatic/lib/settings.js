@@ -52,7 +52,7 @@ if (settings.contextStorage.default.module === 'localfilesystem') {
     settings.contextStorage.default.module = 'file';
 }
 
-if (!['file', 'memory'].includes(settings.contextStorage.default.module)) {
+if (settings.contextStorage.default.module !== 'file' && settings.contextStorage.default.module !== 'memory') {
     settings.contextStorage.default.module = 'memory';
 }
 
