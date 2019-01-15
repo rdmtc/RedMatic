@@ -20,8 +20,10 @@
     },
     "file": {
       "module": "localfilesystem",
-      "dir": "/usr/local/addons/redmatic/var",
-      "flushInterval": 30
+      "config": {
+        "dir": "/usr/local/addons/redmatic/var",
+        "flushInterval": 30
+      }
     }
   },
   "editorTheme": {

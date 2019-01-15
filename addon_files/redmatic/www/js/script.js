@@ -208,10 +208,15 @@ $(document).ready(() => {
         }
         if (!config.contextStorage.file) {
             config.contextStorage.file = {
-                'module': 'localfilesystem',
+                'module': 'localfilesystem'
+            };
+        }
+
+        if (!config.contextStorage.file.config) {
+            config.contextStorage.file.config = {
                 dir: '/usr/local/addons/redmatic/var',
                 flushInterval: 30
-            };
+            }
         }
 
         if (!config.editorTheme) {
@@ -239,8 +244,8 @@ $(document).ready(() => {
 
         $contextStorageDefault.val(config.contextStorage.default.module);
 
-        $contextStorageFilePath.val(config.contextStorage.file.dir);
-        $contextStorageFileInterval.val(config.contextStorage.file.flushInterval);
+        $contextStorageFilePath.val(config.contextStorage.file.config.dir);
+        $contextStorageFileInterval.val(config.contextStorage.file.config.flushInterval);
 
         $('#autorestart').find('option[value="' + config.restartOnCrash + '"]').attr('selected', true);
 
@@ -284,6 +289,16 @@ $(document).ready(() => {
         config.contextStorage.default.module = $contextStorageDefault.val();
         updateContextTitle();
 
+        save();
+    });
+
+    $contextStorageFilePath.change(() => {
+        config.contextStorage.file.config.dir = $contextStorageFilePath.val();
+        save();
+    });
+
+    $contextStorageFileInterval.change(() => {
+        config.contextStorage.file.config.flushInterval = parseInt($contextStorageFileInterval.val(), 10);
         save();
     });
 

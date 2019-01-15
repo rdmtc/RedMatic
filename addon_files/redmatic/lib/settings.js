@@ -64,8 +64,10 @@ if (!settings.contextStorage.memory) {
 if (!settings.contextStorage.file) {
     settings.contextStorage.file = {
         'module': 'localfilesystem',
-        dir: '/usr/local/addons/redmatic/var',
-        flushInterval: 30
+        config: {
+            dir: '/usr/local/addons/redmatic/var',
+            flushInterval: 30
+        }
     }
 }
 
@@ -73,8 +75,12 @@ const defaultContextStorage = Object.assign({}, settings.contextStorage[settings
 delete settings.contextStorage[settings.contextStorage.default.module];
 settings.contextStorage.default = defaultContextStorage;
 
-module.exports = Object.assign(
+const result = Object.assign(
     defaults,
     settings,
     logging
 );
+
+fs.writeFileSync('/tmp/red-settings.json', JSON.stringify(result));
+
+module.exports = result;
