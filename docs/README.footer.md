@@ -8,8 +8,8 @@ https://dev.redmatic.de - Hilfe ist willkommen und gewünscht! :-)
 
 ## Lizenzen
 
-* [RedMatic](https://github.com/HM-RedMatic/RedMatic) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
-* [RedMatic Documentation](https://github.com/HM-RedMatic/RedMatic/wiki) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+* [RedMatic](https://github.com/HM-RedMatic/RedMatic) © 2018, 2019 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
+* [RedMatic Documentation](https://github.com/HM-RedMatic/RedMatic/wiki) © 2018, 2019 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 * [Third Party Licenses](LICENSES.md)
 
 DIE SOFTWARE WIRD OHNE JEDE AUSDRÜCKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, EINSCHLIEẞLICH DER GARANTIE ZUR 

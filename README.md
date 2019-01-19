@@ -102,6 +102,10 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [RedMatic WebApp](https://github.com/HM-RedMatic/RedMatic/wiki/Webapp)
   * [RedMatic HomeKit](https://github.com/HM-RedMatic/RedMatic/wiki/Homekit)
   * [Node-RED Dashboard](https://github.com/HM-RedMatic/RedMatic/wiki/Dashboard-Screenshots)
+* Sonstiges
+  * [FAQ](https://github.com/HM-RedMatic/RedMatic/wiki/Faq)
+  * [Berichterstattung, Howto's, Videos über RedMatic](https://github.com/HM-RedMatic/RedMatic/wiki/Berichterstattung)
+  * [Node-RED Link Sammlung](https://github.com/HM-RedMatic/RedMatic/wiki/Links)
 * Beispiel Flows
   * [Anzahl und Liste offener Fenster im Dashboard anzeigen](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-Windows)
   * [Hue Lampen mit langem Tastendruck dimmen](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-Hue)
@@ -123,19 +127,16 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Berechnung von Feiertagen](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-to-calculate-german-holidays)
   * [Funktion nur innerhalb einer bestimmten Uhr-Zeit ausführen](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-within-time)
   * [Fehlerüberwachung der CCU](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-Syslog)
-  * [Integration Weatherman (JSON, httpStatic, SteelSeries Gauges)](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/Sineos/node-red-contrib-weatherman/blob/master/README_DE.md)
-  * [Systeminformationen der CCU Zentrale](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/Sineos/redmatic-flow-sysinfo/blob/master/README_DE.md)
+  * [Integration Weatherman (JSON, httpStatic, SteelSeries Gauges)](https://github.com/Sineos/node-red-contrib-weatherman/blob/master/README_DE.md)
+  * [Systeminformationen der CCU Zentrale](https://github.com/Sineos/redmatic-flow-sysinfo/blob/master/README_DE.md)
   * [Werte in InfluxDB speichern](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-Influx)
-  * [Diverse Flows von](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/Sineos/redmatic-flow-misc) [@Sineos](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/Sineos/)
+  * [Diverse Flows von](https://github.com/Sineos/redmatic-flow-misc) [@Sineos](https://github.com/Sineos/)
   * [Harmony Activities mit Homekit nutzen](https://github.com/HM-RedMatic/RedMatic/wiki/Harmony-Activities-mit-Homekit-nutzen)
-  * [Homekit: Öffnen einer Tür mit Keymatic HM-Sec-Key-(S)](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/HM-RedMatic/RedMatic/wiki/Open-Workaround-für-HM-Sec-Key)
-  * [Nachrichten an Telegram versenden](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/HM-RedMatic/RedMatic/wiki/Nachrichten-an-Telegram-versenden)
-  * [Dashbuttons ohne zusätzliche Nodes auswerten](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/holgerimbery/redmatic_flows/blob/master/dashbutton_auswerten/README.md)
-  * [Monitoring der Batteriespannung von Aktoren (hier: HM-CC-RT-DN)](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/holgerimbery/redmatic_flows/blob/master/battery_monitoring/README.md)
-* Sonstiges
-  * [Blogbeiträge, Berichte, Videos, ...](https://github.com/HM-RedMatic/RedMatic/wiki/Berichterstattung)
-  * [Link Sammlung](https://github.com/HM-RedMatic/RedMatic/wiki/Links)
-  * [Nützliche Tipps](https://github.com/HM-RedMatic/RedMatic/wiki/https://github.com/HM-RedMatic/RedMatic/wiki/Nuetzliche-Tipps)
+  * [Homekit: Öffnen einer Tür mit Keymatic HM-Sec-Key-(S)](https://github.com/HM-RedMatic/RedMatic/wiki/Open-Workaround-für-HM-Sec-Key)
+  * [Nachrichten an Telegram versenden](https://github.com/HM-RedMatic/RedMatic/wiki/Nachrichten-an-Telegram-versenden)
+  * [Dashbuttons ohne zusätzliche Nodes auswerten](https://github.com/holgerimbery/redmatic_flows/blob/master/dashbutton_auswerten/README.md)
+  * [Monitoring der Batteriespannung von Aktoren (hier: HM-CC-RT-DN)](https://github.com/holgerimbery/redmatic_flows/blob/master/battery_monitoring/README.md)
+  * [Datenpunktstatus von mehreren Geraeten gleichzeitig abfragen](https://github.com/HM-RedMatic/RedMatic/wiki/flow-geraete-abfragen)
 
 
 ## Webseite
@@ -146,8 +147,8 @@ https://dev.redmatic.de - Hilfe ist willkommen und gewünscht! :-)
 
 ## Lizenzen
 
-* [RedMatic](https://github.com/HM-RedMatic/RedMatic) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
-* [RedMatic Documentation](https://github.com/HM-RedMatic/RedMatic/wiki) © 2018 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+* [RedMatic](https://github.com/HM-RedMatic/RedMatic) © 2018, 2019 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
+* [RedMatic Documentation](https://github.com/HM-RedMatic/RedMatic/wiki) © 2018, 2019 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 * [Third Party Licenses](LICENSES.md)
 
 DIE SOFTWARE WIRD OHNE JEDE AUSDRÜCKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, EINSCHLIEẞLICH DER GARANTIE ZUR 
