@@ -96,6 +96,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Node-RED Grundlagen](https://github.com/HM-RedMatic/RedMatic/wiki/Node-RED)
   * [CCU Nodes](https://github.com/HM-RedMatic/RedMatic/wiki/CCU-Nodes)
   * [Tipps](https://github.com/HM-RedMatic/RedMatic/wiki/Tipps)
+  * [FAQ - Häufig gestellte Fragen](https://github.com/HM-RedMatic/RedMatic/wiki/Faq)
   * [Flows exportieren](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-Export)
   * [Flows importieren](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-Import)
 * Erweiterungen
@@ -103,8 +104,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [RedMatic HomeKit](https://github.com/HM-RedMatic/RedMatic/wiki/Homekit)
   * [Node-RED Dashboard](https://github.com/HM-RedMatic/RedMatic/wiki/Dashboard-Screenshots)
 * Sonstiges
-  * [FAQ](https://github.com/HM-RedMatic/RedMatic/wiki/Faq)
-  * [Berichterstattung, Howto's, Videos über RedMatic](https://github.com/HM-RedMatic/RedMatic/wiki/Berichterstattung)
+  * [Berichterstattung, Blogbeiträge, Videos über RedMatic](https://github.com/HM-RedMatic/RedMatic/wiki/Berichterstattung)
   * [Node-RED Link Sammlung](https://github.com/HM-RedMatic/RedMatic/wiki/Links)
 * Beispiel Flows
   * [Anzahl und Liste offener Fenster im Dashboard anzeigen](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-Windows)
