@@ -28,7 +28,8 @@
     "node-red-node-rbe": "0.2.4",
     "node-red-node-serialport": "0.6.8",
     "node-red-contrib-sun-position": "0.1.16",
-    "node-red-contrib-smartmeter": "0.2.0"
+    "node-red-contrib-smartmeter": "0.2.0",
+    "node-red-contrib-modbus": "4.1.1"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",

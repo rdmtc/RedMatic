@@ -10,3 +10,7 @@ scp -r $SRC/sqlite3/lib/binding/* $DEST/lib/node_modules/node-red-node-sqlite/no
 scp $SRC/serialport/build/Release/serialport.node $DEST/lib/node_modules/node-red-node-serialport/node_modules/serialport/build/Release/
 
 scp $SRC/unix-dgram/build/Release/unix_dgram.node $DEST/lib/node_modules/ain2/node_modules/unix-dgram/build/Release/
+
+scp $SRC/node-red-contrib-modbus/node_modules/modbus-serial/node_modules/serialport/build/Release/serialport.node $DEST/lib/node_modules/node-red-contrib-modbus/node_modules/modbus-serial/node_modules/serialport/build/Release
+
+scp $SRC/node-red-contrib-modbus/node_modules/@serialport/bindings/build/Release/bindings.node $DEST/lib/node_modules/node-red-contrib-modbus/node_modules/@serialport/bindings/build/Release
