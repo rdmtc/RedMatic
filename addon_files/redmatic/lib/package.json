@@ -8,6 +8,7 @@
     "node-red-node-serialport": "0.6.8",
     "node-red-node-sqlite": "0.3.6",
     "node-red-contrib-smartmeter": "0.2.0",
-    "node-red-contrib-modbus": "4.1.1"
+    "node-red-contrib-modbus": "4.1.1",
+    "redmatic-homekit": "1.8.0"
   }
 }
