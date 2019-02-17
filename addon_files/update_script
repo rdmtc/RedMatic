@@ -31,14 +31,8 @@ fi
 #
 #   Delete lib/node_modules on update
 #
-if [ -d $RED_DIR/lib/node_modules/node-red ]; then
-    rm -r $RED_DIR/lib/node_modules/node-red
-fi
-if [ -d $RED_DIR/lib/node_modules/npm ]; then
-    rm -r $RED_DIR/lib/node_modules/npm
-fi
-if [ -d $RED_DIR/lib/node_modules/ain ]; then
-    rm -r $RED_DIR/lib/node_modules/ain
+if [ -d $RED_DIR/lib/node_modules ]; then
+    rm -r $RED_DIR/lib/node_modules
 fi
 
 #
@@ -95,6 +89,17 @@ if [ -d $RED_DIR/var/node_modules/node-red-node-serialport ]; then
     rm -r $RED_DIR/var/node_modules/node-red-node-serialport
     cp $RED_DIR/var/package.json $RED_DIR/var/package.json.bak
     cat $RED_DIR/var/package.json.bak | $RED_DIR/bin/jq 'del(.dependencies."node-red-node-serialport")' > $RED_DIR/var/package.json
+    rm $RED_DIR/var/package.json.bak
+fi
+
+#
+#   Migration <= 2.6.0 to > 2.6.0
+#   Remove Packages that where moved to lib dir
+#
+if [ -d $RED_DIR/var/node_modules/redmatic-homekit ]; then
+    rm -r $RED_DIR/var/node_modules/redmatic-homekit
+    cp $RED_DIR/var/package.json $RED_DIR/var/package.json.bak
+    cat $RED_DIR/var/package.json.bak | $RED_DIR/bin/jq 'del(.dependencies."redmatic-homekit")' > $RED_DIR/var/package.json
     rm $RED_DIR/var/package.json.bak
 fi
 
