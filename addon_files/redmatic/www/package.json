@@ -3,8 +3,8 @@
   "private": true,
   "dependencies": {
     "bcryptjs": "2.4.3",
-    "bootstrap": "4.2.1",
-    "@fortawesome/fontawesome-free": "5.7.1",
+    "bootstrap": "4.3.1",
+    "@fortawesome/fontawesome-free": "5.7.2",
     "jquery": "3.3.1"
   }
 }

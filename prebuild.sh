@@ -8,7 +8,7 @@ cat addon_files/redmatic/lib/package.json | jq 'del(.dependencies.npm,.dependenc
 
 scp $DEST/package.json $REMOTE:$REMOTE_PATH
 
-#ssh -t $REMOTE "cd $REMOTE_PATH ; npm install --global-style"
+ssh -t $REMOTE "cd $REMOTE_PATH ; npm install --global-style"
 
 rm -r ${DEST}/lib/node_modules
 
