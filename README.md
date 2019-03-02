@@ -10,7 +10,6 @@
 [RaspberryMatic](https://github.com/jens-maus/RaspberryMatic)
 
 <br>
-
 _RedMatic_ fasst mehrere Softwarekomponenten zu einem CCU Addon zusammen, einem Softwarepaket, dass auf einer Homematic 
 CCU3 oder RaspberryMatic als Zusatzsoftware komfortabel über das WebUI installiert werden kann.
 
@@ -137,10 +136,9 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Monitoring der Batteriespannung von Aktoren (hier: HM-CC-RT-DN)](https://github.com/holgerimbery/redmatic_flows/blob/master/battery_monitoring/README.md)
   * [Datenpunktstatus von mehreren Geraeten gleichzeitig abfragen](https://github.com/HM-RedMatic/RedMatic/wiki/flow-geraete-abfragen)
 
-
 ## Webseite
 
-Eine Webseite für das Projekt befindet sich derzeit im Aufbau. Wer einen Blick risikieren möchte: 
+Eine Webseite für das Projekt befindet sich derzeit im Aufbau. Wer einen Blick riskieren möchte: 
 https://dev.redmatic.de - Hilfe ist willkommen und gewünscht! :-)
 
 

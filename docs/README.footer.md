@@ -1,11 +1,3 @@
-
-
-## Webseite
-
-Eine Webseite für das Projekt befindet sich derzeit im Aufbau. Wer einen Blick risikieren möchte: 
-https://dev.redmatic.de - Hilfe ist willkommen und gewünscht! :-)
-
-
 ## Lizenzen
 
 * [RedMatic](https://github.com/HM-RedMatic/RedMatic) © 2018, 2019 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
