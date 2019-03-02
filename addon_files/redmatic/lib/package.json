@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "npm": "6.8.0",
-    "node-red": "0.19.5",
+    "node-red": "0.19.6",
     "ain2": "3.0.0",
     "node-red-node-serialport": "0.7.0",
     "node-red-node-sqlite": "0.3.6",
