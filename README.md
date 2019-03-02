@@ -42,8 +42,7 @@ Eine große und aktive Community rund um Node-RED hat zudem eine
 [Bibliothek von tausenden zusätzlichen Nodes](https://flows.nodered.org/?type=node&num_pages=1) geschaffen die auf 
 einfache Weise [installiert werden können](https://github.com/HM-RedMatic/RedMatic/wiki/Node-Installation) und es 
 ermöglichen spezielle Automatismen zu implementieren und diverse weitere Services und Systeme komfortabel anzubinden - 
-wie z.B. das Xiaomi Aqara Smart Home System, Loxone, den Logitech Harmony Hub, verschiedene Smart TVs und AV-Receiver, 
-Sonoff, Hue, Lightify, Tradfri, ArtNET/DMX, Modbus, Amazon Alexa, Google Home, diverse Datenbanken wie z.B. InfluxDB 
+wie z.B. KNX, Xiaomi/Aqara, Loxone, Somfy Tahoma, Velux KLF200, Home Connect Haushaltsgeräte, den Logitech Harmony Hub, verschiedene Smart TVs und AV-Receiver, Sonos, Hue/Lightify/Tradfri, ArtNET/DMX, DALI, Modbus, Amazon Alexa, Google Home, diverse Datenbanken wie z.B. InfluxDB 
 oder MySQL, Webservices zur Abfrage von beispielsweise Wetterdaten und vieles mehr.
 
 _RedMatic_ kann damit - insbesondere für diejenigen die neben der CCU keinen weiteren Server betreiben möchten - eine 
