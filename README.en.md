@@ -22,7 +22,7 @@ The basis is formed by [Node-RED](https://nodered.org/about/) with the
 Application examples (so-called _Flows_).
 
 For visualization and control [RedMatic WebApp](https://github.com/HM-RedMatic/RedMatic-WebApp) and 
-Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) are included. _RedMatic WebApp_ is a
+[Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) are included. _RedMatic WebApp_ is a
 User interface that can be used immediately without further configuration (comparable to _WebMatic_ or _Yahui_).
 _Node-RED Dashboard_ is a configurable user interface which can offer more possibilities than the _RedMatic WebApp_, 
 but needs some configuration effort. 
