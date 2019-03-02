@@ -13,8 +13,7 @@
 
 <sub>[🇩🇪 Deutsches Readme](README.md)</sub>
 
-_RedMatic_ combines several software components to a CCU Addon, a software package for a Homematic 
-CCU3 or RaspberryMatic that can be installed comfortably via the WebUI.
+_RedMatic_ combines several software components to a CCU Addon, a software package that can be comfortably installed on a Homematic CCU3 or RaspberryMatic. Homematic is a series of smart home automation products by the manufacturer [eQ-3](https://eq-3.de), popular especially in Germany.
 
 The basis is formed by [Node-RED](https://nodered.org/about/) with the 
 [CCU Nodes for Node-RED](https://github.com/HM-RedMatic/node-red-contrib-ccu). These components offer the possibility to visually and easily create rules, automations, scripts and connections to external services and systems for a Homematic System. To a large extent even without programming knowledge. In the
