@@ -11,5 +11,5 @@
 
 <br>
 
-[🇩🇪 Deutsches Readme](README.md)
+<sub>[🇩🇪 Deutsches Readme](README.md)</sub>
 
