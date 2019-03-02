@@ -17,23 +17,23 @@ _RedMatic_ fasst mehrere Softwarekomponenten zu einem CCU Addon zusammen, einem 
 CCU3 oder RaspberryMatic als Zusatzsoftware komfortabel über das WebUI installiert werden kann.
 
 Die Grundlage bildet [Node-RED](https://nodered.org/about/) mit den 
-[CCU Nodes für Node-RED](https://github.com/HM-RedMatic/node-red-contrib-ccu). Hiermit ist es auf einfache, visuelle 
+[CCU Nodes für Node-RED](https://github.com/HM-RedMatic/node-red-contrib-ccu). Hiermit ist es auf einfache und visuelle 
 Weise möglich Regeln, Automationen, Scripte und Anbindungen von externen Services und Systemen für ein Homematic System 
-zu realisieren - und das weitgehend auch ohne Programmierkenntnisse. Im 
-[Wiki](https://github.com/HM-RedMatic/RedMatic/wiki) gibt es weitere Informationen zu Node-RED und einige 
-Anwendungsbeispiele (sogenannte _Flows_).
+zu realisieren - und das weitgehend auch ohne Programmierkenntnisse. Die Einrichtung und der Betrieb von _RedMatic_ 
+ist sehr benutzerfreundlich, es bedarf keiner Nutzung der Linux-Kommandozeile und es müssen keine 
+Konfigurationsdateien o.Ä. bearbeitet werden. Im [Wiki](https://github.com/HM-RedMatic/RedMatic/wiki) gibt es weitere 
+Informationen zu Node-RED und einige Anwendungsbeispiele (sogenannte _Flows_).
 
 Für die Visualisierung und Steuerung sind [RedMatic WebApp](https://github.com/HM-RedMatic/RedMatic-WebApp) und 
 [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) enthalten. _RedMatic WebApp_ ist eine
-Bedienoberfläche die ohne weitere Konfiguration sofort genutzt werden kann (vergleichbar mit _WebMatic_ oder _Yahui_).
+Bedienoberfläche die ohne weitere Konfiguration sofort genutzt werden kann um das Homematic System mit dem PC oder Mobilgeräten zu steuern (vergleichbar mit _WebMatic_ oder _Yahui_).
 _Node-RED Dashboard_ ist ein konfigurierbares User Interface, kann mehr Möglichkeiten als die _RedMatic WebApp_ bieten, 
 ist aber mit Konfigurationsaufwand verbunden. 
 Beispiel Screenshots: [RedMatic WebApp](https://github.com/HM-RedMatic/RedMatic/wiki/Webapp), 
 [Node-RED Dashboard](https://github.com/HM-RedMatic/RedMatic/wiki/Dashboard-Screenshots).
 
 Außerdem ist es mit der ebenfalls enthaltenen Erweiterung 
-[RedMatic HomeKit](https://github.com/HM-RedMatic/RedMatic/wiki/Homekit) möglich Homematic Geräte und andere in Node-RED 
-verfügbare Systeme über Siri und mit HomeKit-Apps anzusteuern.
+[RedMatic HomeKit](https://github.com/HM-RedMatic/RedMatic/wiki/Homekit) ohne weiteren Installations- oder Einrichtungsaufwand möglich Homematic Geräte in Apple HomeKit einzubinden und über Siri und mit HomeKit-Apps anzusteuern. Darüberhinaus können auch beliebige andere an Node-RED angebundene Systeme in HomeKit integriert werden.
 
 Eine Anbindung der CCU an einen [MQTT](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-MQTT) Broker mit komfortabel 
 konfigurierbarer Topic- und Payload-Struktur wird durch einen speziellen Node vereinfacht.
@@ -45,10 +45,9 @@ ermöglichen spezielle Automatismen zu implementieren und diverse weitere Servic
 wie z.B. KNX, Xiaomi/Aqara, Loxone, Somfy Tahoma, Velux KLF200, Home Connect Haushaltsgeräte, den Logitech Harmony Hub, verschiedene Smart TVs und AV-Receiver, Sonos, Hue/Lightify/Tradfri, ArtNET/DMX, DALI, Modbus, Amazon Alexa, Google Home, diverse Datenbanken wie z.B. InfluxDB 
 oder MySQL, Webservices zur Abfrage von beispielsweise Wetterdaten und vieles mehr.
 
-_RedMatic_ kann damit - insbesondere für diejenigen die neben der CCU keinen weiteren Server betreiben möchten - eine 
-Alternative zu einem "ausgewachsenen" Smart Home System wie z.B. ioBroker, Home Assistent, OpenHAB oder FHEM darstellen. 
-Für die Automatisierung eines Homematic Systems kann _RedMatic_ auch als Alternative oder Ergänzung für "Rega" 
-Programme/Scripte dienen. 
+_RedMatic_ kann damit - insbesondere für diejenigen die neben der CCU keinen weiteren Server betreiben möchten - eine Alternative zu einem "ausgewachsenen" Smart Home System wie z.B. ioBroker, Home Assistent, OpenHAB oder FHEM darstellen. Mit RedMatic-HomeKit steht des weiteren eine Alternative zum Betrieb einer Homebridge zur Verfügung die beim Thema HomeKit einige signifikante Vorteile gegenüber der Homebridge mitbringt.
+Auch eine Koexistenz mit vorhandener anderer Smart Home Software kann sinnvoll sein, _RedMatic_ eignet sich z.B. auch sehr gut als Schnittstelle zwischen der CCU und einem übergeordneten per MQTT angebundenen System. 
+Nicht zuletzt kann _RedMatic_ auch als stabile und mit wesentlich mehr Möglichkeiten aufwartende Alternative oder Ergänzung zu den WebUI-Programmen und Scripten der CCU Logikschicht "Rega" dienen.
 
 
 ## Voraussetzungen
@@ -80,7 +79,6 @@ und ein [Unterforum im Homematic-Forum](https://homematic-forum.de/forum/viewfor
 Beteiligung in jeder Form ist willkommen und gewünscht, insbesondere sind alle Nutzer aufgefordert die [Liste erfolgreich getesteter Nodes](https://github.com/HM-RedMatic/RedMatic/wiki/Erfolgreich-getestete-Nodes) zu ergänzen, Beispiel-Flows zu veröffentlichen und an der Verbesserung und Erweiterung der [Dokumentation](https://github.com/HM-RedMatic/RedMatic/wiki) mitzuarbeiten.
 
 Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn der erfolgreiche Einsatz dieser Software mit einem Github Sternchen ⭐️ honoriert wird (Github Account ist schnell angelegt! ;-)
-
 
 ## Dokumentation
 
