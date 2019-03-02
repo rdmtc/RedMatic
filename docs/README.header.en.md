@@ -11,5 +11,3 @@
 
 <br>
 
-<sub>[🇩🇪 Deutsches Readme](README.md)</sub>
-
