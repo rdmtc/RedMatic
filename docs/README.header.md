@@ -11,5 +11,5 @@
 
 <br>
 
-<sub>[Click here for 🇬🇧🇺🇸 english version](README.en.md)</sub>
+<sub>[Click here for 🇬🇧🇺🇸 english readme](README.en.md)</sub>
 

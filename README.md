@@ -11,7 +11,7 @@
 
 <br>
 
-<sub>[Click here for 🇬🇧🇺🇸 english version](README.en.md)</sub>
+<sub>[Click here for 🇬🇧🇺🇸 english readme](README.en.md)</sub>
 
 _RedMatic_ fasst mehrere Softwarekomponenten zu einem CCU Addon zusammen, einem Softwarepaket, dass auf einer Homematic 
 CCU3 oder RaspberryMatic als Zusatzsoftware komfortabel über das WebUI installiert werden kann.
