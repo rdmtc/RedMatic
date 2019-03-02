@@ -10,6 +10,9 @@
 [RaspberryMatic](https://github.com/jens-maus/RaspberryMatic)
 
 <br>
+
+[🇺🇸 English Readme](README.en.md)
+
 _RedMatic_ fasst mehrere Softwarekomponenten zu einem CCU Addon zusammen, einem Softwarepaket, dass auf einer Homematic 
 CCU3 oder RaspberryMatic als Zusatzsoftware komfortabel über das WebUI installiert werden kann.
 
@@ -135,6 +138,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Dashbuttons ohne zusätzliche Nodes auswerten](https://github.com/holgerimbery/redmatic_flows/blob/master/dashbutton_auswerten/README.md)
   * [Monitoring der Batteriespannung von Aktoren (hier: HM-CC-RT-DN)](https://github.com/holgerimbery/redmatic_flows/blob/master/battery_monitoring/README.md)
   * [Datenpunktstatus von mehreren Geraeten gleichzeitig abfragen](https://github.com/HM-RedMatic/RedMatic/wiki/flow-geraete-abfragen)
+
 
 ## Webseite
 
