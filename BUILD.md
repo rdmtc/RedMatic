@@ -1,3 +1,5 @@
+## Build Process
+
 Dependencies are defined in
 
 * `addon_files/redmatic/lib/package.json` (Node-RED, npm, Modules with binary dependencies)
@@ -16,6 +18,9 @@ not enough - especially when using QEMU...
 
 The Travis Job runs `build.sh` and calls `github_release.rb` which publishes the Artifact on the Github Release Page, 
 accompanied by the `CHANGELOG.md`. This Job is triggered manually.
+
+
+## Update Dependencies
 
 `update.sh` updates all dependencies defined in these 3 files to the latest version and calls `update_package.js`
 which combines them in `./package.json` (needed to have one place to check all dependencies for updates/issues by 
