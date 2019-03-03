@@ -19,7 +19,7 @@ accompanied by the `CHANGELOG.md`. This Job is triggered manually.
 
 `update.sh` updates all dependencies defined in these 3 files to the latest version and calls `update_package.js`
 which combines them in `./package.json` (needed to have one place to check all dependencies for updates/issues by 
-david-dm/libraries.io). Furthermore it calls `update_readme.js` that merges `docs/README.footer.md`, `wiki/Intro.md`, 
+david-dm/libraries.io). Furthermore it calls `update_readme.js` that merges `docs/README.header.md`, `wiki/Intro.md`, 
 `wiki/Home.md` and `docs/README.footer.md` into the `README.md` file.
 
 `update_licenses.js` creates the `LICENSES.md` and `addon_files/redmatic/www/licenses.html` files. This needs all
