@@ -27,5 +27,8 @@ which combines them in `./package.json` (needed to have one place to check all d
 david-dm/libraries.io). Furthermore it calls `update_readme.js` that merges `docs/README.header.md`, `wiki/Intro.md`, 
 `wiki/Home.md` and `docs/README.footer.md` into the `README.md` file.
 
+
+## Update 3rd Party Licenses
+
 `update_licenses.js` creates the `LICENSES.md` and `addon_files/redmatic/www/licenses.html` files. This needs all
 dependencies already installed in `addon_tmp`, so you have to do a local build before running this script.
