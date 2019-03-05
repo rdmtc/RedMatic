@@ -26,7 +26,7 @@ ist aber mit Konfigurationsaufwand verbunden.
 Beispiel Screenshots: [RedMatic WebApp](https://github.com/HM-RedMatic/RedMatic/wiki/Webapp), 
 [Node-RED Dashboard](https://github.com/HM-RedMatic/RedMatic/wiki/Dashboard-Screenshots).
 
-Außerdem ist es mit der ebenfalls enthaltenen Erweiterung [RedMatic HomeKit](https://github.com/HM-RedMatic/RedMatic/wiki/Homekit) ohne weiteren Installations- oder Einrichtungsaufwand möglich Homematic Geräte in Apple HomeKit einzubinden und über Siri und mit HomeKit-Apps anzusteuern. Darüberhinaus können auch beliebige andere an Node-RED angebundene Systeme in HomeKit integriert werden.
+Außerdem ist es mit der ebenfalls enthaltenen Erweiterung [RedMatic HomeKit](https://github.com/HM-RedMatic/RedMatic/wiki/Homekit) ohne weiteren Installations- oder Einrichtungsaufwand möglich Homematic Geräte in Apple HomeKit einzubinden und über Siri und mit HomeKit-Apps anzusteuern. Darüberhinaus können auch beliebige andere an Node-RED angebundene Systeme und Kameras in HomeKit integriert werden.
 
 Eine Anbindung der CCU an einen [MQTT](https://github.com/HM-RedMatic/RedMatic/wiki/Flow-MQTT) Broker mit komfortabel konfigurierbarer Topic- und Payload-Struktur wird durch einen speziellen Node vereinfacht.
 
