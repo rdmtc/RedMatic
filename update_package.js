@@ -11,4 +11,8 @@ common.dependencies = Object.assign(
     www.dependencies,
 );
 
+Object.keys(common.dependencies).forEach(name => {
+    common.dependencies[name] = common.dependencies[name] + ' - ' + common.dependencies[name];
+});
+
 require('fs').writeFileSync(__dirname + '/package.json', JSON.stringify(common, null, '  '));
