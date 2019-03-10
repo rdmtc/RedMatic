@@ -12,7 +12,7 @@ common.dependencies = Object.assign(
 );
 
 Object.keys(common.dependencies).forEach(name => {
-    common.dependencies[name] = common.dependencies[name] + ' - ' + common.dependencies[name];
+    common.dependencies[name] = '0.0.0 - ' + common.dependencies[name];
 });
 
 require('fs').writeFileSync(__dirname + '/package.json', JSON.stringify(common, null, '  '));
