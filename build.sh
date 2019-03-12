@@ -72,11 +72,11 @@ touch $ADDON_TMP/redmatic/www/.nobackup
 
 
 echo "adapt Node-RED..."
-rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/nodes/core/hardware
+rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/node_modules/@node-red/nodes/core/hardware
 
-INSTALLER=$ADDON_TMP/redmatic/lib/node_modules/node-red/red/runtime/nodes/registry/installer.js
-sed "s/var args = \['install','--save'/var args = ['install','--save','--no-package-lock','--global-style'/" $INSTALLER > $INSTALLER.tmp && mv $INSTALLER.tmp $INSTALLER
-sed "s/var args = \['remove','--save'/var args = ['remove','--save','--no-package-lock'/" $INSTALLER > $INSTALLER.tmp && mv $INSTALLER.tmp $INSTALLER
+INSTALLER=$ADDON_TMP/redmatic/lib/node_modules/node-red/node_modules/@node-red/registry/lib/installer.js
+sed "s/var args = \['install'/var args = ['install','--no-package-lock','--global-style'/" $INSTALLER > $INSTALLER.tmp && mv $INSTALLER.tmp $INSTALLER
+sed "s/var args = \['remove'/var args = ['remove','--no-package-lock'/" $INSTALLER > $INSTALLER.tmp && mv $INSTALLER.tmp $INSTALLER
 
 cd $BUILD_DIR
 
