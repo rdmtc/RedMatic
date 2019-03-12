@@ -29,7 +29,8 @@
     "node-red-contrib-sun-position": "0.0.0 - 0.2.5",
     "node-red-contrib-smartmeter": "0.0.0 - 0.2.0",
     "node-red-contrib-modbus": "0.0.0 - 4.1.1",
-    "node-red-contrib-mysensors": "0.0.0 - 3.2.0"
+    "node-red-contrib-mysensors": "0.0.0 - 3.2.0",
+    "node-red-contrib-rfxcom": "0.0.0 - 2.8.1"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",
