@@ -50,10 +50,29 @@
                     <a id="link-ui" role="button" class="btn btn-sm btn-outline-info mr-3" target="_blank" href="/addons/red/ui/"><i class="fa fa-external-link-alt"></i> Dashboard</a>
 
                     <!--<a id="backup" role="button" class="btn btn-sm btn-primary mr-3 disabled">Backup</a>-->
+                    <div class="dropdown" style="display: inline-block">
+                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle" id="dropdownRestart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-sync-alt"></i> Restart
+                        </button>
 
-                    <button id="restart" type="button" class="btn btn-sm btn-warning"><i class="fa fa-sync-alt"></i> Restart</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a id="restart" class="dropdown-item" href="#">Normal</a>
+                            <a id="restartSafe" class="dropdown-item" href="#">Safe Mode</a>
+                        </div>
+                    </div>
+
                     <button id="stop" type="button" class="btn btn-sm btn-warning"><i class="fa fa-stop"></i> Stop</button>
-                    <button id="start" type="button" class="btn btn-sm btn-warning mr-1"><i class="fa fa-play"></i> Start</button>
+
+                    <div class="dropdown" style="display: inline-block">
+                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle" id="dropdownStart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-play"></i> Start
+                        </button>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a id="start" class="dropdown-item" href="#">Normal</a>
+                            <a id="startSafe" class="dropdown-item" href="#">Safe Mode</a>
+                        </div>
+                    </div>
 
                     <div style="vertical-align: middle; display: inline-block; width: 148px; font-size: 11px; color: grey;" class="">
                         <div>Node-RED: <span id="node-red-status" style="font-weight: bold;"></span></div>

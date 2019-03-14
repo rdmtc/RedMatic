@@ -32,8 +32,12 @@ while [[ $status != 0 ]]; do
   else
     echo "Starting Node-RED" | logger -p daemon.info -t redmatic
   fi
+  if [[ -f $ADDON_DIR/var/safe_mode ]]; then
+    SAFE="--safe"
+    rm $ADDON_DIR/var/safe_mode
+  fi
   set -o pipefail
-  $NODE $RED -s $SETTINGS 2>&1 | logger -p daemon.err -t node-red
+  $NODE $RED $SAFE -s $SETTINGS 2>&1 | logger -p daemon.err -t node-red
   status=$?
   if [[ $status != 0 ]]; then
     echo "Node-RED exited with non-zero exit status $status" | logger -p daemon.err -t node-red

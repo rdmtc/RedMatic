@@ -44,7 +44,11 @@ $(document).ready(() => {
     $alertExec.hide();
 
     const $restart = $('#restart');
+    const $restartSafe = $('#restartSafe');
+    const $dropdownRestart = $('#dropdownRestart');
     const $start = $('#start');
+    const $startSafe = $('#startSafe');
+    const $dropdownStart = $('#dropdownStart');
     const $stop = $('#stop');
 
     const $linkRed = $('#link-red');
@@ -91,11 +95,11 @@ $(document).ready(() => {
                     $status.html('<span class="status-running">running</span>');
                     $memory.html(`vsz ${vsz}, rss ${rss}`);
                     found = true;
-                    $restart.removeClass('disabled');
+                    $dropdownRestart.removeClass('disabled');
                     $stop.removeClass('disabled');
                     $linkRed.removeClass('disabled');
                     $linkUi.removeClass('disabled');
-                    $start.addClass('disabled');
+                    $dropdownStart.addClass('disabled');
                     psInterval = 5000;
                     return;
                 }
@@ -113,9 +117,9 @@ $(document).ready(() => {
                     $status.html('<span class="status-starting">starting</span>');
                     $memory.html(`vsz ${vsz}, rss ${rss}`);
                     found = true;
-                    $restart.addClass('disabled');
+                    $dropdownRestart.addClass('disabled');
                     $stop.addClass('disabled');
-                    $start.addClass('disabled');
+                    $dropdownStart.addClass('disabled');
                     $linkRed.addClass('disabled');
                     $linkUi.addClass('disabled');
                     psInterval = 2500;
@@ -125,9 +129,9 @@ $(document).ready(() => {
             if (!found) {
                 $status.html('<span class="status-stopped">stopped</span>');
                 $memory.html('');
-                $restart.addClass('disabled');
+                $dropdownRestart.addClass('disabled');
                 $stop.addClass('disabled');
-                $start.removeClass('disabled');
+                $dropdownStart.removeClass('disabled');
                 $linkRed.addClass('disabled');
                 $linkUi.addClass('disabled');
                 psInterval = 5000;
@@ -472,11 +476,11 @@ $(document).ready(() => {
         }
     });
 
-    $restart.click(() => {
+    function restart() {
         clearTimeout(psTimeout);
-        $restart.addClass('disabled');
+        $dropdownRestart.addClass('disabled');
         $stop.addClass('disabled');
-        $start.addClass('disabled');
+        $dropdownStart.addClass('disabled');
         $status.html('<span class="status-starting">stopping</span>');
         $memory.html('');
         $.get({
@@ -493,12 +497,27 @@ $(document).ready(() => {
                 }
             }
         });
+    }
+
+    $restart.click(() => {
+        restart();
     });
 
-    $start.click(() => {
-        $restart.addClass('disabled');
+    function safeMode(cb) {
+        $.get({
+            url: `safemode.cgi?sid=${sid}`,
+            success: cb
+        });
+    }
+
+    $restartSafe.click(() => {
+        safeMode(restart);
+    });
+
+    function start() {
+        $dropdownRestart.addClass('disabled');
         $stop.addClass('disabled');
-        $start.addClass('disabled');
+        $dropdownStart.addClass('disabled');
         $status.html('<span class="status-starting">starting</span>');
         $memory.html('');
         $.get({
@@ -515,13 +534,21 @@ $(document).ready(() => {
                 }
             }
         });
+    }
+
+    $start.click(() => {
+        start();
+    });
+
+    $startSafe.click(() => {
+        safeMode(start);
     });
 
     $stop.click(() => {
         clearTimeout(psTimeout);
-        $restart.addClass('disabled');
+        $dropdownRestart.addClass('disabled');
         $stop.addClass('disabled');
-        $start.addClass('disabled');
+        $dropdownStart.addClass('disabled');
         $status.html('<span class="status-starting">stopping</span>');
         $memory.html('');
         $.get({
