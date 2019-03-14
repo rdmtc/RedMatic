@@ -10,6 +10,6 @@
     "node-red-contrib-combine": "1.6.2",
     "node-red-contrib-sun-position": "0.2.6",
     "redmatic-led": "1.0.0",
-    "redmatic-webapp": "0.2.1"
+    "redmatic-webapp": "0.2.2"
   }
 }
