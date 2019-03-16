@@ -75,11 +75,13 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
 * Administration
   * [Installation](https://github.com/HM-RedMatic/RedMatic/wiki/Installation)
   * [Update](https://github.com/HM-RedMatic/RedMatic/wiki/Update)
-  * [Deinstallation](https://github.com/HM-RedMatic/RedMatic/wiki/Deinstallation)
+  * [Context Storage Konfigurieren](https://github.com/HM-RedMatic/RedMatic/wiki/Context-Storage)
+  * [Passwort Schutz für Node-RED einrichten](https://github.com/HM-RedMatic/RedMatic/wiki/Passwort)
   * [Zusätzliche Nodes installieren](https://github.com/HM-RedMatic/RedMatic/wiki/Node-Installation)
   * [Erfolgreich mit RedMatic getestete Nodes](https://github.com/HM-RedMatic/RedMatic/wiki/Erfolgreich-getestete-Nodes) - bitte diese Liste ergänzen!
   * [Log-Level erhöhen für Fehleranalyse](https://github.com/HM-RedMatic/RedMatic/wiki/Loglevel)
-  * [Passwort Schutz für Node-RED einrichten](https://github.com/HM-RedMatic/RedMatic/wiki/Passwort)
+  * [Safe Mode](https://github.com/HM-RedMatic/RedMatic/wiki/Safe-Mode)
+  * [Deinstallation](https://github.com/HM-RedMatic/RedMatic/wiki/Deinstallation)
 * Nutzung
   * [Node-RED Grundlagen](https://github.com/HM-RedMatic/RedMatic/wiki/Node-RED)
   * [CCU Nodes](https://github.com/HM-RedMatic/RedMatic/wiki/CCU-Nodes)
