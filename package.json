@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "npm": "0.0.0 - 6.9.0",
-    "node-red": "0.0.0 - 0.20.0",
+    "node-red": "0.0.0 - 0.20.2",
     "node-red-dashboard": "0.0.0 - 2.14.0",
     "node-red-contrib-ccu": "0.0.0 - 2.0.2",
     "node-red-contrib-combine": "0.0.0 - 1.6.2",
