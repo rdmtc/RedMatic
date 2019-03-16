@@ -93,7 +93,7 @@ EOL
 
 echo "creating changelog file"
 cat >CHANGELOG.md <<EOL
-[![](https://img.shields.io/github/downloads/hobbyquaker/RedMatic/v$VERSION_ADDON/total.svg)](https://github.com/HM-RedMatic/RedMatic/releases/download/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz)
+[![](https://img.shields.io/github/downloads/hobbyquaker/RedMatic/v$VERSION_ADDON/total.svg)](https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz)
 
 ### Changelog
 
@@ -158,7 +158,7 @@ do
     links $DIR $VERSION
 done
 
-echo -e "\n\n[Travis Build #$TRAVIS_BUILD_NUMBER](https://travis-ci.org/HM-RedMatic/RedMatic/builds/$TRAVIS_BUILD_ID)" >> CHANGELOG.md
+echo -e "\n\n[Travis Build #$TRAVIS_BUILD_NUMBER](https://travis-ci.org/rdmtc/RedMatic/builds/$TRAVIS_BUILD_ID)" >> CHANGELOG.md
 
 
 echo "compressing addon package $ADDON_FILE ..."

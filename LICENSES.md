@@ -20136,7 +20136,7 @@ SOFTWARE.
     
 License: MIT    
 Author: Sebastian Raff <hobbyquaker@gmail.com>    
-Repository: [https://github.com/HM-RedMatic/node-red-contrib-combine](https://github.com/HM-RedMatic/node-red-contrib-combine)      
+Repository: [https://github.com/rdmtc/node-red-contrib-combine](https://github.com/rdmtc/node-red-contrib-combine)      
 
 
 ```
@@ -20300,7 +20300,7 @@ SOFTWARE.
     
 License: Apache-2.0    
 Author: Hypnos3 <hypnos3@online.de>    
-Repository: [https://github.com/HM-RedMatic/node-red-contrib-sun-position](https://github.com/HM-RedMatic/node-red-contrib-sun-position)      
+Repository: [https://github.com/rdmtc/node-red-contrib-sun-position](https://github.com/rdmtc/node-red-contrib-sun-position)      
 
 
 
@@ -20315,7 +20315,7 @@ specific language governing permissions and limitations under the License.
 
 ## Other
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/HM-RedMatic/node-red-contrib-sun-position.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/rdmtc/node-red-contrib-sun-position.svg)](https://greenkeeper.io/)
 
 this node is published also here:
 
@@ -26073,7 +26073,7 @@ THE SOFTWARE.
     
 License: Apache-2.0    
 Author: Sebastian Raff <hobbyquaker@gmail.com>    
-Repository: [https://github.com/HM-RedMatic/RedMatic](https://github.com/HM-RedMatic/RedMatic)      
+Repository: [https://github.com/rdmtc/RedMatic](https://github.com/rdmtc/RedMatic)      
 
 
 ```

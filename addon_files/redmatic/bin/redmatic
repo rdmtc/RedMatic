@@ -66,7 +66,7 @@ Start () {
     else
         echo -n "Starting Node-RED: "
         source $ADDON_DIR/versions
-        logger -t redmatic -p daemon.info "RedMatic v$VERSION_ADDON (c) Sebastian Raff https://github.com/HM-RedMatic/RedMatic"
+        logger -t redmatic -p daemon.info "RedMatic v$VERSION_ADDON (c) Sebastian Raff https://github.com/rdmtc/RedMatic"
         start-stop-daemon -S -q -b --exec $ADDON_DIR/bin/redmaticLoader
         echo "OK"
     fi
@@ -90,7 +90,7 @@ case "$1" in
 
   info)
     source $ADDON_DIR/versions
-    echo "Info: <div><a target=\"_blank\" href=\"https://github.com/HM-RedMatic/RedMatic\"><img src=\"/addons/redmatic/logo-x-120.png\"/></a></div>"
+    echo "Info: <div><a target=\"_blank\" href=\"https://github.com/rdmtc/RedMatic\"><img src=\"/addons/redmatic/logo-x-120.png\"/></a></div>"
     echo "Name: RedMatic"
     echo "Version: $VERSION_ADDON"
     echo "Update: /addons/redmatic/update_check.cgi"
