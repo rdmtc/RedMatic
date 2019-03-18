@@ -37,25 +37,40 @@ Stop () {
 }
 
 Start () {
-    if ! grep -Fq "/etc/config/lighttpd/" /etc/lighttpd/lighttpd.conf
+    LIGHTTPD_CONF=/etc/lighttpd/lighttpd.conf
+    if ! grep -Fq "/etc/config/lighttpd/" $LIGHTTPD_CONF
     then
-      echo "patching /etc/lighttpd/lighttpd.conf"
+      echo "patching $LIGHTTPD_CONF"
       mount -o remount,rw /
-      echo "include_shell \"test -d /etc/config/lighttpd && cat /etc/config/lighttpd/*.conf\"" >> /etc/lighttpd/lighttpd.conf
+      cp $LIGHTTPD_CONF $LIGHTTPD_CONF.orig
+      echo "include_shell \"test -d /etc/config/lighttpd && cat /etc/config/lighttpd/*.conf\"" >> $LIGHTTPD_CONF
       mount -o remount,ro /
       /etc/init.d/S50lighttpd restart
     fi
 
-    if [ -f /etc/lighttpd/lighttpd_ssl.conf ]
+    LIGHTTPD_SSL_CONF=/etc/lighttpd/lighttpd_ssl.conf
+    if [ -f $LIGHTTPD_SSL_CONF ]
     then
-        if ! grep -Fq "/etc/config/lighttpd/" /etc/lighttpd/lighttpd_ssl.conf
+        if ! grep -Fq "/etc/config/lighttpd/" $LIGHTTPD_SSL_CONF
         then
-          echo "patching /etc/lighttpd/lighttpd_ssl.conf"
+          echo "patching $LIGHTTPD_SSL_CONF"
           mount -o remount,rw /
-          echo "include_shell \"test -d /etc/config/lighttpd && cat /etc/config/lighttpd/*.conf\"" >> /etc/lighttpd/lighttpd_ssl.conf
+          cp $LIGHTTPD_SSL_CONF $LIGHTTPD_SSL_CONF.orig
+          echo "include_shell \"test -d /etc/config/lighttpd && cat /etc/config/lighttpd/*.conf\"" >> $LIGHTTPD_SSL_CONF
           mount -o remount,ro /
           /etc/init.d/S50lighttpd restart
         fi
+    fi
+
+    BACKUP_CGI=/www/config/cp_security.cgi
+    if ! grep -Fq "exclude-tag=.nobackup" $BACKUP_CGI
+    then
+      echo "patching $BACKUP_CGI"
+      mount -o remount,rw /
+      cp $BACKUP_CGI $BACKUP_CGI.orig
+      sed "s/exec tar czf \/tmp\/usr_local.tar.gz usr\/local/exec tar --exclude-tag=.nobackup -czf \/tmp\/usr_local.tar.gz usr\/local/" $BACKUP_CGI > $BACKUP_CGI.tmp && mv $BACKUP_CGI.tmp $BACKUP_CGI
+      chmod 755 $BACKUP_CGI
+      mount -o remount,ro /
     fi
 
     PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
