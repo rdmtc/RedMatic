@@ -10,6 +10,10 @@ SETTINGS=$ADDON_DIR/lib/settings.js
 RED_DIR=$ADDON_DIR/lib/node_modules/node-red
 RED=$RED_DIR/red.js
 
+LIGHTTPD_CONF=/etc/lighttpd/lighttpd.conf
+LIGHTTPD_SSL_CONF=/etc/lighttpd/lighttpd_ssl.conf
+BACKUP_CGI=/www/config/cp_security.cgi
+
 export PATH=$ADDON_DIR/bin:$PATH
 export LD_LIBRARY_PATH=$ADDON_DIR/lib:$LD_LIBRARY_PATH
 export GIT_EXEC_PATH=/usr/local/addons/redmatic/libexec/git-core
@@ -37,7 +41,6 @@ Stop () {
 }
 
 Start () {
-    LIGHTTPD_CONF=/etc/lighttpd/lighttpd.conf
     if ! grep -Fq "/etc/config/lighttpd/" $LIGHTTPD_CONF
     then
       echo "patching $LIGHTTPD_CONF"
@@ -48,7 +51,6 @@ Start () {
       /etc/init.d/S50lighttpd restart
     fi
 
-    LIGHTTPD_SSL_CONF=/etc/lighttpd/lighttpd_ssl.conf
     if [ -f $LIGHTTPD_SSL_CONF ]
     then
         if ! grep -Fq "/etc/config/lighttpd/" $LIGHTTPD_SSL_CONF
@@ -62,7 +64,6 @@ Start () {
         fi
     fi
 
-    BACKUP_CGI=/www/config/cp_security.cgi
     if ! grep -Fq "exclude-tag=.nobackup" $BACKUP_CGI
     then
       echo "patching $BACKUP_CGI"
@@ -115,13 +116,28 @@ case "$1" in
 
   uninstall)
     Stop
-    $ADDON_DIR/bin/update_addon node-red
-    $ADDON_DIR/bin/update_addon node-red-dashboard
+
     $ADDON_DIR/bin/update_addon redmatic
     rm -r $ADDON_DIR
     rm -r $WWW_DIR
     rm $CONF_DIR/lighttpd/redmatic.conf
     rm $CONF_DIR/rc.d/redmatic
+
+    mount -o remount,rw /
+    if [ -f $LIGHTTPD_CONF.orig ]
+    then
+        mv $LIGHTTPD_CONF.orig $LIGHTTPD_CONF
+    fi
+    if [ -f $LIGHTTPD_SSL_CONF.orig ]
+    then
+        mv $LIGHTTPD_SSL_CONF.orig $LIGHTTPD_SSL_CONF
+    fi
+    if [ -f $BACKUP_CGI.orig ]
+    then
+        mv $BACKUP_CGI.orig $BACKUP_CGI
+    fi
+    mount -o remount,ro /
+
     logger -t redmatic -p daemon.info "Uninstalled RedMatic"
     ;;
 
