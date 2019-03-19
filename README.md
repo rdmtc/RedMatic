@@ -75,6 +75,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
 * Administration
   * [Installation](https://github.com/rdmtc/RedMatic/wiki/Installation)
   * [Update](https://github.com/rdmtc/RedMatic/wiki/Update)
+  * [Backup](https://github.com/rdmtc/RedMatic/wiki/Backup)
   * [Context Storage Konfigurieren](https://github.com/rdmtc/RedMatic/wiki/Context-Storage)
   * [Passwort Schutz für Node-RED einrichten](https://github.com/rdmtc/RedMatic/wiki/Passwort)
   * [Zusätzliche Nodes installieren](https://github.com/rdmtc/RedMatic/wiki/Node-Installation)
