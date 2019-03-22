@@ -9,7 +9,7 @@
     "node-red-node-sqlite": "0.3.6",
     "node-red-contrib-smartmeter": "0.2.0",
     "node-red-contrib-modbus": "4.1.3",
-    "node-red-contrib-mysensors": "3.2.1",
+    "node-red-contrib-mysensors": "3.3.0",
     "node-red-contrib-rfxcom": "2.8.1",
     "redmatic-homekit": "2.1.0"
   }
