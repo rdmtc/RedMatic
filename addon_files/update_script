@@ -29,10 +29,16 @@ if [ -f $RED_DIR/var/package.json ]; then
 fi
 
 #
-#   Delete lib/node_modules on update
+#   Delete included modules from lib/node_modules on update
 #
-if [ -d $RED_DIR/lib/node_modules ]; then
-    rm -r $RED_DIR/lib/node_modules
+if [ -d $RED_DIR/lib/node_modules/node-red ]; then
+    rm -r $RED_DIR/lib/node_modules/node-red
+fi
+if [ -d $RED_DIR/lib/node_modules/npm ]; then
+    rm -r $RED_DIR/lib/node_modules/npm
+fi
+if [ -d $RED_DIR/lib/node_modules/ain2 ]; then
+    rm -r $RED_DIR/lib/node_modules/ain2
 fi
 
 #
