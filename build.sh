@@ -67,6 +67,7 @@ touch $ADDON_TMP/redmatic/include/.nobackup
 touch $ADDON_TMP/redmatic/lib/.nobackup
 touch $ADDON_TMP/redmatic/libexec/.nobackup
 touch $ADDON_TMP/redmatic/share/.nobackup
+touch $ADDON_TMP/redmatic/tmp/.nobackup
 #touch $ADDON_TMP/redmatic/var/node_modules/.nobackup
 touch $ADDON_TMP/redmatic/www/.nobackup
 
