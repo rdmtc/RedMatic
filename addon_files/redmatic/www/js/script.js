@@ -66,6 +66,16 @@ $(document).ready(() => {
         $('#backup').removeClass('disabled').attr('href', 'backup.cgi?sid=' + sid);
     }
 
+    if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show');
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        if(history.pushState) {
+            history.pushState(null, null, '#' + $(e.target).attr('href').substr(1));
+        } else {
+            location.hash = '#' + $(e.target).attr('href').substr(1);
+        }
+    });
+
     let psTimeout;
     let psInterval = 5000;
 
