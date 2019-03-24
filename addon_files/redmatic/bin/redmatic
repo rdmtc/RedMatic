@@ -43,7 +43,9 @@ Stop () {
 Start () {
     if [ -f $ADDON_DIR/var/do_pkg_upgrade ]; then
         echo "Updating Packages"
-        $ADDON_DIR/bin/redmatic-pkg upgrade >> $ADDON_DIR/var/pkg-upgrade.log 2>&1 && rm $ADDON_DIR/var/do_pkg_upgrade
+        date +"%b %d %H:%M:%S" >> $ADDON_DIR/var/pkg-upgrade.log
+        $ADDON_DIR/bin/redmatic-pkg upgrade 2>&1 | tee -a $ADDON_DIR/var/pkg-upgrade.log | logger -t redmatic-pkg -p daemon.info && rm $ADDON_DIR/var/do_pkg_upgrade
+        sleep 1
     fi
     if ! grep -Fq "/etc/config/lighttpd/" $LIGHTTPD_CONF
     then
