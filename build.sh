@@ -13,6 +13,7 @@ PREBUILT=$BUILD_DIR/prebuilt/$ARCH
 ADDON_TMP=$BUILD_DIR/addon_tmp
 
 mkdir $ADDON_TMP 2> /dev/null || rm -r $ADDON_TMP/*
+mkdir $BUILD_DIR/dist 2> /dev/null
 
 #echo "download and install node-prune"
 #curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash
@@ -167,7 +168,7 @@ echo -e "\n\n[Travis Build #$TRAVIS_BUILD_NUMBER](https://travis-ci.org/rdmtc/Re
 
 echo "compressing addon package $ADDON_FILE ..."
 ADDON_FILE=redmatic-$VERSION_ADDON.tar.gz
-mkdir $BUILD_DIR/dist 2> /dev/null
+
 cd $ADDON_TMP
 if [[ "$OSTYPE" == "darwin"* ]]; then
     if [[ -f /usr/local/bin/gtar ]]; then
