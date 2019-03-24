@@ -57,6 +57,9 @@ cp -r $PREBUILT/* $ADDON_TMP/redmatic/
 cd $ADDON_TMP
 ln -s redmatic/bin/update_addon ./
 
+echo "bundling packages..."
+node $BUILD_DIR/bundle-pkgs.js
+
 echo "installing www node modules"
 cd $ADDON_TMP/redmatic/www
 npm install --silent --no-package-lock --production --no-optional

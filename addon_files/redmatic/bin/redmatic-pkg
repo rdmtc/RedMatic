@@ -1,0 +1,60 @@
+#!/bin/sh
+
+ADDON_DIR=/usr/local/addons/redmatic
+REPO=$ADDON_DIR/lib/pkg-repo.json
+
+source $ADDON_DIR/home/.profile
+
+function usage()
+{
+    echo "Usage: redmatic-pkg <command> <package>"
+    echo "commands:"
+    echo "    install"
+    echo "    remove"
+    echo ""
+}
+
+function install()
+{
+    PACKAGE="$1"
+    URL=`jq -r ".\"$PACKAGE\".resolved" $REPO`
+    INTEGRITY=`jq -r ".\"$PACKAGE\".integrity" $REPO`
+    VERSION=`jq -r ".\"$PACKAGE\".version" $REPO`
+
+    if [ $URL == "null" ]; then
+      echo "unknown package: $1"
+      exit 1
+    fi
+
+    echo "Get $URL"
+    curl $URL -o $ADDON_DIR/tmp/$1.tar.gz --fail --silent --show-error --location || exit 1
+
+    rm -r $ADDON_DIR/lib/node_modules/$PACKAGE 2> /dev/null
+
+    echo "Extracting $1.tar.gz"
+    (cd $ADDON_DIR ; tar --no-same-owner -xzf tmp/$1.tar.gz && rm tmp/$1.tar.gz && echo "Done.")
+}
+
+function remove()
+{
+    PACKAGE="$1"
+    rm -r $ADDON_DIR/lib/node_modules/$PACKAGE 2> /dev/null
+    echo "Done."
+}
+
+
+case $1 in
+    i | install)
+        install $2
+    exit
+    ;;
+    r | remove)
+        remove $2
+    exit
+    ;;
+    *)
+    usage
+    exit 1
+    ;;
+esac
+

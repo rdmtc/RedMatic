@@ -40,3 +40,19 @@ iframe {
 .status-stopped {
     color: red;
 }
+
+.spinner-placeholder {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.spinner-install, .spinner-remove {
+    display: inline-block;
+}
+
+.pkg-remove, .pkg-install {
+    width: 100px;
+}

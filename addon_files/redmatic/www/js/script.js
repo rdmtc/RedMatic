@@ -54,6 +54,8 @@ $(document).ready(() => {
     const $linkRed = $('#link-red');
     const $linkUi = $('#link-ui');
 
+    const $packageTable = $('#package-table');
+
     let config;
 
     const qs = location.search;
@@ -66,6 +68,54 @@ $(document).ready(() => {
 
     let psTimeout;
     let psInterval = 5000;
+
+    function pkg() {
+        let packages;
+        $.get(`pkg.cgi?sid=${sid}&cmd=repo`, data => {
+            packages = data;
+            $.get(`pkg.cgi?sid=${sid}&cmd=ls`, data => {
+                data.split('\n').forEach(line => {
+                    if (line && packages[line]) {
+                        packages[line].installed = true;
+                    }
+                });
+                $packageTable.html('');
+                Object.keys(packages).forEach(name => {
+                    $packageTable.append(`<tr><td>${name}</td><td>${packages[name].version}</td><td>${packages[name].installed ? '✓' : ''}</td><td><button data-pkg="${name}" type="button" class="btn btn-primary btn-sm pkg-install" ${packages[name].installed ? 'disabled' : ''}><span class="spinner-install spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+  install</button> <button data-pkg="${name}" type="button" class="btn btn-danger btn-sm pkg-remove" ${packages[name].installed ? '' : 'disabled'}><span class="spinner-remove spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+  remove</button></td></tr>`)
+                });
+                $('.pkg-install').click(function () {
+                    $(this).attr('disabled', true);
+                    $(this).find('.spinner-install').removeAttr('hidden');
+                    $.get(`pkg.cgi?sid=${sid}&cmd=install&package=${$(this).data('pkg')}`, (data, success) => {
+                        $(this).find('.spinner-install').attr('hidden', true);
+                        if (data.includes('Done.')) {
+                            alert($alertExec);
+                        } else {
+                            alert($alertError);
+                        }
+                        pkg();
+                    });
+                });
+                $('.pkg-remove').click(function () {
+                    $(this).attr('disabled', true);
+                    $(this).find('.spinner-remove').removeAttr('hidden');
+                    $.get(`pkg.cgi?sid=${sid}&cmd=remove&package=${$(this).data('pkg')}`, (data, success) => {
+                        $(this).find('.spinner-remove').attr('hidden', true);
+                        if (data.includes('Done.')) {
+                            alert($alertExec);
+                        } else {
+                            alert($alertError);
+                        }
+                        pkg();
+                    });
+                })
+            });
+        });
+    }
+
+    pkg();
 
     function cpu() {
         $.get(`service.cgi?sid=${sid}&cmd=cpu`, (data, success) => {
