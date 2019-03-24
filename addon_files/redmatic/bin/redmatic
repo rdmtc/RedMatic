@@ -41,7 +41,7 @@ Stop () {
 }
 
 Start () {
-    if [ -f $ADDON_DIR/var/do_pkg_update ]; then
+    if [ -f $ADDON_DIR/var/do_pkg_upgrade ]; then
         $ADDON_DIR/bin/redmatic-pkg upgrade >> $ADDON_DIR/var/pkg-upgrade.log
     fi
     if ! grep -Fq "/etc/config/lighttpd/" $LIGHTTPD_CONF
