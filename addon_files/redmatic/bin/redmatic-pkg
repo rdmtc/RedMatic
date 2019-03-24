@@ -7,10 +7,13 @@ source $ADDON_DIR/home/.profile
 
 function usage()
 {
-    echo "Usage: redmatic-pkg <command> <package>"
+    echo "Usage: redmatic-pkg <command> [package]"
     echo "commands:"
-    echo "    install"
-    echo "    remove"
+    echo "    install <package>"
+    echo "        install or update a package"
+    echo "    upgrade"
+    echo "        update all packages"
+    echo "    remove <package>"
     echo ""
 }
 
@@ -26,13 +29,26 @@ function install()
       exit 1
     fi
 
+    if [ -f $ADDON_DIR/lib/node_modules/$PACKAGE/package.json ]; then
+        CURRENT_VERSION=`jq -r ".version" $ADDON_DIR/lib/node_modules/$PACKAGE/package.json`
+        if [ $CURRENT_VERSION == $VERSION ]; then
+            echo "$PACKAGE up-to-date"
+            exit 0
+        else
+            echo "$PACKAGE $CURRENT_VERSION -> $VERSION"
+        fi
+    fi
+
     echo "Get $URL"
     curl $URL -o $ADDON_DIR/tmp/$1.tar.gz --fail --silent --show-error --location || exit 1
 
     rm -r $ADDON_DIR/lib/node_modules/$PACKAGE 2> /dev/null
 
     echo "Extracting $1.tar.gz"
-    (cd $ADDON_DIR ; tar --no-same-owner -xzf tmp/$1.tar.gz && rm tmp/$1.tar.gz && echo "Done.")
+    (cd $ADDON_DIR ; tar --no-same-owner -xzf tmp/$1.tar.gz) || exit 1
+
+    rm $ADDON_DIR/tmp/$1.tar.gz
+    echo "Done."
 }
 
 function remove()
@@ -40,6 +56,17 @@ function remove()
     PACKAGE="$1"
     rm -r $ADDON_DIR/lib/node_modules/$PACKAGE 2> /dev/null
     echo "Done."
+}
+
+function upgrade()
+{
+    RESULT=0
+    for k in $($ADDON_DIR/bin/jq -r '. | to_entries[] | "\(.key)"' $ADDON_DIR/lib/pkg-repo.json); do
+        if [ -d $ADDON_DIR/lib/node_modules/$k ]; then
+            $ADDON_DIR/bin/redmatic-pkg install $k  2>&1 || RESULT=1
+        fi
+    done
+    exit $RESULT
 }
 
 
@@ -50,6 +77,10 @@ case $1 in
     ;;
     r | remove)
         remove $2
+    exit
+    ;;
+    upgrade)
+        upgrade
     exit
     ;;
     *)

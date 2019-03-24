@@ -22,6 +22,13 @@ if [ -f $CONF_DIR/rc.d/redmatic ]; then
 fi
 
 #
+#   Upgrade packages on update
+#
+if [ -d $RED_DIR/var ]; then
+    touch $RED_DIR/var/do_pkg_upgrade
+fi
+
+#
 #   Rename extra nodes package.json on update
 #
 if [ -f $RED_DIR/var/package.json ]; then
@@ -109,18 +116,6 @@ if [ -d $RED_DIR/var/node_modules/redmatic-homekit ]; then
     cat $RED_DIR/var/package.json.bak | $RED_DIR/bin/jq 'del(.dependencies."redmatic-homekit")' > $RED_DIR/var/package.json
     rm $RED_DIR/var/package.json.bak
 fi
-
-
-#
-#   Update existing modules in lib/node_modules on update
-#
-echo $(date +'[%Y-%m-%d %H:%M:%S]') > $RED_DIR/var/pkg-update.log
-for k in $($RED_DIR/bin/jq -r '. | to_entries[] | "\(.key)"' $RED_DIR/lib/pkg-repo.json); do
-    if [ -d $RED_DIR/lib/node_modules/$k ]; then
-        $RED_DIR/bin/redmatic-pkg install $k >> $RED_DIR/var/pkg-update.log 2>&1
-    fi
-done
-
 
 #
 #   Remove package-lock

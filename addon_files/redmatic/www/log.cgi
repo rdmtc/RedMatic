@@ -10,8 +10,8 @@ if {[info exists sid] && [check_session $sid]} {
     catch {exec /usr/local/addons/redmatic/bin/redmaticVersions} result
     puts $result
     puts ""
-     if {[file exists /usr/local/addons/redmatic/var/pkg-update.log]} {
-       catch {exec cat /usr/local/addons/redmatic/var/pkg-update.log} result
+     if {[file exists /usr/local/addons/redmatic/var/pkg-upgrade.log]} {
+       catch {exec cat /usr/local/addons/redmatic/var/pkg-upgrade.log} result
         puts $result
         puts ""
     }
