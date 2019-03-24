@@ -183,3 +183,5 @@ cd $BUILD_DIR
 
 
 echo "done."
+
+cat CHANGELOG.md
