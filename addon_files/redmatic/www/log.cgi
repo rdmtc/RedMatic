@@ -9,7 +9,17 @@ if {[info exists sid] && [check_session $sid]} {
 
     catch {exec /usr/local/addons/redmatic/bin/redmaticVersions} result
     puts $result
-    catch {exec cat /var/log/messages.0 /var/log/messages | grep node-red\\|redmatic} result
+    puts ""
+     if {[file exists /usr/local/addons/redmatic/var/pkg-update.log]} {
+       catch {exec cat /usr/local/addons/redmatic/var/pkg-update.log} result
+        puts $result
+        puts ""
+    }
+    if {[file exists /var/log/messages.0]} {
+        catch {exec cat /var/log/messages.0 | grep node-red\\|redmatic } result
+        puts $result
+    }
+    catch {exec cat /var/log/messages | grep node-red\\|redmatic} result
     puts $result
     exit 0
 } else {
