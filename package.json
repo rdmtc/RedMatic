@@ -35,10 +35,10 @@
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",
   "devDependencies": {
-    "github-markdown-css": "latest",
-    "latest-semver": "latest",
-    "npm-check-updates": "latest",
-    "showdown": "latest",
-    "sync-request": "latest"
+    "github-markdown-css": "^3.0.1",
+    "latest-semver": "^1.0.0",
+    "npm-check-updates": "^3.1.1",
+    "showdown": "^1.9.0",
+    "sync-request": "^6.1.0"
   }
 }
