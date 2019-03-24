@@ -66,7 +66,7 @@ $(document).ready(() => {
         $('#backup').removeClass('disabled').attr('href', 'backup.cgi?sid=' + sid);
     }
 
-    if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show');
+    $('a[href="' + (location.hash || '#configuration') + '"]').tab('show');
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         if(history.pushState) {
