@@ -95,10 +95,6 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [RedMatic WebApp](https://github.com/rdmtc/RedMatic/wiki/Webapp)
   * [RedMatic HomeKit](https://github.com/rdmtc/RedMatic/wiki/Homekit)
   * [Node-RED Dashboard](https://github.com/rdmtc/RedMatic/wiki/Dashboard-Screenshots)
-* Sonstiges
-  * [Berichterstattung, Blogbeiträge, Videos über RedMatic](https://github.com/rdmtc/RedMatic/wiki/Berichterstattung)
-  * [Node-RED Link Sammlung](https://github.com/rdmtc/RedMatic/wiki/Links)
-  * [Danksagungen](https://github.com/rdmtc/RedMatic/wiki/Danke)
 * Beispiel Flows
   * [Anzahl und Liste offener Fenster im Dashboard anzeigen](https://github.com/rdmtc/RedMatic/wiki/Flow-Windows)
   * [Hue Lampen mit langem Tastendruck dimmen](https://github.com/rdmtc/RedMatic/wiki/Flow-Hue)
@@ -132,7 +128,10 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Datenpunktstatus von mehreren Geraeten gleichzeitig abfragen](https://github.com/rdmtc/RedMatic/wiki/flow-geraete-abfragen)
   * [sehr einfache Jalousiesteuerung](https://github.com/rdmtc/RedMatic/wiki/sehr-einfache-Jalousiesteuerung)
   * [Zwischen zwei Zeitpunkten jede halbe Stunde einen Inject generieren](https://github.com/rdmtc/RedMatic/wiki/Zwischen-zwei-Zeitpunkten-jede-halbe-Stunde-einen-Inject-generieren)
-
+* Sonstiges
+  * [Berichterstattung, Blogbeiträge, Videos über RedMatic](https://github.com/rdmtc/RedMatic/wiki/Berichterstattung)
+  * [Node-RED Link Sammlung](https://github.com/rdmtc/RedMatic/wiki/Links)
+  * [Danksagungen](https://github.com/rdmtc/RedMatic/wiki/Danke)
 
 ## Webseite
 
