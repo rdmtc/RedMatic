@@ -15,7 +15,7 @@ LIGHTTPD_SSL_CONF=/etc/lighttpd/lighttpd_ssl.conf
 BACKUP_CGI=/www/config/cp_security.cgi
 
 export PATH=$ADDON_DIR/bin:$PATH
-export LD_LIBRARY_PATH=$ADDON_DIR/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/addons/redmatic/lib:/usr/lib:/usr/local/lib
 export GIT_EXEC_PATH=/usr/local/addons/redmatic/libexec/git-core
 export NO_UPDATE_NOTIFIER=true
 
@@ -83,7 +83,7 @@ Start () {
     if [ ! -f /etc/config/rdmtc.uuid ]; then
         /usr/bin/uuidgen > /etc/config/rdmtc.uuid
     fi
-    /usr/local/addons/redmatic/bin/redmaticVersions | /usr/bin/curl -H "Content-Type: application/json" -H "X-RedMatic-uuid: `cat /etc/config/rdmtc.uuid`" --data @- -s --max-time 3 https://telemetry.redmatic.de
+    LD_LIBRARY_PATH=/usr/lib:/usr/local/lib:/usr/local/addons/redmatic/lib ; /usr/local/addons/redmatic/bin/redmaticVersions | /usr/bin/curl -H "Content-Type: application/json" -H "X-RedMatic-uuid: `cat /etc/config/rdmtc.uuid`" --data @- -s --max-time 3 https://telemetry.redmatic.de
 
     PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
     if [ "$PSPID" != "" ]
