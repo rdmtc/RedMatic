@@ -46,7 +46,15 @@
 
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">
+
+            <div id="update-notify" class="card mb-4" style="border-color: orange; display: none;">
+                <div class="card-body">
+                    RedMatic update available: <span id="update-link"></span>
+                </div>
+            </div>
+
             <div class="card mb-4">
+
                 <div class="card-body">
                     <a id="link-red" role="button" class="btn btn-sm btn-outline-info" target="_blank" href="/addons/red/"><i class="fa fa-external-link-alt"></i> Node-RED</a>
                     <a id="link-ui" role="button" class="btn btn-sm btn-outline-info mr-3" target="_blank" href="/addons/red/ui/"><i class="fa fa-external-link-alt"></i> Dashboard</a>

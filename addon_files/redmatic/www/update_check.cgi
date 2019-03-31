@@ -13,11 +13,15 @@ catch {
   }
 }
 
-puts -nonewline "Content-Type: text/html; charset=utf-8\r\n\r\n"
 
 if { [info exists cmd ] && $cmd == "download"} {
+  puts -nonewline "Content-Type: text/html; charset=utf-8\r\n\r\n"
   puts "<html><head><meta http-equiv='refresh' content='0; url=$downloadURL' /></head></html>"
+} elseif { [info exists cmd ] && $cmd == "versions" } {
+  puts -nonewline "Content-Type: application/json; charset=utf-8\r\n\r\n"
+  puts [ exec /usr/local/addons/redmatic/bin/redmaticVersions ]
 } else {
+  puts -nonewline "Content-Type: text/html; charset=utf-8\r\n\r\n"
   catch {
     [regexp "tag_name\": \"v(\[0-9\]+\.\[0-9\]+\.\[0-9\]+(-\[a-zA-Z\]+.\[0-9\]+)?)" [ exec /usr/bin/env wget -qO- --no-check-certificate $checkURL ] dummy newversion]
   }

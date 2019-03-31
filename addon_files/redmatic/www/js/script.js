@@ -79,6 +79,20 @@ $(document).ready(() => {
     let psTimeout;
     let psInterval = 5000;
 
+    function checkUpdate() {
+        $.getJSON(`update_check.cgi?cmd=versions&sid=${sid}`, (current, success) => {
+            $.get(`update_check.cgi?sid=${sid}`, (available, success) => {
+                if (current.redmatic !== $.trim(available)) {
+                    $('#update-link').html(`<a href="https://github.com/rdmtc/RedMatic/releases/latest" target="_blank">download version ${available}</a>`);
+                    $('#update-notify').show();
+                }
+            });
+        });
+
+    }
+
+    checkUpdate();
+
     function pkg() {
         let packages;
         $.get(`pkg.cgi?sid=${sid}&cmd=repo`, data => {
