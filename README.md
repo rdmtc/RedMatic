@@ -131,6 +131,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
 * Sonstiges
   * [Berichterstattung, Blogbeiträge, Videos über RedMatic](https://github.com/rdmtc/RedMatic/wiki/Berichterstattung)
   * [Node-RED Link Sammlung](https://github.com/rdmtc/RedMatic/wiki/Links)
+  * [Telemetrie](https://github.com/rdmtc/RedMatic/wiki/Telemetry)
   * [Danksagungen](https://github.com/rdmtc/RedMatic/wiki/Danke)
 
 ## Webseite
