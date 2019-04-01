@@ -12,6 +12,6 @@
     "node-red-contrib-mysensors": "3.3.0",
     "node-red-contrib-rfxcom": "2.8.1",
     "node-red-contrib-zigbee": "0.2.0-alpha.0",
-    "redmatic-homekit": "2.1.1"
+    "redmatic-homekit": "2.1.2"
   }
 }
