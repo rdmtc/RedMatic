@@ -49,6 +49,13 @@ if [ -d $RED_DIR/lib/node_modules/ain2 ]; then
 fi
 
 #
+#   Delete lib files on update
+#
+if [ -d $RED_DIR/lib ]; then
+    rm $RED_DIR/lib/lib*
+fi
+
+#
 #   Install addon files
 #
 cp -af redmatic $ADDONS_DIR/
