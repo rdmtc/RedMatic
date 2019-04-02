@@ -41,7 +41,7 @@ function install()
 
     echo "Get $URL"
     set -o pipefail
-    curl $URL -o $ADDON_DIR/tmp/$1.tar.gz --fail --silent --show-error --location || exit 1
+    /usr/bin/curl $URL -o $ADDON_DIR/tmp/$1.tar.gz --fail --silent --show-error --location || exit 1
 
     rm -r $ADDON_DIR/lib/node_modules/$PACKAGE 2> /dev/null
 
