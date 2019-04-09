@@ -104,8 +104,8 @@ $(document).ready(() => {
                     }
                 });
                 $packageTable.html('');
-                Object.keys(packages).forEach(name => {
-                    $packageTable.append(`<tr><td>${name}</td><td>${packages[name].version}</td><td>${packages[name].installed ? '✓' : ''}</td><td><button data-pkg="${name}" type="button" class="btn btn-primary btn-sm pkg-install" ${packages[name].installed ? 'disabled' : ''}><span class="spinner-install spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                Object.keys(packages).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())).forEach(name => {
+                    $packageTable.append(`<tr><td>${name}</td><td>${packages[name].version}</td><td style="text-align: center;">${packages[name].installed ? '✓' : '&nbsp;'}</td><td><button data-pkg="${name}" type="button" class="btn btn-primary btn-sm pkg-install" ${packages[name].installed ? 'disabled' : ''}><span class="spinner-install spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
   install</button> <button data-pkg="${name}" type="button" class="btn btn-danger btn-sm pkg-remove" ${packages[name].installed ? '' : 'disabled'}><span class="spinner-remove spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
   remove</button></td></tr>`)
                 });
@@ -668,6 +668,26 @@ $(document).ready(() => {
     $('#autorestart').on('change', event => {
         config.restartOnCrash = parseInt(event.target.value, 10);
         save();
+    });
+
+    $('#discard-package-hint').on('click', () => {
+        localStorage.setItem('package-hint', 'discarded');
+        $('#package-hint').hide();
+    });
+    if (localStorage.getItem('package-hint') !== 'discarded') {
+        $('#package-hint').show();
+    }
+
+    $('#package-filter').on('keyup', () => {
+        const filter = $('#package-filter').val();
+        $packageTable.find('tr').each(function () {
+            const name = $(this).find('td').html();
+            if (name.includes(filter)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
     });
 
 });

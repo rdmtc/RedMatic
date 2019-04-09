@@ -242,20 +242,32 @@
 
         <div class="tab-pane fade show" id="packages" role="tabpanel" aria-labelledby="packages-tab">
 
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Package</th>
-                            <th scope="col">Version</th>
-                            <th scope="col">Installed</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody id="package-table">
+            <div id="package-hint" class="card mb-4" style="border-color: blue; display: none;">
+                <div class="card-body">
+                    <button type="button" class="btn btn-mini btn-info" id="discard-package-hint" style="padding: 0px 8px 2px; margin-top: -4px;">x</button>
+                    <b>Tipp:</b> Nicht-verwendete Pakete sollten deinstalliert werden, das spart Speicher und reduziert die Node-RED Startzeit.
+                </div>
+            </div>
 
-                        </tbody>
-                    </table>
+            <table id="table-packages" class="table">
+                <thead>
+                <tr>
+                    <th scope="col" style="min-width: 300px;">Package</th>
+                    <th scope="col" style="min-width: 120px;">Version</th>
+                    <th scope="col" style="min-width: 80px; width: 80px;">Installed</th>
+                    <th scope="col" style="min-width: 300px;"></th>
+                </tr>
+                <tr>
+                    <th scope="col"><input class="form-control form-control-sm" id="package-filter"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody id="package-table">
+
+                </tbody>
+            </table>
 
         </div>
 
