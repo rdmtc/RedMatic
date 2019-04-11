@@ -5,6 +5,6 @@
     "bcryptjs": "2.4.3",
     "bootstrap": "4.3.1",
     "@fortawesome/fontawesome-free": "5.8.1",
-    "jquery": "3.3.1"
+    "jquery": "3.4.0"
   }
 }
