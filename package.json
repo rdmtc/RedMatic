@@ -12,7 +12,7 @@
     "npm": "0.0.0 - 6.9.0",
     "node-red": "0.0.0 - 0.20.5",
     "node-red-dashboard": "0.0.0 - 2.14.0",
-    "node-red-contrib-ccu": "0.0.0 - 2.0.8",
+    "node-red-contrib-ccu": "0.0.0 - 2.0.9",
     "node-red-contrib-combine": "0.0.0 - 1.7.1",
     "bcryptjs": "0.0.0 - 2.4.3",
     "bootstrap": "0.0.0 - 4.3.1",
