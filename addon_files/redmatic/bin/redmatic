@@ -24,15 +24,21 @@ Stop () {
     if [ "$PSPID" != "" ]
     then
         echo -n "Stopping Node-RED: "
+        logger -t redmatic -p daemon.info "Stopping Node-RED"
         killall redmaticLoader 2>/dev/null
         kill -SIGINT $PSPID 2>/dev/null
-        if [ $? -ne "0" ]
+        sleep 2
+        if kill -0 $PSPID 2> /dev/null
         then
-            sleep 3
-            kill -KILL $PSPID 2>/dev/null
+            sleep 4
+            if kill -0 $PSPID 2> /dev/null
+            then
+                logger -t redmatic -p daemon.warn "Killing Node-RED"
+                kill -SIGKILL $PSPID 2>/dev/null
+            fi
         fi
         echo "OK"
-        logger -t redmatic -p daemon.info "Stopping Node-RED"
+        logger -t redmatic -p daemon.info "Node-RED stopped"
         return 0
     else
         echo "Node-RED not running"
@@ -89,6 +95,7 @@ Start () {
     if [ "$PSPID" != "" ]
     then
         echo "Node-RED already running"
+        logger -t redmatic -p daemon.error "cant start - already running"
         exit 1
     else
         echo -n "Starting Node-RED: "

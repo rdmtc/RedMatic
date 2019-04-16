@@ -561,10 +561,10 @@ $(document).ready(() => {
             url: `service.cgi?sid=${sid}&cmd=restart`,
             success: data => {
                 if (data.match(/Starting Node-RED: OK/)) {
-                    psInterval = 2000;
+                    psInterval = 1000;
                     setTimeout(() => {
                         ps();
-                    }, 6000);
+                    }, 1000);
                     alert($alertExec);
                 } else {
                     alert($alertError);
