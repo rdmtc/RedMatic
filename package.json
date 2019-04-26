@@ -19,7 +19,7 @@
     "jquery": "0.0.0 - 3.4.0",
     "@fortawesome/fontawesome-free": "0.0.0 - 5.8.1",
     "ain2": "0.0.0 - 3.0.0",
-    "node-red-node-sqlite": "0.0.0 - 0.3.6",
+    "node-red-node-sqlite": "0.0.0 - 0.3.7",
     "redmatic-led": "0.0.0 - 1.1.0",
     "redmatic-webapp": "0.0.0 - 0.3.1",
     "redmatic-homekit": "0.0.0 - 2.3.1",
