@@ -13,6 +13,7 @@
     "node-red-contrib-rfxcom": "2.8.1",
     "node-red-contrib-zigbee": "0.4.0",
     "node-red-contrib-gpio": "0.14.0",
+    "node-red-contrib-enocean": "0.4.9",
     "redmatic-homekit": "2.3.1"
   }
 }

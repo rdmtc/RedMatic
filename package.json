@@ -32,7 +32,8 @@
     "node-red-contrib-mysensors": "0.0.0 - 3.3.0",
     "node-red-contrib-rfxcom": "0.0.0 - 2.8.1",
     "node-red-contrib-zigbee": "0.0.0 - 0.4.0",
-    "node-red-contrib-gpio": "0.0.0 - 0.14.0"
+    "node-red-contrib-gpio": "0.0.0 - 0.14.0",
+    "node-red-contrib-enocean": "0.0.0 - 0.4.9"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",
