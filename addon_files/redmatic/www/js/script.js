@@ -84,7 +84,7 @@ $(document).ready(() => {
         $.getJSON(`update_check.cgi?cmd=versions&sid=${sid}`, (current, success) => {
             $.get(`update_check.cgi?sid=${sid}`, (available, success) => {
                 if (current.redmatic !== $.trim(available)) {
-                    $('#update-link').html(`<a href="https://github.com/rdmtc/RedMatic/releases/latest" target="_blank">download version ${available}</a>`);
+                    $('#update-link').html(`<a href="https://github.com/rdmtc/RedMatic/releases/latest" target="_blank">Download Version ${available}</a>`);
                     $('#update-notify').show();
                 }
             });
