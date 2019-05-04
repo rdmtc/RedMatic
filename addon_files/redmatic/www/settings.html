@@ -165,7 +165,7 @@
                                 Admin
                             </div>
                             <div class="col-sm-9">
-                                <div class="row mb-1 col-sm-12">
+                                <div class="row mb-2 col-sm-12">
                                     <select class="form-control" id="adminauth-type">
                                         <option value="none">Keine Authentifizierung</option>
                                         <option value="credentials">Username/Passwort individuell</option>
@@ -173,7 +173,8 @@
                                     </select>
                                 </div>
                                 <div id="adminauth-expiry" class="col-sm-12 row mb-1" style="display: none">
-                                    <input class="form-control" id="adminauth-sessionExpiryTime" placeholder="sessionExpiryTime" type="number">
+                                    <label class="col-sm-6 mt-2" for="adminauth-sessionExpiryTime">Session Timeout (Sekunden)</label>
+                                    <input class="col-sm-6 form-control" id="adminauth-sessionExpiryTime" placeholder="" type="number">
                                 </div>
                                 <div id="adminauth-credentials" class="col-sm-12 row pl-0 pr-0" style="display: none">
                                     <div class="col-sm">
