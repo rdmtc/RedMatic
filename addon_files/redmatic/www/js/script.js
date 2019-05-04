@@ -30,6 +30,7 @@ $(document).ready(() => {
     const $staticauthSet = $('#staticauth-set');
 
     const $projects = $('#projects');
+    const $backup = $('#backup');
     
     const $alertSaved = $('#alert-saved');
     const $alertError = $('#alert-error');
@@ -326,7 +327,7 @@ $(document).ready(() => {
         $contextStorageFileInterval.val(config.contextStorage.file.config.flushInterval);
 
         $('#autorestart').find('option[value="' + config.restartOnCrash + '"]').attr('selected', true);
-
+        $('#backup').find('option[value="' + config.ccuBackup + '"]').attr('selected', true);
     });
 
     $loglevel.change(() => {
@@ -667,6 +668,11 @@ $(document).ready(() => {
 
     $('#autorestart').on('change', event => {
         config.restartOnCrash = parseInt(event.target.value, 10);
+        save();
+    });
+
+    $backup.on('change', () => {
+        config.ccuBackup = $backup.val();
         save();
     });
 

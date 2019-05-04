@@ -65,17 +65,6 @@ echo "installing www node modules"
 cd $ADDON_TMP/redmatic/www
 npm install --silent --no-package-lock --production --no-optional
 
-echo "create .nobackup files"
-touch $ADDON_TMP/redmatic/bin/.nobackup
-touch $ADDON_TMP/redmatic/include/.nobackup
-touch $ADDON_TMP/redmatic/lib/.nobackup
-touch $ADDON_TMP/redmatic/libexec/.nobackup
-touch $ADDON_TMP/redmatic/share/.nobackup
-touch $ADDON_TMP/redmatic/tmp/.nobackup
-#touch $ADDON_TMP/redmatic/var/node_modules/.nobackup
-touch $ADDON_TMP/redmatic/www/.nobackup
-
-
 echo "adapt Node-RED..."
 rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/node_modules/@node-red/nodes/core/hardware
 
