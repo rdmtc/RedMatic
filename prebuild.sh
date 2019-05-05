@@ -16,6 +16,9 @@ rm -r ${DEST}/lib/node_modules
 scp $REMOTE:/usr/bin/pig2vcd $DEST/bin/
 scp $REMOTE:/usr/bin/pigpiod $DEST/bin/
 scp $REMOTE:/usr/bin/pigs $DEST/bin/
+scp $REMOTE:/usr/lib/libpigpiod_if2.so $DEST/lib/
+scp $REMOTE:/usr/lib/libpigpiod_if.so $DEST/lib/
+scp $REMOTE:/usr/lib/libpigpio.so $DEST/lib/
 
 files=`ssh -t $REMOTE "cd $REMOTE_PATH ; find ./ -type f -name \*.node |grep -v obj.target"`
 

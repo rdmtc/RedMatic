@@ -17,7 +17,10 @@ const extraFiles = {
     'node-red-contrib-gpio': [
         'bin/pig2vcd',
         'bin/pigpiod',
-        'bin/pigs'
+        'bin/pigs',
+        'lib/libpigpiod_if2.so',
+        'lib/libpigpiod_if.so',
+        'lib/libpigpio.so'
     ]
 };
 
