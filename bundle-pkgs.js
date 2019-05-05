@@ -13,6 +13,11 @@ const blacklist = [
 const extraFiles = {
     'redmatic-homekit': [
         'bin/ffmpeg'
+    ],
+    'node-red-contrib-gpio': [
+        'bin/pig2vcd',
+        'bin/pigpiod',
+        'bin/pigs'
     ]
 };
 

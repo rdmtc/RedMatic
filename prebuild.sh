@@ -9,8 +9,13 @@ cat addon_files/redmatic/lib/package.json | jq 'del(.dependencies.npm,.dependenc
 scp $DEST/package.json $REMOTE:$REMOTE_PATH
 
 ssh -t $REMOTE "cd $REMOTE_PATH ; npm install --global-style --unsafe-perm"
+ssh -t $REMOTE "cd $REMOTE_PATH/node_modules/node-red-contrib-gpio ; npm install --save --unsafe-perm raspi-io"
 
 rm -r ${DEST}/lib/node_modules
+
+scp $REMOTE:/usr/bin/pig2vcd $DEST/bin/
+scp $REMOTE:/usr/bin/pigpiod $DEST/bin/
+scp $REMOTE:/usr/bin/pigs $DEST/bin/
 
 files=`ssh -t $REMOTE "cd $REMOTE_PATH ; find ./ -type f -name \*.node |grep -v obj.target"`
 
