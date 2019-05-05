@@ -6,7 +6,7 @@
     "node-red-node-email": "1.4.0",
     "node-red-node-rbe": "0.2.4",
     "node-red-dashboard": "2.14.0",
-    "node-red-contrib-ccu": "2.0.12",
+    "node-red-contrib-ccu": "2.0.13",
     "node-red-contrib-combine": "1.7.1",
     "node-red-contrib-sun-position": "0.2.11",
     "redmatic-led": "1.1.0",
