@@ -26,4 +26,6 @@ while read -r binary; do
     scp -q ${from} ${dest} && echo "${binary}"
 done <<< "$files"
 
+cp -R $DEST/lib/node_modules/node-red-contrib-zigbee/node_modules/cc-znp/node_modules/@serialport $DEST/lib/node_modules/node-red-contrib-zigbee/node_modules/
+
 git add $DEST/lib
