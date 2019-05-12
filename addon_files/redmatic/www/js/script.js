@@ -339,8 +339,8 @@ $(document).ready(() => {
         $contextStorageFilePath.val(config.contextStorage.file.config.dir);
         $contextStorageFileInterval.val(config.contextStorage.file.config.flushInterval);
 
-        $('#autorestart').find('option[value="' + config.restartOnCrash + '"]').attr('selected', true);
-        $('#backup').find('option[value="' + config.ccuBackup + '"]').attr('selected', true);
+        $('#autorestart').val(config.restartOnCrash);
+        $('#backup').val(config.ccuBackup || 'reduce');
     });
 
     $loglevel.change(() => {
