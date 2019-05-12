@@ -228,6 +228,11 @@ $(document).ready(() => {
         }, 1600);
     }
 
+    function invalidSession() {
+        $('#invalidSession').show();
+        clearTimeout(psTimeout);
+    }
+
     function save() {
         console.log('save', config)
         $.post({
@@ -237,6 +242,10 @@ $(document).ready(() => {
                 if ($.trim(data) === 'ok') {
                     alert($alertSaved);
                 } else {
+                    if ($.trim(data) === 'error: invalid session') {
+                        invalidSession();
+                        return;
+                    }
                     alert($alertError);
                 }
             }
@@ -246,6 +255,10 @@ $(document).ready(() => {
     }
 
     $.get('getconfig.cgi' + location.search, (data, success) => {
+        if ($.trim(data) === 'error: invalid session') {
+            invalidSession();
+            return;
+        }
         config = JSON.parse(data);
         $loglevel.val(config.logging.ain.level);
 
@@ -563,6 +576,9 @@ $(document).ready(() => {
             success: data => {
                 if (data.match(/Starting Node-RED: OK/)) {
                     alert($alertExec);
+                } else if ($.trim(data) === 'error: invalid session') {
+                    invalidSession();
+                    return;
                 } else {
                     alert($alertError);
                 }
@@ -598,6 +614,11 @@ $(document).ready(() => {
         $.get({
             url: `service.cgi?sid=${sid}&cmd=start`,
             success: data => {
+                if ($.trim(data) === 'error: invalid session') {
+                    invalidSession();
+                    return;
+                }
+
                 if (data.match(/Starting Node-RED: OK/)) {
                     psInterval = 2000;
                     setTimeout(() => {
@@ -629,6 +650,10 @@ $(document).ready(() => {
         $.get({
             url: `service.cgi?sid=${sid}&cmd=stop`,
             success: data => {
+                if ($.trim(data) === 'error: invalid session') {
+                    invalidSession();
+                    return;
+                }
                 if (data.match(/Stopping Node-RED: OK/)) {
                     alert($alertExec);
                     psInterval = 2000;
