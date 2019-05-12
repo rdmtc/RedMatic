@@ -9,7 +9,7 @@ cat addon_files/redmatic/lib/package.json | jq 'del(.dependencies.npm,.dependenc
 scp $DEST/package.json $REMOTE:$REMOTE_PATH
 
 ssh -t $REMOTE "cd $REMOTE_PATH ; npm install --global-style --unsafe-perm"
-ssh -t $REMOTE "cd $REMOTE_PATH/node_modules/node-red-contrib-gpio ; npm install --save --unsafe-perm --global-style raspi-io"
+ssh -t $REMOTE "cd $REMOTE_PATH/node_modules/node-red-contrib-johnny-five ; npm install --save --unsafe-perm --global-style --production raspi-io"
 
 rm -r ${DEST}/lib/node_modules
 
@@ -29,8 +29,7 @@ while read -r binary; do
     scp -q ${from} ${dest} && echo "${binary}"
 done <<< "$files"
 
-scp -r $REMOTE:$REMOTE_PATH/node_modules/node-red-contrib-gpio/node_modules/raspi-io $DEST/lib/node_modules/node-red-contrib-gpio/node_modules/
-
+scp -r $REMOTE:$REMOTE_PATH/node_modules/node-red-contrib-johnny-five/node_modules $DEST/lib/node_modules/node-red-contrib-johnny-five
 
 cp -R $DEST/lib/node_modules/node-red-contrib-zigbee/node_modules/cc-znp/node_modules/@serialport $DEST/lib/node_modules/node-red-contrib-zigbee/node_modules/
 

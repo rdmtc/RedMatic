@@ -14,7 +14,7 @@ const extraFiles = {
     'redmatic-homekit': [
         'bin/ffmpeg'
     ],
-    'node-red-contrib-gpio': [
+    'node-red-contrib-johnny-five': [
         'bin/pig2vcd',
         'bin/pigpiod',
         'bin/pigs',

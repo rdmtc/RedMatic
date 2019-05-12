@@ -1,0 +1,2405 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"digital",
+				"digitalRead"
+			],
+			[
+				"res",
+				"result"
+			],
+			[
+				"meta",
+				"meta_features"
+			],
+			[
+				"feat",
+				"featuresList"
+			],
+			[
+				"met",
+				"meta_features"
+			],
+			[
+				"char",
+				"character"
+			],
+			[
+				"asyn",
+				"asyncIterable"
+			],
+			[
+				"iter",
+				"iterResult"
+			],
+			[
+				"re",
+				"return-value"
+			],
+			[
+				"it",
+				"IteratorResult"
+			],
+			[
+				"ass",
+				"assert"
+			],
+			[
+				"T",
+				"Test262Error"
+			],
+			[
+				"Type",
+				"TypeError"
+			],
+			[
+				"ne",
+				"nextCount"
+			],
+			[
+				"A",
+				"ArrayBuffer"
+			],
+			[
+				"call",
+				"callCount"
+			],
+			[
+				"B",
+				"BH1750"
+			],
+			[
+				"does",
+				"doesNotThrow"
+			],
+			[
+				"sec",
+				"secondsPerStep"
+			],
+			[
+				"MI",
+				"MICROSTEPS"
+			],
+			[
+				"te",
+				"test"
+			],
+			[
+				"se",
+				"sentence"
+			],
+			[
+				"port",
+				"portId"
+			],
+			[
+				"int",
+				"inherits"
+			],
+			[
+				"inst",
+				"installMethodForwarding"
+			],
+			[
+				"MP",
+				"MPR121_SHIELD"
+			],
+			[
+				"start",
+				"startsWith"
+			],
+			[
+				"ShiftR",
+				"ShiftRegister"
+			],
+			[
+				"sc",
+				"scale"
+			],
+			[
+				"dh",
+				"dhtType"
+			],
+			[
+				"i2c",
+				"i2cWrite"
+			],
+			[
+				"p",
+				"println"
+			],
+			[
+				"cl",
+				"cl\tcl"
+			],
+			[
+				"ca",
+				"calibration"
+			],
+			[
+				"com",
+				"component"
+			],
+			[
+				"mag",
+				"magnetometer"
+			],
+			[
+				"ali",
+				"altimeter"
+			],
+			[
+				"TEMP",
+				"TEMPERATURE"
+			],
+			[
+				"co",
+				"component"
+			],
+			[
+				"ther",
+				"thermometer"
+			],
+			[
+				"to",
+				"toFixed"
+			],
+			[
+				"ch",
+				"chScales"
+			],
+			[
+				"data",
+				"dataHandler"
+			],
+			[
+				"Tin",
+				"TintMs"
+			],
+			[
+				"las",
+				"lastCall"
+			],
+			[
+				"c",
+				"cl\tconsole.log"
+			],
+			[
+				"cons",
+				"console"
+			],
+			[
+				"on",
+				"oncomplete"
+			],
+			[
+				"Ini",
+				"Infinity"
+			],
+			[
+				"def",
+				"defaultTarget"
+			],
+			[
+				"in",
+				"interval"
+			],
+			[
+				"Pre",
+				"Previewer"
+			],
+			[
+				"loop",
+				"loopFunction"
+			],
+			[
+				"next",
+				"nextTick"
+			],
+			[
+				"cal",
+				"callCount"
+			],
+			[
+				"sp",
+				"spy"
+			],
+			[
+				"sta",
+				"startTime"
+			],
+			[
+				"0x",
+				"0xff"
+			],
+			[
+				"loo",
+				"loopFunction"
+			],
+			[
+				"pro",
+				"progress"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"segm",
+				"segment"
+			],
+			[
+				"seg",
+				"segment"
+			],
+			[
+				"Se",
+				"segment"
+			],
+			[
+				"e",
+				"enqueue"
+			],
+			[
+				"curr",
+				"currentSpeed"
+			],
+			[
+				"BMP8",
+				"BMP180"
+			],
+			[
+				"prop",
+				"property"
+			],
+			[
+				"func",
+				"function"
+			],
+			[
+				"comp",
+				"component"
+			],
+			[
+				"num",
+				"numsOrObjects"
+			],
+			[
+				"deep",
+				"deepEqual"
+			],
+			[
+				"sa",
+				"samplingInterval"
+			],
+			[
+				"thr",
+				"throw"
+			],
+			[
+				"alti",
+				"altimeter"
+			],
+			[
+				"al",
+				"all"
+			],
+			[
+				"has",
+				"hasAxis"
+			],
+			[
+				"acce",
+				"accelerometer"
+			],
+			[
+				"this",
+				"thisEmitTime"
+			],
+			[
+				"i2cW",
+				"i2cWrite"
+			],
+			[
+				"ex",
+				"expander"
+			],
+			[
+				"i2",
+				"i2cWrite"
+			],
+			[
+				"defin",
+				"defineProperties"
+			],
+			[
+				"retur",
+				"returnValue"
+			],
+			[
+				"col",
+				"colHz"
+			],
+			[
+				"I",
+				"I2C_BACKPACK"
+			],
+			[
+				"i2Co",
+				"i2cConfig"
+			],
+			[
+				"con",
+				"controller"
+			],
+			[
+				"buffer",
+				"BUFFER_SIZE"
+			],
+			[
+				"confi",
+				"configuration"
+			],
+			[
+				"Led",
+				"LedControl"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"instance",
+				"instanceof"
+			],
+			[
+				"defa",
+				"defaultOctave"
+			],
+			[
+				"fun",
+				"func\tfunction"
+			],
+			[
+				"bl",
+				"blink"
+			],
+			[
+				"To",
+				"ToRGB"
+			],
+			[
+				"dat",
+				"dataHandler"
+			],
+			[
+				"An",
+				"Animation"
+			],
+			[
+				"norma",
+				"normalized"
+			],
+			[
+				"normal",
+				"normalize"
+			],
+			[
+				"key",
+				"keyFrame"
+			],
+			[
+				"stat",
+				"status"
+			],
+			[
+				"X",
+				"XYZ_DATA_CFG"
+			],
+			[
+				"Si",
+				"SI7020"
+			],
+			[
+				"M",
+				"MPL3115A2"
+			],
+			[
+				"SH",
+				"SHT31D"
+			],
+			[
+				"MMA",
+				"MMA8452"
+			],
+			[
+				"th",
+				"threshold"
+			],
+			[
+				"de",
+				"degrees"
+			],
+			[
+				"repl",
+				"replyBuffer"
+			],
+			[
+				"o",
+				"offsets"
+			],
+			[
+				"isC",
+				"isCalibrated"
+			],
+			[
+				"is",
+				"isTemperatureCycle"
+			],
+			[
+				"cop",
+				"compensated"
+			],
+			[
+				"constr",
+				"constrain"
+			],
+			[
+				"print",
+				"println"
+			],
+			[
+				"use",
+				"useFakeTimers"
+			],
+			[
+				"exp",
+				"expect"
+			],
+			[
+				"sea",
+				"seapress"
+			],
+			[
+				"Co",
+				"Coefficients"
+			],
+			[
+				"h",
+				"hrstart"
+			],
+			[
+				"set",
+				"setTimeout"
+			],
+			[
+				"sandb",
+				"sandbox"
+			],
+			[
+				"report",
+				"reportversion"
+			],
+			[
+				"ana",
+				"analogRead"
+			],
+			[
+				"new",
+				"newBoard"
+			],
+			[
+				"random10B",
+				"random10bv"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "button.js",
+			"settings":
+			{
+				"buffer_size": 8938,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/eg/stepper-driver.js",
+			"settings":
+			{
+				"buffer_size": 1435,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "ECMAScript 2015 Internationalization API Specification (Standard ECMA-402 2nd Edition / June 2015)\n\n\n\nECMAScript Internationalization API Specification (Standard ECMA-402 1st Edition / December 2012)\n\n\n\nECMAScript® 2015 Language Specification (Standard ECMA-262 6th Edition / June 2015)\n\n\n\nTest262: ECMAScript Test Suite (ECMA TR/104) http://ecma-international.org/publications/techreports/E-TR-104.htm http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-414.pdf",
+			"settings":
+			{
+				"buffer_size": 476,
+				"line_ending": "Unix",
+				"name": "ECMAScript 2015 Internationalization API Specifica"
+			}
+		},
+		{
+			"contents": "function sleep(delay) {\n  var start = Date.now();\n  while (Date.now() < start + delay);\n}",
+			"settings":
+			{
+				"buffer_size": 89,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "function each(items, callback) {\n  items.forEach(callback)\n}\n\n\neach([1, 2, 3], (() => {\n  // ...\n})); \n",
+			"settings":
+			{
+				"buffer_size": 103,
+				"line_ending": "Unix",
+				"name": "function each(items, callback) {"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/Downloads/customfirmata/customfirmata.ino",
+			"settings":
+			{
+				"buffer_size": 1877,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "imu.js",
+			"settings":
+			{
+				"buffer_size": 79312,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/package.json",
+			"settings":
+			{
+				"buffer_size": 8785,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/test/thermometer.js",
+			"settings":
+			{
+				"buffer_size": 46827,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "thermometer.js",
+			"settings":
+			{
+				"buffer_size": 28682,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "servo.js",
+			"settings":
+			{
+				"buffer_size": 15407,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sensor.js",
+			"settings":
+			{
+				"buffer_size": 10565,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "const SI = 1.70158;\nconst SIO = 1.70158 * 1.525;\nconst SB = 7.5625;\nconst HALF = 0.5;\n\nexports.linear = n => n;\n\nexports.inQuad = n => n * n;\n\nexports.outQuad = n => n * (2 - n);\n\nexports.inOutQuad = n => {\n  n *= 2;\n  if (n < 1) return HALF * n * n;\n  return -HALF * (--n * (n - 2) - 1);\n};\n\nexports.inCube = n => n * n * n;\n\nexports.outCube = n => --n * n * n + 1;\n\nexports.inOutCube = n => {\n  n *= 2;\n  if (n < 1) return HALF * n * n * n;\n  return HALF * ((n -= 2) * n * n + 2);\n};\n\nexports.inQuart = n => n * n * n * n;\n\nexports.outQuart = n => 1 - (--n * n * n * n);\n\nexports.inOutQuart = n => {\n  n *= 2;\n  if (n < 1) return HALF * n * n * n * n;\n  return -HALF * ((n -= 2) * n * n * n - 2);\n};\n\nexports.inQuint = n => n * n * n * n * n\n}\n\nexports.outQuint = n => --n * n * n * n * n + 1\n}\n\nexports.inOutQuint = n => {\n  n *= 2;\n  if (n < 1) return HALF * n * n * n * n * n;\n  return HALF * ((n -= 2) * n * n * n * n + 2);\n};\n\nexports.inSine = n => 1 - Math.cos(n * Math.PI / 2);\n\nexports.outSine = n => Math.sin(n * Math.PI / 2);\n\nexports.inOutSine = n => HALF * (1 - Math.cos(Math.PI * n));\n\nexports.inExpo = n => 0 == n ? 0 : Math.pow(1024, n - 1);\n\nexports.outExpo = n => 1 == n ? n : 1 - Math.pow(2, -10 * n);\n\nexports.inOutExpo = n => {\n  if (0 == n) return 0;\n  if (1 == n) return 1;\n  if ((n *= 2) < 1) return HALF * Math.pow(1024, n - 1);\n  return HALF * (-Math.pow(2, -10 * (n - 1)) + 2);\n};\n\nexports.inCirc = n => 1 - Math.sqrt(1 - n * n);\n\nexports.outCirc = n => Math.sqrt(1 - (--n * n));\n\nexports.inOutCirc = n => {\n  n *= 2\n  if (n < 1) return -HALF * (Math.sqrt(1 - n * n) - 1);\n  return HALF * (Math.sqrt(1 - (n -= 2) * n) + 1);\n};\n\nexports.inBack = n => {\n  return n * n * ((SI + 1) * n - SI);\n};\n\nexports.outBack = n => {\n  return --n * n * ((SI + 1) * n + SI) + 1;\n};\n\nexports.inOutBack = n => {\n  if ((n *= 2) < 1) return HALF * (n * n * ((SIO + 1) * n - SIO));\n  return HALF * ((n -= 2) * n * ((SIO + 1) * n + SIO) + 2);\n};\n\nexports.outBounce = n => {\n  if (n < (1 / 2.75)) {\n    return SB * n * n;\n  } else if (n < (2 / 2.75)) {\n    return SB * (n -= (1.5 / 2.75)) * n + 0.75;\n  } else if (n < (2.5 / 2.75)) {\n    return SB * (n -= (2.25 / 2.75)) * n + 0.9375;\n  } else {\n    return SB * (n -= (2.625 / 2.75)) * n + 0.984375;\n  }\n};\n\nexports.inBounce = n => 1 - exports.outBounce(1 - n);\nexports.inOutBounce = n => {\n  return n < HALF ? exports.inBounce(n * 2) * HALF : exports.outBounce(n * 2 - 1) * HALF + HALF;\n};\n",
+			"file": "utils/easing.js",
+			"file_size": 2446,
+			"file_write_time": 131580948731805796,
+			"settings":
+			{
+				"buffer_size": 2446,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/tpl/.readme.md",
+			"settings":
+			{
+				"buffer_size": 9791,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/Gruntfile.js",
+			"settings":
+			{
+				"buffer_size": 15027,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "johnny-five.js",
+			"settings":
+			{
+				"buffer_size": 4426,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "accelerometer.js",
+			"settings":
+			{
+				"buffer_size": 30662,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "board.js",
+			"settings":
+			{
+				"buffer_size": 31512,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/.travis.yml",
+			"settings":
+			{
+				"buffer_size": 610,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/test/animation.js",
+			"settings":
+			{
+				"buffer_size": 27620,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "#include <Wire.h>\n\n#define DEBUG_MODE 1\n\n#define DEFAULT_ADDRESS 0x20\n\n// Registers\n#define IODIR 0x00\n#define GPPU 0x06\n#define GPIO 0x09\n\nint pins[7] = {8, 7, 6, 5, 4, 3, 2};\nint iodir[7] = {1, 1, 1, 1, 1, 1, 1};\n\nbyte buffer[1];\nbyte reg;\nbyte state;\n\n\nvoid resetGPIO() {\n  //1 = Pin is configured as an input.\n  //0 = Pin is configured as an output.\n\n  for (int i = 0; i < 7; i++) {\n    pinMode(pins[i], INPUT);\n    digitalWrite(pins[i], LOW);\n  }\n}\n\nint readGPIO() {\n  byte portValue;\n\n  \n  for (int i = 0; i < 7; i++) {\n    if (iodir[i] == 1) {\n      if (digitalRead(pins[i])) {\n        portValue |= 1 << i;\n      } else {\n        portValue &= ~(1 << i);\n      }\n    }\n  }\n\n  return portValue;\n}\n\nvoid setup() {\n  #if DEBUG_MODE\n    Serial.begin(9600);\n  #endif\n\n  resetGPIO();\n\n  Wire.begin((int)DEFAULT_ADDRESS);\n  Wire.onRequest(onRequest);\n  Wire.onReceive(onReceive);\n}\n\nvoid loop() {\n\n  if (reg == IODIR) {\n    for (int i = 0; i < 7; i++) {\n      iodir[i] = (state >> i) & 1;\n    }\n  }\n\n  buffer[0] = readGPIO();\n\n  delay(10);\n}\n\nvoid onRequest() {\n  Wire.write(buffer, 1);\n}\n\nvoid onReceive(int howMany) {\n\n  if (howMany > 0) {\n    reg = (byte)Wire.read();\n  }\n\n  if (howMany > 1) {\n    state = (byte)Wire.read();\n    buffer[0] = state;\n  }\n\n\n  // if (howMany == 2) {\n  //   // Do a write\n  // } else {\n  //   if (howMany == 1) {\n  //     // Do a read\n  //   }\n  // }\n\n\n  #if DEBUG_MODE\n    Serial.println(howMany);\n    Serial.print(\"reg: \");\n    Serial.print(reg);\n    Serial.print(\": \");\n    Serial.print(state);\n    Serial.println(\"--------------------\");\n  #endif\n}\n\n",
+			"settings":
+			{
+				"buffer_size": 1584,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/appveyor.yml",
+			"settings":
+			{
+				"buffer_size": 299,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "fatal: [johnny-five.io]: FAILED! => {\"changed\": true, \"cmd\": \"npm run build\", \"delta\": \"0:00:01.114390\", \"end\": \"2017-10-26 14:59:07.866199\", \"failed\": true, \"rc\": 1, \"start\": \"2017-10-26 14:59:06.751809\", \"stderr\": \"\\nnpm ERR! Linux 3.13.0-85-generic\\nnpm ERR! argv \\\"node\\\" \\\"/usr/bin/npm\\\" \\\"run\\\" \\\"build\\\"\\nnpm ERR! node v0.12.13\\nnpm ERR! npm  v3.8.6\\nnpm ERR! code ELIFECYCLE\\nnpm ERR! johnny-five.io@0.0.1 build: `grunt bootstrap && grunt regen && grunt`\\nnpm ERR! Exit status 3\\nnpm ERR! \\nnpm ERR! Failed at the johnny-five.io@0.0.1 build script 'grunt bootstrap && grunt regen && grunt'.\\nnpm ERR! Make sure you have the latest version of node.js and npm installed.\\nnpm ERR! If you do, this is most likely a problem with the johnny-five.io package,\\nnpm ERR! not with npm itself.\\nnpm ERR! Tell the author that this fails on your system:\\nnpm ERR!     grunt bootstrap && grunt regen && grunt\\nnpm ERR! You can get information on how to open an issue for this project with:\\nnpm ERR!     npm bugs johnny-five.io\\nnpm ERR! Or if that isn't available, you can get their info via:\\nnpm ERR!     npm owner ls johnny-five.io\\nnpm ERR! There is likely additional logging output above.\\n\\nnpm ERR! Please include the following file with any support request:\\nnpm ERR!     /mnt/temp/npm-debug.log\", \"stderr_lines\": [\"\", \"npm ERR! Linux 3.13.0-85-generic\", \"npm ERR! argv \\\"node\\\" \\\"/usr/bin/npm\\\" \\\"run\\\" \\\"build\\\"\", \"npm ERR! node v0.12.13\", \"npm ERR! npm  v3.8.6\", \"npm ERR! code ELIFECYCLE\", \"npm ERR! johnny-five.io@0.0.1 build: `grunt bootstrap && grunt regen && grunt`\", \"npm ERR! Exit status 3\", \"npm ERR! \", \"npm ERR! Failed at the johnny-five.io@0.0.1 build script 'grunt bootstrap && grunt regen && grunt'.\", \"npm ERR! Make sure you have the latest version of node.js and npm installed.\", \"npm ERR! If you do, this is most likely a problem with the johnny-five.io package,\", \"npm ERR! not with npm itself.\", \"npm ERR! Tell the author that this fails on your system:\", \"npm ERR!     grunt bootstrap && grunt regen && grunt\", \"npm ERR! You can get information on how to open an issue for this project with:\", \"npm ERR!     npm bugs johnny-five.io\", \"npm ERR! Or if that isn't available, you can get their info via:\", \"npm ERR!     npm owner ls johnny-five.io\", \"npm ERR! There is likely additional logging output above.\", \"\", \"npm ERR! Please include the following file with any support request:\", \"npm ERR!     /mnt/temp/npm-debug.log\"], \"stdout\": \"\\n> johnny-five.io@0.0.1 build /mnt/temp\\n> grunt bootstrap && grunt regen && grunt\\n\\nLoading \\\"Gruntfile.js\\\" tasks...\\u001b[31mERROR\\u001b[39m\\n\\u001b[31m>> \\u001b[39mSyntaxError: /mnt/temp/node_modules/boom/lib/index.js:5\\u001b[31m\\n>> \\u001b[39mconst Hoek = require('hoek');\\u001b[31m\\n>> \\u001b[39m^^^^^\\u001b[31m\\n>> \\u001b[39mUse of const in strict mode.\\n\\u001b[33mWarning: Task \\\"bootstrap\\\" not found.\\u0007 Use --force to continue.\\u001b[39m\\n\\n\\u001b[31mAborted due to warnings.\\u001b[39m\", \"stdout_lines\": [\"\", \"> johnny-five.io@0.0.1 build /mnt/temp\", \"> grunt bootstrap && grunt regen && grunt\", \"\", \"Loading \\\"Gruntfile.js\\\" tasks...\\u001b[31mERROR\\u001b[39m\", \"\\u001b[31m>> \\u001b[39mSyntaxError: /mnt/temp/node_modules/boom/lib/index.js:5\\u001b[31m\", \">> \\u001b[39mconst Hoek = require('hoek');\\u001b[31m\", \">> \\u001b[39m^^^^^\\u001b[31m\", \">> \\u001b[39mUse of const in strict mode.\", \"\\u001b[33mWarning: Task \\\"bootstrap\\\" not found.\\u0007 Use --force to continue.\\u001b[39m\", \"\", \"\\u001b[31mAborted due to warnings.\\u001b[39m\"]}",
+			"settings":
+			{
+				"buffer_size": 3509,
+				"line_ending": "Unix",
+				"name": "fatal: [johnny-five.io]: FAILED! => {\"changed\": tr"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/node_modules/boom/lib/index.js",
+			"settings":
+			{
+				"buffer_size": 7650,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/node_modules/boom/package.json",
+			"settings":
+			{
+				"buffer_size": 2255,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/test/accelerometer.js",
+			"settings":
+			{
+				"buffer_size": 34914,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/eg/sensor-and-button.js",
+			"settings":
+			{
+				"buffer_size": 494,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/test/common/bootstrap.js",
+			"settings":
+			{
+				"buffer_size": 4152,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/rwaldron/clonez/johnny-five/test/imu.js",
+			"settings":
+			{
+				"buffer_size": 31609,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "| Module         | Bus  | I2C Address | \n| -------------- | ---- | ----------- |\n| climate-si7020 | ︎︎I2C  | 0x40        |\n| ambient-attx4  | SPI  |             |\n| accel-mma84    | ︎︎I2C  | 0x1D        |\n| gps-a2235h     | UART |             |\n| servo-pca9685  | ︎︎I2C  | 0x73        | ",
+			"settings":
+			{
+				"buffer_size": 287,
+				"line_ending": "Unix",
+				"name": "| Module         | Bus  | I2C Address |"
+			}
+		},
+		{
+			"contents": "/Users/rwaldron/clonez/moddable/modules/drivers/mcp23008/modMcp23008.c (59) # Break: (host): unable to initialize gMCP23008!\n\n\n\nWith my \"fake_mcp23008\"\nFound address: 32 (0x20)\nDone.\nFound 1 device(s).\n",
+			"settings":
+			{
+				"buffer_size": 202,
+				"line_ending": "Unix",
+				"name": "/Users/rwaldron/clonez/moddable/modules/drivers/mc"
+			}
+		},
+		{
+			"contents": "#include <Wire.h>\n\n#define DEBUG_MODE 1\n\n// I2C Defaults\n#define I2C_DEFAULT_ADDRESS 0x20\n\nint pins[7] = {8, 7, 6, 5, 4, 3, 2};\nint iodir[7] = {1, 1, 1, 1, 1, 1, 1};\nint gpio[7] = {0, 0, 0, 0, 0, 0, 0};\n\n\nbyte buffer[1];\nbyte reg;\nbyte state;\n\nvoid resetGPIO() {\n  //1 = Pin is configured as an input.\n  //0 = Pin is configured as an output.\n\n   for (int i = 0; i < 7; i++) {\n     pinMode(pins[i], INPUT);\n     digitalWrite(pins[i], LOW);\n   }\n}\n\nvoid setup() {\n  #if DEBUG_MODE\n    Serial.begin(9600);\n  #endif\n\n  resetPins();\n\n  Wire.begin((int)I2C_DEFAULT_ADDRESS);\n  Wire.onRequest(onRequest);\n  Wire.onReceive(onReceive);\n}\n\nvoid loop() {\n  readGPIO();\n  // int index = toIndex(state);\n\n  // if (state == 0) {\n  //   index = 0xFF;\n  // }\n\n  // #if DEBUG_MODE\n  // if (index != 0xff) {\n  //   Serial.println(index);\n  // }\n  // #endif\n\n  // buffer[0] = index >> 8;\n  // buffer[1] = index & 0xFF;\n\n  // buffer[0] = state >> 8;\n  // buffer[1] = state & 0xFF;\n\n  delay(10);\n}\n\nint readGPIO() {\n   for (int i = 0; i < 7; i++) {\n      if (iodir[i] == 1) {\n        gpio[i] = digitalRead(pins[i]);\n      }\n   }\n}\n// int read() {\n//   // 2, 7, 6, 4\n//   // 3, 1, 5\n//   int rowPins[4] = {7, 2, 3, 5};\n//   int colPins[3] = {6, 8, 4};\n//   int state = 0;\n\n\n//   resetPins();\n\n//   for (int row = 0; row < 4; row++) {\n//     // \"Open\" the row for reading...\n//     // Set the row to OUTPUT and put all pins LOW\n//     pinMode(rowPins[row], OUTPUT);\n//     digitalWrite(rowPins[row], LOW);\n//     // Iterate across the columns in this row\n//     for (int col = 0; col < 3; col++) {\n//       // Read and update the state byte\n//       if (!digitalRead(colPins[col])) {\n//         state |= 1 << ((row + 1) * 3 + (col + 1) - 4);\n//       }\n//     }\n//     // \"Close\" the row...\n//     // Set the row to INPUT and put all pins HIGH\n//     pinMode(rowPins[row], INPUT);\n//     digitalWrite(rowPins[row], HIGH);\n//   }\n\n//   return state;\n// }\n\nvoid onRequest() {\n  Wire.write(buffer, 1);\n}\n\nvoid onReceive(int howMany) {\n\n  if (howMany > 0) {\n    reg = (byte)Wire.read();\n  }\n\n  if (howMany > 1) {\n    state = (byte)Wire.read();\n    buffer[0] = state;\n  }\n\n\n  // if (howMany == 2) {\n  //   // Do a write\n  // } else {\n  //   if (howMany == 1) {\n  //     // Do a read\n  //   }\n  // }\n\n\n  #if DEBUG_MODE\n    Serial.println(howMany);\n    Serial.print(\"reg: \");\n    Serial.print(reg);\n    Serial.print(\": \");\n    Serial.print(state);\n    Serial.println(\"--------------------\");\n  #endif\n}\n\n",
+			"settings":
+			{
+				"buffer_size": 2474,
+				"line_ending": "Unix",
+				"name": "#include <Wire.h>"
+			}
+		},
+		{
+			"contents": "http://www.web-platform.test:8000/html/browsers/browsing-the-web/navigating-across-documents/010-sync-xhr.html",
+			"settings":
+			{
+				"buffer_size": 110,
+				"line_ending": "Unix",
+				"name": "http://www.web-platform.test:8000/html/browsers/br"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"re",
+				"Package Control: Remove Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: c",
+				"Snippet: cl"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Prototype"
+			],
+			[
+				"prv",
+				"PackageResourceViewer: Extract Package"
+			],
+			[
+				"Pa",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"Pack",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 378.0
+	},
+	"console":
+	{
+		"height": 125.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/rwaldron/clonez/johnny-five",
+		"/Users/rwaldron/clonez/johnny-five/eg",
+		"/Users/rwaldron/clonez/johnny-five/firmwares",
+		"/Users/rwaldron/clonez/johnny-five/lib",
+		"/Users/rwaldron/clonez/johnny-five/test",
+		"/Users/rwaldron/clonez/johnny-five/test/common",
+		"/Users/rwaldron/clonez/johnny-five/test/util",
+		"/Users/rwaldron/clonez/johnny-five/tpl",
+		"/Users/rwaldron/clonez/johnny-five/util"
+	],
+	"file_history":
+	[
+		"/Users/rwaldron/codez/test262-filterable-transform-stream/babel.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-bil-nsl-bd-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-oil-nsl-od-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dd-nsl-dd-one-of.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dd-nsl-dds-dunder-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dd-nsl-err.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/prototype/includes/String.prototype.includes_SuccessNoLocation.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/prototype/includes/String.prototype.includes_Success.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/prototype/includes/String.prototype.includes_FailMissingLetter.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/prototype/includes/String.prototype.includes_lengthProp.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/prototype/includes/String.prototype.includes_FailLocation.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/prototype/includes/String.prototype.includes_FailBadLocation.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/prototype/endsWith/String.prototype.endsWith_Success_4.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/prototype/endsWith/String.prototype.endsWith_Success_3.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/prototype/endsWith/String.prototype.endsWith_Success_2.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/prototype/endsWith/String.prototype.endsWith_Success.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/prototype/endsWith/String.prototype.endsWith_Fail_2.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/prototype/endsWith/String.prototype.endsWith_Fail.js",
+		"/Users/rwaldron/clonez/test262/tools/generation/lib/util/parse_yaml.py",
+		"/Users/rwaldron/clonez/test262/tools/lint/lib/fix.py",
+		"/Users/rwaldron/clonez/test262/tools/misc/__init__.py",
+		"/Users/rwaldron/clonez/test262/tools/misc/requirements.txt",
+		"/Users/rwaldron/clonez/test262/harness/propertyHelper.js",
+		"/Users/rwaldron/clonez/test262/make.py",
+		"/Users/rwaldron/clonez/test262/src/strict-mode-reserved-words/error/early-error.template",
+		"/Users/rwaldron/clonez/test262/test/built-ins/parseFloat/tonumber-numeric-separator-literal-hil-hds-nsl-hd.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/parseFloat/tonumber-numeric-separator-literal-dot-dd-nsl-dds-ep.js",
+		"/Users/rwaldron/clonez/test262/test/language/statements/for-await-of/async-gen-decl-dstr-obj-rest-obj-own-property.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/parseFloat/tonumber-numeric-separator-literal-oil-od-nsl-ods.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/parseFloat/tonumber-numeric-separator-literal-oil-ods-nsl-od.js",
+		"/Users/rwaldron/clonez/test262/src/strict-mode-reserved-words/syntax/early-error.template",
+		"/Users/rwaldron/clonez/test262/src/strict-mode-reserved-words/await-bindingidentifier.case",
+		"/Users/rwaldron/clonez/test262/features.txt",
+		"/Users/rwaldron/clonez/test262/src/async-functions/await-as-identifier-reference-escaped.case",
+		"/Users/rwaldron/clonez/test262/src/strict-mode-reserved-words/error/label-identifier.template",
+		"/Users/rwaldron/clonez/test262/src/strict-mode-reserved-words/error/identifier-reference.template",
+		"/Users/rwaldron/clonez/test262/src/strict-mode-reserved-words/await-name.case",
+		"/Users/rwaldron/clonez/test262/src/strict-mode-reserved-words/await-label.case",
+		"/Users/rwaldron/clonez/test262/src/async-functions/await-as-binding-identifier.case",
+		"/Users/rwaldron/clonez/test262/test/built-ins/Number/string-numeric-separator-literal-oil-ods-nsl-ods.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/Number/numeric-separator-literal-oil-od-nsl-od-err.js",
+		"/Users/rwaldron/clonez/test262/src/async-functions/await-as-label-identifier.case",
+		"/Users/rwaldron/.Trash/await.case",
+		"/Users/rwaldron/clonez/test262/test/built-ins/Number/numeric-separator-literal-oil-od-nsl-ods.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/Number/numeric-separator-literal-oil-od-nsl-od.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/Number/numeric-separator-literal-oil-od-nsl-od-one-of.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/Number/numeric-separator-literal-oil-ods-nsl-od.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/Number/string-numeric-separator-literal-nzd-nsl-dd.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/Number/string-numeric-separator-literal-sign-plus-dds-nsl-dd.js",
+		"/Users/rwaldron/.ssh/config",
+		"/Users/rwaldron/clonez/test262/test/language/statements/try/catch-parameter-boundnames-restriction-eval-eval-throws.js",
+		"/Users/rwaldron/clonez/test262/test/language/statements/try/catch-parameter-boundnames-restriction-arguments-eval-throws.js",
+		"/Users/rwaldron/clonez/test262/test/language/statements/try/catch-parameter-boundnames-restriction-eval-negative-early.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/Array/isArray/proxy-revoked.js",
+		"/Users/rwaldron/clonez/test262/test/language/statements/try/catch-parameter-boundnames-restriction-arguments-negative-early.js",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/error-async-generator-syntax/async-gen-decl.template",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-elision-iter-nrml-close.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-get-err.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-elision-iter-abpt.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-list-nrml-close-null.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-list-nrml-close-skip.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-list-nrml-close-err.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-list-thrw-close-skip.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-list-rtrn-close.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-rest-rtrn-close-null.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-list-rtrn-close-null.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-rest-rtrn-close-err.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-rest-nrml-close-skip.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-elision-iter-nrml-close-null.case",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dot-dds-nsl-ep-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dot-nsl-ep-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dot-nsl-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dds-dot-dd-nsl-dd-ep-dd.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dot-dd-nsl-dd-ep.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dot-dd-nsl-dds-ep.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dot-dds-nsl-dds-ep.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dot-dds-nsl-dd-ep.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dil-dot-nsl-ep-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dil-dot-nsl-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-hil-nsl-hd-dunder-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-signed-integer--------------ignore.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dd-dot-dd-ep-sign-plus-dds-nsl-dd.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-hil-hd-nsl-hd-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-oil-od-nsl-od-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-bil-bd-nsl-bd-one-of.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dds-nsl-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dd-dot-dd-ep-sign-plus-dd-nsl-dd.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dd-dot-dd-ep-sign-minus-dds-nsl-dd.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dd-dot-dd-ep-sign-minus-dd-nsl-dd.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-sign-minus-dds-nsl-dd.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-nzd-nsl-dds.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-oil-nsl-od-dunder-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-nzd-nsl-dds-leading-zero-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-nzd-nsl-dds-dunder-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-hil-nsl-hd-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dds-nsl-dds-dunder-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dds-nsl-dd.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dil-dot-dds-nsl-ep-dd-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-oil-od-nsl-od-one-of.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-oil-od-nsl-od.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-oil-od-nsl-ods.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-oil-ods-nsl-od.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-oil-ods-nsl-ods.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-hil-od-nsl-od-one-of.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-nzd-nsl-dd-one-of.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-bil-bd-nsl-bd-err.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-bil-bd-nsl-bd.js",
+		"/Users/rwaldron/clonez/test262/test/language/expressions/arrow-function/param-dflt-yield-id-non-strict.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-bds--------------ignore.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-dot-dds-nsl-dd-exponentpart.js",
+		"/Users/rwaldron/clonez/test262/test/language/literals/numeric/numeric-separator-literal-nonzerodigit-nsl-decimaldigit-1-9.js",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-list-nrml-close.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elem-trlg-iter-list-rtrn-close-err.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-elision-iter-nrml-close-skip.case",
+		"/Users/rwaldron/clonez/test262/src/async-generators/yield-promise-reject-next-catch.case",
+		"/Users/rwaldron/clonez/test262/test/language/expressions/exponentiation/applying-the-exp-operator_A1.js",
+		"/Users/rwaldron/clonez/test262/test/harness/testbuiltinobject-function-not-constructor-no-error.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/Array/prototype/length.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/Array/prototype/find/predicate-call-this-non-strict.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/String/15.5.5.5.2-3-1.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/RegExp/property-escapes/generated/Any.js",
+		"/Users/rwaldron/clonez/test262/test/built-ins/Array/prototype/find/length.js",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-rest-iteration.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-rest-lref.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-rest-nested-array-null.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-rest-nested-array-undefined-hole.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-rest-nested-array-undefined-own.case",
+		"/Users/rwaldron/clonez/test262/src/dstr-assignment-async-iteration/array-rest-nested-array-undefined.case"
+	],
+	"find":
+	{
+		"height": 37.0
+	},
+	"find_in_files":
+	{
+		"height": 95.0,
+		"where_history":
+		[
+			"/Users/rwaldron/clonez/johnny-five",
+			"/Users/rwaldron/clonez/johnny-five/test",
+			"/Users/rwaldron/clonez/johnny-five/lib",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"isConversionAvailable",
+			"analogHandler",
+			"this.",
+			"console.log(",
+			"thermometer",
+			"var ",
+			"132",
+			"ANALOG",
+			"analogHandler",
+			"STEP_IN",
+			"STEP_IN_OUT",
+			"STEP_BOUNCE",
+			"2.75",
+			"0.5",
+			"7.5625",
+			"s",
+			" .5",
+			"STEP",
+			"s",
+			"1.70158",
+			"{\n  return ",
+			"function(n){",
+			"function",
+			"es6-shim",
+			"exportable",
+			"module.exports",
+			"es6-shim",
+			"cu",
+			", ",
+			"fractional",
+			"0.05",
+			"RATE",
+			"READREGISTER",
+			": (",
+			"<< 2) / 4",
+			"MMA7660",
+			"3);",
+			"analogToGravity",
+			"ESPLORA",
+			"Espl",
+			"0.5294117647058824",
+			"(x",
+			"fractional",
+			"MPU",
+			", ",
+			"6050",
+			"3, d",
+			"analogToGravity",
+			"ADXL335",
+			"I2C_DEFAULT_ADDRESS",
+			"state",
+			"buffer",
+			"I2C_BUFFER_SIZE",
+			"resetPins",
+			"address",
+			"buffer",
+			"I2C_BUFFER_SIZE",
+			"this.sp.",
+			"this.sp",
+			"conn",
+			"LEDs",
+			"Coll",
+			"8",
+			"LIS3DH",
+			"toFi",
+			"MPU",
+			"uint32",
+			"uint",
+			"uint32",
+			"<<",
+			">>",
+			"Fn.u32",
+			"s32",
+			"Fn.s32",
+			"Fn.",
+			"uint24",
+			"57600",
+			"stepsP",
+			"resolution",
+			"scaleTo",
+			"change",
+			"new Date().getTime()",
+			"Hoek",
+			"tap",
+			"digitalRead"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"u32",
+			"s32"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 9,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "button.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8938,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1388,
+								1388
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/rwaldron/clonez/johnny-five/eg/stepper-driver.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1435,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								519,
+								519
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 29,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 476,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								290,
+								476
+							]
+						],
+						"settings":
+						{
+							"auto_name": "ECMAScript 2015 Internationalization API Specifica",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 28,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 89,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								89,
+								89
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 103,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								96,
+								96
+							]
+						],
+						"settings":
+						{
+							"auto_name": "function each(items, callback) {",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 27,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/rwaldron/Downloads/customfirmata/customfirmata.ino",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1877,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								931,
+								931
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 26,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "imu.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 79312,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1065,
+								1065
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 149.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/rwaldron/clonez/johnny-five/package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8785,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								319,
+								313
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 5.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Users/rwaldron/clonez/johnny-five/test/thermometer.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 46827,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6101,
+								6101
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4472.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "thermometer.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 28682,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								861,
+								861
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "servo.js",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 15407,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "sensor.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10565,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1842,
+								1920
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 811.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "utils/easing.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2446,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								573,
+								573
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "/Users/rwaldron/clonez/johnny-five/tpl/.readme.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9791,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1155,
+								1155
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "/Users/rwaldron/clonez/johnny-five/Gruntfile.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15027,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10707,
+								10707
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5816.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "johnny-five.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4426,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3557,
+								3557
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1839.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "accelerometer.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 30662,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6568,
+								6568
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 3.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "board.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 31512,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "/Users/rwaldron/clonez/johnny-five/.travis.yml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 610,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								65,
+								66
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "/Users/rwaldron/clonez/johnny-five/test/animation.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 27620,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9044,
+								9044
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5786.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 24,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1584,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								415,
+								415
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "/Users/rwaldron/clonez/johnny-five/appveyor.yml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 299,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								34,
+								34
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3509,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1045,
+								1045
+							]
+						],
+						"settings":
+						{
+							"auto_name": "fatal: [johnny-five.io]: FAILED! => {\"changed\": tr",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 25,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "/Users/rwaldron/clonez/johnny-five/node_modules/boom/lib/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7650,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								45,
+								45
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 31,
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"file": "/Users/rwaldron/clonez/johnny-five/node_modules/boom/package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2255,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								773,
+								782
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 30,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 25,
+					"file": "/Users/rwaldron/clonez/johnny-five/test/accelerometer.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 34914,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10131,
+								10131
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 7917.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 26,
+					"file": "/Users/rwaldron/clonez/johnny-five/eg/sensor-and-button.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 494,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								329,
+								385
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 27,
+					"file": "/Users/rwaldron/clonez/johnny-five/test/common/bootstrap.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4152,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2820,
+								2820
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1805.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 28,
+					"file": "/Users/rwaldron/clonez/johnny-five/test/imu.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 31609,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2741,
+								2741
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/JavaScriptNext.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1516.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 29,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 287,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								287,
+								287
+							]
+						],
+						"settings":
+						{
+							"auto_name": "| Module         | Bus  | I2C Address |",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 32,
+					"type": "text"
+				},
+				{
+					"buffer": 30,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 202,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								202,
+								202
+							]
+						],
+						"settings":
+						{
+							"auto_name": "/Users/rwaldron/clonez/moddable/modules/drivers/mc",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 22,
+					"type": "text"
+				},
+				{
+					"buffer": 31,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2474,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2474,
+								2474
+							]
+						],
+						"settings":
+						{
+							"auto_name": "#include <Wire.h>",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1400.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 32,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 110,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								110,
+								110
+							]
+						],
+						"settings":
+						{
+							"auto_name": "http://www.web-platform.test:8000/html/browsers/br",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 3.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				2,
+				0,
+				3,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.413341795168,
+			0.87076094892,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 231.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 205.0
+	},
+	"pinned_build_system": "Packages/User/Node.sublime-build",
+	"project": "johnny-five.sublime-project",
+	"replace":
+	{
+		"height": 66.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"test/built-ins/string/prototype/indexof/position-tointeger.j",
+				"test/built-ins/String/prototype/indexOf/position-tointeger.js"
+			],
+			[
+				"decimaltohexstring",
+				"harness/decimalToHexString.js"
+			],
+			[
+				"test/built-ins/string/prototype/indexof/position-tointeger.js",
+				"test/built-ins/String/prototype/indexOf/position-tointeger.js"
+			],
+			[
+				"identifier-let-allowed-as-lefthandside-expression-strict",
+				"test/language/statements/let/syntax/identifier-let-allowed-as-lefthandside-expression-strict.js"
+			],
+			[
+				"src/dstr-assignment/obj-rest-computed-property.case",
+				"src/dstr-assignment/obj-rest-computed-property.case"
+			],
+			[
+				"test/language/statements/for-await-of/async-gen-decl-dstr-obj-rest-obj-own-property.js",
+				"test/language/statements/for-await-of/async-gen-decl-dstr-obj-rest-obj-own-property.js"
+			],
+			[
+				"test/language/statements/for-await-of/async-gen-decl-dstr-obj-rest-nested-obj.js",
+				"test/language/statements/for-await-of/async-gen-decl-dstr-obj-rest-nested-obj.js"
+			],
+			[
+				"test/language/statements/for-await-of/async-gen-decl-dstr-obj-rest-nested-obj-nested-rest.js",
+				"test/language/statements/for-await-of/async-gen-decl-dstr-obj-rest-nested-obj-nested-rest.js"
+			],
+			[
+				"test/language/statements/for-await-of/async-func-decl-dstr-obj-rest-obj-own-property.js",
+				"test/language/statements/for-await-of/async-func-decl-dstr-obj-rest-obj-own-property.js"
+			],
+			[
+				"test/language/statements/for-await-of/async-func-decl-dstr-obj-rest-nested-obj-nested-rest.js",
+				"test/language/statements/for-await-of/async-func-decl-dstr-obj-rest-nested-obj-nested-rest.js"
+			],
+			[
+				"src/dstr-assignment-for-await/obj-rest-nested-obj.case",
+				"src/dstr-assignment-for-await/obj-rest-nested-obj.case"
+			],
+			[
+				"test/language/statements/for-await-of/async-func-decl-dstr-obj-rest-nested-obj.js",
+				"test/language/statements/for-await-of/async-func-decl-dstr-obj-rest-nested-obj.js"
+			],
+			[
+				"src/dstr-assignment/obj-id-identifier-yield-expr.case",
+				"src/dstr-assignment/obj-id-identifier-yield-expr.case"
+			],
+			[
+				"await",
+				"src/async-functions/await-as-binding-identifier.case"
+			],
+			[
+				"test/language/literals/numeric/numeric-separator-literal-dd-nsl-dd-one-of.js",
+				"test/language/literals/numeric/numeric-separator-literal-dd-nsl-dd-one-of.js"
+			],
+			[
+				"param-dflt-yield-id-non-strict.js",
+				"test/language/expressions/arrow-function/param-dflt-yield-id-non-strict.js"
+			],
+			[
+				"test/built-ins/date/s15.9.3.1_a5_t1.js",
+				"test/built-ins/Date/S15.9.3.1_A5_T1.js"
+			],
+			[
+				"language/module-code/namespace/internals/define-own-property",
+				"test/language/module-code/namespace/internals/define-own-property.js"
+			],
+			[
+				"array-elem-put-let.case",
+				"src/dstr-assignment/array-elem-put-let.case"
+			],
+			[
+				"async-func-decl-dstr-array-elem-init-let.js",
+				"test/language/statements/for-await-of/async-func-decl-dstr-array-elem-init-let.js"
+			],
+			[
+				"src/dstr-assignment-for-await/array-elem-init-let.case",
+				"src/dstr-assignment-for-await/array-elem-init-let.case"
+			],
+			[
+				"test/language/statements/for-of/dstr-obj-rest-computed-property.js",
+				"test/language/statements/for-of/dstr-obj-rest-computed-property.js"
+			],
+			[
+				"test/built-ins/proxy/apply/trap-is-undefined-no-property.js",
+				"test/built-ins/Proxy/apply/trap-is-undefined-no-property.js"
+			],
+			[
+				"array-elem-trlg-iter-rest-rtrn-close-null.case",
+				"src/dstr-assignment/array-elem-trlg-iter-rest-rtrn-close-null.case"
+			],
+			[
+				"ary-ptrn-elision-step-err",
+				"test/language/statements/class/dstr-async-gen-meth-static-dflt-ary-ptrn-elision-step-err.js"
+			],
+			[
+				"array-rest-nested-obj-yield-expr",
+				"src/dstr-assignment/array-rest-nested-obj-yield-expr.case"
+			],
+			[
+				"array-rest-nested-obj-yield-ex",
+				"src/dstr-assignment-async-iteration/array-rest-nested-obj-yield-expr.case"
+			],
+			[
+				"dstr-async-gen-meth-ary-ptrn-rest-obj-prop-id.js",
+				"test/language/expressions/class/dstr-async-gen-meth-ary-ptrn-rest-obj-prop-id.js"
+			],
+			[
+				"test/built-ins/array/prototype/splice/15.4.4.12-9-c-ii-1.js",
+				"test/built-ins/Array/prototype/splice/15.4.4.12-9-c-ii-1.js"
+			],
+			[
+				"ac",
+				"johnny-five/test/accelerometer.js"
+			],
+			[
+				"repl",
+				"johnny-five/lib/repl.js"
+			],
+			[
+				"acc",
+				"johnny-five/test/accelerometer.js"
+			],
+			[
+				"13",
+				"johnny-five/eg/1306.js"
+			],
+			[
+				"li",
+				"johnny-five/test/light.js"
+			],
+			[
+				"light",
+				"johnny-five/eg/light-ambient-TSL2561.js"
+			],
+			[
+				"ligh",
+				"johnny-five/lib/light.js"
+			],
+			[
+				"acce",
+				"johnny-five/test/accelerometer.js"
+			],
+			[
+				"",
+				"johnny-five/test/light.js"
+			],
+			[
+				"eg/led",
+				"johnny-five/eg/led-blink.js"
+			],
+			[
+				"blinkm",
+				"johnny-five/node_modules/particle-io/eg/i2c-blinkm.js"
+			],
+			[
+				"rele",
+				"johnny-five/lib/release"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 253.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

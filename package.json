@@ -1,6 +1,6 @@
 {
   "name": "redmatic",
-  "version": "4.4.3",
+  "version": "4.5.0",
   "description": "Node-RED packaged as Homematic CCU addon",
   "repository": "github:rdmtc/redmatic",
   "private": true,
@@ -32,7 +32,7 @@
     "node-red-contrib-mysensors": "0.0.0 - 3.3.0",
     "node-red-contrib-rfxcom": "0.0.0 - 2.8.1",
     "node-red-contrib-zigbee": "0.0.0 - 0.7.1",
-    "node-red-contrib-gpio": "0.0.0 - 0.14.0",
+    "node-red-contrib-johnny-five": "0.0.0 - 0.15.0",
     "node-red-contrib-enocean": "0.0.0 - 0.4.14"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
