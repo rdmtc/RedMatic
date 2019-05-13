@@ -1,4 +1,114 @@
 
+# v4.5.1 2019-05-13T16:01:18Z
+
+* c85ab5d @hobbyquaker Update node-red-contrib-combine
+  * Defer Node: Möglichkeit den Timeout via `msg`, `context` oder `env` zu setzen (https://github.com/rdmtc/node-red-contrib-combine/issues/12)
+* 8b0628b @hobbyquaker RedMatic UI: Fehler behoben, Dropdown zur Auswahl der Backup-Methode wurde bei Verwendung von Safari/Firefox nicht richtig initalisiert (#209)
+* e782ad8 @hobbyquaker Update node-red-node-serialport
+
+
+
+# v4.5.0 2019-05-12T16:43:55Z
+
+* bb06707 @hobbyquaker _node-red-contrib-gpio_ (welches bisher nicht wirklich funktioniert hat) durch den Fork _node-red-contrib-johnny-five_ ersetzt (#181)
+
+
+
+# v4.4.3 2019-05-12T11:32:03Z
+
+* 1c0c066 @hobbyquaker Update node-red-contrib-ccu
+  * Display Node: Fehler behoben der dazu führte dass das gelbe und rote Icon beim HM-DIS-WM55 nicht funktioniert hat (https://github.com/rdmtc/node-red-contrib-ccu/commit/c79b9b4e49071ecd4b1128e0a15514d4de699845)
+  * Signal Node: Einige Optionen können nun via msg/context/env überschrieben werden (https://github.com/rdmtc/node-red-contrib-ccu/issues/80)
+  * Value Node: set Mode Dropdown nur anzeigen bei Geräten die RX_MODE BURST unterstützen (https://github.com/rdmtc/node-red-contrib-ccu/issues/37)
+  * Get Value Node: Interface/Kanal/Datenpunkt können via msg überschrieben werden (https://github.com/rdmtc/node-red-contrib-ccu/issues/49)
+  * Switch Node: Anzeige des letzten Werts und der aktiven Ausgänge im Node Status (https://github.com/rdmtc/node-red-contrib-ccu/issues/53)
+* da49dff @hobbyquaker node-red-contrib-gpio: raspi-io dependency zu prebuilt hinzugefügt(#181)
+* bd1d8f1 @hobbyquaker RedMatic UI: Abgelaufene Session behandeln (close #206)
+
+
+
+# v4.4.2 2019-05-10T20:28:08Z
+
+* 65984eb @hobbyquaker Update node-red-contrib-ccu
+  * Display Node: schwerwiegenden Fehler behoben der dazu führte dass keine Displays mehr angesteuert werden konnten (#204)
+* 327ad58 @hobbyquaker Update RedMatic-HomeKit
+  * Workaround für fehlerhaften OPERATING_VOLTAGE Datenpunkt von HmIP-Wetterstationen (https://github.com/rdmtc/RedMatic-HomeKit/issues/143)
+* dbb3185 @hobbyquaker Update node-red-contrib-enocean
+
+
+
+
+# v4.4.1 2019-05-05T14:11:54Z
+
+* ec90055 @hobbyquaker Update node-red-contrib-ccu
+  * Display Node: Fehlende Icons für HM-Dis-WM55 ergänzt (https://github.com/rdmtc/node-red-contrib-ccu/issues/78)
+* 8129684 @hobbyquaker Update RedMatic-HomeKit
+  * Heizungsgruppen und Wetterstationen: Batterie Status korrigiert (https://github.com/rdmtc/RedMatic-HomeKit/issues/143)
+* a55b78e @hobbyquaker Update node-red-contrib-enocean
+* 76525c2 @hobbyquaker node-red-contrib-gpio: fehlende Dependencies hinzugefügt (#181)
+
+
+
+# v4.4.0 2019-05-04T14:52:26Z
+
+* 6e8707f @hobbyquaker Update node-red-contrib-zigbee
+* 2272291 @hobbyquaker RedMatic UI: Deutsche Übersetzung, Wiki Links (#194)
+* 2c5f7f7 @hobbyquaker RedMatic UI Update Popup: Wiki Link (#193)
+* ba7ae38 @hobbyquaker Backup-Verhalten konfigurierbar (#198)
+
+
+
+# v4.3.10 2019-05-01T16:23:40Z
+* d605da4 @hobbyquaker Update node-red-contrib-zigbee
+
+# v4.3.9 2019-04-30T11:07:34Z
+* d206d2f @hobbyquaker Update node-red-contrib-zigbee
+
+# v4.3.8 2019-04-29T20:36:27Z
+* 65aa3ae @hobbyquaker Update node-red-contrib-zigbee
+
+# v4.3.7 2019-04-29T12:39:27Z
+* fb4f5fb @hobbyquaker Update node-red-contrib-zigbee
+
+# v4.3.6 2019-04-28T16:17:37Z
+* 0be34e4 @hobbyquaker Update node-red-contrib-zigbee
+
+# v4.3.5 2019-04-27T21:04:17Z
+* 2dcdc94 @hobbyquaker Update node-red-contrib-zigbee
+* 249e83f @hobbyquaker add node-red-contrib-enocean
+
+# v4.3.3 2019-04-26T19:09:07Z
+
+* ad72a2d @hobbyquaker Update node-red-contrib-zigbee (**Alpha Version**)
+* 3aac3ac @hobbyquaker Update node-red-node-sqlite
+
+
+
+# v4.3.2 2019-04-21T21:42:45Z
+
+* 4fb48b0 @hobbyquaker Update node-red-contrib-zigbee (**Alpha Version**)
+  * Option um die LED des CC2531 USB Sticks abzuschalten (https://github.com/hobbyquaker/node-red-contrib-zigbee/issues/9)
+  * Crash abgefangen (https://github.com/hobbyquaker/node-red-contrib-zigbee/issues/8)
+  * Converter Node: Fehler behoben der dazu führte dass kein passender Converter gefunden wurde (https://github.com/hobbyquaker/node-red-contrib-zigbee/issues/10)
+  * Converter Node: Topic konfigurierbar
+  * Event Node: Topic konfigurierbar (https://github.com/hobbyquaker/node-red-contrib-zigbee/issues/7)
+  * `device.overdue` Attribut hinzugefügt
+
+
+# v4.3.1 2019-04-18T22:28:02Z
+
+* 6679062 @hobbyquaker Update RedMatic-HomeKit
+  * Heizungsgruppen: diverse Fehler behoben (https://github.com/rdmtc/RedMatic-HomeKit/issues/138)
+  * TV Accessory: Fehler bei InputSourceType Dropdown behoben (https://github.com/rdmtc/RedMatic-HomeKit/issues/137)
+
+
+# v4.3.0 2019-04-18T10:21:22Z
+
+* ce227a7 @hobbyquaker Update RedMatic-HomeKit
+  * Neues Accessory "TV" (rdmtc/RedMatic-HomeKit#137)
+
+
+
 # v4.2.0 2019-04-17T17:59:47Z
 
 * c0dd219 @hobbyquaker Update RedMatic-HomeKit
