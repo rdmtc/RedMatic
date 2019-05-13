@@ -1,8 +1,6 @@
-addon_tmp
-dist
+./addon_tmp
+./dist
 .idea
 .DS_Store
-live
-CHANGELOG.md
-LICENSE_Nodejs
-bin/node-prune
+./CHANGELOG.md
+./LICENSE_Nodejs
