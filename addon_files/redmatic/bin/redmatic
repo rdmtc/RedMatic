@@ -20,11 +20,16 @@ export GIT_EXEC_PATH=/usr/local/addons/redmatic/libexec/git-core
 export NO_UPDATE_NOTIFIER=true
 
 Stop () {
+    if [ -f /usr/bin/monit ]; then
+        /usr/bin/monit -g redmatic unmonitor
+    fi
+
     PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
     if [ "$PSPID" != "" ]
     then
         echo -n "Stopping Node-RED: "
         logger -t redmatic -p daemon.info "Stopping Node-RED"
+
         killall redmaticLoader 2>/dev/null
         kill -SIGINT $PSPID 2>/dev/null
         sleep 2
@@ -125,6 +130,10 @@ Start () {
         start-stop-daemon -S -q -b --exec $ADDON_DIR/bin/redmaticLoader
         echo "OK"
     fi
+
+    if [ -f /usr/bin/monit ]; then
+        (sleep 60 ; /usr/bin/monit -g redmatic monitor) &
+    fi
 }
 
 case "$1" in
@@ -161,6 +170,10 @@ case "$1" in
     rm -r $WWW_DIR
     rm $CONF_DIR/lighttpd/redmatic.conf
     rm $CONF_DIR/rc.d/redmatic
+
+    if [ -f /usr/local/etc/redmatic-monit.cfg ]; then
+        rm /usr/local/etc/redmatic-monit.cfg
+    fi
 
     mount -o remount,rw /
     if [ -f $LIGHTTPD_CONF.orig ]

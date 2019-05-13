@@ -157,5 +157,12 @@ rm $RED_DIR/libexec/git-core.tar.gz
 touch $CONF_DIR/hm_addons.cfg
 ./update_addon redmatic redmatic.cfg
 
+#
+#   Link monit configuration
+#
+if [ -f /usr/bin/monit ]; then
+    ln -s $RED_DIR/etc/monit.cfg /usr/local/etc/monit-redmatic.cfg
+fi
+
 sync
 exit 0
