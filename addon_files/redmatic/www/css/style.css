@@ -3,6 +3,10 @@
     margin: 4px;
 }
 
+#alert-saved {
+    width: 550px;
+}
+
 html, body {
     height: 100%;
 }
