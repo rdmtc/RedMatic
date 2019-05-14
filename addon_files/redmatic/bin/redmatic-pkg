@@ -41,7 +41,20 @@ function install()
 
     echo "Get $URL"
     set -o pipefail
-    /usr/bin/curl $URL -o $ADDON_DIR/tmp/$1.tar.gz --fail --silent --show-error --location || exit 1
+    T_START=$(date +"%s")
+    /usr/bin/curl $URL -o $ADDON_DIR/tmp/$1.tar.gz --fail --show-error --silent --location || exit 1
+    T_END=$(date +"%s")
+    echo "Downloaded $(stat -c %s $ADDON_DIR/tmp/$1.tar.gz | awk '{ suffix="KMGT"; for(i=0; $1>1024 && i < length(suffix); i++) $1/=1024; print int($1) substr(suffix, i, 1), $3; }')in $(( T_END-T_START )) seconds"
+
+    D_INTEGRITY=sha512-$(cat $ADDON_DIR/tmp/$1.tar.gz | /usr/bin/openssl sha512 -binary | base64 | tr -d \\n)
+
+    if [ "$INTEGRITY" == "$D_INTEGRITY" ]; then
+        echo "File integrity check successful"
+    else
+        echo "File integrity check failed"
+        rm $ADDON_DIR/tmp/$1.tar.gz
+        exit 1
+    fi
 
     rm -r $ADDON_DIR/lib/node_modules/$PACKAGE 2> /dev/null
 
