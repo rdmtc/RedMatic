@@ -1,6 +1,6 @@
-./addon_tmp
-./dist
 .idea
 .DS_Store
-./CHANGELOG.md
-./LICENSE_Nodejs
+/addon_tmp
+/dist
+/CHANGELOG.md
+/node_modules
