@@ -175,6 +175,9 @@ $(document).ready(() => {
             const lines = data.split('\n');
             let found = false;
             lines.forEach(line => {
+                if (found) {
+                    return;
+                }
                 let match;
                 match = line.match(/([0-9]+[a-z]?)\s+([0-9]+[a-z]?)\s+node-red\s+node-red/);
                 if (match) {
