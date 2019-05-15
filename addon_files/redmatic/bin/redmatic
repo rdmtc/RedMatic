@@ -25,8 +25,7 @@ Stop () {
     fi
 
     PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
-    if [ "$PSPID" != "" ]
-    then
+    if [ "$PSPID" != "" ]; then
         echo -n "Stopping Node-RED: "
         logger -t redmatic -p daemon.info "Stopping Node-RED"
 
@@ -75,7 +74,9 @@ Start () {
     if [ -f $ADDON_DIR/var/do_pkg_upgrade ]; then
         echo "Updating Packages"
         date +"%b %d %H:%M:%S" >> $ADDON_DIR/var/pkg-upgrade.log
+        set -o pipefail
         $ADDON_DIR/bin/redmatic-pkg upgrade 2>&1 | tee -a $ADDON_DIR/var/pkg-upgrade.log | logger -t redmatic-pkg -p daemon.info && rm $ADDON_DIR/var/do_pkg_upgrade
+        echo "" >> $ADDON_DIR/var/pkg-upgrade.log
         sleep 1
     fi
 
@@ -104,12 +105,12 @@ Start () {
 
     if ! grep -Fq "exclude-tag=.nobackup" $BACKUP_CGI
     then
-      echo "patching $BACKUP_CGI"
-      mount -o remount,rw /
-      cp $BACKUP_CGI $BACKUP_CGI.orig
-      sed "s/exec tar czf \/tmp\/usr_local.tar.gz usr\/local/exec tar --exclude-tag=.nobackup -czf \/tmp\/usr_local.tar.gz usr\/local/" $BACKUP_CGI > $BACKUP_CGI.tmp && mv $BACKUP_CGI.tmp $BACKUP_CGI
-      chmod 755 $BACKUP_CGI
-      mount -o remount,ro /
+        echo "patching $BACKUP_CGI"
+        mount -o remount,rw /
+        cp $BACKUP_CGI $BACKUP_CGI.orig
+        sed "s/exec tar czf \/tmp\/usr_local.tar.gz usr\/local/exec tar --exclude-tag=.nobackup -czf \/tmp\/usr_local.tar.gz usr\/local/" $BACKUP_CGI > $BACKUP_CGI.tmp && mv $BACKUP_CGI.tmp $BACKUP_CGI
+        chmod 755 $BACKUP_CGI
+        mount -o remount,ro /
     fi
 
     if [ ! -f /etc/config/rdmtc.uuid ]; then
@@ -118,8 +119,7 @@ Start () {
     LD_LIBRARY_PATH=/usr/lib:/usr/local/lib:/usr/local/addons/redmatic/lib ; /usr/local/addons/redmatic/bin/redmaticVersions | /usr/bin/curl -H "Content-Type: application/json" -H "X-RedMatic-uuid: `cat /etc/config/rdmtc.uuid`" --data @- -s --max-time 3 https://telemetry.redmatic.de
 
     PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
-    if [ "$PSPID" != "" ]
-    then
+    if [ "$PSPID" != "" ]; then
         echo "Node-RED already running"
         logger -t redmatic -p daemon.error "cant start - already running"
         exit 1
@@ -138,65 +138,62 @@ Start () {
 
 case "$1" in
 
-  stop)
-    Stop || exit 1
-  ;;
-
-  start)
-    Start
-  ;;
-
-  restart)
-    Stop
-    sleep 3
-    Start
-  ;;
-
-  info)
-    source $ADDON_DIR/versions
-    echo "Info: <div><a target=\"_blank\" href=\"https://github.com/rdmtc/RedMatic\"><img src=\"/addons/redmatic/logo-x-120.png\"/></a></div>"
-    echo "Name: RedMatic"
-    echo "Version: $VERSION_ADDON"
-    echo "Update: /addons/redmatic/update_check.cgi"
-    echo "Config-Url: /addons/redmatic/settings.cgi"
-    echo "Operations: restart uninstall"
-  ;;
-
-  uninstall)
-    Stop
-
-    $ADDON_DIR/bin/update_addon redmatic
-    rm -r $ADDON_DIR
-    rm -r $WWW_DIR
-    rm $CONF_DIR/lighttpd/redmatic.conf
-    rm $CONF_DIR/rc.d/redmatic
-
-    if [ -f /usr/local/etc/redmatic-monit.cfg ]; then
-        rm /usr/local/etc/redmatic-monit.cfg
-    fi
-
-    mount -o remount,rw /
-    if [ -f $LIGHTTPD_CONF.orig ]
-    then
-        mv $LIGHTTPD_CONF.orig $LIGHTTPD_CONF
-    fi
-    if [ -f $LIGHTTPD_SSL_CONF.orig ]
-    then
-        mv $LIGHTTPD_SSL_CONF.orig $LIGHTTPD_SSL_CONF
-    fi
-    if [ -f $BACKUP_CGI.orig ]
-    then
-        mv $BACKUP_CGI.orig $BACKUP_CGI
-    fi
-    mount -o remount,ro /
-
-    logger -t redmatic -p daemon.info "Uninstalled RedMatic"
+    stop)
+        Stop || exit 1
     ;;
 
-  *)
-    echo "Usage: node-red {start|stop|restart|info|uninstall}" >&2
-    exit 1
-  ;;
+    start)
+        Start
+    ;;
+
+    restart)
+        Stop
+        sleep 3
+        Start
+    ;;
+
+    info)
+        source $ADDON_DIR/versions
+        echo "Info: <div><a target=\"_blank\" href=\"https://github.com/rdmtc/RedMatic\"><img src=\"/addons/redmatic/logo-x-120.png\"/></a></div>"
+        echo "Name: RedMatic"
+        echo "Version: $VERSION_ADDON"
+        echo "Update: /addons/redmatic/update_check.cgi"
+        echo "Config-Url: /addons/redmatic/settings.cgi"
+        echo "Operations: restart uninstall"
+    ;;
+
+    uninstall)
+        Stop
+
+        $ADDON_DIR/bin/update_addon redmatic
+        rm -r $ADDON_DIR
+        rm -r $WWW_DIR
+        rm $CONF_DIR/lighttpd/redmatic.conf
+        rm $CONF_DIR/rc.d/redmatic
+
+        if [ -f /usr/local/etc/redmatic-monit.cfg ]; then
+            rm /usr/local/etc/redmatic-monit.cfg
+        fi
+
+        mount -o remount,rw /
+        if [ -f $LIGHTTPD_CONF.orig ]; then
+            mv $LIGHTTPD_CONF.orig $LIGHTTPD_CONF
+        fi
+        if [ -f $LIGHTTPD_SSL_CONF.orig ]; then
+            mv $LIGHTTPD_SSL_CONF.orig $LIGHTTPD_SSL_CONF
+        fi
+        if [ -f $BACKUP_CGI.orig ]; then
+            mv $BACKUP_CGI.orig $BACKUP_CGI
+        fi
+        mount -o remount,ro /
+
+        logger -t redmatic -p daemon.info "Uninstalled RedMatic"
+    ;;
+
+    *)
+        echo "Usage: node-red {start|stop|restart|info|uninstall}" >&2
+        exit 1
+    ;;
 
 esac
 
