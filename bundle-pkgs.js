@@ -31,7 +31,9 @@ Object.keys(pkgLib.dependencies).forEach(name => {
     if (blacklist.includes(name)) {
         return;
     }
-    const version = pkgLib.dependencies[name]
+    const pkgJson = require(__dirname + '/addon_tmp/redmatic/lib/node_modules/' + name + '/package.json');
+    const {version, description, keywords, homepage, repository} = pkgJson;
+
     const filename = 'redmatic-pkg-' + name + '-' + version + '.tar.gz';
 
     let cmd = 'tar -C ' + __dirname + '/addon_tmp/redmatic/ -czf ' + __dirname + '/dist/' + filename + ' lib/node_modules/' + name;
@@ -48,7 +50,11 @@ Object.keys(pkgLib.dependencies).forEach(name => {
     repo[name] = {
         integrity: checksum(fs.readFileSync(__dirname + '/dist/' + filename)),
         resolved: 'https://github.com/rdmtc/RedMatic/releases/download/v' + redmaticVersion + '/' + filename,
-        version
+        version,
+        description,
+        keywords,
+        homepage,
+        repository
     };
 
 });
@@ -65,7 +71,6 @@ remove.forEach(path => {
 });
 
 function checksum(input) {
-    var hash = crypto.createHash('sha512').update(input, 'utf8');
-    var hashBase64 = hash.digest('base64');
-    return 'sha512-' + hashBase64;
+    const hash = crypto.createHash('sha512').update(input, 'utf8');
+    return 'sha512-' + hash.digest('base64');
 }
