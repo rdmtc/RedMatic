@@ -13,7 +13,9 @@ if {[info exists sid] && [check_session $sid]} {
             }
             "ls" {
                 puts -nonewline "Content-Type: text/plain; charset=utf-8\r\n\r\n"
-                puts [exec ls -1 /usr/local/addons/redmatic/lib/node_modules]
+                foreach pkgjson [glob /usr/local/addons/redmatic/lib/node_modules/*/package.json] {
+                    puts "[lrange [file split $pkgjson] end-1 end-1] [exec /usr/local/addons/redmatic/bin/jq -r ".version" $pkgjson]"
+                }
             }
             "install" {
                 puts -nonewline "Content-Type: text/plain; charset=utf-8\r\n\r\n"

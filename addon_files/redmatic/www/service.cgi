@@ -20,16 +20,18 @@ if {[info exists cmd]} {
         }
     }
 
+    # No session checks for following commands to reduce costs of periodic calls, exposed information is uncritical imho
+
     if {$cmd == "ps"} {
-
-        # No session check to reduce costs of periodic calls, exposed information should be uncritical (it just
-        # discloses if Node-RED is running, this info can be obtained easily anyways...)
-
-        puts [exec ps -o vsz,rss,comm,args | grep node]
+        puts [exec ps -o vsz,rss,comm,args | grep "node\\|redmatic"]
         exit 0
     }
     if {$cmd == "cpu"} {
         puts [exec top -b -n 1 | grep "% node-red$" | awk "\{print \$7\}"]
+        exit 0
+    }
+    if {$cmd == "uptime"} {
+        puts [exec /usr/local/addons/redmatic/bin/uptime.sh]
         exit 0
     }
 }

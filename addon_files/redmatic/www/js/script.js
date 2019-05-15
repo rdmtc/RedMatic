@@ -59,6 +59,8 @@ $(document).ready(() => {
 
     let config;
 
+    let noderedState;
+
     const qs = location.search;
     let sid = '';
     let tmp = qs.match(/sid=(@[0-9a-zA-Z]{10}@)/);
@@ -82,14 +84,15 @@ $(document).ready(() => {
 
     function checkUpdate() {
         $.getJSON(`update_check.cgi?cmd=versions&sid=${sid}`, (current, success) => {
+            $('#redmatic-version').html('RedMatic Version ' + current.redmatic);
             $.get(`update_check.cgi?sid=${sid}`, (available, success) => {
-                if (current.redmatic !== $.trim(available)) {
+                available = $.trim(available);
+                if (available !== 'n/a' && current.redmatic !== available) {
                     $('#update-link').html(`<a href="https://github.com/rdmtc/RedMatic/releases/latest" target="_blank">Download Version ${available}</a>`);
                     $('#update-notify').show();
                 }
             });
         });
-
     }
 
     checkUpdate();
@@ -99,14 +102,26 @@ $(document).ready(() => {
         $.get(`pkg.cgi?sid=${sid}&cmd=repo`, data => {
             packages = data;
             $.get(`pkg.cgi?sid=${sid}&cmd=ls`, data => {
+                $('#pkg-spinner').hide();
                 data.split('\n').forEach(line => {
-                    if (line && packages[line]) {
-                        packages[line].installed = true;
+                    const [name, currentVersion] = line.split(' ');
+                    if (name && packages[name]) {
+                        packages[name].installed = true;
+                        packages[name].currentVersion = currentVersion;
                     }
                 });
                 $packageTable.html('');
                 Object.keys(packages).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())).forEach(name => {
-                    $packageTable.append(`<tr><td>${name}</td><td>${packages[name].version}</td><td style="text-align: center;">${packages[name].installed ? '✓' : '&nbsp;'}</td><td><button data-pkg="${name}" type="button" class="btn btn-primary btn-sm pkg-install" ${packages[name].installed ? 'disabled' : ''}><span class="spinner-install spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                    const installed = packages[name].installed ?
+                        (packages[name].version === packages[name].currentVersion ? '✅' : `⚠${packages[name].currentVersion}`) :
+                        '&nbsp;';
+
+                    let url = packages[name].homepage || (packages[name].repository && packages[name].repository.url) || packages[name].repository;
+                    if (url) {
+                        url = url.replace(/^git\+/, '').replace(/\.git$/, '');
+                    }
+
+                    $packageTable.append(`<tr><td><a href="${url}" target="_blank">${name}</a><br><span class="pkg-desc">${packages[name].description || ''}</span></td><td>${packages[name].version}</td><td style="text-align: center;">${installed}</td><td><button data-pkg="${name}" type="button" class="btn btn-primary btn-sm pkg-install" ${packages[name].installed ? 'disabled' : ''}><span class="spinner-install spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
   install</button> <button data-pkg="${name}" type="button" class="btn btn-danger btn-sm pkg-remove" ${packages[name].installed ? '' : 'disabled'}><span class="spinner-remove spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
   remove</button></td></tr>`)
                 });
@@ -142,6 +157,11 @@ $(document).ready(() => {
 
     pkg();
 
+    function refresh() {
+        checkUpdate();
+        pkg();
+    }
+
     function cpu() {
         $.get(`service.cgi?sid=${sid}&cmd=cpu`, (data, success) => {
             $cpu.html(data ? 'cpu ' + data : '');
@@ -167,7 +187,15 @@ $(document).ready(() => {
                     if (!rss.endsWith('B')) {
                         rss += 'kB';
                     }
-                    $status.html('<span class="status-running">running</span>');
+                    $('#status-spinner').hide();
+                    if (noderedState !== 'running') {
+                        $status.html('<span class="status-running">running</span>');
+                        noderedState = 'running';
+                        refresh();
+                        $.get(`service.cgi?sid=${sid}&cmd=uptime`, (uptime, success) => {
+                            $status.html('<span class="status-running">running</span> <span id="uptime">(' + $.trim(uptime) + ')');
+                        });
+                    }
                     $memory.html(`vsz ${vsz}, rss ${rss}`);
                     found = true;
                     $dropdownRestart.removeClass('disabled');
@@ -180,6 +208,8 @@ $(document).ready(() => {
                 }
                 match = line.match(/([0-9]+[a-z]?)\s+([0-9]+[a-z]?)\s+.*red.js/);
                 if (match) {
+                    noderedState = 'starting';
+                    $('#status-spinner').show();
                     let [, vsz, rss] = match;
                     vsz = vsz.replace('m', 'MB').replace('g', 'GB');
                     rss = rss.replace('m', 'MB').replace('g', 'GB');
@@ -200,8 +230,25 @@ $(document).ready(() => {
                     psInterval = 2500;
                     return;
                 }
+                match = line.match(/redmatic-pkg install ([^\s]+)/);
+                if (match) {
+                    noderedState = 'upgrading';
+                    $('#status-spinner').show();
+                    $status.html('<span class="status-upgrade">Upgrading ' + match[1] + '</span>');
+                    $memory.html('');
+                    found = true;
+                    $dropdownRestart.addClass('disabled');
+                    $stop.addClass('disabled');
+                    $dropdownStart.addClass('disabled');
+                    $linkRed.addClass('disabled');
+                    $linkUi.addClass('disabled');
+                    psInterval = 5000;
+                    return;
+                }
             });
             if (!found) {
+                noderedState = 'stopped';
+                $('#status-spinner').hide();
                 $status.html('<span class="status-stopped">stopped</span>');
                 $memory.html('');
                 $dropdownRestart.addClass('disabled');
@@ -569,11 +616,14 @@ $(document).ready(() => {
         $dropdownRestart.addClass('disabled');
         $stop.addClass('disabled');
         $dropdownStart.addClass('disabled');
+        $('#status-spinner').show();
         $status.html('<span class="status-starting">stopping</span>');
         $memory.html('');
+        $cpu.html('');
         $.get({
             url: `service.cgi?sid=${sid}&cmd=restart`,
             success: data => {
+                console.log('restart', data)
                 if (data.match(/Starting Node-RED: OK/)) {
                     alert($alertExec);
                 } else if ($.trim(data) === 'error: invalid session') {
@@ -588,6 +638,10 @@ $(document).ready(() => {
                 }, 1000);
             }
         });
+        setTimeout(() => {
+            ps();
+        }, 10000);
+
     }
 
     $restart.click(() => {
@@ -691,6 +745,10 @@ $(document).ready(() => {
         download('redmatic.' + (new Date()).toISOString() + '.log', 'log.cgi' + location.search);
     });
 
+    $('#upgrade-log').on('click', () => {
+        download('redmatic-pkg-upgrade.' + (new Date()).toISOString() + '.log', 'log.cgi' + location.search + '&cmd=upgrade');
+    });
+
     $('#autorestart').on('change', event => {
         config.restartOnCrash = parseInt(event.target.value, 10);
         save();
@@ -712,8 +770,8 @@ $(document).ready(() => {
     $('#package-filter').on('keyup', () => {
         const filter = $('#package-filter').val();
         $packageTable.find('tr').each(function () {
-            const name = $(this).find('td').html();
-            if (name.includes(filter)) {
+            const name = $(this).find('td').html().toLowerCase();
+            if (name.includes(filter.toLowerCase())) {
                 $(this).show();
             } else {
                 $(this).hide();

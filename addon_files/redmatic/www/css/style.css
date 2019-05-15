@@ -41,6 +41,10 @@ iframe {
     color: orange;
 }
 
+.status-upgrade {
+    color: darkorange;
+}
+
 .status-stopped {
     color: red;
 }
@@ -73,4 +77,15 @@ iframe {
     text-align: center;
     padding: 16px;
     font-size: 2em;
+}
+
+.pkg-desc {
+    font-size: 10px;
+    color: #333;
+    display: inline-block;
+}
+
+#redmatic-version {
+    color: #666;
+    font-size: 12px;
 }

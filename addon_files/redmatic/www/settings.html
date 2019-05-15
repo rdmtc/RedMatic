@@ -32,6 +32,11 @@
             <a class="nav-link pb-0" id="licenses-tab" data-toggle="tab" role="tab" aria-controls="licenses" href="#licenses">Lizenzen</a>
         </li>
     </ul>
+    <div class="ml-3 mr-2 pl-2">
+        <a id="link-red" role="button" class="btn btn-sm btn-outline-info" target="_blank" href="/addons/red/"><i class="fa fa-external-link-alt"></i> Node-RED</a>
+        <a id="link-ui" role="button" class="btn btn-sm btn-outline-info mr-3" target="_blank" href="/addons/red/ui/"><i class="fa fa-external-link-alt"></i> Dashboard</a>
+    </div>
+    <div style="min-width: 130px" id="redmatic-version"></div>
 </nav>
 
 <div id="container" class="container">
@@ -60,9 +65,7 @@
             <div class="card mb-4">
 
                 <div class="card-body">
-                    <a id="link-red" role="button" class="btn btn-sm btn-outline-info" target="_blank" href="/addons/red/"><i class="fa fa-external-link-alt"></i> Node-RED</a>
-                    <a id="link-ui" role="button" class="btn btn-sm btn-outline-info mr-3" target="_blank" href="/addons/red/ui/"><i class="fa fa-external-link-alt"></i> Dashboard</a>
-
+                    <label style="display: block">Node-RED Prozess</label>
                     <!--<a id="backup" role="button" class="btn btn-sm btn-primary mr-3 disabled">Backup</a>-->
                     <div class="dropdown" style="display: inline-block">
                         <button type="button" class="btn btn-sm btn-warning dropdown-toggle" id="dropdownRestart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -88,10 +91,15 @@
                         </div>
                     </div>
 
-                    <div style="vertical-align: middle; display: inline-block; width: 148px; font-size: 11px; color: grey;" class="">
-                        <div>Node-RED: <span id="node-red-status" style="font-weight: bold;"></span></div>
-                        <div><span id="node-red-memory"  style="font-weight: bold;"></span>&nbsp;</div>
-                        <div><span id="node-red-cpu" style="font-weight: bold;"></span>&nbsp;</div>
+                    <div style="width: 30px; display: inline-block">
+                        <div id="status-spinner" class="spinner-border spinner-border-sm ml-2 mr-2" role="status" style="color: #6a737d; display: inline-block;">
+                            <span class="sr-only">Please wait...</span>
+                        </div>
+                    </div>
+
+                    <div style="vertical-align: middle; display: inline-block; width: 210px; font-size: 11px; color: grey;" class="">
+                        <div><span id="node-red-status" style="font-weight: bold;"></span></div>
+                        <div><span id="node-red-memory"  style="font-weight: bold;"></span>&nbsp;<span id="node-red-cpu" style="font-weight: bold;"></span></div>
                     </div>
                 </div>
             </div>
@@ -151,7 +159,7 @@
             <div class="card mb-4 pr-4">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="projects">Projekte <a href="https://github.com/rdmtc/RedMatic/wiki/Backup" class="help-link" target="_blank"><i class="far fa-question-circle"></i></a></label>
+                        <label for="projects">Projekte <a href="https://github.com/rdmtc/RedMatic/wiki/Projekte" class="help-link" target="_blank"><i class="far fa-question-circle"></i></a></label>
                         <select class="form-control" id="projects">
                             <option value="false">Nicht verwenden</option>
                             <option value="true">Aktiv</option>
@@ -286,7 +294,11 @@
 
                 </tbody>
             </table>
-
+            <div id="pkg-spinner" class="text-center">
+                <div class="spinner-border text-center" role="status">
+                    <span class="sr-only">Lade...</span>
+                </div>
+            </div>
         </div>
 
         <div class="tab-pane fade show" id="versions" role="tabpanel" aria-labelledby="versions-tab">
@@ -294,6 +306,7 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <button id="log" type="button" class="btn btn-sm btn-info"><i class="fa fa-link"></i> Log herunterladen</button>
+                    <button id="upgrade-log" type="button" class="btn btn-sm btn-info"><i class="fa fa-link"></i> Upgrade Log herunterladen</button>
                 </div>
             </div>
 
