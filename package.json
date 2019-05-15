@@ -11,7 +11,7 @@
   "dependencies": {
     "npm": "0.0.0 - 6.9.0",
     "node-red": "0.0.0 - 0.20.5",
-    "node-red-dashboard": "0.0.0 - 2.15.1",
+    "node-red-dashboard": "0.0.0 - 2.15.2",
     "node-red-contrib-ccu": "0.0.0 - 2.1.2",
     "node-red-contrib-combine": "0.0.0 - 1.8.1",
     "bcryptjs": "0.0.0 - 2.4.3",
