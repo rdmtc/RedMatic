@@ -162,6 +162,7 @@ touch $CONF_DIR/hm_addons.cfg
 #
 if [ -f /usr/bin/monit ]; then
     ln -s $RED_DIR/etc/monit.cfg /usr/local/etc/monit-redmatic.cfg
+    /usr/bin/monit reload
 fi
 
 sync
