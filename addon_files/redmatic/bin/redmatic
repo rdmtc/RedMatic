@@ -132,7 +132,7 @@ Start () {
     fi
 
     if [ -f /usr/bin/monit ]; then
-        (sleep 60 ; /usr/bin/monit -g redmatic monitor) &
+        nohup $ADDON_DIR/bin/monit-start.sh > /dev/null 2>&1 &
     fi
 }
 
