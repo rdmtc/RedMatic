@@ -164,7 +164,8 @@ $(document).ready(() => {
 
     function cpu() {
         $.get(`service.cgi?sid=${sid}&cmd=cpu`, (data, success) => {
-            $cpu.html(data ? 'cpu ' + data : '');
+            data = $.trim(data);
+            $cpu.html((data ? 'cpu ' + data + ', ' : ''));
         });
     }
 
@@ -199,7 +200,7 @@ $(document).ready(() => {
                             $status.html('<span class="status-running">running</span> <span id="uptime">(' + $.trim(uptime) + ')');
                         });
                     }
-                    $memory.html(`vsz ${vsz}, rss ${rss}`);
+                    $memory.html(`rss ${rss}, vsz ${vsz},`);
                     found = true;
                     $dropdownRestart.removeClass('disabled');
                     $stop.removeClass('disabled');
@@ -223,7 +224,7 @@ $(document).ready(() => {
                         rss += 'kB';
                     }
                     $status.html('<span class="status-starting">starting</span>');
-                    $memory.html(`vsz ${vsz}, rss ${rss}`);
+                    $memory.html(`rss ${rss}, vsz ${vsz}`);
                     found = true;
                     $dropdownRestart.addClass('disabled');
                     $stop.addClass('disabled');
