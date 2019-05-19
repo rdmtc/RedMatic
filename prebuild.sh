@@ -10,6 +10,11 @@ scp $DEST/package.json $REMOTE:$REMOTE_PATH
 
 ssh -t $REMOTE "cd $REMOTE_PATH ; npm install --global-style --unsafe-perm"
 ssh -t $REMOTE "cd $REMOTE_PATH/node_modules/node-red-contrib-johnny-five ; npm install --save --unsafe-perm --global-style --production raspi-io"
+ssh -t $REMOTE "cd $REMOTE_PATH/node_modules/node-red-contrib-johnny-five ; npm install --save --unsafe-perm --global-style --production pinoccio-io"
+ssh -t $REMOTE "cd $REMOTE_PATH/node_modules/node-red-contrib-johnny-five ; npm install --save --unsafe-perm --global-style --production bean-io"
+ssh -t $REMOTE "cd $REMOTE_PATH/node_modules/node-red-contrib-johnny-five ; npm install --save --unsafe-perm --global-style --production blend-micro-io"
+ssh -t $REMOTE "cd $REMOTE_PATH/node_modules/node-red-contrib-johnny-five ; npm install --save --unsafe-perm --global-style --production imp-io"
+ssh -t $REMOTE "cd $REMOTE_PATH/node_modules/node-red-contrib-johnny-five ; npm install --save --unsafe-perm --global-style --production particle-io"
 
 rm -r ${DEST}/lib/node_modules
 
