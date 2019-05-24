@@ -30,6 +30,7 @@ $(document).ready(() => {
     const $staticauthSet = $('#staticauth-set');
 
     const $projects = $('#projects');
+    const $theme = $('#theme');
     const $backup = $('#backup');
     
     const $alertSaved = $('#alert-saved');
@@ -376,6 +377,14 @@ $(document).ready(() => {
             $projects.prop('disabled', true);
         }
 
+        if (config.editorTheme.page) {
+            switch (config.editorTheme.page.css) {
+                case '/usr/local/addons/redmatic/lib/node-red-themes/midnight-red/midnight.css':
+                    $theme.val('midnight-red');
+                    break;
+            }
+        }
+
         // Migration from 1.x to 2.x
         if (config.contextStorage.default && config.contextStorage.default.module === 'localfilesystem') {
             config.contextStorage.default.module = 'file';
@@ -419,6 +428,21 @@ $(document).ready(() => {
         if (config.editorTheme.projects.enabled) {
             $projects.prop('disabled', true)
         }
+    });
+
+    $theme.change(() => {
+        switch ($theme.val()) {
+            case 'midnight-red':
+                config.editorTheme.page = {
+                    css: '/usr/local/addons/redmatic/lib/node-red-themes/midnight-red/midnight.css',
+                    scripts: '/usr/local/addons/redmatic/lib/node-red-themes/midnight-red//theme-tomorrow.js'
+                };
+                break;
+
+            default:
+                delete config.editorTheme.page;
+        }
+        save();
     });
 
     $contextStorageDefault.change(() => {
