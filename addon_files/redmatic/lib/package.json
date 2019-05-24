@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "npm": "6.9.0",
-    "node-red": "0.20.5",
+    "node-red": "1.0.0-beta.2",
     "ain2": "3.0.0",
     "node-red-node-serialport": "0.8.3",
     "node-red-node-sqlite": "0.3.7",
@@ -13,7 +13,7 @@
     "node-red-contrib-rfxcom": "2.8.1",
     "node-red-contrib-zigbee": "0.7.2",
     "node-red-contrib-johnny-five": "0.15.1",
-    "node-red-contrib-enocean": "0.5.5",
+    "node-red-contrib-enocean": "0.7.0",
     "redmatic-homekit": "2.3.3"
   }
 }

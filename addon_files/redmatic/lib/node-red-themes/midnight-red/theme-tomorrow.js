@@ -19,8 +19,8 @@
 
 
   <link crossorigin="anonymous" media="all" integrity="sha512-3+HOqCwtQal5hOJQ+mdxiq5zmGOTjF6RhjDsPLxbKDYgGlLFeCwzoIanb7j5IiCuXKUqyC2q8FdkC4nmx2P2rA==" rel="stylesheet" href="https://github.githubassets.com/assets/frameworks-a2fba223d5af91496cac70d4ec3624df.css" />
-  <link crossorigin="anonymous" media="all" integrity="sha512-gH+98Fpr/lalDdrpDSX3pwIw9kTCje5sanzdmIAawwZ9Ix/PGJ3RgwebMXEOO6MrTlvEUAIlTIhbupXCvOT8dw==" rel="stylesheet" href="https://github.githubassets.com/assets/site-493f41895ef8324b38b0c218ee16e01d.css" />
-    <link crossorigin="anonymous" media="all" integrity="sha512-ToYPvgHzI4ZZjTr09MR/O0FiK6r1vcaXfXi7yF0ir1LVdERr1jqIKCVNJh3066M95krXIBXU8qr5l2KJJnltNA==" rel="stylesheet" href="https://github.githubassets.com/assets/github-f02fff83bc0e5f99f33bbeaab977075c.css" />
+  <link crossorigin="anonymous" media="all" integrity="sha512-MRlTIqIyb8caK5+o8llXVntXovciHyAM4qE3kWU2S7SIjAPDxYp4mE0jQp4kP5UYegy+lG9y1I6VlsdzEjb5Qw==" rel="stylesheet" href="https://github.githubassets.com/assets/site-294181adec18ed639e160b96b45d17ac.css" />
+    <link crossorigin="anonymous" media="all" integrity="sha512-rsD81z23enDfs9K8QwuOdeneWb2QHFNY9t5B56bADHpt6HdhHGuAg2uTvL4Ct95hfkjZyKIQH6S2ETUBSR3VIA==" rel="stylesheet" href="https://github.githubassets.com/assets/github-6556dfa9be535e551ffffaadfecdad99.css" />
     
     
     
@@ -41,7 +41,7 @@
   
   <meta name="pjax-timeout" content="1000">
   
-  <meta name="request-id" content="D1C4:24169:33637B0:4E2C843:5CE2CE5E" data-pjax-transient>
+  <meta name="request-id" content="C97C:18C91:A365776:F63F806:5CE8445E" data-pjax-transient>
 
 
   
@@ -52,7 +52,7 @@
     <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
     <meta name="google-site-verification" content="GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc">
 
-  <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="D1C4:24169:33637B0:4E2C843:5CE2CE5E" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" />
+  <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C97C:18C91:A365776:F63F806:5CE8445E" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" />
 <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-pjax-transient="true" />
 
 
@@ -70,13 +70,13 @@
     <meta name="user-login" content="">
 
       <meta name="expected-hostname" content="github.com">
-    <meta name="js-proxy-site-detection-payload" content="MTdmYjRjM2Q4MDE4MzNmOTkyNTU1ZWE3ODQ2OGVlZmYxZmVmMmUxYjFmNDRiYjIyZDU1NmUzNDFmNTk2MmNjY3x7InJlbW90ZV9hZGRyZXNzIjoiODQuMTQ0LjE3NC40OSIsInJlcXVlc3RfaWQiOiJEMUM0OjI0MTY5OjMzNjM3QjA6NEUyQzg0Mzo1Q0UyQ0U1RSIsInRpbWVzdGFtcCI6MTU1ODM2NzgzOCwiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
+    <meta name="js-proxy-site-detection-payload" content="NDZjZDZhMzU3ODE4YzJmMzIwNTJmNjcwZTRkZDUwZjFhOGM4MWQyYmNhNzdiOTg0ZjZlOTJmNTQyNDkyYWRkMHx7InJlbW90ZV9hZGRyZXNzIjoiODQuMTQ0LjE3NC40OSIsInJlcXVlc3RfaWQiOiJDOTdDOjE4QzkxOkEzNjU3NzY6RjYzRjgwNjo1Q0U4NDQ1RSIsInRpbWVzdGFtcCI6MTU1ODcyNTcyNiwiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
 
-    <meta name="enabled-features" content="UNIVERSE_BANNER,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS">
+    <meta name="enabled-features" content="SPONSORS,UNIVERSE_BANNER,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS">
 
-  <meta name="html-safe-nonce" content="4b076fa30082b6fb6acae840d19dc4eb7035fc5c">
+  <meta name="html-safe-nonce" content="0fd2bf7b7ff0f47f206d3b3df2bf421db29f6b63">
 
-  <meta http-equiv="x-pjax-version" content="a49517628624fdfca9cc4efeaf9ed22f">
+  <meta http-equiv="x-pjax-version" content="fdada821e817c9f348213f3001166774">
   
 
       <link href="https://github.com/bonanitech/midnight-red/commits/master.atom" rel="alternate" title="Recent Commits to midnight-red:master" type="application/atom+xml">
@@ -136,7 +136,7 @@
           </div>
 
         <div class="d-flex flex-items-center">
-            <a class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;D1C4:24169:33637B0:4E2C843:5CE2CE5E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="3a8e369c3717788d14af3312bf1f48efe656509ecd1ca6ff9fa2e8c0b4eb4872" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up" href="/join?source=header-repo">
+            <a class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97C:18C91:A365776:F63F806:5CE8445E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="556ec55a34aab098970bea6b73918ac21fc7a2b07d85760faccc14f76c684484" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up" href="/join?source=header-repo">
               Sign&nbsp;up
 </a>
           <button class="btn-link d-lg-none mt-1 js-details-target" type="button" aria-label="Toggle navigation" aria-expanded="false">
@@ -275,7 +275,7 @@
           aria-autocomplete="list"
           aria-controls="jump-to-results"
           aria-label="Search"
-          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=O2DfhmrtMEIscmcf2YnHSGOZ1mas79g5oniTkCqldGEuDTyaFHMtW5CaoFl38K2d0xKvTjPDmod1r+TCGaDbuA=="
+          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=KTkwL4j3oX6TmwPfw9ypStpy7vAW5ej8sRvB1NBr72YRdp8lMOdmrHiDb1nHwVn7NW1uVSZsAXx8rsW7sTrW4Q=="
           spellcheck="false"
           autocomplete="off"
           >
@@ -400,9 +400,9 @@
 
           </div>
 
-        <a class="HeaderMenu-link no-underline mr-3" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;D1C4:24169:33637B0:4E2C843:5CE2CE5E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="051c1d3ef94cf0ef3b08be92f935ebc30b6e3f1d1d7778973dd060d59c185747" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in" href="/login?return_to=%2Fbonanitech%2Fmidnight-red%2Fblob%2Fmaster%2Ftheme-tomorrow.js">
+        <a class="HeaderMenu-link no-underline mr-3" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97C:18C91:A365776:F63F806:5CE8445E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="381226cbfc61a5562b21afdf33dcc52996699df7a5a5c9595e5e33f2bf3f8c16" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in" href="/login?return_to=%2Fbonanitech%2Fmidnight-red%2Fblob%2Fmaster%2Ftheme-tomorrow.js">
           Sign&nbsp;in
-</a>          <a class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;D1C4:24169:33637B0:4E2C843:5CE2CE5E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="ce0c44451e243e59f7a43b08a56d47c75a82f4bc54cfcb9b62bbe5e5d9578666" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up" href="/join?source=header-repo">
+</a>          <a class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97C:18C91:A365776:F63F806:5CE8445E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="d31b3e9181d9356c8eaceb766c8ef755a521d0074b1622d3aaa056350bd05046" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up" href="/join?source=header-repo">
             Sign&nbsp;up
 </a>      </div>
     </div>
@@ -443,7 +443,7 @@
 
   <li>
     
-  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;D1C4:24169:33637B0:4E2C843:5CE2CE5E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="36fc14b1efcbe7cf60688b54ccdd39dae9a25ff5467bb892373a8de30dcc82f2" href="/login?return_to=%2Fbonanitech%2Fmidnight-red">
+  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97C:18C91:A365776:F63F806:5CE8445E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="2112a4b860053a6aeecdb3799afb010b33f13918057d8056cf8084f002369b08" href="/login?return_to=%2Fbonanitech%2Fmidnight-red">
     <svg class="octicon octicon-eye v-align-text-bottom" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
     Watch
 </a>    <a class="social-count" href="/bonanitech/midnight-red/watchers"
@@ -454,7 +454,7 @@
   </li>
 
   <li>
-        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:164252341,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;D1C4:24169:33637B0:4E2C843:5CE2CE5E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="bf0760e627da2de2567360aeb50b1da6e4dd35f4323f4d6d101f6547e93923a5" href="/login?return_to=%2Fbonanitech%2Fmidnight-red">
+        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:164252341,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97C:18C91:A365776:F63F806:5CE8445E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a13f19318a78947cb2a766f513d90ee80593ca1a2267e79d034b620f40fa15b1" href="/login?return_to=%2Fbonanitech%2Fmidnight-red">
       <svg class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/></svg>
       Star
 </a>
@@ -466,7 +466,7 @@
   </li>
 
   <li>
-      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:164252341,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;D1C4:24169:33637B0:4E2C843:5CE2CE5E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="611cdc1447f3402f5e0172bdfed784c9a84d6c1d585aaa8cf4af1af54df778bd" href="/login?return_to=%2Fbonanitech%2Fmidnight-red">
+      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:164252341,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97C:18C91:A365776:F63F806:5CE8445E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="5135a83b4920c7d6710f212969f4f266ec02ef0f7098734467d60fa7f5fa5298" href="/login?return_to=%2Fbonanitech%2Fmidnight-red">
         <svg class="octicon octicon-repo-forked v-align-text-bottom" viewBox="0 0 10 16" version="1.1" width="10" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
         Fork
 </a>
@@ -488,7 +488,7 @@
 
     </div>
     
-<nav class="reponav js-repo-nav js-sidenav-container-pjax container-lg p-responsive d-none d-lg-block"
+<nav class="hx_reponav reponav js-repo-nav js-sidenav-container-pjax container-lg p-responsive d-none d-lg-block"
      itemscope
      itemtype="http://schema.org/BreadcrumbList"
     aria-label="Repository"
@@ -525,8 +525,15 @@
 </a>
 
 
+    <a data-skip-pjax="true" class="js-selected-navigation-item reponav-item" data-selected-links="security alerts policy /bonanitech/midnight-red/security/advisories" href="/bonanitech/midnight-red/security/advisories">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="octicon" height="16px" width="16px">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M1 2l7-2 7 2v6.02C15 12.69 9.69 16 8 16c-1.69 0-7-3.31-7-7.98V2zm1 .75L8 1l6 1.75v5.268C14 12.104 9.45 15 8 15c-1.45 0-6-2.896-6-6.982V2.75z"></path>
+    <path d="M3 3.5L8 2v12c-1.207 0-5-2.482-5-5.985V3.5z"></path>
+</svg>
 
-    <a class="js-selected-navigation-item reponav-item" data-selected-links="repo_graphs repo_contributors dependency_graph pulse people alerts /bonanitech/midnight-red/pulse" href="/bonanitech/midnight-red/pulse">
+      Security
+</a>
+    <a class="js-selected-navigation-item reponav-item" data-selected-links="repo_graphs repo_contributors dependency_graph pulse people /bonanitech/midnight-red/pulse" href="/bonanitech/midnight-red/pulse">
       <svg class="octicon octicon-graph" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"/></svg>
       Insights
 </a>
@@ -566,7 +573,10 @@
 </a>      </span>
 
 
-
+      <a itemprop="url" class="js-selected-navigation-item reponav-item" data-selected-links="security alerts policy /bonanitech/midnight-red/security/advisories" href="/bonanitech/midnight-red/security/advisories">
+        <span itemprop="name">Security</span>
+        <meta itemprop="position" content="6">
+</a>
       <a class="js-selected-navigation-item reponav-item" data-selected-links="pulse /bonanitech/midnight-red/pulse" href="/bonanitech/midnight-red/pulse">
         Pulse
 </a>
@@ -591,13 +601,13 @@
           <div class="signup-prompt-bg rounded-1">
       <div class="signup-prompt p-4 text-center mb-4 rounded-1">
         <div class="position-relative">
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="xlsGXdIOnBxtQACF16t5qjrD2SmIwH9sKofya4D8KD2k05+//iNptwVU03fJiAuIxHMuW/s3V6PnuCRXc4sVQA==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="om85cBXrn3ZaoLiUj1IINzk2lO3v+lMbZ/B30tzc8n9JWFQ6aQaef4BH+NPU4F/R1HYlo2Ts6DpmPBxV/fnrNA==" />
             <button type="submit" class="position-absolute top-0 right-0 btn-link link-gray" data-ga-click="(Logged out) Sign up prompt, clicked Dismiss, text:dismiss">
               Dismiss
             </button>
 </form>          <h3 class="pt-2">Join GitHub today</h3>
           <p class="col-6 mx-auto">GitHub is home to over 36 million developers working together to host and review code, manage projects, and build software together.</p>
-          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;D1C4:24169:33637B0:4E2C843:5CE2CE5E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="1bc6d81a0c352eed0bbba4f1b8ef6181b15471163793da1e2d8b72bb05c3d924" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show">Sign up</a>
+          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97C:18C91:A365776:F63F806:5CE8445E&quot;,&quot;originating_url&quot;:&quot;https://github.com/bonanitech/midnight-red/blob/master/theme-tomorrow.js&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="b99e7aac992d87106d866ec9083e84228b1d01dd21674948ee4996f6a39844dc" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show">Sign up</a>
         </div>
       </div>
     </div>
@@ -790,7 +800,7 @@
 <div class="footer container-lg width-full p-responsive" role="contentinfo">
   <div class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
     <ul class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
-      <li class="mr-3 mr-lg-0">&copy; 2019 <span title="0.19864s from unicorn-6f7d8d6cbb-tdm67">GitHub</span>, Inc.</li>
+      <li class="mr-3 mr-lg-0">&copy; 2019 <span title="0.20859s from unicorn-84fb5885b9-pzv7p">GitHub</span>, Inc.</li>
         <li class="mr-3 mr-lg-0"><a data-ga-click="Footer, go to terms, text:terms" href="https://github.com/site/terms">Terms</a></li>
         <li class="mr-3 mr-lg-0"><a data-ga-click="Footer, go to privacy, text:privacy" href="https://github.com/site/privacy">Privacy</a></li>
         <li class="mr-3 mr-lg-0"><a data-ga-click="Footer, go to security, text:security" href="https://github.com/security">Security</a></li>
@@ -828,9 +838,9 @@
 
 
     <script crossorigin="anonymous" integrity="sha512-EPrD+nddbyhpiLL8l3M8VfJpZr4J2EWQLaPXZ+6A3VDJKzS5HeZ3dkMVieHSdvIPHsMbWPyVlY42SWKoS4XTfA==" type="application/javascript" src="https://github.githubassets.com/assets/compat-bootstrap-831f12d4.js"></script>
-    <script crossorigin="anonymous" integrity="sha512-mFJGqO63IzrRUe/3CpI2x1TacUM1edYB56po0/mrnmI+7ntIf2oo9LZAMT0bW41GpH9NycR6OW2S9vvouQDHWQ==" type="application/javascript" src="https://github.githubassets.com/assets/frameworks-1d50b418.js"></script>
+    <script crossorigin="anonymous" integrity="sha512-CNquShmqlvm3j9Bo0RKFAS1/wJCJjdjs/9gBouXZYfBed9E1sCegtlXYQVhee29zG0Du/BQWFgwsxPSmOdeeQg==" type="application/javascript" src="https://github.githubassets.com/assets/frameworks-fbfd66ed.js"></script>
     
-    <script crossorigin="anonymous" async="async" integrity="sha512-rl2LAKXoYsX7wIUvF1H9KIXxp+8zQIl+zBu/DiZxsp7Hva72bD3KSWq2kdGBfIolNTSWHindqtG5KGuI6B60aQ==" type="application/javascript" src="https://github.githubassets.com/assets/github-bootstrap-e8bc289d.js"></script>
+    <script crossorigin="anonymous" async="async" integrity="sha512-v8R3FRiKPcs7+c8QkoZmZ5AGY3D6XyqzWtsnWWpuRqkvVfViQLB4dqsPQrFRML0vjEmZ/ntOLd1WZwqyysBodg==" type="application/javascript" src="https://github.githubassets.com/assets/github-bootstrap-b9e95f7d.js"></script>
     
     
     
@@ -841,9 +851,9 @@
     <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="">Reload</a> to refresh your session.</span>
   </div>
   <template id="site-details-dialog">
-  <details class="details-reset details-overlay details-overlay-dark lh-default text-gray-dark" open>
-    <summary aria-haspopup="dialog" aria-label="Close dialog"></summary>
-    <details-dialog class="Box Box--overlay d-flex flex-column anim-fade-in fast">
+  <details class="details-reset details-overlay details-overlay-dark lh-default text-gray-dark hx_rsm" open>
+    <summary role="button" aria-label="Close dialog"></summary>
+    <details-dialog class="Box Box--overlay d-flex flex-column anim-fade-in fast hx_rsm-dialog hx_rsm-modal">
       <button class="Box-btn-octicon m-0 btn-octicon position-absolute right-0 top-0" type="button" aria-label="Close dialog" data-close-dialog>
         <svg class="octicon octicon-x" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z"/></svg>
       </button>

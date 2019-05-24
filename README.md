@@ -121,6 +121,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Werte in InfluxDB speichern](https://github.com/rdmtc/RedMatic/wiki/Flow-Influx)
   * [Diverse Flows von](https://github.com/Sineos/redmatic-flow-misc) [@Sineos](https://github.com/Sineos/)
   * [Harmony Activities mit Homekit nutzen](https://github.com/rdmtc/RedMatic/wiki/Harmony-Activities-mit-Homekit-nutzen)
+  * [Homekit: Kamera einbinden](https://github.com/rdmtc/RedMatic/wiki/Homekit-Kamera-einbinden)
   * [Homekit: Öffnen einer Tür mit Keymatic HM-Sec-Key-(S)](https://github.com/rdmtc/RedMatic/wiki/Open-Workaround-für-HM-Sec-Key)
   * [Nachrichten an Telegram versenden](https://github.com/rdmtc/RedMatic/wiki/Nachrichten-an-Telegram-versenden)
   * [Dashbuttons ohne zusätzliche Nodes auswerten](https://github.com/holgerimbery/redmatic_flows/blob/master/dashbutton_auswerten/README.md)
