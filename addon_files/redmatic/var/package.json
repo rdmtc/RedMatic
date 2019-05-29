@@ -3,7 +3,7 @@
   "description": "A Node-RED Project",
   "version": "0.0.1",
   "dependencies": {
-    "node-red-node-email": "1.5.1",
+    "node-red-node-email": "1.6.0",
     "node-red-node-rbe": "0.2.4",
     "node-red-dashboard": "2.15.2",
     "node-red-contrib-ccu": "2.1.5",
