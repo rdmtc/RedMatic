@@ -8,7 +8,7 @@
     "node-red-dashboard": "2.15.2",
     "node-red-contrib-ccu": "2.1.5",
     "node-red-contrib-combine": "1.8.1",
-    "node-red-contrib-sun-position": "0.3.1",
+    "node-red-contrib-sun-position": "0.3.2",
     "redmatic-led": "1.1.0",
     "redmatic-webapp": "0.3.1"
   }
