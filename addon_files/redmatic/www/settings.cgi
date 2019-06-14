@@ -20,7 +20,9 @@ if {[info exists sid] > 0} {
         ([string index $sid 0] != "@")
         || ([string index $sid [expr [string length $sid] -1]]  != "@")
         || ([string length $sid] != 12)} {
-        puts {error: session invalid}
+        set fp [open "/usr/local/addons/redmatic/www/session-error.html" r]
+        puts -nonewline [read $fp]
+        close $fp
     } else {
         regsub -all {@} $sid "" sid
         set res [lindex [rega_script "Write(system.GetSessionVarStr('$sid'));"] 1]
@@ -34,5 +36,7 @@ if {[info exists sid] > 0} {
         }
     }
 } else {
-    puts {error: no session}
+    set fp [open "/usr/local/addons/redmatic/www/session-error.html" r]
+    puts -nonewline [read $fp]
+    close $fp
 }
