@@ -380,6 +380,7 @@ $(document).ready(() => {
         if (config.editorTheme.page) {
             switch (config.editorTheme.page.css) {
                 case '/usr/local/addons/redmatic/lib/node-red-themes/midnight-red/midnight.css':
+                case '/usr/local/addons/redmatic/lib/node_modules/node-red-contrib-theme-midnight-red/midnight.css':
                     $theme.val('midnight-red');
                     break;
             }
@@ -434,8 +435,7 @@ $(document).ready(() => {
         switch ($theme.val()) {
             case 'midnight-red':
                 config.editorTheme.page = {
-                    css: '/usr/local/addons/redmatic/lib/node-red-themes/midnight-red/midnight.css',
-                    scripts: '/usr/local/addons/redmatic/lib/node-red-themes/midnight-red//theme-tomorrow.js'
+                    css: '/usr/local/addons/redmatic/lib/node_modules/node-red-contrib-theme-midnight-red/midnight.css'
                 };
                 break;
 

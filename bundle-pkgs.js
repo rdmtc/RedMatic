@@ -7,7 +7,8 @@ const redmaticVersion = require(__dirname + '/package.json').version;
 const blacklist = [
     'node-red',
     'npm',
-    'ain2'
+    'ain2',
+    'node-red-contrib-theme-midnight-red'
 ];
 
 const extraFiles = {
