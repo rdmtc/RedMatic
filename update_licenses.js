@@ -86,6 +86,8 @@ function getModules(path) {
                         url,
                         licTxt: license
                     };
+                } else {
+                    console.log('   ', pkg.name, 'already known');
                 }
 
                 getModules(path + '/' + d + '/node_modules');
