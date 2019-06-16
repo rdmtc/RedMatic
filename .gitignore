@@ -4,3 +4,5 @@
 /dist
 /CHANGELOG.md
 /node_modules
+/package-lock.json
+/prebuilt/armv6l/package.json
