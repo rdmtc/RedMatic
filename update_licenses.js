@@ -46,45 +46,48 @@ function getModules(path) {
                 console.log((i + 1) + ' / ' + dir.length);
                 const pkg = require(path + '/' + d + '/package.json');
 
-                let author = '';
-                if (pkg.author && pkg.author.name) {
-                    author += pkg.author.name;
-                    if (pkg.author.email) {
-                        author += ' <' + pkg.author.email + '>';
+                if (!modules[pkg.name]) {
+                    let author = '';
+                    if (pkg.author && pkg.author.name) {
+                        author += pkg.author.name;
+                        if (pkg.author.email) {
+                            author += ' <' + pkg.author.email + '>';
+                        }
+                    } else {
+                        author = pkg.author || '';
                     }
-                } else {
-                    author = pkg.author || '';
-                }
 
-                let url = '';
-                if (pkg.repository && pkg.repository.url) {
-                    url = pkg.repository.url;
-                } else {
-                    url = pkg.repository || '';
-                }
-                url = url.replace(/^git\+/, '');
-                url = url.replace(/^git:\/\//, 'https://');
-                url = url.replace(/^ssh:\/\/git@/, 'https://');
-                url = url.replace(/\.git$/, '');
-
-                let license = '';
-                let licUrl = url.replace(/github\.com/, 'raw.githubusercontent.com') + '/';
-                if (licUrl) {
-                    license = getLicense(licUrl);
-                }
-
-                if (!license) {
-                    if (notFound.indexOf(pkg.name + '\t' +  url) === -1) {
-                        notFound.push(pkg.name + '\t' +  url);
+                    let url = '';
+                    if (pkg.repository && pkg.repository.url) {
+                        url = pkg.repository.url;
+                    } else {
+                        url = pkg.repository || '';
                     }
+                    url = url.replace(/^git\+/, '');
+                    url = url.replace(/^git:\/\//, 'https://');
+                    url = url.replace(/^ssh:\/\/git@/, 'https://');
+                    url = url.replace(/\.git$/, '');
+
+                    let license = '';
+                    let licUrl = url.replace(/github\.com/, 'raw.githubusercontent.com') + '/';
+                    if (licUrl) {
+                        license = getLicense(licUrl);
+                    }
+
+                    if (!license) {
+                        if (notFound.indexOf(pkg.name + '\t' +  url) === -1) {
+                            notFound.push(pkg.name + '\t' +  url);
+                        }
+                    }
+
+                    modules[pkg.name] = {
+                        license: (typeof pkg.license === 'object' ? pkg.license.type : pkg.license) || '',
+                        author,
+                        url,
+                        licTxt: license
+                    };
                 }
 
-                modules[pkg.name] = {
-                    license: (typeof pkg.license === 'object' ? pkg.license.type : pkg.license) || '',
-                    author,
-                    url,
-                    licTxt: license
-                };
                 getModules(path + '/' + d + '/node_modules');
             } else if (d.startsWith('@')) {
                 getModules(path + '/' + d);
