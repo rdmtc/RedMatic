@@ -154,7 +154,7 @@ case "$1" in
 
     info)
         source $ADDON_DIR/versions
-        echo "Info: <div><a target=\"_blank\" href=\"https://github.com/rdmtc/RedMatic\"><img src=\"/addons/redmatic/logo-x-120.png\"/></a></div>"
+        echo "Info: <div><a target=\"_blank\" href=\"https://github.com/rdmtc/RedMatic\"><img src=\"/addons/redmatic/redmatic5-wide.png\" height=\"48\"/></a></div>"
         echo "Name: RedMatic"
         echo "Version: $VERSION_ADDON"
         echo "Update: /addons/redmatic/update_check.cgi"

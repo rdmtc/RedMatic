@@ -29,7 +29,11 @@ mv $ADDON_TMP/redmatic/LICENSE $BUILD_DIR/licenses/nodejs
 
 echo "copying files to tmp dir..."
 cp -r $ADDON_FILES/* $ADDON_TMP/
-cp $BUILD_DIR/assets/logo-x-120.png $ADDON_TMP/redmatic/www/
+
+echo "copying assets to tmp dir..."
+cp $BUILD_DIR/assets/redmatic5* $ADDON_TMP/redmatic/www/
+cp $BUILD_DIR/assets/favicon/apple-icon-180x180.png $ADDON_TMP/redmatic/www/
+cp $BUILD_DIR/assets/favicon/favicon-96x96.png $ADDON_TMP/redmatic/www/
 
 echo "installing node modules..."
 cd $ADDON_TMP/redmatic/lib
