@@ -71,12 +71,18 @@ $(document).ready(() => {
     }
 
     $('a[href="' + (location.hash || '#configuration') + '"]').tab('show');
+    if (location.hash === '#licenses' && !$('#licenses iframe').attr('src')) {
+        $('#licenses iframe').attr('src', 'licenses.html');
+    }
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        if(history.pushState) {
+        if (history.pushState) {
             history.pushState(null, null, '#' + $(e.target).attr('href').substr(1));
         } else {
             location.hash = '#' + $(e.target).attr('href').substr(1);
+        }
+        if ($(e.target).attr('href') === '#licenses' && !$('#licenses iframe').attr('src')) {
+            $('#licenses iframe').attr('src', 'licenses.html');
         }
     });
 
