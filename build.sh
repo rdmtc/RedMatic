@@ -47,9 +47,20 @@ echo "installing additional Node-RED nodes..."
 cd $ADDON_TMP/redmatic/var
 npm install --silent --no-package-lock --production --no-optional --global-style
 
-echo "cleanup node_modules..."
-rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red-node-sqlite/node_modules/sqlite3/lib/binding
-rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red-node-sqlite/node_modules/sqlite3/deps
+echo "installing www node modules"
+cd $ADDON_TMP/redmatic/www
+npm install --silent --no-package-lock --production --no-optional
+
+cd $BUILD_DIR
+if [ $1 == "--licenses" ]; then
+    echo "compiling 3rd party licenses"
+    node update_licenses.js
+    exit 0
+fi
+
+#echo "cleanup node_modules..."
+#rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red-node-sqlite/node_modules/sqlite3/lib/binding
+#rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red-node-sqlite/node_modules/sqlite3/deps
 #$PRUNE $ADDON_TMP/redmatic/lib/node_modules
 #$PRUNE $ADDON_TMP/redmatic/var/node_modules
 
@@ -60,10 +71,6 @@ ln -s redmatic/bin/update_addon ./
 
 echo "bundling packages..."
 node $BUILD_DIR/bundle-pkgs.js
-
-echo "installing www node modules"
-cd $ADDON_TMP/redmatic/www
-npm install --silent --no-package-lock --production --no-optional
 
 echo "adapt Node-RED..."
 rm -r $ADDON_TMP/redmatic/lib/node_modules/node-red/node_modules/@node-red/nodes/core/hardware
