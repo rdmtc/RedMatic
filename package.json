@@ -26,7 +26,7 @@
     "node-red-node-email": "0.0.0 - 1.6.2",
     "node-red-node-rbe": "0.0.0 - 0.2.4",
     "node-red-node-serialport": "0.0.0 - 0.8.3",
-    "node-red-contrib-sun-position": "0.0.0 - 0.3.4",
+    "node-red-contrib-sun-position": "0.0.0 - 0.4.0",
     "node-red-contrib-smartmeter": "0.0.0 - 0.2.1",
     "node-red-contrib-modbus": "0.0.0 - 4.1.3",
     "node-red-contrib-mysensors": "0.0.0 - 3.3.0",
@@ -34,7 +34,7 @@
     "node-red-contrib-zigbee": "0.0.0 - 0.7.2",
     "node-red-contrib-johnny-five": "0.0.0 - 1.0.0-beta.1",
     "node-red-contrib-enocean": "0.0.0 - 0.7.4",
-    "node-red-contrib-theme-midnight-red": "0.0.0 - next"
+    "node-red-contrib-theme-midnight-red": "0.0.0 - 1.0.0-beta.3"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",
