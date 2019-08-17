@@ -24,7 +24,11 @@ deploy:
   file: dist/*
   skip_cleanup: true
   on:
-    all_branches: true
+    branches:
+      only:
+        - master
+        - 4.x
+  draft: true
 after_deploy:
 - gem install octokit
 - "./github_release.rb -s $GITHUB_OAUTH_TOKEN -r rdmtc/RedMatic -c CHANGELOG.md
