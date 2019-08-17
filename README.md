@@ -1,4 +1,4 @@
-<img width="320px" src="assets/logo-w-400.png" align="left"/>
+<img width="320px" src="assets/redmatic5-wide.png" align="left"/>
 
 <br><br><br>
 
