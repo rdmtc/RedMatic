@@ -14,6 +14,7 @@
     "node-red-contrib-zigbee": "0.7.2",
     "node-red-contrib-johnny-five": "0.15.1",
     "node-red-contrib-enocean": "0.7.5",
-    "redmatic-homekit": "2.4.0"
+    "redmatic-homekit": "2.4.0",
+    "node-red-contrib-doorbird": "0.2.6"
   }
 }
