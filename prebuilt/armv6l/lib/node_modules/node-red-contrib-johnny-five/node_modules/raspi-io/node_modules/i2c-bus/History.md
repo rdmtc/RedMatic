@@ -1,8 +1,14 @@
+4.0.10 / Jun 16 2019
+====================
+
+  * update dependencies
+  * update npm keywords
+
 4.0.9 / Mar 14 2019
 ===================
 
   * add unit tests
-  * update dependencies (nan v2.13.0, jshint v2.10.2, )
+  * update dependencies (nan v2.13.0, jshint v2.10.2)
 
 4.0.8 / Mar 01 2019
 ===================

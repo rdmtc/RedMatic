@@ -33,7 +33,8 @@
     "node-red-contrib-rfxcom": "0.0.0 - 2.8.1",
     "node-red-contrib-zigbee": "0.0.0 - 0.7.2",
     "node-red-contrib-johnny-five": "0.0.0 - 0.15.1",
-    "node-red-contrib-enocean": "0.0.0 - 0.7.5"
+    "node-red-contrib-enocean": "0.0.0 - 0.7.5",
+    "node-red-contrib-doorbird": "0.0.0 - 0.2.6"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",
