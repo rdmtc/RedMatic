@@ -1,3 +1,7 @@
+For recent changelog see CHANGELOG.md
+
+-----
+
 v1.0.0  --  2015.12.04
 - autoBind changes:
   - replace `bindTo` argument with options and `resolveContext` option

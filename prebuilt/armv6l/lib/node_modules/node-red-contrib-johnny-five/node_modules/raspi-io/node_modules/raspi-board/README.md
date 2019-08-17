@@ -102,6 +102,10 @@ Be sure to read the [full list of pins](https://github.com/nebrius/raspi-io/wiki
     <td>Constant representing the Raspberry Pi 3 Model A+. Returned from <code>getBoardRevision()</code></td>
   </tr>
   <tr>
+    <td>VERSION_4_MODEL_B</td>
+    <td>Constant representing the Raspberry Pi 4 Model B. Returned from <code>getBoardRevision()</code></td>
+  </tr>
+  <tr>
     <td>VERSION_UNKNOWN</td>
     <td>Constant representing an unknown or unsupported version of the Raspberry Pi. Returned from <code>getBoardRevision()</code></td>
   </tr>
@@ -139,7 +143,7 @@ Gets the board revision.
 
 _Arguments_: None.
 
-_Returns_: A constant representing the board version, one of ```VERSION_1_MODEL_ZERO```, ```VERSION_1_MODEL_A```, ```VERSION_1_MODEL_B_REV_1```, ```VERSION_1_MODEL_B_REV_2```, ```VERSION_1_MODEL_B_PLUS```, ```VERSION_1_MODEL_A_PLUS```, ```VERSION_2_MODEL_B```, or ```VERSION_UNKNOWN```
+_Returns_: A constant representing the board version, one of `VERSION_1_MODEL_A`, `VERSION_1_MODEL_B_REV_1`, `VERSION_1_MODEL_B_REV_2`, `VERSION_1_MODEL_B_PLUS`, `VERSION_1_MODEL_A_PLUS`, `VERSION_1_MODEL_ZERO`, `VERSION_1_MODEL_ZERO_W`, `VERSION_2_MODEL_B`, `VERSION_3_MODEL_B`, `VERSION_3_MODEL_B_PLUS`, `VERSION_3_MODEL_A_PLUS`, `VERSION_4_MODEL_B`, `VERSION_UNKNOWN`
 
 ### getPins()
 
