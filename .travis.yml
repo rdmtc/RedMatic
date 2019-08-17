@@ -18,12 +18,13 @@ before_deploy:
 - source ./addon_tmp/redmatic/versions
 - git tag "v$VERSION_ADDON"
 deploy:
-  all_branches: true
   provider: releases
   api_key: "$GITHUB_OAUTH_TOKEN"
   file_glob: true
   file: dist/*
   skip_cleanup: true
+  on:
+    all_branches: true
 after_deploy:
 - gem install octokit
 - "./github_release.rb -s $GITHUB_OAUTH_TOKEN -r rdmtc/RedMatic -c CHANGELOG.md
