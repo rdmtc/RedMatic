@@ -8,6 +8,7 @@ addons:
 branches:
   only:
   - master
+  - 4.x
 install: true
 script: true
 before_deploy:
