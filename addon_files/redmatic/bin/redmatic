@@ -171,8 +171,9 @@ case "$1" in
         rm $CONF_DIR/lighttpd/redmatic.conf
         rm $CONF_DIR/rc.d/redmatic
 
-        if [ -f /usr/local/etc/redmatic-monit.cfg ]; then
-            rm /usr/local/etc/redmatic-monit.cfg
+        if [ -f /usr/local/etc/monit-redmatic.cfg ]; then
+            rm /usr/local/etc/monit-redmatic.cfg
+            /usr/bin/monit reload
         fi
 
         mount -o remount,rw /
