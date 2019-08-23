@@ -15,17 +15,25 @@ describe("error/is", function () {
 		assert.equal(isError(Error.prototype), false);
 	});
 
+	if (typeof Object.create === "function") {
+		it("Should return true on custom built ES5 era error", function () {
+			var CustomEs5Error = function () { Error.call(this); };
+			CustomEs5Error.prototype = Object.create(Error.prototype);
+			assert.equal(isError(new CustomEs5Error()), true);
+		});
+
+		it("Should return false on object with no prototype", function () {
+			assert.equal(isError(Object.create(null)), false);
+		});
+	}
+
 	it("Should return false on plain object", function () { assert.equal(isError({}), false); });
 	it("Should return false on function", function () {
 		assert.equal(isError(function () { return true; }), false);
 	});
 
 	it("Should return false on array", function () { assert.equal(isError([]), false); });
-	if (typeof Object.create === "function") {
-		it("Should return false on object with no prototype", function () {
-			assert.equal(isError(Object.create(null)), false);
-		});
-	}
+
 	it("Should return false on string", function () { assert.equal(isError("foo"), false); });
 	it("Should return false on empty string", function () { assert.equal(isError(""), false); });
 	it("Should return false on number", function () { assert.equal(isError(123), false); });
