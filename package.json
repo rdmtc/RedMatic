@@ -17,7 +17,7 @@
     "bcryptjs": "0.0.0 - 2.4.3",
     "bootstrap": "0.0.0 - 4.3.1",
     "jquery": "0.0.0 - 3.4.1",
-    "@fortawesome/fontawesome-free": "0.0.0 - 5.9.0",
+    "@fortawesome/fontawesome-free": "0.0.0 - 5.10.2",
     "ain2": "0.0.0 - 3.0.0",
     "node-red-node-sqlite": "0.0.0 - 0.3.7",
     "redmatic-led": "0.0.0 - 1.1.0",
