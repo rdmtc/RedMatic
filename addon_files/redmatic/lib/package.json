@@ -2,7 +2,7 @@
   "name": "redmatic-base",
   "private": true,
   "dependencies": {
-    "npm": "6.9.0",
+    "npm": "6.11.2",
     "node-red": "1.0.0-beta.2",
     "ain2": "3.0.0",
     "node-red-node-serialport": "0.8.3",
