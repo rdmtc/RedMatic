@@ -142,7 +142,7 @@ links() {
             URL=
     esac
 
-    echo "export VERSION_`echo $1 | sed -e 's/-//g'`=$2" >> $VERSION_FILE
+    echo "export VERSION_`echo $1 | sed -e 's/-//g'`=\"$2\"" >> $VERSION_FILE
 
     if [ $URL ]; then
         echo "[$1]($URL) | $2" >> CHANGELOG.md
