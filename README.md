@@ -134,7 +134,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Wetterdaten mittels OpenWeatherMap in ein CUxD Device übertragen](https://github.com/rdmtc/RedMatic/wiki/Openweathermap)
   * [Schalter mit Statusanzeige](https://github.com/rdmtc/RedMatic/wiki/Schalter-mit-Status-als-Badge-Ersatz)
   * [Pillenförmige-Schalter sychron mit globaler Variable](https://github.com/rdmtc/RedMatic/wiki/Pillenförmige-Schalter-synchron-mit-globalen-Variablen)
-  * [Zusätzliche-Wettericons-für-UI-Dashboard-in-Redmatic-verfügbar-machen](https://github.com/rdmtc/RedMatic/wiki/Zusätzliche-Wettericons-für-UI-Dashboard-in-Redmatic-verfügbar-machen)
+  * [Zusätzliche Wettericons für UI-Dashboard in Redmatic verfügbar machen](https://github.com/rdmtc/RedMatic/wiki/Zusätzliche-Wettericons-für-UI-Dashboard-in-Redmatic-verfügbar-machen)
 * Sonstiges
   * [Berichterstattung, Blogbeiträge, Videos über RedMatic](https://github.com/rdmtc/RedMatic/wiki/Berichterstattung)
   * [Node-RED Link Sammlung](https://github.com/rdmtc/RedMatic/wiki/Links)
