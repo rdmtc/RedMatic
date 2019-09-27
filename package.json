@@ -9,7 +9,7 @@
     "node": "10.16.3"
   },
   "dependencies": {
-    "npm": "0.0.0 - 6.11.2",
+    "npm": "0.0.0 - 6.11.3",
     "node-red": "0.0.0 - 1.0.0-beta.3",
     "node-red-dashboard": "0.0.0 - 2.16.2",
     "node-red-contrib-ccu": "0.0.0 - 3.0.0-beta.5",
