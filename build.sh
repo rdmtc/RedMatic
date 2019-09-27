@@ -56,7 +56,7 @@ cd $ADDON_TMP/redmatic/www
 npm install --silent --no-package-lock --production --no-optional
 
 cd $BUILD_DIR
-if [ $1 == "--licenses" ]; then
+if [ "$1" == "--licenses" ]; then
     echo "compiling 3rd party licenses"
     node update_licenses.js
     exit 0
