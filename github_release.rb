@@ -4,6 +4,7 @@
 
 require 'optparse'
 require 'octokit'
+require 'faraday-http-cache'
 
 options = {}
 OptionParser.new do |opt|
