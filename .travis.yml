@@ -26,9 +26,9 @@ deploy:
     branches:
       only:
         - master
-  draft: true
+  draft: false
 after_deploy:
-- gem install octokit:4.14.0
+- gem install octokit
 - "./github_release.rb -s $GITHUB_OAUTH_TOKEN -r rdmtc/RedMatic -c CHANGELOG.md -t v$VERSION_ADDON"
 notifications:
   slack:
