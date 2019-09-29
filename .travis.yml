@@ -28,7 +28,8 @@ deploy:
         - master
   draft: false
 after_deploy:
-- gem install octokit
+- gem install octokit:4.14.0
+- gem install faraday:0.15.4
 - "./github_release.rb -s $GITHUB_OAUTH_TOKEN -r rdmtc/RedMatic -c CHANGELOG.md -t v$VERSION_ADDON"
 notifications:
   slack:
