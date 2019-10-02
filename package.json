@@ -34,7 +34,7 @@
     "node-red-contrib-zigbee": "0.0.0 - 0.9.7",
     "node-red-contrib-johnny-five": "0.0.0 - 1.0.0-beta.1",
     "node-red-contrib-enocean": "0.0.0 - 0.7.9",
-    "node-red-contrib-theme-midnight-red": "0.0.0 - 1.0.0-beta.8",
+    "node-red-contrib-theme-midnight-red": "0.0.0 - 1.0.1",
     "node-red-contrib-doorbird": "0.0.0 - 0.2.6"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
