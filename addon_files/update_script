@@ -4,6 +4,7 @@ ADDONS_DIR=/usr/local/addons
 RED_DIR=$ADDONS_DIR/redmatic
 CONF_DIR=/usr/local/etc/config
 WWW_DIR=$CONF_DIR/addons/www/redmatic
+EXITCODE=10
 
 mount | grep /usr/local 2>&1 >/dev/null
 if [ $? -eq 1 ]; then
@@ -18,6 +19,7 @@ mkdir -p $CONF_DIR/lighttpd && chmod 755 $CONF_DIR/lighttpd
 #   Stop service on update
 #
 if [ -f $CONF_DIR/rc.d/redmatic ]; then
+    EXITCODE=0
     $CONF_DIR/rc.d/redmatic stop
 fi
 
@@ -166,4 +168,4 @@ if [ -f /usr/bin/monit ]; then
 fi
 
 sync
-exit 0
+exit $EXITCODE
