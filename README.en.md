@@ -7,9 +7,9 @@
 [![Installs](https://telemetry.redmatic.de/total.svg)](https://telemetry.redmatic.de/#36500)
 
 
-[Node-RED](https://nodered.org/about/) packaged as Addon for the
-[Homematic CCU3](https://www.eq-3.de/produkte/homematic/zentralen-und-gateways/smart-home-zentrale-ccu3.html) and 
-[RaspberryMatic](https://github.com/jens-maus/RaspberryMatic)
+**[Node-RED](https://nodered.org/about/) as Addon for the
+[Homematic CCU3](https://www.eq-3.de/produkte/homematic/zentralen-und-gateways/smart-home-zentrale-ccu3.html) and
+[RaspberryMatic](https://github.com/jens-maus/RaspberryMatic)**
 
 
 _RedMatic_ combines several software components into a CCU Addon, a software package that can be comfortably installed on a Homematic CCU3 or RaspberryMatic. Homematic is a series of smart home automation products by the manufacturer [eQ-3](https://eq-3.de), popular especially in Germany.
