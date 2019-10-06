@@ -1,17 +1,16 @@
 <img height="112px" src="assets/redmatic5-compact.png" align="left"/>
 
-<br><br>
+<br>
 
 [![Current Release](https://img.shields.io/github/release/rdmtc/RedMatic.svg?colorB=4cc61e)](https://github.com/rdmtc/RedMatic/releases/latest)
-[![dependencies Status](https://david-dm.org/rdmtc/redmatic/status.svg)](https://david-dm.org/rdmtc/redmatic)
+[![Dependencies Status](https://david-dm.org/rdmtc/redmatic/status.svg)](https://david-dm.org/rdmtc/redmatic)
+[![Installs](https://telemetry.redmatic.de/total.svg)](https://telemetry.redmatic.de/#36500)
 
-<br>
 
 [Node-RED](https://nodered.org/about/) packaged as Addon for the
 [Homematic CCU3](https://www.eq-3.de/produkte/homematic/zentralen-und-gateways/smart-home-zentrale-ccu3.html) and 
 [RaspberryMatic](https://github.com/jens-maus/RaspberryMatic)
 
-<br>
 
 _RedMatic_ combines several software components into a CCU Addon, a software package that can be comfortably installed on a Homematic CCU3 or RaspberryMatic. Homematic is a series of smart home automation products by the manufacturer [eQ-3](https://eq-3.de), popular especially in Germany.
 
