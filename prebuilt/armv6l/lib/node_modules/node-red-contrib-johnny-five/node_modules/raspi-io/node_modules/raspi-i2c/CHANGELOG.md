@@ -1,3 +1,7 @@
+## 6.2.3 (2019-10-5)
+
+- Added `arm64` to the `cpu` field in package.json for installing on 64-bit Raspberry Pis
+
 ## 6.2.2 (2019-2-20)
 
 - Updated dependencies
