@@ -124,6 +124,12 @@ Start () {
         logger -t redmatic -p daemon.error "cant start - already running"
         exit 1
     else
+        upSeconds="$(cat /proc/uptime | grep -o '^[0-9]\+')"
+        if [ "${upSeconds}" -lt "120" ]; then
+              logger -t redmatic -p daemon.info "Starting Node-RED after reboot ... waiting 30 seconds..."
+              echo "Starting Node-RED ... waiting 30 seconds..."
+              sleep 30
+        fi
         echo -n "Starting Node-RED: "
         source $ADDON_DIR/versions
         logger -t redmatic -p daemon.info "RedMatic v$VERSION_ADDON (c) Sebastian Raff https://github.com/rdmtc/RedMatic"
