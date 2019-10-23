@@ -22,9 +22,6 @@ while read -r binary; do
     scp -q ${from} ${dest} && echo "${binary}"
 done <<< "$files"
 
-cp -R $DEST/lib/node_modules/node-red-contrib-zigbee/node_modules/cc-znp/node_modules/@serialport $DEST/lib/node_modules/node-red-contrib-zigbee/node_modules/
-
-
 #scp $REMOTE:/usr/bin/pig2vcd $DEST/bin/
 #scp $REMOTE:/usr/bin/pigpiod $DEST/bin/
 #scp $REMOTE:/usr/bin/pigs $DEST/bin/
