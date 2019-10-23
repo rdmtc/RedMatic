@@ -89,9 +89,11 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Flows exportieren](https://github.com/rdmtc/RedMatic/wiki/Flow-Export)
   * [Flows importieren](https://github.com/rdmtc/RedMatic/wiki/Flow-Import)
 * Erweiterungen
-  * [RedMatic WebApp](https://github.com/rdmtc/RedMatic/wiki/Webapp)
+  * [node-red-contrib-zigbee](https://github.com/rdmtc/RedMatic/wiki/ZigBee)
   * [RedMatic HomeKit](https://github.com/rdmtc/RedMatic/wiki/Homekit)
+  * [RedMatic WebApp](https://github.com/rdmtc/RedMatic/wiki/Webapp)
   * [Node-RED Dashboard](https://github.com/rdmtc/RedMatic/wiki/Dashboard-Screenshots)
+
 * Beispiel Flows
   * [Anzahl und Liste offener Fenster im Dashboard anzeigen](https://github.com/rdmtc/RedMatic/wiki/Flow-Windows)
   * [Hue Lampen mit langem Tastendruck dimmen](https://github.com/rdmtc/RedMatic/wiki/Flow-Hue)
