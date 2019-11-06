@@ -8,6 +8,7 @@ addons:
 branches:
   only:
   - master
+  - x86
 install: true
 script: true
 before_deploy:
@@ -26,6 +27,7 @@ deploy:
     branches:
       only:
         - master
+        - x86
   draft: false
 after_deploy:
 - gem install octokit:4.14.0
