@@ -15,6 +15,13 @@ describe("iterable/is", function () {
 		assert.equal(isIterable("foo", { allowString: true }), true);
 	});
 
+	it("Should support denyEmpty option", function () {
+		assert.equal(isIterable([], { denyEmpty: true }), false);
+		assert.equal(isIterable([null], { denyEmpty: true }), true);
+		assert.equal(isIterable("", { allowString: true, denyEmpty: true }), false);
+		assert.equal(isIterable("foo", { allowString: true, denyEmpty: true }), true);
+	});
+
 	if (typeof Set === "function") {
 		it("Should return true on set", function () { assert.equal(isIterable(new Set()), true); });
 	}

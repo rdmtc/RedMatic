@@ -8,12 +8,8 @@ module.exports = function (t, a) {
 	a(t(false), false, "false");
 	a(t(""), "", "''");
 	a(numIsNaN(t(NaN)), true, "NaN");
-	a(t(x = {}), x, "{}");
+	a(t((x = {})), x, "{}");
 
-	a.throws(function () {
-		t();
-	}, "Undefined");
-	a.throws(function () {
-		t(null);
-	}, "null");
+	a.throws(function () { t(); }, "Undefined");
+	a.throws(function () { t(null); }, "null");
 };

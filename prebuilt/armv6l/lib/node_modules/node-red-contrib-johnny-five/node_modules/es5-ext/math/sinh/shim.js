@@ -14,5 +14,5 @@ module.exports = function (value) {
 	if (value === 0) return value;
 	if (!isFinite(value)) return value;
 	if (abs(value) < 1) return (expm1(value) - expm1(-value)) / 2;
-	return (exp(value - 1) - exp(-value - 1)) * e / 2;
+	return ((exp(value - 1) - exp(-value - 1)) * e) / 2;
 };

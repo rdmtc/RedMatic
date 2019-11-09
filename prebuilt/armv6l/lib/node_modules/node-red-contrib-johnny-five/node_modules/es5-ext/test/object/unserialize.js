@@ -1,9 +1,7 @@
 "use strict";
 
 module.exports = function (t, a) {
-	var fn = function (raz, dwa) {
-		return raz + dwa;
-	};
+	var fn = function (raz, dwa) { return raz + dwa; };
 	a(t("undefined"), undefined, "Undefined");
 	a(t("null"), null, "Null");
 	a(t("\"raz\""), "raz", "String");

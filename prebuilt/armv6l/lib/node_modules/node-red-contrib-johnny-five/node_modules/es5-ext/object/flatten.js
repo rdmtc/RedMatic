@@ -2,7 +2,6 @@
 
 var isPlainObject = require("./is-plain-object")
   , forEach       = require("./for-each")
-
   , process;
 
 process = function self(value, key) {

@@ -3,7 +3,6 @@
 var toPosInt = require("../../number/to-pos-integer")
   , callable = require("../../object/valid-callable")
   , value    = require("../../object/valid-value")
-
   , floor    = Math.floor;
 
 module.exports = function (compareFn) {

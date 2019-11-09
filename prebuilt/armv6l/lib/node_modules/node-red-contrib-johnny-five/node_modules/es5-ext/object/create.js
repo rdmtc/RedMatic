@@ -15,12 +15,7 @@ module.exports = (function () {
 
 	nullObject = {};
 	polyProps = {};
-	desc = {
-		configurable: false,
-		enumerable: false,
-		writable: true,
-		value: undefined
-	};
+	desc = { configurable: false, enumerable: false, writable: true, value: undefined };
 	Object.getOwnPropertyNames(Object.prototype).forEach(function (name) {
 		if (name === "__proto__") {
 			polyProps[name] = {
@@ -45,4 +40,4 @@ module.exports = (function () {
 	return function (prototype, props) {
 		return create(prototype === null ? nullObject : prototype, props);
 	};
-}());
+})();

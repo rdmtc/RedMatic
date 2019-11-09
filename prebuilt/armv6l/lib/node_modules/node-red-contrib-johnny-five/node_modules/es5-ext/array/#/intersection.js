@@ -10,12 +10,10 @@ var value    = require("../../object/valid-value")
 module.exports = function (/* …list*/) {
 	var lists;
 	if (!arguments.length) slice.call(this);
-	push.apply(lists = [this], arguments);
+	push.apply((lists = [this]), arguments);
 	lists.forEach(value);
 	lists.sort(byLength);
 	return lists.reduce(function (list1, list2) {
-		return filter.call(list1, function (item) {
-			return contains.call(list2, item);
-		});
+		return filter.call(list1, function (item) { return contains.call(list2, item); });
 	});
 };

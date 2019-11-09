@@ -1,6 +1,16 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.10.51](https://github.com/medikoo/es5-ext/compare/v0.10.50...v0.10.51) (2019-08-30)
+
+### Bug Fixes
+
+- Ensure Function.isFunction recognizes async functions ([6f06e66](https://github.com/medikoo/es5-ext/commit/6f06e66))
+
+### Tests
+
+- Fix after prettification changes ([dd6fc3f](https://github.com/medikoo/es5-ext/commit/dd6fc3f))
 
 ## [0.10.50](https://github.com/medikoo/es5-ext/compare/v0.10.49...v0.10.50) (2019-04-30)
 

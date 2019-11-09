@@ -2,9 +2,10 @@
 
 var isPlainArray = require("../../is-plain-array")
   , callable     = require("../../../object/valid-callable")
-
-  , isArray = Array.isArray, map = Array.prototype.map
-  , forEach = Array.prototype.forEach, call = Function.prototype.call;
+  , isArray      = Array.isArray
+  , map          = Array.prototype.map
+  , forEach      = Array.prototype.forEach
+  , call         = Function.prototype.call;
 
 module.exports = function (callbackFn/*, thisArg*/) {
 	var result, thisArg;

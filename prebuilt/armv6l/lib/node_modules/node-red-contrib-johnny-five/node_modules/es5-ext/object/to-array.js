@@ -4,11 +4,9 @@ var callable  = require("./valid-callable")
   , isValue   = require("./is-value")
   , forEach   = require("./for-each")
   , call      = Function.prototype.call
-  , defaultCb = function (value, key) {
-	return [key, value];
-};
+  , defaultCb = function (value, key) { return [key, value]; };
 
-module.exports = function (obj /*, cb, thisArg, compareFn*/) {
+module.exports = function (obj/*, cb, thisArg, compareFn*/) {
 	var a = [], cb = arguments[1], thisArg = arguments[2];
 	cb = isValue(cb) ? callable(cb) : defaultCb;
 
@@ -17,8 +15,7 @@ module.exports = function (obj /*, cb, thisArg, compareFn*/) {
 		function (value, key, targetObj, index) {
 			a.push(call.call(cb, thisArg, value, key, this, index));
 		},
-		obj,
-		arguments[3]
+		obj, arguments[3]
 	);
 	return a;
 };

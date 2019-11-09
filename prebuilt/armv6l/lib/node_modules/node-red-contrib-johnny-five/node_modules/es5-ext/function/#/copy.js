@@ -16,8 +16,7 @@ module.exports = function () {
 			match[2] +
 			") { return fn.apply(this, arguments); };"
 	)(this);
-	try {
-		mixin(fn, this);
-	} catch (ignore) {}
+	try { mixin(fn, this); }
+	catch (ignore) {}
 	return fn;
 };

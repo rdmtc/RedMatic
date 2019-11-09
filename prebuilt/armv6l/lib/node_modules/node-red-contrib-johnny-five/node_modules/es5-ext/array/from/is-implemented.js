@@ -5,5 +5,5 @@ module.exports = function () {
 	if (typeof from !== "function") return false;
 	arr = ["raz", "dwa"];
 	result = from(arr);
-	return Boolean(result && (result !== arr) && (result[1] === "dwa"));
+	return Boolean(result && result !== arr && result[1] === "dwa");
 };

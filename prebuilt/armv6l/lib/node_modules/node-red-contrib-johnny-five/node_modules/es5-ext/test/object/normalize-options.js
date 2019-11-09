@@ -12,9 +12,7 @@ module.exports = function (t, a) {
 	defineProperty(x, "get", {
 		configurable: true,
 		enumerable: true,
-		get: function () {
- return this.dwa;
-}
+		get: function () { return this.dwa; }
 	});
 	x = create(x);
 	x.trzy = "three";
@@ -25,22 +23,33 @@ module.exports = function (t, a) {
 	x.piec = "five";
 	x.szesc = "six";
 
-	a.deep(t(x), { raz: "one",
-dwa: "two!",
-trzy: "three!",
-cztery: "four",
-		piec: "five",
-szesc: "six",
-get: "two!" }, "Deep object");
-
-	a.deep(t({ marko: "raz", raz: "foo" }, x, { szesc: "elo", siedem: "bibg" }),
-		{ marko: "raz",
-raz: "one",
-dwa: "two!",
-trzy: "three!",
-cztery: "four",
+	a.deep(
+		t(x),
+		{
+			raz: "one",
+			dwa: "two!",
+			trzy: "three!",
+			cztery: "four",
 			piec: "five",
-szesc: "elo",
-siedem: "bibg",
-get: "two!" }, "Multiple options");
+			szesc: "six",
+			get: "two!"
+		},
+		"Deep object"
+	);
+
+	a.deep(
+		t({ marko: "raz", raz: "foo" }, x, { szesc: "elo", siedem: "bibg" }),
+		{
+			marko: "raz",
+			raz: "one",
+			dwa: "two!",
+			trzy: "three!",
+			cztery: "four",
+			piec: "five",
+			szesc: "elo",
+			siedem: "bibg",
+			get: "two!"
+		},
+		"Multiple options"
+	);
 };

@@ -6,6 +6,5 @@ module.exports = function (t, a) {
 	a(t.call("razdwa", "ola", "sdfs"), "razdwa", "No replace");
 
 	a(t.call("$raz$$dwa$trzy$", "$", "&&"), "&&raz&&&&dwa&&trzy&&", "Multi");
-	a(t.call("$raz$$dwa$$$$trzy$", "$$", "&"), "$raz&dwa&&trzy$",
-		"Multi many chars");
+	a(t.call("$raz$$dwa$$$$trzy$", "$$", "&"), "$raz&dwa&&trzy$", "Multi many chars");
 };

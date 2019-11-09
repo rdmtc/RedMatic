@@ -9,7 +9,7 @@
 var floor = Math.floor, fromCharCode = String.fromCharCode;
 
 // eslint-disable-next-line no-unused-vars
-module.exports = function (codePoint1 /*, …codePoints*/) {
+module.exports = function (codePoint1/*, …codePoints*/) {
 	var chars = [], length = arguments.length, i, codePoint, result = "";
 	for (i = 0; i < length; ++i) {
 		codePoint = Number(arguments[i]);
@@ -27,7 +27,7 @@ module.exports = function (codePoint1 /*, …codePoints*/) {
 		} else {
 			codePoint -= 0x10000;
 			// eslint-disable-next-line no-bitwise
-			chars.push((codePoint >> 10) + 0xd800, codePoint % 0x400 + 0xdc00);
+			chars.push((codePoint >> 10) + 0xd800, (codePoint % 0x400) + 0xdc00);
 		}
 		if (i + 1 !== length && chars.length <= 0x4000) continue;
 		result += fromCharCode.apply(null, chars);

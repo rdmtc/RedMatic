@@ -218,8 +218,11 @@ exports.extract = function (cwd, opts) {
 
   var chperm = function (name, header, cb) {
     var link = header.type === 'symlink'
+
+    /* eslint-disable node/no-deprecated-api */
     var chmod = link ? xfs.lchmod : xfs.chmod
     var chown = link ? xfs.lchown : xfs.chown
+    /* eslint-enable node/no-deprecated-api */
 
     if (!chmod) return cb()
 
@@ -335,7 +338,7 @@ function validate (fs, name, root, cb) {
 }
 
 function mkdirfix (name, opts, cb) {
-  mkdirp(name, {fs: opts.fs}, function (err, made) {
+  mkdirp(name, { fs: opts.fs }, function (err, made) {
     if (!err && made && opts.own) {
       chownr(made, opts.uid, opts.gid, cb)
     } else {

@@ -12,6 +12,6 @@ module.exports = function (value) {
 	if (value === 0) return value;
 	if (value === Infinity) return Infinity;
 
-	if (value > -1.0e-8 && value < 1.0e-8) return value - value * value / 2;
+	if (value > -1.0e-8 && value < 1.0e-8) return value - (value * value) / 2;
 	return log(1 + value);
 };

@@ -1,5 +1,3 @@
 "use strict";
 
-module.exports = {
-	throw: require("./throw")
-};
+module.exports = { throw: require("./throw") };

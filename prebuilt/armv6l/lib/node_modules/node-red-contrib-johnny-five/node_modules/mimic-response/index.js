@@ -3,23 +3,27 @@
 // We define these manually to ensure they're always copied
 // even if they would move up the prototype chain
 // https://nodejs.org/api/http.html#http_class_http_incomingmessage
-const knownProps = [
+const knownProperties = [
+	'aborted',
+	'complete',
 	'destroy',
-	'setTimeout',
-	'socket',
 	'headers',
-	'trailers',
-	'rawHeaders',
-	'statusCode',
 	'httpVersion',
 	'httpVersionMinor',
 	'httpVersionMajor',
+	'method',
+	'rawHeaders',
 	'rawTrailers',
-	'statusMessage'
+	'setTimeout',
+	'socket',
+	'statusCode',
+	'statusMessage',
+	'trailers',
+	'url'
 ];
 
 module.exports = (fromStream, toStream) => {
-	const fromProps = new Set(Object.keys(fromStream).concat(knownProps));
+	const fromProps = new Set(Object.keys(fromStream).concat(knownProperties));
 
 	for (const prop of fromProps) {
 		// Don't overwrite existing properties

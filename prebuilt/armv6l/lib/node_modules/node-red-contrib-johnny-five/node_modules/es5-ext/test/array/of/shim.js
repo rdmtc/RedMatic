@@ -26,14 +26,12 @@ module.exports = function (t, a) {
 	a.deep(t(1, 2, 3), [1, 2, 3], "Numeric args");
 	a.deep(t(Number(Infinity)), [Number(Infinity)], "+Infinity");
 	a.deep(
-		t({ 0: "a", 1: "b", 2: "c", length: 3 }),
-		[{ 0: "a", 1: "b", 2: "c", length: 3 }],
+		t({ 0: "a", 1: "b", 2: "c", length: 3 }), [{ 0: "a", 1: "b", 2: "c", length: 3 }],
 		"Array like"
 	);
 	a.deep(
 		t(undefined, null, false, -Infinity, -0, +0, 1, 2, Number(Infinity)),
-		[undefined, null, false, -Infinity, -0, +0, 1, 2, Number(Infinity)],
-		"Falsy arguments"
+		[undefined, null, false, -Infinity, -0, +0, 1, 2, Number(Infinity)], "Falsy arguments"
 	);
 
 	a.h1("Null context");
@@ -49,13 +47,11 @@ module.exports = function (t, a) {
 	a.deep(t.call(null, Number(Infinity)), [Number(Infinity)], "+Infinity");
 	a.deep(
 		t.call(null, { 0: "a", 1: "b", 2: "c", length: 3 }),
-		[{ 0: "a", 1: "b", 2: "c", length: 3 }],
-		"Array-like"
+		[{ 0: "a", 1: "b", 2: "c", length: 3 }], "Array-like"
 	);
 	a.deep(
 		t.call(null, undefined, null, false, -Infinity, -0, +0, 1, 2, Number(Infinity)),
-		[undefined, null, false, -Infinity, -0, +0, 1, 2, Number(Infinity)],
-		"Falsy"
+		[undefined, null, false, -Infinity, -0, +0, 1, 2, Number(Infinity)], "Falsy"
 	);
 
 	a.h1("Other constructor context");
@@ -70,9 +66,7 @@ module.exports = function (t, a) {
 	a(t.call(Object).length, 0, "No arguments");
 	a.throws(
 		function () {
-			t.call(function () {
-				return Object.freeze({});
-			});
+			t.call(function () { return Object.freeze({}); });
 		},
 		TypeError,
 		"Frozen instance"
@@ -81,9 +75,7 @@ module.exports = function (t, a) {
 	// Ensure no setters are called for the indexes
 	MyType = function () {};
 	defineProperty(MyType.prototype, "0", {
-		set: function (x) {
-			throw new Error("Setter called: " + x);
-		}
+		set: function (x) { throw new Error("Setter called: " + x); }
 	});
 	a.deep(t.call(MyType, "abc"), { 0: "abc", length: 1 }, "Define, not set");
 };

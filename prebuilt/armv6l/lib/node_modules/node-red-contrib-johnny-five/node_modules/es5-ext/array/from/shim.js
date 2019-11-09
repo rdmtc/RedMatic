@@ -14,7 +14,7 @@ var iteratorSymbol = require("es6-symbol").iterator
   , defineProperty = Object.defineProperty;
 
 // eslint-disable-next-line complexity, max-lines-per-function
-module.exports = function (arrayLike /*, mapFn, thisArg*/) {
+module.exports = function (arrayLike/*, mapFn, thisArg*/) {
 	var mapFn = arguments[1]
 	  , thisArg = arguments[2]
 	  , Context
@@ -44,7 +44,7 @@ module.exports = function (arrayLike /*, mapFn, thisArg*/) {
 			}
 			if (isArray(arrayLike)) {
 				// Source: Array
-				arr = new Array(length = arrayLike.length);
+				arr = new Array((length = arrayLike.length));
 				for (i = 0; i < length; ++i) arr[i] = arrayLike[i];
 				return arr;
 			}

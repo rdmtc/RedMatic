@@ -1,9 +1,6 @@
 "use strict";
 
-var from = require("./from")
-
+var from    = require("./from")
   , isArray = Array.isArray;
 
-module.exports = function (arrayLike) {
-	return isArray(arrayLike) ? arrayLike : from(arrayLike);
-};
+module.exports = function (arrayLike) { return isArray(arrayLike) ? arrayLike : from(arrayLike); };

@@ -1,3 +1,1 @@
-{
-  "globals": { "Promise": true, "setTimeout": true }
-}
+{ "globals": { "Promise": true, "setTimeout": true } }

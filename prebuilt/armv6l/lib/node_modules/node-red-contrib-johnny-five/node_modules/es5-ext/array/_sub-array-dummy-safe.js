@@ -16,10 +16,7 @@ module.exports = (function () {
 	};
 	setPrototypeOf(SubArray, Array);
 	SubArray.prototype = Object.create(Array.prototype, {
-		constructor: { value: SubArray,
-enumerable: false,
-writable: true,
-			configurable: true }
+		constructor: { value: SubArray, enumerable: false, writable: true, configurable: true }
 	});
 	return SubArray;
-}());
+})();

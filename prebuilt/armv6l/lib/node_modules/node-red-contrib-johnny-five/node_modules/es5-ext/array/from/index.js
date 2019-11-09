@@ -1,5 +1,3 @@
 "use strict";
 
-module.exports = require("./is-implemented")()
-	? Array.from
-	: require("./shim");
+module.exports = require("./is-implemented")() ? Array.from : require("./shim");

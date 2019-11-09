@@ -1,5 +1,3 @@
 "use strict";
 
-module.exports = require("./is-implemented")()
-	? Number.isInteger
-	: require("./shim");
+module.exports = require("./is-implemented")() ? Number.isInteger : require("./shim");

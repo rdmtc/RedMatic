@@ -7,7 +7,5 @@ var value    = require("../../object/valid-value")
 module.exports = function (other) {
 	value(this);
 	value(other);
-	return filter.call(this, function (item) {
-		return !contains.call(other, item);
-	});
+	return filter.call(this, function (item) { return !contains.call(other, item); });
 };

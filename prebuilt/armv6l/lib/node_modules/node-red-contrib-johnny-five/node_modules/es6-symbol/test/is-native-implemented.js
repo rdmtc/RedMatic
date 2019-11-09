@@ -1,3 +1,3 @@
-'use strict';
+"use strict";
 
-module.exports = function (t, a) { a(typeof t, 'boolean'); };
+module.exports = function (t, a) { a(typeof t, "boolean"); };

@@ -8,9 +8,7 @@ module.exports = function (t) {
 			var invoked = false;
 			var promise = t(function (resolve) {
 				invoked = true;
-				setTimeout(function () {
-					resolve(20);
-				}, 10);
+				setTimeout(function () { resolve(20); }, 10);
 			});
 
 			a(invoked, false);
@@ -26,9 +24,7 @@ module.exports = function (t) {
 		},
 		"Passes rejection": function (a, d) {
 			var promise = t(function (resolve, reject) {
-				setTimeout(function () {
-					reject(new Error("Stop"));
-				}, 10);
+				setTimeout(function () { reject(new Error("Stop")); }, 10);
 			});
 
 			promise.catch(function (error) {
@@ -38,9 +34,7 @@ module.exports = function (t) {
 			});
 		},
 		"Passes sync exception": function (a, d) {
-			var promise = t(function () {
-				throw new Error("Stop");
-			});
+			var promise = t(function () { throw new Error("Stop"); });
 
 			promise.catch(function (error) {
 				a(error instanceof Error, true);

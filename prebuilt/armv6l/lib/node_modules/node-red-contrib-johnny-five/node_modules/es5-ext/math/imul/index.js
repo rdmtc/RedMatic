@@ -1,5 +1,3 @@
 "use strict";
 
-module.exports = require("./is-implemented")()
-	? Math.imul
-	: require("./shim");
+module.exports = require("./is-implemented")() ? Math.imul : require("./shim");

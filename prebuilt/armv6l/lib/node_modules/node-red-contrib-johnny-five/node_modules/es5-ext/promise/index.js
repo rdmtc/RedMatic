@@ -1,6 +1,3 @@
 "use strict";
 
-module.exports = {
-	"#": require("./#"),
-	"lazy": require("./lazy")
-};
+module.exports = { "#": require("./#"), "lazy": require("./lazy") };

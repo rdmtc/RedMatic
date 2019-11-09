@@ -3,13 +3,13 @@
 // Taken from: https://github.com/walling/unorm/blob/master/lib/unorm.js
 
 /*
-	* UnicodeNormalizer 1.0.0
-	* Copyright (c) 2008 Matsuza
-	* Dual licensed under the MIT (MIT-LICENSE.txt) and
-	* GPL (GPL-LICENSE.txt) licenses.
-	* $Date: 2008-06-05 16:44:17 +0200 (Thu, 05 Jun 2008) $
-	* $Rev: 13309 $
-*/
+ * UnicodeNormalizer 1.0.0
+ * Copyright (c) 2008 Matsuza
+ * Dual licensed under the MIT (MIT-LICENSE.txt) and
+ * GPL (GPL-LICENSE.txt) licenses.
+ * $Date: 2008-06-05 16:44:17 +0200 (Thu, 05 Jun 2008) $
+ * $Rev: 13309 $
+ */
 
 "use strict";
 
@@ -52,9 +52,7 @@ UChar = function (cp, feature) {
 };
 
 // Strategies
-(function () {
-	for (var i = 0; i <= 0xff; ++i) cacheCounter[i] = 0;
-}());
+(function () { for (var i = 0; i <= 0xff; ++i) cacheCounter[i] = 0; })();
 
 fromCache = function (nextStep, cp, needFeature) {
 	var ret = cache[cp];
@@ -95,7 +93,7 @@ fromRuleBasedJamo = function (next, cp, needFeature) {
 	TIndex = SIndex % TCount;
 	feature = [];
 	if (TIndex === 0) {
-		feature[0] = [LBase + floor(SIndex / NCount), VBase + floor(SIndex % NCount / TCount)];
+		feature[0] = [LBase + floor(SIndex / NCount), VBase + floor((SIndex % NCount) / TCount)];
 		feature[2] = {};
 		for (j = 1; j < TCount; ++j) {
 			feature[2][TBase + j] = cp + j;
@@ -115,17 +113,11 @@ fromCpFilter = function (next, cp, needFeature) {
 strategies = [fromCpFilter, fromCache, fromCpOnly, fromRuleBasedJamo, fromData];
 
 UChar.fromCharCode = strategies.reduceRight(function (next, strategy) {
-	return function (cp, needFeature) {
-		return strategy(next, cp, needFeature);
-	};
+	return function (cp, needFeature) { return strategy(next, cp, needFeature); };
 }, null);
 
-UChar.isHighSurrogate = function (cp) {
-	return cp >= 0xd800 && cp <= 0xdbff;
-};
-UChar.isLowSurrogate = function (cp) {
-	return cp >= 0xdc00 && cp <= 0xdfff;
-};
+UChar.isHighSurrogate = function (cp) { return cp >= 0xd800 && cp <= 0xdbff; };
+UChar.isLowSurrogate = function (cp) { return cp >= 0xdc00 && cp <= 0xdfff; };
 
 UChar.prototype.prepFeature = function () {
 	if (!this.feature) {
@@ -137,7 +129,7 @@ UChar.prototype.toString = function () {
 	var num;
 	if (this.codepoint < 0x10000) return String.fromCharCode(this.codepoint);
 	num = this.codepoint - 0x10000;
-	return String.fromCharCode(floor(num / 0x400) + 0xd800, num % 0x400 + 0xdc00);
+	return String.fromCharCode(floor(num / 0x400) + 0xd800, (num % 0x400) + 0xdc00);
 };
 
 UChar.prototype.getDecomp = function () {
@@ -175,7 +167,7 @@ UCharIterator.prototype.next = function () {
 		if (
 			UChar.isHighSurrogate(cp) &&
 			this.cursor < this.str.length &&
-			UChar.isLowSurrogate(d = this.str.charCodeAt(this.cursor))
+			UChar.isLowSurrogate((d = this.str.charCodeAt(this.cursor)))
 		) {
 			cp = (cp - 0xd800) * 0x400 + (d - 0xdc00) + 0x10000;
 			++this.cursor;

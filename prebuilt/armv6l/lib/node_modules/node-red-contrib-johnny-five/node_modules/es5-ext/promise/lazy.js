@@ -20,11 +20,8 @@ module.exports = function (executor) {
 				throw new Error("Unexpected (inherited) lazy then invocation");
 			}
 
-			try {
-				executor(resolve, reject);
-			} catch (reason) {
-				reject(reason);
-			}
+			try { executor(resolve, reject); }
+			catch (reason) { reject(reason); }
 			delete this.then;
 			return this.then(onSuccess, onFailure);
 		};

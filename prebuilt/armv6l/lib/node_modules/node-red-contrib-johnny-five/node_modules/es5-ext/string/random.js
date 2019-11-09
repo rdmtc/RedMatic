@@ -5,11 +5,7 @@ var isValue         = require("../object/is-value")
 
 var generated = Object.create(null), random = Math.random, uniqTryLimit = 100;
 
-var getChunk = function () {
-	return random()
-		.toString(36)
-		.slice(2);
-};
+var getChunk = function () { return random().toString(36).slice(2); };
 
 var getString = function (/* length */) {
 	var str = getChunk(), length = arguments[0];

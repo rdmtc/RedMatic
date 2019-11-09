@@ -8,9 +8,7 @@ var toArray  = require("./to-array")
 var isArray = Array.isArray
   , stringify = JSON.stringify
   , objHasOwnProperty = Object.prototype.hasOwnProperty;
-var keyValueToString = function (value, key) {
-	return stringify(key) + ":" + exports(value);
-};
+var keyValueToString = function (value, key) { return stringify(key) + ":" + exports(value); };
 
 var sparseMap = function (arr) {
 	var i, length = arr.length, result = new Array(length);

@@ -109,7 +109,7 @@ test('follow symlinks', function (t) {
   var b = path.join(__dirname, 'fixtures', 'copy', 'c-dereference')
 
   rimraf.sync(b)
-  tar.pack(a, {dereference: true})
+  tar.pack(a, { dereference: true })
     .pipe(tar.extract(b))
     .on('finish', function () {
       var files = fs.readdirSync(b).sort()
@@ -134,7 +134,7 @@ test('strip', function (t) {
   rimraf.sync(b)
 
   tar.pack(a)
-    .pipe(tar.extract(b, {strip: 1}))
+    .pipe(tar.extract(b, { strip: 1 }))
     .on('finish', function () {
       var files = fs.readdirSync(b).sort()
       t.same(files.length, 1)
@@ -156,7 +156,7 @@ test('strip + map', function (t) {
   }
 
   tar.pack(a)
-    .pipe(tar.extract(b, {strip: 1, map: uppercase}))
+    .pipe(tar.extract(b, { strip: 1, map: uppercase }))
     .on('finish', function () {
       var files = fs.readdirSync(b).sort()
       t.same(files.length, 1)
@@ -180,15 +180,15 @@ test('map + dir + permissions', function (t) {
   }
 
   tar.pack(a)
-      .pipe(tar.extract(b, {map: aWithMode}))
-      .on('finish', function () {
-        var files = fs.readdirSync(b).sort()
-        var stat = fs.statSync(path.join(b, 'a'))
-        t.same(files.length, 1)
-        if (!win32) {
-          t.same(stat.mode & parseInt(777, 8), parseInt(700, 8))
-        }
-      })
+    .pipe(tar.extract(b, { map: aWithMode }))
+    .on('finish', function () {
+      var files = fs.readdirSync(b).sort()
+      var stat = fs.statSync(path.join(b, 'a'))
+      t.same(files.length, 1)
+      if (!win32) {
+        t.same(stat.mode & parseInt(777, 8), parseInt(700, 8))
+      }
+    })
 })
 
 test('specific entries', function (t) {
@@ -200,7 +200,7 @@ test('specific entries', function (t) {
   var entries = [ 'file1', 'sub-files/file3', 'sub-dir' ]
 
   rimraf.sync(b)
-  tar.pack(a, {entries: entries})
+  tar.pack(a, { entries: entries })
     .pipe(tar.extract(b))
     .on('finish', function () {
       var files = fs.readdirSync(b)
@@ -249,9 +249,9 @@ test('finish callbacks', function (t) {
 
   var onExtractFinish = function () { t.equal(extractEntries, 2) }
 
-  pack = tar.pack(a, {map: countPackEntry, finish: onPackFinish})
+  pack = tar.pack(a, { map: countPackEntry, finish: onPackFinish })
 
-  pack.pipe(tar.extract(b, {map: countExtractEntry, finish: onExtractFinish}))
+  pack.pipe(tar.extract(b, { map: countExtractEntry, finish: onExtractFinish }))
     .on('finish', function () {
       t.end()
     })
@@ -281,7 +281,7 @@ test('not finalizing the pack', function (t) {
   })
 
   function packB (pack) {
-    tar.pack(b, {pack: pack, map: prefixer('b-files')})
+    tar.pack(b, { pack: pack, map: prefixer('b-files') })
       .pipe(tar.extract(out))
       .on('finish', assertResults)
   }

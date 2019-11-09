@@ -10,14 +10,15 @@ module.exports = function (t, a) {
 	});
 	a(JSON.stringify(o2), JSON.stringify(o), "Iterates");
 
-	a(t(o, function () {
-		++i;
-		return true;
-	}), true, "Succeeds");
+	a(
+		t(o, function () {
+			++i;
+			return true;
+		}),
+		true,
+		"Succeeds"
+	);
 	a(i, 1, "Stops iteration after condition is met");
 
-	a(t(o, function () {
-		return false;
-	}), false, "Fails");
-
+	a(t(o, function () { return false; }), false, "Fails");
 };

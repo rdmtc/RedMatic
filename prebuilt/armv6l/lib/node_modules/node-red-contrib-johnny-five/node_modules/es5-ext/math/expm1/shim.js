@@ -11,6 +11,6 @@ module.exports = function (value) {
 	if (value === Infinity) return Infinity;
 	if (value === -Infinity) return -1;
 
-	if (value > -1.0e-6 && value < 1.0e-6) return value + value * value / 2;
+	if (value > -1.0e-6 && value < 1.0e-6) return value + (value * value) / 2;
 	return exp(value) - 1;
 };

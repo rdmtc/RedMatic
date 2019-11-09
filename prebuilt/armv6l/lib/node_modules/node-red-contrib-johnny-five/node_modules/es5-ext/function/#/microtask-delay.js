@@ -8,7 +8,5 @@ var apply = Function.prototype.apply;
 
 module.exports = function () {
 	var src = ensurePlainFunction(this);
-	return defineLength(function () {
-		nextTick(apply.bind(src, this, arguments));
-	}, this.length);
+	return defineLength(function () { nextTick(apply.bind(src, this, arguments)); }, this.length);
 };

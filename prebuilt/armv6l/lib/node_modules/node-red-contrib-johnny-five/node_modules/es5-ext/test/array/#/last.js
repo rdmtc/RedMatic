@@ -1,8 +1,6 @@
 "use strict";
 
-exports.__generic = function (t, a) {
-	a(t.call(this), this[this.length - 1]);
-};
+exports.__generic = function (t, a) { a(t.call(this), this[this.length - 1]); };
 
 exports[""] = function (t, a) {
 	var x;

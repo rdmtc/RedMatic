@@ -1,3 +1,3 @@
-'use strict';
+"use strict";
 
-module.exports = function (t, a) { a(typeof Symbol, 'function'); };
+module.exports = function (t, a) { a(typeof Symbol, "function"); };

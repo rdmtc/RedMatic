@@ -7,7 +7,5 @@ var isValue = require("../../object/is-value");
 var filter = Array.prototype.filter;
 
 module.exports = function () {
-	return filter.call(this, function (val) {
-		return isValue(val);
-	});
+	return filter.call(this, function (val) { return isValue(val); });
 };

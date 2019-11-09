@@ -2,9 +2,7 @@
 
 var toPosInt = require("../number/to-pos-integer");
 
-var test = function (arg1, arg2) {
-	return arg2;
-};
+var test = function (arg1, arg2) { return arg2; };
 
 var desc, defineProperty, generate, mixin;
 
@@ -15,7 +13,8 @@ try {
 		enumerable: false,
 		value: 1
 	});
-} catch (ignore) {}
+}
+catch (ignore) {}
 
 if (test.length === 1) {
 	// ES6
@@ -42,15 +41,14 @@ if (test.length === 1) {
 				"return function (" + args.join(", ") + ") { return fn.apply(this, arguments); };"
 			);
 		};
-	}());
+	})();
 	module.exports = function (src, length) {
 		var target;
 		length = toPosInt(length);
 		if (src.length === length) return src;
 		target = generate(length)(src);
-		try {
-			mixin(target, src);
-		} catch (ignore) {}
+		try { mixin(target, src); }
+		catch (ignore) {}
 		return target;
 	};
 }

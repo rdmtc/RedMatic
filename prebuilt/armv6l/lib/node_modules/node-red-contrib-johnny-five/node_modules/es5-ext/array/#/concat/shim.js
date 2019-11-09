@@ -19,16 +19,14 @@ isSpreadable = function (value) {
 };
 
 // eslint-disable-next-line no-unused-vars
-module.exports = function (item /*, …items*/) {
+module.exports = function (item/*, …items*/) {
 	var result;
 	if (!this || !isArray(this) || isPlainArray(this)) {
 		return concat.apply(this, arguments);
 	}
 	result = new this.constructor();
 	if (isSpreadable(this)) {
-		forEach.call(this, function (val, i) {
-			result[i] = val;
-		});
+		forEach.call(this, function (val, i) { result[i] = val; });
 	} else {
 		result[0] = this;
 	}
@@ -37,9 +35,7 @@ module.exports = function (item /*, …items*/) {
 		if (isSpreadable(arg)) {
 			base = result.length;
 			result.length += toPosInt(arg.length);
-			forEach.call(arg, function (val, i) {
-				result[base + i] = val;
-			});
+			forEach.call(arg, function (val, i) { result[base + i] = val; });
 			return;
 		}
 		result.push(arg);

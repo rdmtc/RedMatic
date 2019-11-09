@@ -9,23 +9,20 @@ module.exports = function (t, a) {
 	a(t(null), false, "Null");
 	if (setPrototypeOf) {
 		a(
-			t(Object.setPrototypeOf(function () {}, Object.prototype)),
-			false,
+			t(Object.setPrototypeOf(function () {}, Object.prototype)), false,
 			"Function with non-function prototype"
 		);
 	}
 	var arrowfn;
-	try {
-		arrowfn = eval("(() => {})");
-	} catch (e) {}
+	try { arrowfn = eval("(() => {})"); }
+	catch (e) {}
 	if (arrowfn) {
 		a(t(arrowfn), true, "Arrow function");
 	}
 
 	var classFn;
-	try {
-		classFn = eval("(class {})");
-	} catch (e) {}
+	try { classFn = eval("(class {})"); }
+	catch (e) {}
 	if (classFn) {
 		a(t(classFn), false, "Class");
 	}

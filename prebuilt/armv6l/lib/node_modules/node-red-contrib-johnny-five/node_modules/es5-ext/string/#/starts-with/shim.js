@@ -2,8 +2,8 @@
 
 var value     = require("../../../object/valid-value")
   , toInteger = require("../../../number/to-integer")
-
-  , max = Math.max, min = Math.min;
+  , max       = Math.max
+  , min       = Math.min;
 
 module.exports = function (searchString/*, position*/) {
 	var start, self = String(value(this));

@@ -7,13 +7,7 @@ var strCompare = require("../string/#/case-insensitive-compare")
   , resolve
   , typeMap;
 
-typeMap = {
-	undefined: 0,
-	object: 1,
-	boolean: 2,
-	string: 3,
-	number: 4
-};
+typeMap = { undefined: 0, object: 1, boolean: 2, string: 3, number: 4 };
 
 resolve = function (a) {
 	if (isObject(a)) {

@@ -4,12 +4,9 @@ module.exports = function (t, a) {
 	var x, y;
 
 	a(t({ 1: 1, 2: 2, 3: 3 }, { 1: 1, 2: 2, 3: 3 }), true, "Same");
-	a(t({ 1: 1, 2: 2, 3: 3 }, { 1: 1, 2: 2, 3: 4 }), false,
-		"Different property value");
-	a(t({ 1: 1, 2: 2, 3: 3 }, { 1: 1, 2: 2 }), false,
-		"Property only in source");
-	a(t({ 1: 1, 2: 2 }, { 1: 1, 2: 2, 3: 4 }), false,
-		"Property only in target");
+	a(t({ 1: 1, 2: 2, 3: 3 }, { 1: 1, 2: 2, 3: 4 }), false, "Different property value");
+	a(t({ 1: 1, 2: 2, 3: 3 }, { 1: 1, 2: 2 }), false, "Property only in source");
+	a(t({ 1: 1, 2: 2 }, { 1: 1, 2: 2, 3: 4 }), false, "Property only in target");
 
 	a(t("raz", "dwa"), false, "String: diff");
 	a(t("raz", "raz"), true, "String: same");
@@ -23,8 +20,7 @@ module.exports = function (t, a) {
 	y = { foo: { bar: { mar: {} } } };
 	a(t(x, y), true, "Deep");
 
-	a(t({ foo: { bar: { mar: "foo" } } }, { foo: { bar: { mar: {} } } }),
-		false, "Deep: false");
+	a(t({ foo: { bar: { mar: "foo" } } }, { foo: { bar: { mar: {} } } }), false, "Deep: false");
 
 	x = { foo: { bar: { mar: {} } } };
 	x.rec = { foo: x };

@@ -5,16 +5,11 @@
 
 "use strict";
 
-var isObject        = require("../is-object")
-  , value           = require("../valid-value")
+var isObject         = require("../is-object")
+  , value            = require("../valid-value")
   , objIsPrototypeOf = Object.prototype.isPrototypeOf
-  , defineProperty  = Object.defineProperty
-  , nullDesc        = {
-	configurable: true,
-	enumerable: false,
-	writable: true,
-	value: undefined
-}
+  , defineProperty   = Object.defineProperty
+  , nullDesc         = { configurable: true, enumerable: false, writable: true, value: undefined }
   , validate;
 
 validate = function (obj, prototype) {
@@ -57,7 +52,7 @@ module.exports = (function (status) {
 		writable: false,
 		value: status.level
 	});
-}(
+})(
 	(function () {
 		var tmpObj1 = Object.create(null)
 		  , tmpObj2 = {}
@@ -81,6 +76,6 @@ module.exports = (function (status) {
 
 		return false;
 	})()
-));
+);
 
 require("../create");

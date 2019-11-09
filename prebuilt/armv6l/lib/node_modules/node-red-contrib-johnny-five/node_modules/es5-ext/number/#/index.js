@@ -1,5 +1,3 @@
 "use strict";
 
-module.exports = {
-	pad: require("./pad")
-};
+module.exports = { pad: require("./pad") };

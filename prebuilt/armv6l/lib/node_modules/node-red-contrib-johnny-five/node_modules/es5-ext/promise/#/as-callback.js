@@ -9,11 +9,7 @@ module.exports = function (callback) {
 	ensurePlainFunction(callback);
 	// Rely on microtaskDelay to escape eventual error swallowing
 	this.then(
-		microtaskDelay.call(function (value) {
-			callback(null, value);
-		}),
-		microtaskDelay.call(function (reason) {
-			callback(reason);
-		})
+		microtaskDelay.call(function (value) { callback(null, value); }),
+		microtaskDelay.call(function (reason) { callback(reason); })
 	);
 };

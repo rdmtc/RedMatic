@@ -1,7 +1,5 @@
 "use strict";
 
 module.exports = function (value) {
-	return function () {
-		return value;
-	};
+	return function () { return value; };
 };

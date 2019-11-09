@@ -6,6 +6,4 @@
 
 var re = /[-/\\^$*+?.()|[\]{}]/g;
 
-module.exports = function (str) {
-	return String(str).replace(re, "\\$&");
-};
+module.exports = function (str) { return String(str).replace(re, "\\$&"); };

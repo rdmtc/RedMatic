@@ -19,18 +19,10 @@ module.exports = {
 	},
 	"": function (t, a) {
 		var x = {}, y, count;
-		t.call(
-			[1],
-			function () {
-				y = this;
-			},
-			x
-		);
+		t.call([1], function () { y = this; }, x);
 		a(y, x, "Scope");
 		y = 0;
-		t.call([3, 4, 4], function (a, i) {
-			y += i;
-		});
+		t.call([3, 4, 4], function (a, i) { y += i; });
 		a(y, 3, "Indexes");
 
 		x = [1, 3];

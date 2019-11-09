@@ -11,10 +11,8 @@ if (typeof Float32Array === "undefined") {
 		var pack   = require("../_pack-ieee754")
 		  , unpack = require("../_unpack-ieee754");
 
-		return function (value) {
-			return unpack(pack(value, 8, 23), 8, 23);
-		};
-	}());
+		return function (value) { return unpack(pack(value, 8, 23), 8, 23); };
+	})();
 } else {
 	toFloat32 = (function () {
 		var float32Array = new Float32Array(1);
@@ -22,7 +20,7 @@ if (typeof Float32Array === "undefined") {
 			float32Array[0] = num;
 			return float32Array[0];
 		};
-	}());
+	})();
 }
 
 module.exports = function (value) {

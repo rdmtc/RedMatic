@@ -32,6 +32,4 @@ var copyValue = function (value, ancestors, ancestorsCopy) {
 	return copy;
 };
 
-module.exports = function (source) {
-	return copyValue(ensureValue(source), [], []);
-};
+module.exports = function (source) { return copyValue(ensureValue(source), [], []); };

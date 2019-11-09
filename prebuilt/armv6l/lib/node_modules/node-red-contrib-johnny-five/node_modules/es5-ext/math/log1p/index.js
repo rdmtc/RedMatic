@@ -1,5 +1,3 @@
 "use strict";
 
-module.exports = require("./is-implemented")()
-	? Math.log1p
-	: require("./shim");
+module.exports = require("./is-implemented")() ? Math.log1p : require("./shim");
