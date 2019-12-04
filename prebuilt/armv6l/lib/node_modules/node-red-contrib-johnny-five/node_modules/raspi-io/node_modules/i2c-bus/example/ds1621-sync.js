@@ -7,7 +7,7 @@ const CMD_ACCESS_CONFIG = 0xac;
 const CMD_READ_TEMP = 0xaa;
 const CMD_START_CONVERT = 0xee;
 
-const toCelsius = (rawTemp) => {
+const toCelsius = rawTemp => {
   const halfDegrees = ((rawTemp & 0xff) << 1) + (rawTemp >> 15);
 
   if ((halfDegrees & 0x100) === 0) {
@@ -17,7 +17,7 @@ const toCelsius = (rawTemp) => {
   return -((~halfDegrees & 0xff) / 2); // Temp -ve
 };
 
-const displayTemperature = () => {
+const displayTemperature = _ => {
   const i2c1 = i2c.openSync(1);
 
   // Enter one shot mode (this is a non volatile setting)

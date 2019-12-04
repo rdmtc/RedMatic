@@ -10,14 +10,14 @@ const CMD_ACCESS_TL = 0xa2;
 const i2c1 = i2c.openSync(1);
 
 // Wait while non volatile memory busy
-const waitForWrite = () => {
+const waitForWrite = _ => {
   while (i2c1.readByteSync(DS1621_ADDR, CMD_ACCESS_CONFIG) & 0x10) {
   }
 };
 
 // Test writeByteSync & readByteSync
 // Enter one shot mode and verify that one shot mode has been entered
-const readWriteByte = () => {
+const readWriteByte = _ => {
   const self = i2c1.writeByteSync(DS1621_ADDR, CMD_ACCESS_CONFIG, 0x01);
   assert.strictEqual(self, i2c1, 'expected writeByteSync to return this');
   waitForWrite();
@@ -29,7 +29,7 @@ const readWriteByte = () => {
 // Test sendByteSync & receiveByteSync
 // Read config using different techniques and verify that 1st and 2nd read
 // are identical
-const sendReceiveByte = () => {
+const sendReceiveByte = _ => {
   const expectedConfig = i2c1.readByteSync(DS1621_ADDR, CMD_ACCESS_CONFIG);
   assert(typeof expectedConfig === 'number' && expectedConfig <= 0xff, 'expeted readByteSync to read a byte');
 
@@ -43,7 +43,7 @@ const sendReceiveByte = () => {
 
 // Test writeWordSync & readWordSync
 // Change value of tl and verify that tl has been changed
-const readWriteWord = () => {
+const readWriteWord = _ => {
   const oldtl = i2c1.readWordSync(DS1621_ADDR, CMD_ACCESS_TL);
   assert(typeof oldtl === 'number' && oldtl <= 0xffff, 'expeted readWordSync to read a word');
 
@@ -60,7 +60,7 @@ const readWriteWord = () => {
 
 // Test writeI2cBlockSync & readI2cBlockSync
 // Change value of tl to 22 and verify that tl has been changed
-const readWriteI2cBlock = () => {
+const readWriteI2cBlock = _ => {
   const tlbuf = Buffer.alloc(10);
   tlbuf.writeUInt16LE(22, 0);
   const self = i2c1.writeI2cBlockSync(DS1621_ADDR, CMD_ACCESS_TL, 2, tlbuf);
@@ -75,7 +75,7 @@ const readWriteI2cBlock = () => {
 
 // Test i2cWriteSync & i2cReadSync
 // Change value of tl to 25 and verify that tl has been changed
-const i2cPlainReadWrite = () => {
+const i2cPlainReadWrite = _ => {
   const cmdSetTL = Buffer.from([CMD_ACCESS_TL, 25, 0]);
   let bytesWritten = i2c1.i2cWriteSync(DS1621_ADDR, cmdSetTL.length, cmdSetTL);
   assert.strictEqual(bytesWritten, 3, 'expected i2cWriteSync to write 3 bytes');

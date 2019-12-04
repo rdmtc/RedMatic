@@ -10,7 +10,7 @@ const TSL2561_ADDR = 0x39;
 const TSL2561_CMD = 0x80;
 const TSL2561_REG_ID = 0x0a;
 
-const useBusMoreThanMaxFdTimes = () => {
+const useBusMoreThanMaxFdTimes = _ => {
   // Assuming that less than 2000 files can be opened at the same time,
   // open and close /dev/i2c-1 2000 times to make sure it works and to ensure
   // that file descriptors are being freed.
@@ -21,7 +21,7 @@ const useBusMoreThanMaxFdTimes = () => {
   }
 };
 
-const useMultipleObjectsForSameBusConcurrently = () => {
+const useMultipleObjectsForSameBusConcurrently = _ => {
   const buses = [];
 
   // Make sure many Bus objects can be opened and used for the same I2C bus at
@@ -29,11 +29,11 @@ const useMultipleObjectsForSameBusConcurrently = () => {
   for (let i = 1; i <= 128; i += 1) {
     buses.push(i2c.openSync(1));
   }
-  buses.forEach((bus) => bus.readWordSync(DS1621_ADDR, DS1621_CMD_ACCESS_TL));
-  buses.forEach((bus) => bus.closeSync());
+  buses.forEach(bus => bus.readWordSync(DS1621_ADDR, DS1621_CMD_ACCESS_TL));
+  buses.forEach(bus => bus.closeSync());
 };
 
-const useTwoObjectsForSameBusConcurrently = () => {
+const useTwoObjectsForSameBusConcurrently = _ => {
   const ds1621 = i2c.openSync(1);
   const tsl2561 = i2c.openSync(1);
   const ds1621TempHigh = ds1621.readWordSync(DS1621_ADDR, DS1621_CMD_ACCESS_TH);

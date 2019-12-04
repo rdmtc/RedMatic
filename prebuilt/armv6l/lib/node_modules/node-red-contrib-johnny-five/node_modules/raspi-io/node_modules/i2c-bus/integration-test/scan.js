@@ -1,6 +1,6 @@
 'use strict';
 
-const _ = require('lodash');
+const lodash = require('lodash');
 const assert = require('assert');
 const i2c = require('../');
 
@@ -9,7 +9,7 @@ const DS1621_ADDR = 0x48;
 
 const bus = i2c.openSync(1);
 
-const scanSyncRange = () => {
+const scanSyncRange = _ => {
   const devices = bus.scanSync(TSL2561_ADDR, DS1621_ADDR);
 
   assert(devices.length === 2, 'expected 2 devices');
@@ -25,7 +25,7 @@ const scanSyncRange = () => {
   console.log('ok - scan');
 };
 
-const scanSyncForSingleDevice = () => {
+const scanSyncForSingleDevice = _ => {
   const devices = bus.scanSync(DS1621_ADDR);
 
   assert(devices.length === 1, 'expected 1 device');
@@ -37,7 +37,7 @@ const scanSyncForSingleDevice = () => {
   scanSyncRange();
 };
 
-const scanRange = () => {
+const scanRange = _ => {
   bus.scan(TSL2561_ADDR, DS1621_ADDR, (err, devices) => {
     assert(!err, 'can\'t scan range');
     assert(devices.length === 2, 'expected 2 devices');
@@ -54,7 +54,7 @@ const scanRange = () => {
   });
 };
 
-const scanForSingleDevice = () => {
+const scanForSingleDevice = _ => {
   bus.scan(DS1621_ADDR, (err, devices) => {
     assert(!err, 'can\'t scan for single device');
     assert(devices.length === 1, 'expected 1 device');
@@ -67,12 +67,12 @@ const scanForSingleDevice = () => {
   });
 };
 
-const scanDefaultRange = () => {
+const scanDefaultRange = _ => {
   const addresses = bus.scanSync();
 
   bus.scan((err, devices) => {
     assert(!err, 'can\'t scan default range');
-    assert(_.isEqual(addresses, devices), 'sync and async scan differ');
+    assert(lodash.isEqual(addresses, devices), 'sync and async scan differ');
 
     scanForSingleDevice();
   });

@@ -1,3 +1,7 @@
+## 2.5.0 (2019-10-29)
+
+- Added synchronous I2C methods
+
 ## 2.4.0 (2019-2-20)
 
 - Renamed to j5-io-types to avoid a name collision in the npm registry

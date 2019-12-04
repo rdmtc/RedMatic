@@ -90,18 +90,26 @@ export type I2CReadBufferCallback = (err: null | Error | string, data: null | Bu
 export type I2CReadNumberCallback = (err: null | Error | string, data: null | number) => void;
 export type I2CWriteCallback = (err: null | Error | string) => void;
 export interface II2C extends IPeripheral {
+
   read(address: number, length: number, cb: I2CReadBufferCallback): void;
   read(address: number, register: number, length: number, cb: I2CReadBufferCallback): void;
+  readSync(address: number, registerOrLength: number | undefined, length?: number): Buffer;
   readByte(address: number, cb: I2CReadNumberCallback): void;
   readByte(address: number, register: number, cb: I2CReadNumberCallback): void;
+  readByteSync(address: number, register?: number): number;
   readWord(address: number, cb: I2CReadNumberCallback): void;
   readWord(address: number, register: number, cb: I2CReadNumberCallback): void;
+  readWordSync(address: number, register?: number): number;
   write(address: number, buffer: Buffer, cb?: I2CWriteCallback): void;
   write(address: number, register: number, buffer: Buffer, cb?: I2CWriteCallback): void;
+  writeSync(address: number, buffer: Buffer): void;
+  writeSync(address: number, register: number, buffer: Buffer): void;
   writeByte(address: number, byte: number, cb?: I2CWriteCallback): void;
   writeByte(address: number, register: number, byte: number, cb?: I2CWriteCallback): void;
+  writeByteSync(address: number, registerOrByte: number, byte?: number): void;
   writeWord(address: number, word: number, cb?: I2CWriteCallback): void;
   writeWord(address: number, register: number, word: number, cb?: I2CWriteCallback): void;
+  writeWordSync(address: number, registerOrWord: number, word?: number): void;
 }
 
 export interface II2CModule {

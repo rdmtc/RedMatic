@@ -5,7 +5,7 @@ const i2c = require('../');
 const address = 0x50;
 const invalid = 0x42;
 
-const readDeviceId = () => {
+const readDeviceId = _ => {
   const i2c1 = i2c.openSync(42);
   const id = i2c1.deviceIdSync(address);
 

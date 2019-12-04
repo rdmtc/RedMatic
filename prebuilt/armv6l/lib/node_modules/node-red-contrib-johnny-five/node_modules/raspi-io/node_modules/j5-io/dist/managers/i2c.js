@@ -33,88 +33,74 @@ var Action;
 })(Action || (Action = {}));
 class I2CPortManager {
     constructor(portId, i2cModule, globalEventEmitter) {
-        this.actionQueue = [];
-        this.isI2CProcessing = false;
+        this.continuousTimers = [];
         this.i2c = i2cModule.createI2C(portId);
         core_1.setMode(this.i2c, abstract_io_1.Mode.UNKNOWN);
         this.eventEmitter = globalEventEmitter;
     }
     reset() {
-        this.isI2CProcessing = false;
-        this.actionQueue = [];
-    }
-    addToQueue(action) {
-        this.actionQueue.push(action);
-        this.i2cPump();
-    }
-    i2cPump() {
-        if (this.isI2CProcessing || !this.i2c.alive) {
-            return;
+        for (const timer of this.continuousTimers) {
+            clearImmediate(timer);
         }
-        const action = this.actionQueue.shift();
-        if (!action) {
-            return;
+        this.continuousTimers = [];
+    }
+    write(action) {
+        const { address: writeAddress, register: writeRegister, payload } = action;
+        if (Array.isArray(payload)) {
+            if (typeof writeRegister === 'number') {
+                this.i2c.writeSync(writeAddress, writeRegister, Buffer.from(payload));
+            }
+            else {
+                this.i2c.writeSync(writeAddress, Buffer.from(payload));
+            }
         }
-        this.isI2CProcessing = true;
-        const finalize = () => {
-            this.isI2CProcessing = false;
-            this.i2cPump();
-        };
-        switch (action.type) {
-            case Action.Write:
-                const { address: writeAddress, register: writeRegister, payload } = action;
-                if (Array.isArray(payload)) {
-                    if (typeof writeRegister === 'number') {
-                        this.i2c.write(writeAddress, writeRegister, Buffer.from(payload), finalize);
-                    }
-                    else {
-                        this.i2c.write(writeAddress, Buffer.from(payload), finalize);
-                    }
-                }
-                else {
-                    if (typeof writeRegister === 'number') {
-                        this.i2c.writeByte(writeAddress, writeRegister, payload, finalize);
-                    }
-                    else {
-                        this.i2c.writeByte(writeAddress, payload, finalize);
-                    }
-                }
-                break;
-            case Action.Read:
-                const { continuous, address: readAddress, register: readRegister, bytesToRead, handler } = action;
-                const readCB = (err, buffer) => {
-                    if (err || !buffer) {
-                        this.eventEmitter.emit('error', err);
+        else {
+            if (typeof writeRegister === 'number') {
+                this.i2c.writeByteSync(writeAddress, writeRegister, payload);
+            }
+            else {
+                this.i2c.writeByteSync(writeAddress, payload);
+            }
+        }
+    }
+    read(action) {
+        const { continuous, address: readAddress, register: readRegister, bytesToRead, handler } = action;
+        const readCB = (err, buffer) => {
+            if (err || !buffer) {
+                this.eventEmitter.emit('error', err);
+                return;
+            }
+            const arr = Array.from(buffer.values());
+            const eventName = `i2c-reply-${readAddress}-${typeof readRegister === 'number' ? readRegister : 0}`;
+            this.eventEmitter.emit(eventName, arr);
+            handler(arr);
+            if (continuous) {
+                const timer = setImmediate(() => {
+                    const timerIndex = this.continuousTimers.indexOf(timer);
+                    if (timerIndex === -1 || !this.i2c.alive) {
+                        // Kill the read loop if the I2C peripheral was destroyed, or `reset` was called. If the latter happens,
+                        // it shouldn't be possible to get here, so I'm just being defensive.
                         return;
                     }
-                    const arr = Array.from(buffer.values());
-                    const eventName = `i2c-reply-${readAddress}-${typeof readRegister === 'number' ? readRegister : 0}`;
-                    this.eventEmitter.emit(eventName, arr);
-                    handler(arr);
-                    if (continuous) {
-                        setImmediate(() => {
-                            const continuousAction = {
-                                type: Action.Read,
-                                continuous,
-                                address: readAddress,
-                                register: readRegister,
-                                bytesToRead,
-                                handler
-                            };
-                            this.addToQueue(continuousAction);
-                        });
-                    }
-                    finalize();
-                };
-                if (typeof readRegister === 'number') {
-                    this.i2c.read(readAddress, readRegister, bytesToRead, readCB);
-                }
-                else {
-                    this.i2c.read(readAddress, bytesToRead, readCB);
-                }
-                break;
-            default:
-                throw new Error('Internal error: unknown serial action type');
+                    this.continuousTimers.splice(timerIndex, 1);
+                    const continuousAction = {
+                        type: Action.Read,
+                        continuous,
+                        address: readAddress,
+                        register: readRegister,
+                        bytesToRead,
+                        handler
+                    };
+                    this.read(continuousAction);
+                });
+                this.continuousTimers.push(timer);
+            }
+        };
+        if (typeof readRegister === 'number') {
+            this.i2c.read(readAddress, readRegister, bytesToRead, readCB);
+        }
+        else {
+            this.i2c.read(readAddress, bytesToRead, readCB);
         }
     }
 }
@@ -157,7 +143,7 @@ class I2CManager {
             register,
             payload
         };
-        this.i2cPortManagers[portId].addToQueue(action);
+        this.i2cPortManagers[portId].write(action);
     }
     i2cRead(portId, continuous, address, register, bytesToRead, handler) {
         if (!this.i2cPortManagers.hasOwnProperty(portId)) {
@@ -171,7 +157,7 @@ class I2CManager {
             bytesToRead,
             handler
         };
-        this.i2cPortManagers[portId].addToQueue(action);
+        this.i2cPortManagers[portId].read(action);
     }
 }
 exports.I2CManager = I2CManager;
