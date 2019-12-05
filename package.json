@@ -22,7 +22,7 @@
     "node-red-node-sqlite": "0.0.0 - 0.4.1",
     "redmatic-led": "0.0.0 - 1.1.0",
     "redmatic-webapp": "0.0.0 - 0.3.1",
-    "redmatic-homekit": "0.0.0 - 2.6.3",
+    "redmatic-homekit": "0.0.0 - 2.6.4",
     "node-red-node-email": "0.0.0 - 1.7.2",
     "node-red-node-rbe": "0.0.0 - 0.2.5",
     "node-red-node-serialport": "0.0.0 - 0.10.0",
