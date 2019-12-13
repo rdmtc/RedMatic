@@ -37,7 +37,6 @@
     "node-red-contrib-theme-midnight-red": "0.0.0 - 1.0.16",
     "node-red-contrib-doorbird": "0.0.0 - 0.2.6",
     "redmatic-canbus": "0.0.0 - 1.0.1",
-    "https://github.com/coolchip/node-red-contrib-comfoair": "0.0.0 - 0.0.0 - 0.0.3",
     "node-red-contrib-comfoair": "0.0.0 - 0.0.3"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
