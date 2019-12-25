@@ -18,6 +18,6 @@
     "node-red-contrib-theme-midnight-red": "1.0.18",
     "node-red-contrib-doorbird": "0.2.6",
     "redmatic-canbus": "1.0.1",
-    "node-red-contrib-comfoair": "0.0.3"
+    "node-red-contrib-comfoair": "0.0.4"
   }
 }
