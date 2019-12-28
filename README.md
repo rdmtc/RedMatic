@@ -108,6 +108,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Schnelles Blinken der LED im Offline-Betrieb unterbinden](https://github.com/rdmtc/RedMatic/wiki/Flow-Offline-LED)
   * [CCU an MQTT anbinden](https://github.com/rdmtc/RedMatic/wiki/Flow-MQTT)
   * [Bidcos-Wired Dimmer mit Bidcos-RF Tasten steuern](https://github.com/rdmtc/RedMatic/wiki/Flow-Wired-Dimmer)
+  * [Sprachausgabe auf Echo mit node-red-contrib-alexa-remote2](https://github.com/rdmtc/RedMatic/wiki/Sprachausgabe-mit-node-red-contrib-alexa-remote2)
 * Von Usern bereitgestellte Flows
   * [Licht mittels Tastendruck aus und einschalten](https://github.com/rdmtc/RedMatic/wiki/Flow-simple-toggle-light)
   * [Licht schalten mit einem Dashboard button](https://github.com/rdmtc/RedMatic/wiki/combine-logic-node-for-toggle-state)
