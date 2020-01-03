@@ -24,6 +24,8 @@ npm install --only=dev
 
 echo "generate CHANGE_HISTORY.md..."
 node update_change_history.js
+git commit -m 'Update change_history' CHANGE_HISTORY.md
+git push
 
 echo "download and extract Node.js $NODE_URL ..."
 curl --silent $NODE_URL | tar -xJf - -C $ADDON_TMP
