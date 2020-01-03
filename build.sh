@@ -23,6 +23,7 @@ echo "installing build dependencies..."
 npm install --only=dev --global-style
 
 echo "generate CHANGE_HISTORY.md..."
+git checkout master
 node update_change_history.js > CHANGE_HISTORY.md
 git commit -m 'Update change_history' CHANGE_HISTORY.md
 git push
