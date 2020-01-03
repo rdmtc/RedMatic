@@ -24,9 +24,10 @@ npm install --only=dev --global-style
 
 echo "generate CHANGE_HISTORY.md..."
 git checkout master
+git remote add origin-push https://${GITHUB_OAUTH_TOKEN}@github.com/rdmtc/RedMatic.git > /dev/null 2>&1
 node update_change_history.js > CHANGE_HISTORY.md
-git commit -m 'Update change_history' CHANGE_HISTORY.md
-git push
+git commit -m 'Update CHANGE_HISTORY.md (Travis build: $TRAVIS_BUILD_NUMBER)' CHANGE_HISTORY.md
+git push origin-push master
 
 echo "download and extract Node.js $NODE_URL ..."
 curl --silent $NODE_URL | tar -xJf - -C $ADDON_TMP
