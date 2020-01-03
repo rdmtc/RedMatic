@@ -20,9 +20,10 @@ mkdir $BUILD_DIR/dist 2> /dev/null
 #PRUNE=$BUILD_DIR/bin/node-prune
 
 echo "installing build dependencies..."
-npm install --only=dev
+npm install --only=dev --global-style
 
 echo "generate CHANGE_HISTORY.md..."
+ls -1l node_modules
 node update_change_history.js
 git commit -m 'Update change_history' CHANGE_HISTORY.md
 git push
