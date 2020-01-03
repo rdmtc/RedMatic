@@ -19,7 +19,10 @@ mkdir $BUILD_DIR/dist 2> /dev/null
 #curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash
 #PRUNE=$BUILD_DIR/bin/node-prune
 
-echo "generate CHANGE_HISTORY.md ..."
+echo "installing build dependencies..."
+npm install --only=dev
+
+echo "generate CHANGE_HISTORY.md..."
 node update_change_history.js
 
 echo "download and extract Node.js $NODE_URL ..."
