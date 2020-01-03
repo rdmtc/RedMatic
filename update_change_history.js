@@ -1,15 +1,20 @@
 const request = require('request');
 
-request({
-    url: 'https://api.github.com/repos/rdmtc/RedMatic/releases?per_page=1',
-    headers: {
-        'User-Agent': 'node-request'
-    }
-}, (err, res, body) => {
-    if (!err) {
-        parse(JSON.parse(body))
-    }
-});
+let page = 1;
+
+function req() {
+    request({
+        url: `https://api.github.com/repos/rdmtc/RedMatic/releases?page=${page}&per_page=100`,
+        headers: {
+            'User-Agent': 'node-request'
+        }
+    }, (err, res, body) => {
+        if (!err) {
+            parse(JSON.parse(body))
+        }
+    });
+}
+
 
 function parse(data) {
     data.forEach(release => {
@@ -27,4 +32,10 @@ function parse(data) {
             }
         });
     });
+    if (data.length === 100) {
+        page += 1;
+        req();
+    }
 }
+
+req();

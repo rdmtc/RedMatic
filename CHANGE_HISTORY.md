@@ -1,4 +1,332 @@
 
+# v5.3.4 2020-01-03T12:32:24Z
+
+* ae6daf1 @hobbyquaker Update RedMatic-HomeKit
+  * Fehler behoben beim Anlegen von HmIPW-DRI/DRS/FIO Accessories (https://github.com/rdmtc/RedMatic-HomeKit/issues/242)
+  * Anlegen der Accessories/Services von HmIP(W) Rollläden umgebaut (https://github.com/rdmtc/RedMatic-HomeKit/issues/243) 
+
+
+
+# v5.3.3 2020-01-02T17:11:52Z
+
+* b76043a @hobbyquaker Update RedMatic-HomeKit
+  * HomeKit-Camera: Neue Option um einen Doorbell Service zur Kamera hinzuzufügen (https://github.com/rdmtc/RedMatic-HomeKit/issues/198)
+  * HmIP(W) Rollläden: Debug Ausgabe entfernt
+
+
+
+# v5.3.2 2020-01-02T14:43:46Z
+
+* 72cd67e @hobbyquaker Update RedMatic-HomeKit
+  * Verbesserung HmIP(W) Rollläden (https://github.com/rdmtc/RedMatic-HomeKit/commit/4471cd12a29bc3a02e1858374cc6e9800ef9e2c0)
+  * HmIPW-DRI16/32 Fehler behoben der dazu führte dass der erste Kanal gefehlt hat (https://github.com/rdmtc/RedMatic-HomeKit/issues/238)
+  * HmIP-STH/STHD Konfigurationsmöglichkeit Thermostat oder Sensor (https://github.com/rdmtc/RedMatic-HomeKit/issues/190)
+  * HmIPW-* Fehler behoben der dazu führte dass SingleAccessory Option wirkungslos war (https://github.com/rdmtc/RedMatic-HomeKit/issues/240)
+  * HmIPW-SMI55 hinzugefügt (https://github.com/rdmtc/RedMatic-HomeKit/issues/237)
+  * HmIPW-FIO6 hinzugefügt (https://github.com/rdmtc/RedMatic-HomeKit/issues/239)
+  * HmIPW-DRD3 hinzugefügt (https://github.com/rdmtc/RedMatic-HomeKit/issues/241)
+* 72cd67e @hobbyquaker Update node-red-contrib-theme-midnight-red
+
+
+
+# v5.3.1 2019-12-29T12:57:38Z
+
+* 98c518b @hobbyquaker Update RedMatic-HomeKit
+  * Fehler behoben der dazu führte dass HmIP-BROLL/FROLL nicht mehr angelegt wurden (#295)
+  * Fehler behoben HmIP-MOD-OC8 konnte nicht als mehrere Accessories angelegt werden (https://github.com/rdmtc/RedMatic-HomeKit/issues/192)
+
+
+
+# v5.3.0 2019-12-28T18:49:00Z
+
+* e409d47 @hobbyquaker Update RedMatic-HomeKit
+  * HmIPW-DRBL4 hinzugefügt (https://github.com/rdmtc/RedMatic-HomeKit/issues/216)
+  * Refactoring HmIP(W) Shutter/Blinds
+  * HmIP-DRBLI4 hinzugefügt
+  * HmIP-DRSI4 hinzugefügt
+  * Fehler behoben der beim Pairing einer Bridge mit Zigbee Devices zum Node-RED Crash geführt hat (https://github.com/rdmtc/RedMatic-HomeKit/issues/229)
+* 6bb467a @hobbyquaker Update node-red-contrib-zigbee
+  * Herdsman und Konverter aktualisiert
+  * TouchlinkFactoryReset implementiert
+  * Neuer Node "hue light" um eine ausgewählte Lampe zu steuern
+  * Diverse Fehlerbehebungen und Verbesserungen
+
+
+
+# v5.2.7 2019-12-27T11:19:20Z
+
+* e30d3cf @hobbyquaker Update node-red-red-contrib-ccu
+  * Fehler behoben der dazu führte dass Internationalisierungsplatzhalter von Rega Variablen, Räumen und Gewerken nicht mehr übersetzt wurden ([Forum](https://homematic-forum.de/forum/viewtopic.php?f=77&t=55444&p=551428))
+* 691bf64 @hobbyquaker Update node-red-contrib-theme-midnight-red
+
+
+
+# v5.2.6 2019-12-25T23:28:52Z
+
+* 261e4c2 @hobbyquaker Update node-red-contrib-ccu
+  * Fehler behoben beim Abfragen von Rega-Variablen (#292)
+* 261e4c2 @hobbyquaker Update node-red-dashboard ([Changelog](https://github.com/node-red/node-red-dashboard/blob/master/CHANGELOG.md))
+* 3a4aa44 @hobbyquaker Update Node.js
+* 55436c5 @hobbyquaker Update node-red-contrib-rfxcom prebuild binaries
+* 8437e0c @hobbyquaker Update node-red-node-sqlite prebuild binaries
+* 82b874d @hobbyquaker Update node-red-contrib-modbus prebuild binaries
+* e3f69a8 @hobbyquaker Update node-red-contrib-comfoair
+* 8e8ecfb @hobbyquaker Update node-red-contrib-rfxcom
+* 81b67d2 @hobbyquaker Update node-red-contrib-smartmeter
+* 7bc5b8e @hobbyquaker Update node-red-contrib-theme-midnight-red
+
+
+
+# v5.2.5 2019-12-13T18:38:59Z
+
+* b124f6b @hobbyquaker Add node-red-contrib-comfoair (#290)
+* 0587c2d @hobbyquaker Update node-red-dashboard  ([Changelog](https://github.com/node-red/node-red-dashboard/blob/master/CHANGELOG.md))
+* b440a46 @hobbyquaker Update npm (#291)
+* 0587c2d @hobbyquaker Update node-red-node-email
+* 0587c2d @hobbyquaker Update node-red-node-rbe
+* 9aceeec @hobbyquaker Update font-awesome
+* 764c659 @hobbyquaker Update node-red-contrib-theme-midnight-red
+* 950c3e6 @hobbyquaker Update node-red-contrib-modbus
+
+
+
+# v5.2.4 2019-12-05T17:36:04Z
+
+* 265d7d7 @hobbyquaker Update RedMatic-HomeKit
+  * Option "openOnUnlock" für HM-Sec-Key-O hinzugefügt (https://github.com/rdmtc/RedMatic-HomeKit/issues/218)
+* 9998da9 @hobbyquaker Update node-red-contrib-zigbee
+  * Herdsman und Converter aktualisiert
+  * Converter- und Hue-Node: Fehler behoben der bei Node-/Flow-Deploy auftreten konnte (https://github.com/hobbyquaker/node-red-contrib-zigbee/issues/72)
+* 1a47928 @hobbyquaker Update node-red-dashboard ([Changelog](https://github.com/node-red/node-red-dashboard/blob/master/CHANGELOG.md))
+* 0a05d30 @hobbyquaker Update node-red-contrib-modbus
+* 0a05d30 @hobbyquaker Update node-red-contrib-mysensors
+* 9ac55a2 @hobbyquaker Update node-red-contrib-theme-midnight-red
+* 08ad582 @hobbyquaker Update node-red-node-serialport
+* e429d06 @hobbyquaker Update npm
+
+
+
+
+# v5.2.3 2019-11-25T20:51:26Z
+
+* 3d16c91 @hobbyquaker Update node-red-contrib-zigbee
+  * https://github.com/hobbyquaker/node-red-contrib-zigbee/commit/9b8337c50506ec8071759ded174ed960f1273a03 @hobbyquaker Event node: groupID und profileID zu ausgehenden messages hinzugefügt
+  * https://github.com/hobbyquaker/node-red-contrib-zigbee/commit/30c146f630a21efc682ac8596a4c9db390f47459 @hobbyquaker Fehler behoben der zum Verlust der Gerätedatenbank führen konnte (https://github.com/hobbyquaker/node-red-contrib-zigbee/issues/74)
+* 158771c @hobbyquaker Update RedMatic-HomeKit
+  * https://github.com/rdmtc/RedMatic-HomeKit/commit/46f20749fae60ba149d5b05c976bcfffcaf62631 @jpawlowski Add support for ZEL STG RM FFK
+  * https://github.com/rdmtc/RedMatic-HomeKit/commit/682b3527df1bd22096af94362f2009982d45395f @jpawlowski Fix config of ZEL STG RM FEP 230v 
+* 69412d9 @hobbyquaker Update node-red-contrib-sun-position 
+* 0af5d80 @hobbyquaker Update Node-RED ([Changelog](https://github.com/node-red/node-red/blob/master/CHANGELOG.md))
+* 0af5d80 @hobbyquaker Update node-red-dashboard ([Changelog](https://github.com/node-red/node-red-dashboard/blob/master/CHANGELOG.md))
+* 69412d9 @hobbyquaker node-red-contrib-theme-midnight-red
+* 0af5d80 @hobbyquaker npm
+
+
+
+# v5.2.2 2019-11-15T17:32:29Z
+
+* 6109d9d @hobbyquaker Update RedMatic-HomeKit
+  * HM-Sec-MDIR-3 hinzugefügt (https://github.com/rdmtc/RedMatic-HomeKit/issues/206)
+  * HmIP-FDT/-PDT Fehler behoben, virtuelle Kanäle (https://github.com/rdmtc/RedMatic-HomeKit/issues/208, https://github.com/rdmtc/RedMatic-HomeKit/issues/193)
+  * HmIP-MOD-HO Fehler behoben bei Garagensteuerung, Lightbulb Service hinzugefügt (https://github.com/rdmtc/RedMatic-HomeKit/issues/201)
+  * HmIP-FSM/-FSM16 Fehler behoben Service Type (https://github.com/rdmtc/RedMatic-HomeKit/issues/191)
+* 37d98a5 @hobbyquaker Update node-red-contrib-zigbee
+* 6109d9d @hobbyquaker Update node-red-node-email
+* 6109d9d @hobbyquaker Update node-red-contrib-theme-midnight-red
+* 82fd4ad @hobbyquaker Update node-red-contrib-sun-position
+* 82fd4ad @hobbyquaker Update node-red-contrib-serialport
+* 82fd4ad @hobbyquaker Update node-red-contrib-sqlite
+
+
+
+# v5.2.1 2019-11-09T09:32:09Z
+
+* d062805 @hobbyquaker Update node-red-contrib-ccu
+  * Fehler behoben der beim Abfragen von ReGaHSS Variablen zu Verbindungsabbrüchen führen konnte ([Forum](https://homematic-forum.de/forum/viewtopic.php?f=77&t=54282))
+  * Vereinheitlichung Property Namen eingehender Nachrichten (https://github.com/rdmtc/node-red-contrib-ccu/issues/102)
+  * MQTT Node: Fehler behoben bei 0-Werten im Topic (https://github.com/rdmtc/node-red-contrib-ccu/issues/100)
+* c5aae19 @hobbyquaker Update RedMatic-HomeKit
+  * Zigbee Node: Ikea Lampen hinzugefügt (https://github.com/rdmtc/RedMatic-HomeKit/issues/197)
+  * HmIP-FDT: Falsche Kanalzuordnung gefixt, Möglichkeit virtuelle Kanäle auszuwählen (https://github.com/rdmtc/RedMatic-HomeKit/issues/193)
+  * HmIP-MOD-HO hinzugefügt (https://github.com/rdmtc/RedMatic-HomeKit/issues/201)
+* 99886fe @hobbyquaker Update node-red-contrib-zigbee
+  * Diverse Verbesserungen und Fehlerbehebungen
+  * Herdsman und Converter auf aktuellen Stand gebracht
+* 4edf898 @hobbyquaker Update node-red-contrib-sun-position
+* e876b72 @hobbyquaker Update node-red-contrib-johnny-five prebuild
+* 4edf898 @hobbyquaker Update node-red-contrib-smartmeter
+* c5aae19 @hobbyquaker Update node-red-contrib-theme-midnight-red
+* 7b8ca0f @hobbyquaker Update npm
+
+
+
+# v5.2.0 2019-10-23T20:09:49Z
+
+* 8eb9725 @hobbyquaker Neue Nodes: redmatic-canbus ([node-red-contrib-canbus](https://github.com/rajeshsola/node-red-addons/tree/master/node-red-contrib-canbus) Fork)
+* 02b1779 @hobbyquaker Update node-red-contrib-zigbee
+  * Diverse Fehler behoben
+  * Herdsman und Converter Update
+* 921fb3b @hobbyquaker Update Node.js
+
+
+
+# v5.1.2 2019-10-21T17:09:01Z
+
+* f26c6f6 @hobbyquaker Update RedMatic-HomeKit
+  * ZigBee Geräte können via UI aktiviert/deaktiviert werden
+  * Fehler behoben der zu falschem Status von lumi.sensor_magnet Geräten geführt hat
+  * Bridge Publish verhindern falls es keine Accessories gibt
+
+
+# v5.1.1 2019-10-20T20:31:56Z
+
+* 12710c9 @hobbyquaker Update node-red-contrib-ccu
+  * Fehler behoben der dazu geführt hat dass Werte im Context gefehlt haben
+* c0c1f58 @hobbyquaker Update RedMatic-HomeKit
+  * Fehler behoben der zum Absturz führen konnte wenn eine Bridge mit ZigBee-Geräten gepaired wird
+
+
+
+# v5.1.0 2019-10-20T14:15:36Z
+
+* b50e1b7 @hobbyquaker Update node-red-contrib-zigbee
+  * Herdsman und Konverter aktualisiert
+* d78372b @hobbyquaker Update RedMatic-HomeKit
+  * Neuer Node "HomeKit ZigBee" der Geräte die via node-red-contrib-zigbee angebunden sind in HomeKit bereitstellt
+* 60ca3a6 @hobbyquaker Update node-red-contrib-theme-midnight-red
+
+
+
+# v5.0.5 2019-10-17T16:37:03Z
+
+* 27f93d8 @hobbyquaker Update node-red-contrib-ccu
+  * Rega Metadaten Persistenz
+  * RedMatic-HomeKit: Schwerwiegenden Fehler behoben der zum Verlust der Raumzuordnungen und Benennungen in HomeKit führen konnte (https://github.com/rdmtc/RedMatic-HomeKit/issues/188) 
+
+
+# v5.0.4 2019-10-16T17:16:36Z
+
+* 0712b33 @hobbyquaker Defer Node-RED start after reboot for 30 seconds
+  * RedMatic-HomeKit: Weiterer Versuch einen schwerwiegenden Fehler zu umgehen der zum Verlust der Raumzuordnungen und Benennungen in HomeKit führen kann (https://github.com/rdmtc/RedMatic-HomeKit/issues/188) 
+
+
+# v5.0.3 2019-10-15T17:22:47Z
+
+* 71d7070 @hobbyquaker Update Node-RED auf 1.0.2 ([Changelog](https://github.com/node-red/node-red/blob/master/CHANGELOG.md))
+* d9257be @hobbyquaker Update node-red-contrib-ccu
+  * Debug Log setStatus
+* 1d0b4ef @hobbyquaker Update node-red-contrib-zigbee
+  * Im Binds Tab sind Bindings zum Coordinator nun standardmäßig ausgeblendet
+* 5952e1b @hobbyquaker Update RedMatic-HomeKit
+  * Roto Rollladenaktor `ZEL STG RM FEP 230V` integriert (https://github.com/rdmtc/RedMatic-HomeKit/issues/177)
+  * Versuch einen schwerwiegenden Fehler zu beheben der zum Verlust der Raumzuordnungen und Benennungen in HomeKit führen kann (https://github.com/rdmtc/RedMatic-HomeKit/issues/188) 
+* 5952e1b @hobbyquaker node-red-contrib-theme-midnight-red
+
+
+
+
+# v5.0.2 2019-10-13T16:10:37Z
+
+* e1560c5 @hobbyquaker Update node-red-contrib-zigbee
+  * Schwerwiegenden Fehler behoben der zum Verlust der Gerätedatenbank führen konnte
+  * Diverse Fehlerbehebungen und Verbesserungen
+  * Converter Node unterstützt nun Befehle an Gruppen
+  * Converter-Configuration und Ping per Device konfigurierbar
+  * Network Map verbessert
+* a037153 @hobbyquaker Update node-red-node-sqlite
+
+
+
+# v5.0.1 2019-10-11T19:20:13Z
+
+* 78f3683 @hobbyquaker Update node-red-dashboard ([Changelog](https://github.com/node-red/node-red-dashboard/blob/master/CHANGELOG.md))
+* 3822d20 @hobbyquaker Update node-red-contrib-zigbee
+  * Fix network map
+  * Hue node group support
+  * Command node group support
+  * Group binding
+* b0c955a @hobbyquaker Update node-red-contrib-theme-midnight-red
+* 2470ab0 @hobbyquaker Update npm
+* f5df146 @hobbyquaker Fix retrieval of installed package versions
+* d8af974 @hobbyquaker Update 3rd party licenses
+
+
+
+# v5.0.0 2019-10-04T18:20:50Z
+
+* 8ccbcf9 @hobbyquaker Update Node-RED to version 1.0.1
+  * [Blog Article, Video](https://nodered.org/blog/2019/09/30/version-1-0-released)
+  * [Changelog](https://github.com/node-red/node-red/blob/master/CHANGELOG.md) 
+* 8ccbcf9 @hobbyquaker node-red-dashboard
+  * [Changelog](https://github.com/node-red/node-red-dashboard/blob/master/CHANGELOG.md)
+* 19bccbd @hobbyquaker Update node-red-contrib-ccu
+  * Neuer "Treeview" um Datenpunkte komfortabel zu selektieren (Danke @Hypnos3!)
+  * Internes REST API des "ccu connection" Nodes mit Authentifizierung abgesichert
+  * Viele Bugfixes und Verbesserungen
+* 0a81433 @hobbyquaker Update node-red-contrib-zigbee
+  * Vom Zigbee Shepherd zu @koenkk's Rewrite "[Zigbee Herdsman](https://github.com/koenkk/zigbee-herdsman)" migriert
+  * Converter auf den neusten Stand gebracht
+  * Viele Bugfixes und Verbesserung
+  * UI umstrukturiert, Reporting, Gruppen und Binds können nun komfortabel via UI konfiguriert werden
+  * Device Node entfernt (**⚠️**  falls dieser noch in Flows enthalten ist muss er manuell entfernt werden, idealerweise _vor_ dem Update um eventuelle Node-RED Crashs zu vermeiden. Die Gerätedatenbank und das Pairing sollten davon nicht beeinflusst werden.)
+* 25faa7a @hobbyquaker Theme node-red-contrib-theme-midnight-red integriert
+* 8c37797 @hobbyquaker Node-RED Theme Auswahl im RedMatic UI
+* 414cb3b @hobbyquaker Update node-red-node-serialport
+* c622436 @hobbyquaker Update node-red-contrib-johnny-five prebuild
+* d330717 @hobbyquaker Update node-red-contrib-enocean
+* cc6d855 @hobbyquaker Update fontawesome
+* 33e6e42 @hobbyquaker Update node-red-contrib-sun-position
+* 1a74a4f @hobbyquaker Update node-red-node-email
+* 3e3f9c9 @hobbyquaker Update npm
+* fb7836c @Hypnos Monit konfiguration geändert, Grenzwerte für Disk- und RAM-Nutzung erhöht (#250)
+* 904dfe0 @hobbyquaker Bei Erstinstallation auf RaspberryMatic wird Reboot erzwungen
+* e2f29dd @hobbyquaker Update node-red-contrib-rfxcom
+* 62c3b12 @hobbyquaker Update RedMatic-HomeKit
+* 6726c1a @hobbyquaker Update Node.js
+* 5cbe115 @hobbyquaker Fehler behoben der bei Deinstallation dazu führte dass Monit Konfiguration nicht entfernt wurde (#241)
+* 083d434 @hobbyquaker add node-red-contrib-doorbird (#239)
+* f85efd2 @hobbyquaker Lizenzseite im RedMatic UI wird erst bei Bedarf nachgeladen
+* 7624179 @hobbyquaker Node-RED start/stop via Monit ermöglicht
+* f7754ad @hobbyquaker Neues Logo und neues Favicon
+
+
+
+# v4.7.1 2019-05-19T10:51:51Z
+
+* 250ffa8 @hobbyquaker Update node-red-contrib-ccu 
+  * Fehler behoben der dazu führte dass der `get value` Node falsche Werte ausgegeben hat (#212 https://github.com/rdmtc/node-red-contrib-ccu/issues/84)
+* 8aae49c @hobbyquaker Update node-red-contrib-zigbee
+  * Offline Status wird (u.A.) anhand dem Erfolg/Misserfolg des letzten Befehls gesetzt
+* 5f6585e @hobbyquaker Update node-red-contrib-enocean
+* 33bed2e @hobbyquaker Update node-red-contrib-johnny-five (#181)
+
+
+
+# v4.7.0 2019-05-15T16:59:50Z
+
+* df3c885 @Hypnos3 Update node-red-contrib-ccu
+  *  Default Benennung des Value Nodes verbessert (https://github.com/rdmtc/node-red-contrib-ccu/pull/82)
+* a0e14bd @hobbyquaker Update node-red-contrib-enocean 
+* b2b6f7c @hobbyquaker Diverse Verbesserungen der Paketverwaltung
+* b6ef68b @hobbyquaker Diverse Verbesserungen des RedMatic UI 
+* 27c5574 @hobbyquaker Update node-red-dashboard ([Changelog](https://github.com/node-red/node-red-dashboard/blob/master/CHANGELOG.md))
+
+
+
+# v4.6.1 2019-05-14T19:36:58Z
+
+* ec93a2c @hobbyquaker Package Manager: Prüfung der Dateiintegrität nach Download (#210)
+* 4dde8f1 @hobbyquaker Update node-red-dashboard to 2.15.1 ([Changelog](https://github.com/node-red/node-red-dashboard/blob/master/CHANGELOG.md))
+
+
+
+# v4.6.0 2019-05-13T20:23:08Z
+
+* 4d03d20 @hobbyquaker Fehler behoben der dazu führte das Dateien im node-red-contrib-johnny-five package gefehlt haben (#181)
+* 5535cd6 @hobbyquaker Einfache Monit Konfiguration hinzugefügt (nur auf RaspberryMatic aktiv, bisher keine Alarme, nur Einträge im Syslog) (#185)
+
+
+
 # v4.5.1 2019-05-13T16:01:18Z
 
 * c85ab5d @hobbyquaker Update node-red-contrib-combine
