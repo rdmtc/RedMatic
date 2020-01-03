@@ -1,12 +1,3 @@
-# [v5.3.5](https://github.com/rdmtc/RedMatic/releases/v5.3.5) 2020-01-03T20:31:45Z
-* @hobbyquaker add build dep
-* @hobbyquaker Update RedMatic-HomeKit
-* @hobbyquaker automate change_history creation, fix release description upload
-* @hobbyquaker update change history
-* @hobbyquaker limit maximum download time to 720sec (results in min ~220kbit/s to download a 20MB file) (Mitigate #267)
-[Release History](https://github.com/rdmtc/RedMatic/blob/master/CHANGE_HISTORY.md)
-
-
 # [v5.3.4](https://github.com/rdmtc/RedMatic/releases/v5.3.4) 2020-01-03T12:32:24Z
 
 * @hobbyquaker Update RedMatic-HomeKit
