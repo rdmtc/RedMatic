@@ -30,9 +30,7 @@ deploy:
         - x86
   draft: false
 after_deploy:
-- gem install octokit:4.14.0
-- gem install faraday:0.15.4
-- "./github_release.rb -s $GITHUB_OAUTH_TOKEN -r rdmtc/RedMatic -c CHANGELOG.md -t v$VERSION_ADDON"
+- "./update_release_body.sh"
 notifications:
   slack:
     secure: zA02a/ayBlCncv/6TCHKUgUm5xtqcBdIVl0mLNR4dV+jlOKHFqIjFtMtPIAHOeFmmMklBd4Gwz8/FH3Y0CXx49AwRVUSfYMLpcVdXp3vaepqOOKSttpNZwcA1Yd2f4bOtg/UolqApXQ4MuFn1uFqAbvgDJtAi93rGWdcqFrQATak7Q8JlVJBNyElnFD+nK2MzYTCvBxW9Tk53os+PMHL4i8OczKtf0DNbcigIAAoo20AETxa+58kxiTj7q25Uvx4sCAlh68uT6ajdOlPjr+Kp1NsQEOcpfa5ogl937SH9GHdazU1XrDKMQZZD/CiNsn1yaKVUxeShTOHBpARlBY3kmoxPaH8Mi01QvgLPaG0Nd8duQBiguO1NSK3NB5JBu+Jyo83B/9GIP8VS34noki7l9DJ9cB1/2Odi/brKVkxkvPdh7rxsXtoFpsJ3llCwrL8/3tXpVRJYMspqGW4aW2uGoahT4qkAHVHEvlH1Wz5rl3bZ2N5AW9CgaJbveIOrUrRe18QGvQ1Q5Nxha+2x2++R0u1eOG25msYVD1BehUqG81RNREhmVNkrJQ9g7W10jHZR67mAZ3lyumr11agCxlV7XSNjYFkgguWVj8BSIyP5gbQhcZP19uL1cPghSQVRDhXyN5Cj8BgMVhn/oPYVZc0F5Ah7HrcLOWIoKSYZxfG8oU=

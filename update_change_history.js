@@ -15,22 +15,22 @@ function req() {
     });
 }
 
-
 function parse(data) {
     data.forEach(release => {
-        console.log('\n#', release.tag_name, release.published_at);
+        console.log(`# [${release.tag_name}](https://github.com/rdmtc/RedMatic/releases/${release.tag_name}) ${release.published_at}`);
         let include = false;
         release.body.split('\n').forEach(line => {
             if (line.startsWith('Module | Version')) {
                 include = false;
             }
             if (include && line !== '') {
-                console.log(line);
+                console.log(line.replace(/^\s*\* [0-9a-f]{7} /, '* '));
             }
             if (line.startsWith('### Changelog')) {
                 include = true;
             }
         });
+        console.log('\n');
     });
     if (data.length === 100) {
         page += 1;

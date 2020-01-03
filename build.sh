@@ -19,6 +19,9 @@ mkdir $BUILD_DIR/dist 2> /dev/null
 #curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash
 #PRUNE=$BUILD_DIR/bin/node-prune
 
+echo "generate CHANGE_HISTORY.md ..."
+node update_change_history.js
+
 echo "download and extract Node.js $NODE_URL ..."
 curl --silent $NODE_URL | tar -xJf - -C $ADDON_TMP
 mv $ADDON_TMP/$NODE_NAME $ADDON_TMP/redmatic
@@ -100,7 +103,7 @@ git log `git describe --tags --abbrev=0`..HEAD --pretty=format:'* %h @%an %s' >>
 
 cat >>CHANGELOG.md <<EOL
 
-
+[Release History](https://github.com/rdmtc/RedMatic/blob/master/CHANGE_HISTORY.md)
 
 Module | Version
 ------ | -------
@@ -156,7 +159,6 @@ do
 done
 
 echo -e "\n\n[Travis Build #$TRAVIS_BUILD_NUMBER](https://travis-ci.org/rdmtc/RedMatic/builds/$TRAVIS_BUILD_ID)" >> CHANGELOG.md
-
 
 echo "compressing addon package $ADDON_FILE ..."
 ADDON_FILE=redmatic-$VERSION_ADDON.tar.gz
