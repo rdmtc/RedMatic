@@ -26,7 +26,7 @@ echo "generate CHANGE_HISTORY.md..."
 git checkout master
 git remote add origin-push https://${GITHUB_OAUTH_TOKEN}@github.com/rdmtc/RedMatic.git > /dev/null 2>&1
 node update_change_history.js > CHANGE_HISTORY.md
-git commit -m 'Update CHANGE_HISTORY.md (Travis build: $TRAVIS_BUILD_NUMBER)' CHANGE_HISTORY.md
+git commit -m "Update CHANGE_HISTORY.md (Travis build: ${TRAVIS_BUILD_NUMBER})" CHANGE_HISTORY.md
 git push origin-push master
 
 echo "download and extract Node.js $NODE_URL ..."
@@ -109,6 +109,7 @@ EOL
 git log `git describe --tags --abbrev=0`..HEAD --pretty=format:'* %h @%an %s' >> CHANGELOG.md
 
 cat >>CHANGELOG.md <<EOL
+
 
 [Release History](https://github.com/rdmtc/RedMatic/blob/master/CHANGE_HISTORY.md)
 
