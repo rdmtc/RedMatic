@@ -1,3 +1,15 @@
+# [v5.3.5](https://github.com/rdmtc/RedMatic/releases/v5.3.5) 2020-01-03T20:31:45Z
+
+* @hobbyquaker Update RedMatic-HomeKit
+  * Fehler beim Anlegen des HmIPW-DRI16/32 als multi-Accessory behoben (https://github.com/rdmtc/RedMatic-HomeKit/issues/244)
+  * Event Node: Möglichkeit 6 Tasten zu konfigurieren hinzugefügt (https://github.com/rdmtc/RedMatic/issues/296)
+* @hobbyquaker Automatisches erzeugen der CHANGE_HISTORY.md
+* @hobbyquaker Maximale Downloadzeit bei redmatic-pkg-* updates auf 720s begrenzt (erfordert mindestens ~220kbit/s für den Download einer 20MB Datei) (Mitigate #267)
+
+[Release History](https://github.com/rdmtc/RedMatic/blob/master/CHANGE_HISTORY.md)
+
+
+
 # [v5.3.4](https://github.com/rdmtc/RedMatic/releases/v5.3.4) 2020-01-03T12:32:24Z
 
 * @hobbyquaker Update RedMatic-HomeKit
