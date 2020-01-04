@@ -23,6 +23,9 @@ function parse(data) {
             if (line.startsWith('Module | Version')) {
                 include = false;
             }
+            if (line.startsWith('[Release History]')) {
+                include = false;
+            }
             if (include && line !== '') {
                 console.log(line.replace(/^\s*\* [0-9a-f]{7} /, '* '));
             }
