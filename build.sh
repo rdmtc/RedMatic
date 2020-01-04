@@ -23,11 +23,13 @@ echo "installing build dependencies..."
 npm install --only=dev --global-style
 
 echo "generate CHANGE_HISTORY.md..."
-git checkout master
-git remote add origin-push https://${GITHUB_OAUTH_TOKEN}@github.com/rdmtc/RedMatic.git > /dev/null 2>&1
-node update_change_history.js > CHANGE_HISTORY.md
+git clone https://github.com/rdmtc/RedMatic.wiki
+node update_change_history.js > RedMatic.wiki/CHANGE_HISTORY.md
+cd RedMatic.wiki
+git remote add wiki-push https://${GITHUB_OAUTH_TOKEN}@github.com/rdmtc/RedMatic.wiki > /dev/null 2>&1
 git commit -m "Update CHANGE_HISTORY.md (Travis build: ${TRAVIS_BUILD_NUMBER})" CHANGE_HISTORY.md
-git push origin-push master
+git push wiki-push master
+cd $BUILD_DIR
 
 echo "download and extract Node.js $NODE_URL ..."
 curl --silent $NODE_URL | tar -xJf - -C $ADDON_TMP
@@ -111,7 +113,7 @@ git log `git describe --tags --abbrev=0`..HEAD --pretty=format:'* %h @%an %s' >>
 cat >>CHANGELOG.md <<EOL
 
 
-[Release History](https://github.com/rdmtc/RedMatic/blob/master/CHANGE_HISTORY.md)
+[Release History](https://github.com/rdmtc/RedMatic/wiki/CHANGE_HISTORY)
 
 Module | Version
 ------ | -------
