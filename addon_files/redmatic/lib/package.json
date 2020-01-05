@@ -14,7 +14,7 @@
     "node-red-contrib-zigbee": "0.17.0",
     "node-red-contrib-johnny-five": "1.0.0-beta.1",
     "node-red-contrib-enocean": "0.7.9",
-    "redmatic-homekit": "3.0.2",
+    "redmatic-homekit": "3.0.3",
     "node-red-contrib-theme-midnight-red": "1.0.24",
     "node-red-contrib-doorbird": "0.2.6",
     "redmatic-canbus": "1.0.1",
