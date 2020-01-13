@@ -20,11 +20,21 @@ if {[info exists sid] && [check_session $sid]} {
         catch {exec /usr/local/addons/redmatic/bin/redmaticVersions} result
         puts $result
         puts ""
+
+        catch {exec netstat -tulpen | grep node} result
+        puts $result
+        puts ""
+
+        catch {exec /usr/sbin/iptables -L INPUT -vn} result
+        puts $result
+        puts ""
+
         if {[file exists /usr/local/addons/redmatic/var/pkg-upgrade.log]} {
             catch {exec cat /usr/local/addons/redmatic/var/pkg-upgrade.log} result
             puts $result
             puts ""
         }
+
         if {[file exists /var/log/messages.0]} {
             catch {exec cat /var/log/messages.0 | grep node-red\\|redmatic } result
             puts $result
