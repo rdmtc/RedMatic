@@ -21,6 +21,22 @@ if {[info exists sid] && [check_session $sid]} {
         puts $result
         puts ""
 
+        catch {exec df -h} result
+        puts $result
+        puts ""
+
+        catch {exec du -sh /usr/local/addons/redmatic/var /usr/local/addons/redmatic/lib /usr/local/addons/redmatic/tmp} result
+        puts $result
+        puts ""
+
+        catch {exec top -b -n1 | grep -v "\]$"} result
+        puts $result
+        puts ""
+
+        catch {exec /sbin/ifconfig} result
+        puts $result
+        puts ""
+
         catch {exec netstat -tulpen | grep node} result
         puts $result
         puts ""
