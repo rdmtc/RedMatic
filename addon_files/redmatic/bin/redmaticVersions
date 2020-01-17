@@ -28,7 +28,7 @@ do
     JO_ARGS="$JO_ARGS $PKG=`jq -r '.version' $LOCAL_MODULES/$PKG/package.json`"
 done
 
-jo -p ccu=`cat /VERSION | jo` \
+jo -p ccu=`(cat /VERSION && echo -n "deviceTypes=" && $ADDON_DIR/bin/deviceTypes) | jo` \
     redmatic=$VERSION_ADDON \
     nodejs=`node --version | cut -c 2-` \
     $JO_ARGS

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+ADDON_DIR=/usr/local/addons/redmatic
+
+source $ADDON_DIR/home/.profile
+
+$ADDON_DIR/bin/jq -r '.types[] | keys[]' $ADDON_DIR/var/ccu_localhost.json | grep '-' | sort -f | jo -a
