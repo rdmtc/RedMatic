@@ -33,10 +33,6 @@ if {[info exists sid] && [check_session $sid]} {
         puts $result
         puts ""
 
-        catch {exec /sbin/ifconfig} result
-        puts $result
-        puts ""
-
         catch {exec netstat -tulpen | grep node} result
         puts $result
         puts ""
