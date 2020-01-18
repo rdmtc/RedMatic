@@ -93,6 +93,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [RedMatic HomeKit](https://github.com/rdmtc/RedMatic/wiki/Homekit)
   * [RedMatic WebApp](https://github.com/rdmtc/RedMatic/wiki/Webapp)
   * [Node-RED Dashboard](https://github.com/rdmtc/RedMatic/wiki/Dashboard-Screenshots)
+  * [Zeit, Rolladen Steuerung](https://github.com/rdmtc/node-red-contrib-sun-position)
 
 * Beispiel Flows
   * [Anzahl und Liste offener Fenster im Dashboard anzeigen](https://github.com/rdmtc/RedMatic/wiki/Flow-Windows)
@@ -109,6 +110,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [CCU an MQTT anbinden](https://github.com/rdmtc/RedMatic/wiki/Flow-MQTT)
   * [Bidcos-Wired Dimmer mit Bidcos-RF Tasten steuern](https://github.com/rdmtc/RedMatic/wiki/Flow-Wired-Dimmer)
   * [Sprachausgabe auf Echo mit node-red-contrib-alexa-remote2](https://github.com/rdmtc/RedMatic/wiki/Sprachausgabe-mit-node-red-contrib-alexa-remote2)
+  * [Discovery von Geräten mit Echo Dot v3 und node-red-contrib-amazon-echo](https://github.com/rdmtc/RedMatic/wiki/Discovery-von-Geräten-mit-Echo-Dot-v3-und-node-red-contrib-amazon-echo)
 * Von Usern bereitgestellte Flows
   * [Licht mittels Tastendruck aus und einschalten](https://github.com/rdmtc/RedMatic/wiki/Flow-simple-toggle-light)
   * [Licht schalten mit einem Dashboard button](https://github.com/rdmtc/RedMatic/wiki/combine-logic-node-for-toggle-state)
@@ -134,6 +136,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Pillenförmige-Schalter sychron mit globaler Variable](https://github.com/rdmtc/RedMatic/wiki/Pillenförmige-Schalter-synchron-mit-globalen-Variablen)
   * [Zusätzliche Wettericons für UI-Dashboard in Redmatic verfügbar machen](https://github.com/rdmtc/RedMatic/wiki/Zusätzliche-Wettericons-für-UI-Dashboard-in-Redmatic-verfügbar-machen)
   * [E3DC Anbindung per Modbus-TCP](https://github.com/rdmtc/RedMatic/wiki/E3DC-Anbindung-per-Modbus-TCP)
+  * [Alexa Anbindung mit node-red-contrib-alexa-home-skill](https://homematic-forum.de/forum/viewtopic.php?f=77&t=55931#p556001)
 * Sonstiges
   * [Berichterstattung, Blogbeiträge, Videos über RedMatic](https://github.com/rdmtc/RedMatic/wiki/Berichterstattung)
   * [Node-RED Link Sammlung](https://github.com/rdmtc/RedMatic/wiki/Links)
