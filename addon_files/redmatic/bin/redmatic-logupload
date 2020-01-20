@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ ! -f /usr/local/addons/redmatic/etc/nickname ]; then
+    echo "nickname missing"
+    exit 1
+fi
+
+/bin/tclsh /usr/local/addons/redmatic/lib/log.tcl | /bin/gzip | \
+/usr/bin/curl \
+-s --data-binary @- --max-time 300 \
+-H "Content-Type: application/octet-stream" \
+-H "X-RedMatic-nick: `cat /usr/local/addons/redmatic/etc/nickname`" \
+https://telemetry.redmatic.de/log
