@@ -138,7 +138,7 @@ Start () {
     fi
 
     if [ -f /usr/bin/monit ]; then
-        nohup $ADDON_DIR/bin/monit-start.sh > /dev/null 2>&1 &
+        nohup $ADDON_DIR/bin/monit-start > /dev/null 2>&1 &
     fi
 }
 
