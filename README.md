@@ -16,8 +16,9 @@
 
 _RedMatic_ fasst mehrere Softwarekomponenten zu einem CCU Addon zusammen, einem Softwarepaket, dass auf einer Homematic CCU3 oder RaspberryMatic als Zusatzsoftware komfortabel über das WebUI installiert werden kann.
 
-Die Grundlage bildet [Node-RED](https://nodered.org/about/) mit den [CCU Nodes für Node-RED](https://github.com/rdmtc/node-red-contrib-ccu). Hiermit ist es auf einfache und visuelle Weise möglich Regeln, Automationen, Scripte und Anbindungen von externen Services und Systemen für ein Homematic System zu realisieren - und das weitgehend auch ohne Programmierkenntnisse. Die Einrichtung und der Betrieb von _RedMatic_ ist sehr benutzerfreundlich, es bedarf keiner Nutzung der Linux-Kommandozeile und es müssen keine 
-Konfigurationsdateien o.Ä. bearbeitet werden. Im [Wiki](https://github.com/rdmtc/RedMatic/wiki) gibt es weitere Informationen zu Node-RED und einige Anwendungsbeispiele (sogenannte _Flows_).
+Die Grundlage bildet [Node-RED](https://nodered.org/about/) mit den [CCU Nodes für Node-RED](https://github.com/rdmtc/node-red-contrib-ccu). Hiermit ist es auf einfache und visuelle Weise möglich Regeln, Automationen, Scripte und Anbindungen von externen Services und Systemen für ein Homematic System zu realisieren - und das weitgehend auch ohne Programmierkenntnisse. Im [Wiki](https://github.com/rdmtc/RedMatic/wiki) gibt es weitere Informationen zu Node-RED und einige Anwendungsbeispiele (sogenannte _Flows_).
+
+Die Einrichtung und der Betrieb von _RedMatic_ ist sehr benutzerfreundlich, es bedarf keiner Linux-Kenntnisse und es müssen keine Konfigurationsdateien o.Ä. bearbeitet werden. 
 
 Für die Visualisierung und Steuerung sind [RedMatic WebApp](https://github.com/rdmtc/RedMatic-WebApp) und 
 [Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) enthalten. _RedMatic WebApp_ ist eine
@@ -31,7 +32,7 @@ Eine Anbindung der CCU an einen [MQTT](https://github.com/rdmtc/RedMatic/wiki/Fl
 Eine große und aktive Community rund um Node-RED hat zudem eine 
 [Bibliothek von tausenden zusätzlichen Nodes](https://flows.nodered.org/?type=node&num_pages=1) geschaffen die auf 
 einfache Weise [installiert werden können](https://github.com/rdmtc/RedMatic/wiki/Node-Installation) und es 
-ermöglichen spezielle Automatismen zu implementieren und diverse weitere Services und Systeme komfortabel anzubinden - wie z.B. KNX, Xiaomi/Aqara, Loxone, Somfy Tahoma, Velux KLF200, Home Connect Haushaltsgeräte, den Logitech Harmony Hub, verschiedene Smart TVs und AV-Receiver, Sonos, Netatmo, Hue/Lightify/Tradfri, ArtNET/DMX, DALI, Modbus, Amazon Alexa, Google Home, diverse Datenbanken wie z.B. InfluxDB oder MySQL, Webservices zur Abfrage von beispielsweise Wetterdaten und vieles mehr.
+ermöglichen spezielle Automatismen zu implementieren und diverse weitere Services und Systeme komfortabel anzubinden - wie z.B. KNX, Xiaomi/Aqara, Loxone, Somfy Tahoma, Velux KLF200, Home Connect Haushaltsgeräte, den Logitech Harmony Hub, verschiedene Smart TVs und AV-Receiver, Sonos, Netatmo, Hue/Lightify/Tradfri, Deconz, ArtNET/DMX, DALI, Modbus, Amazon Alexa, Google Home, diverse Datenbanken wie z.B. InfluxDB oder MySQL, Webservices zur Abfrage von beispielsweise Wetterdaten und vieles mehr.
 
 _RedMatic_ kann damit - insbesondere auch für diejenigen die neben der CCU keinen weiteren Server betreiben möchten - eine Alternative zu einem "ausgewachsenen" Smart Home System wie z.B. ioBroker, Home Assistent, OpenHAB oder FHEM darstellen. Mit RedMatic-HomeKit steht des weiteren eine Alternative zum Betrieb einer Homebridge zur Verfügung die insbesondere bei der Integration von Homematic Geräten in HomeKit einige Vorteile bietet.
 Auch eine Koexistenz mit vorhandener anderer Smart Home Software kann sinnvoll sein, _RedMatic_ eignet sich z.B. auch sehr gut als Schnittstelle um eine Homematic CCU an ein übergeordnetes System via MQTT anzubinden. 
@@ -41,8 +42,9 @@ Nicht zuletzt kann _RedMatic_ auch als stabile und mit wesentlich mehr Möglichk
 ## Voraussetzungen
 
 _RedMatic_ ist __nur für die CCU3 und RaspberryMatic geeignet__. Da RedMatic unter Umständen über 200MB Speicher 
-benötigt ist es ratsam einen RaspberryPi mit 1GB RAM zu nutzen (ab Pi 2B). Auf der CCU1/2 kann _RedMatic_ nicht 
-verwendet werden.
+benötigt ist es ratsam einen RaspberryPi mit 1GB RAM zu nutzen (ab Pi 2B). 
+
+Die RaspberryMatic-Varianten "ova" und "intelnuc" werden (noch) nicht unterstützt. Auf der CCU1/2 kann _RedMatic_ nicht verwendet werden. 
 
 Für die Nutzung der Weboberflächen ist ein moderner Browser notwendig, der Internet Explorer wird nicht unterstützt.
 
