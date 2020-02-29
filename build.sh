@@ -159,16 +159,19 @@ links() {
 # TODO handle scoped modules
 for DIR in $(find $MODULES_DIR/ -maxdepth 1 -type d -not -name "node_modules" -not -name ".bin"  -exec basename {} \; | sort -t '\0' -n)
 do
-    VERSION=$(jq -r '.version' $MODULES_DIR/$DIR/package.json)
-    if [[ ! -z "$VERSION" ]]; then
+    if [[ -f $MODULES_DIR/$DIR/package.json ]]; then
+        VERSION=$(jq -r '.version' $MODULES_DIR/$DIR/package.json)
         links $DIR $VERSION
     fi
 done
 
+# TODO handle scoped modules
 for DIR in $(find $ADDON_TMP/redmatic/var/node_modules/ -maxdepth 1 -type d -not -name "node_modules" -not -name ".bin"  -exec basename {} \; | sort -t '\0' -n)
 do
-    VERSION=$(jq -r '.version' $ADDON_TMP/redmatic/var/node_modules/$DIR/package.json)
-    links $DIR $VERSION
+    if [[ -f $ADDON_TMP/redmatic/var/node_modules/$DIR/package.json ]]; then
+        VERSION=$(jq -r '.version' $ADDON_TMP/redmatic/var/node_modules/$DIR/package.json)
+        links $DIR $VERSION
+    fi
 done
 
 echo -e "\n\n[Travis Build #$TRAVIS_BUILD_NUMBER](https://travis-ci.org/rdmtc/RedMatic/builds/$TRAVIS_BUILD_ID)" >> CHANGELOG.md
