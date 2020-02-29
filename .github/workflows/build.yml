@@ -1,0 +1,13 @@
+name: CI
+
+on: []
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Addon Package
+      run: ./build.sh
