@@ -15,5 +15,5 @@ jobs:
       
     - uses: actions/upload-artifact@v1
       with:
-        name: my-artifact
+        name: dist-files
         path: dist
