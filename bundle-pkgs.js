@@ -8,7 +8,7 @@ const blacklist = [
     'node-red',
     'npm',
     'ain2',
-    'node-red-contrib-theme-midnight-red'
+    '@node-red-contrib-themes/midnight-red'
 ];
 
 const extraFiles = {
@@ -28,11 +28,19 @@ const extraFiles = {
 const remove = [];
 const repo = {};
 
+// TODO handle scoped packages
+
 Object.keys(pkgLib.dependencies).forEach(name => {
     if (blacklist.includes(name)) {
         return;
     }
-    const pkgJson = require(__dirname + '/addon_tmp/redmatic/lib/node_modules/' + name + '/package.json');
+    let pkgJson;
+    try {
+        pkgJson = require(__dirname + '/addon_tmp/redmatic/lib/node_modules/' + name + '/package.json');
+    } catch (err) {
+        console.error(err.message);
+        return;
+    }
     const {version, description, keywords, homepage, repository} = pkgJson;
 
     const filename = 'redmatic-pkg-' + name + '-' + version + '.tar.gz';
