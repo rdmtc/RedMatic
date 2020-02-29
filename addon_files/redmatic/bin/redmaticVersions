@@ -14,18 +14,25 @@ source $ADDON_DIR/versions
 
 JO_ARGS=""
 
+# TODO handle scoped packages
 for dir in $GLOBAL_MODULES/*
 do
     dir=${dir%*/}
     PKG=${dir##*/}
-    JO_ARGS="$JO_ARGS $PKG=`jq -r '.version' $GLOBAL_MODULES/$PKG/package.json`"
+    PKGJSON=$GLOBAL_MODULES/$PKG/package.json
+    if [[ -f $PKGJSON ]]; then
+        JO_ARGS="$JO_ARGS $PKG=`jq -r '.version' $GLOBAL_MODULES/$PKG/package.json`"
+    fi
 done
 
 for dir in $LOCAL_MODULES/*
 do
     dir=${dir%*/}
     PKG=${dir##*/}
-    JO_ARGS="$JO_ARGS $PKG=`jq -r '.version' $LOCAL_MODULES/$PKG/package.json`"
+    PKGJSON=$LOCAL_MODULES/$PKG/package.json
+    if [[ -f $PKGJSON ]]; then
+        JO_ARGS="$JO_ARGS $PKG=`jq -r '.version' $LOCAL_MODULES/$PKG/package.json`"
+    fi
 done
 
 jo -p ccu=`(cat /VERSION && echo -n "deviceTypes=" && $ADDON_DIR/bin/deviceTypes) | jo` \

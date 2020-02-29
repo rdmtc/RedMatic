@@ -156,10 +156,13 @@ links() {
     fi
 }
 
+# TODO handle scoped modules
 for DIR in $(find $MODULES_DIR/ -maxdepth 1 -type d -not -name "node_modules" -not -name ".bin"  -exec basename {} \; | sort -t '\0' -n)
 do
     VERSION=$(jq -r '.version' $MODULES_DIR/$DIR/package.json)
-    links $DIR $VERSION
+    if [[ ! -z "$VERSION" ]]; then
+        links $DIR $VERSION
+    fi
 done
 
 for DIR in $(find $ADDON_TMP/redmatic/var/node_modules/ -maxdepth 1 -type d -not -name "node_modules" -not -name ".bin"  -exec basename {} \; | sort -t '\0' -n)
