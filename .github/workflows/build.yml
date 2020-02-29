@@ -1,0 +1,39 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+  
+    - name: Setup Node.js for use with actions
+      uses: actions/setup-node@v1.1.0
+    
+    - uses: actions/checkout@v2
+        
+    - uses: EndBug/version-check@v1.2.0
+      name: Check for version change
+      id: check_version
+      with:
+        diff-search: true
+
+    - name: Build addon package
+      #if: steps.check_version.outputs.changed == 'true'
+      run: ./build_gh.sh
+      
+    - uses: actions/upload-artifact@v1
+      name: Save release artifacts
+      #if: steps.check_version.outputs.changed == 'true'
+      with:
+        name: release
+        path: dist
+
+    - uses: actions/upload-artifact@v1
+      name: Save changelog
+      #if: steps.check_version.outputs.changed == 'true'
+      with:
+        name: changelog
+        path: CHANGELOG.md
