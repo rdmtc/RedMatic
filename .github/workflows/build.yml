@@ -22,7 +22,7 @@ jobs:
 
     - name: Build addon package
       #if: steps.check_version.outputs.changed == 'true'
-      run: ./build.sh
+      run: ./build_gh.sh
       
     - uses: actions/upload-artifact@v1
       name: Save release artifacts
