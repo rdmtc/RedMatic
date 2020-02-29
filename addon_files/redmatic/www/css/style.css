@@ -7,6 +7,10 @@
     width: 550px;
 }
 
+#alert-upload {
+    width: 600px;
+}
+
 html, body {
     height: 100%;
 }
