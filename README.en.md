@@ -61,8 +61,7 @@ On the [Releases](https://github.com/rdmtc/RedMatic/releases/latest) Page the fi
 ## Support, Contributing
 
 For feedback of any kind, questions, suggestions, wishes and bug reports please use the 
-[Issue Tracker](https://github.com/rdmtc/RedMatic/issues). Alternatively there is [Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNDgyNDM2OTkyMDA2LWY1YjY0NTE0NmY0OWM3YWUzMzAzMTgxYmRjMTMyOWE3NjkxNDdlMDY5ZjlhYzM5Nzg2N2U2YjdmNzNlYWNhNTU) 
-and a [subforum in the Homematic-Forum](https://homematic-forum.de/forum/viewforum.php?f=77). 
+[Issue Tracker](https://github.com/rdmtc/RedMatic/issues). Alternatively there is [Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNDgyNDM2OTkyMDA2LWY1YjY0NTE0NmY0OWM3YWUzMzAzMTgxYmRjMTMyOWE3NjkxNDdlMDY5ZjlhYzM5Nzg2N2U2YjdmNzNlYWNhNTU). 
 
 Participation in any form is welcome and desired, especially all users are invited to extend the [list of successfully tested nodes](https://github.com/rdmtc/RedMatic/wiki/Erfolgreich-getestete-Nodes), to publish sample flows and to contribute to the improvement and extension of the [documentation](https://github.com/rdmtc/RedMatic/wiki).
 
