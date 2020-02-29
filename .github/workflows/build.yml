@@ -8,8 +8,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      
+  
+    - name: Setup Node.js for use with actions
+      uses: actions/setup-node@v1.1.0
+    
     - uses: actions/checkout@v2
+        
+    - uses: EndBug/version-check@v1.2.0
+      name: Check for version change
+      id: check_version
+      with:
+        diff-search: true
+        
+    - name: Log when changed
+      if: steps.check_version.outputs.changed == 'true'
+      run: 'echo "Version change found! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
+
+    - name: Log when unchanged
+      if: steps.check_version.outputs.changed != 'true'
+      run: 'echo "No version change :/ ${{ steps.check.outputs.version }}"'
+    
     - name: Build Addon Package
       run: ./build.sh
       
