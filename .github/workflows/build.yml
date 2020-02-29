@@ -25,12 +25,14 @@ jobs:
       run: ./build.sh
       
     - uses: actions/upload-artifact@v1
+      name: Save release artifacts
       #if: steps.check_version.outputs.changed == 'true'
       with:
         name: release
         path: dist
 
     - uses: actions/upload-artifact@v1
+      name: Save changelog
       #if: steps.check_version.outputs.changed == 'true'
       with:
         name: changelog
