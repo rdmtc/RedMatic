@@ -8,6 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      
     - uses: actions/checkout@v2
     - name: Build Addon Package
       run: ./build.sh
+      
+    - uses: actions/upload-artifact@v1
+      with:
+        name: my-artifact
+        path: dist
