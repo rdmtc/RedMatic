@@ -60,7 +60,7 @@ erreichbar. Bei der Installation ist Geduld erforderlich, es kann bis zu ~10 Min
 ## Support, Mitarbeit
 
 Für Feedback jeglicher Art, Fragen, Vorschläge, Wünsche und Fehlerberichte bitte den 
-[Issue Tracker](https://github.com/rdmtc/RedMatic/issues) nutzen. Alternativ steht auch [ein Chatraum in Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNDgyNDM2OTkyMDA2LWY1YjY0NTE0NmY0OWM3YWUzMzAzMTgxYmRjMTMyOWE3NjkxNDdlMDY5ZjlhYzM5Nzg2N2U2YjdmNzNlYWNhNTU) zur Verfügung. 
+[Issue Tracker](https://github.com/rdmtc/RedMatic/issues) nutzen. Alternativ steht auch [ein Chatraum in Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNjAzMDA0MjM3NzY1LTY2MzkzODUzODIyNGQ0YmVmZTJkNDRjN2U0MWQxNWRmNTQ0NjI4MjMyNjZjOWFmNjkyNjNiMTcwZGZmYWNlNjQ) zur Verfügung. 
 
 Beteiligung in jeder Form ist willkommen und gewünscht, insbesondere sind alle Nutzer aufgefordert die [Liste erfolgreich getesteter Nodes](https://github.com/rdmtc/RedMatic/wiki/Erfolgreich-getestete-Nodes) zu ergänzen, Beispiel-Flows zu veröffentlichen und an der Verbesserung und Erweiterung der [Dokumentation](https://github.com/rdmtc/RedMatic/wiki) mitzuarbeiten.
 
@@ -142,6 +142,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Node-RED Link Sammlung](https://github.com/rdmtc/RedMatic/wiki/Links)
   * [Telemetrie](https://github.com/rdmtc/RedMatic/wiki/Telemetry)
   * [Danksagungen](https://github.com/rdmtc/RedMatic/wiki/Danke)
+  * [Change History](https://github.com/rdmtc/RedMatic/wiki/CHANGE_HISTORY)
 
 ## Webseite
 
