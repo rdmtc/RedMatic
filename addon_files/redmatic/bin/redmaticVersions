@@ -33,7 +33,13 @@ scan_dir()
 scan_dir $GLOBAL_MODULES
 scan_dir $LOCAL_MODULES
 
-jo -p ccu=`(cat /VERSION && echo -n "deviceTypes=" && $ADDON_DIR/bin/deviceTypes) | jo` \
+source /VERSION
+
+if [ -d /etc/piVCCU3 ]; then
+    PRODUCT="piVCCU3"
+fi
+
+jo -p ccu=`(echo "VERSION=$VERSION"; echo "PRODUCT=$PRODUCT"; echo "PLATFORM=$PLATFORM" && echo -n "deviceTypes=" && $ADDON_DIR/bin/deviceTypes) | jo` \
     redmatic=$VERSION_ADDON \
     nodejs=`node --version | cut -c 2-` \
     $JO_ARGS
