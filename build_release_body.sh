@@ -32,7 +32,7 @@ git log `git describe --tags --abbrev=0`..HEAD --pretty=format:'* %h @%an %s' \
     | grep -vi "update readme" \
     | grep -vi "bump version" \
     | sed -e 's/Sebastian Raff/hobbyquaker/g' \
-    >> RELEASE_BODY.md
+    >>RELEASE_BODY.md
 
 cat >>RELEASE_BODY.md <<EOL
 

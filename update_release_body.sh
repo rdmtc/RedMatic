@@ -7,7 +7,7 @@ LTAG=`jq -r '.tag_name' latest-release.json`
 source addon_tmp/redmatic/versions
 
 if [ "$LTAG" != "v$VERSION_ADDON" ]; then
-    echo "wrong release"
+    echo "wrong release $LTAG != v$VERSION_ADDON"
     rm latest-release.json
     exit 1
 fi

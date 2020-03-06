@@ -96,6 +96,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
     tar --owner=root --group=root -czf $BUILD_DIR/dist/$ADDON_FILE *
 fi
+
 cd $BUILD_DIR
 
 sha256sum $BUILD_DIR/dist/$ADDON_FILE > $BUILD_DIR/dist/$ADDON_FILE.sha256

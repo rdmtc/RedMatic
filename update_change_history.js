@@ -10,7 +10,7 @@ function req() {
         }
     }, (err, res, body) => {
         if (!err) {
-            parse(JSON.parse(body))
+            parse(JSON.parse(body));
         } else {
             console.error(err.message);
         }
@@ -18,6 +18,9 @@ function req() {
 }
 
 function parse(data) {
+    if (!data.forEach) {
+        console.error(data);
+    }
     data.forEach(release => {
         console.log(`# [${release.tag_name}](https://github.com/rdmtc/RedMatic/releases/${release.tag_name}) ${release.published_at}`);
         let include = false;
