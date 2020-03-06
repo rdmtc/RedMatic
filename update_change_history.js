@@ -11,6 +11,8 @@ function req() {
     }, (err, res, body) => {
         if (!err) {
             parse(JSON.parse(body))
+        } else {
+            console.error(err.message);
         }
     });
 }

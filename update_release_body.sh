@@ -4,6 +4,8 @@ curl --silent -L https://api.github.com/repos/rdmtc/RedMatic/releases/latest > l
 
 LTAG=`jq -r '.tag_name' latest-release.json`
 
+source addon_tmp/redmatic/versions
+
 if [ "$LTAG" != "v$VERSION_ADDON" ]; then
     echo "wrong release"
     rm latest-release.json

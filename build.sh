@@ -12,3 +12,5 @@ npm install --only=dev --global-style --no-package-lock
 
 ./build_release_body.sh
 ./build_change_history.sh
+
+cat RELEASE_BODY.md
