@@ -18,8 +18,10 @@ DOWNLOAD_I686="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADD
 cat >RELEASE_BODY.md <<EOL
 ### Downloads
 
-* CCU3 und RaspberryMatic auf RaspberryPi und Tinkerboard [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
-* RaspberryMatic Varianten _ova_ und _intelnuc_ [![Downloads redmatic-i686-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-i686-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_I686)
+#### CCU3 und RaspberryMatic auf RaspberryPi und Tinkerboard
+  [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
+#### RaspberryMatic Varianten _ova_ und _intelnuc_
+  [![Downloads redmatic-i686-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-i686-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_I686)
 
 
 
