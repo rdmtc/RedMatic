@@ -8,7 +8,6 @@ addons:
 branches:
   only:
   - master
-  - x86
 install: true
 script: true
 before_deploy:
@@ -27,7 +26,6 @@ deploy:
     branches:
       only:
         - master
-        - x86
   draft: false
 after_deploy:
 - "./update_release_body.sh"

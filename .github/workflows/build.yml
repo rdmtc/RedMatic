@@ -35,7 +35,7 @@ jobs:
 
     - name: Build addon package
       #if: steps.check_version.outputs.changed == 'true'
-      run: ./build_gh.sh
+      run: ./build.sh
       
     - uses: actions/upload-artifact@v1
       name: Save release artifacts
@@ -48,6 +48,6 @@ jobs:
       name: Save changelog
       #if: steps.check_version.outputs.changed == 'true'
       with:
-        name: changelog
-        path: CHANGELOG.md
+        name: description
+        path: RELEASE_BODY.md
  

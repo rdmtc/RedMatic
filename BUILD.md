@@ -1,4 +1,4 @@
-## Build Process
+# Build Process
 
 Dependencies are defined in
 
@@ -9,15 +9,23 @@ Dependencies are defined in
 The Node.js version that is bundled with the addon is defined in `./package.json` under 
 `"engines":{"node":"<version>"}}`.
 
+
+## Binary Modules
+
 The binary modules that are needed before the build is started are created by the script `prebuild.sh`, I'm doing this
-locally on a RaspberryPi. Afterwards the binaries are added to git repo. This is something I'm not happy with, but the
+locally, afterwards the binaries are added to git repo. This is something I'm not happy with, but the
 effort of creating the binaries on Travis (via QEMU) is quite high and Travis limits a job run to 45 minutes which is
-not enough - especially when using QEMU...
+not enough - especially when using QEMU... Cross-compilation is also not really practically, node-gyp doesn't give you
+full control of the build...
 
-`build.sh` creates the CCU addon package file and puts it in the `dist` folder. It also creates the `CHANGELOG.md`.
 
-The Travis Job runs `build.sh` and calls `github_release.rb` which publishes the Artifact on the Github Release Page, 
-accompanied by the `CHANGELOG.md`. This Job is triggered manually.
+## Pipeline
+
+The Travis Job sets a tag, creates a release, runs `build.sh`, uploads the files in the `dist` folder and calls
+`update_release_body.sh` afterwards. This Job is triggered manually.
+
+`build.sh` creates the CCU addons and the package files and puts them in the `dist` folder. It also creates
+`RELEASE_BODY.md` and updates the `CHANGE_HISTORY` in the Github Wiki.
 
 
 ## Update Dependencies

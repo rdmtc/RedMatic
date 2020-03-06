@@ -4,7 +4,7 @@ DEST="prebuilt/armv6l"
 REMOTE="root@pi-black"
 REMOTE_PATH="/root/redmatic-prebuild"
 
-cat addon_files/redmatic/lib/package.json | jq 'del(.dependencies.npm,.dependencies."node-red",.dependencies."node-red-contrib-theme-midnight-red")' > $DEST/package.json
+cat addon_files/redmatic/lib/package.json | jq 'del(.dependencies.npm,.dependencies."node-red",.dependencies."@node-red-contrib-themes/midnight-red")' > $DEST/package.json
 
 scp $DEST/package.json $REMOTE:$REMOTE_PATH
 

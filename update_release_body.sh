@@ -13,6 +13,6 @@ fi
 RELEASE=`jq -r '.id' latest-release.json`
 rm latest-release.json
 
-echo "console.log(JSON.stringify({body: require('fs').readFileSync('./CHANGELOG.md').toString()}))" | node | curl -H "Authorization: token $GITHUB_OAUTH_TOKEN" -X PATCH --silent -L --data @- https://api.github.com/repos/rdmtc/RedMatic/releases/$RELEASE > /dev/null
+echo "console.log(JSON.stringify({body: require('fs').readFileSync('./RELEASE_BODY.md').toString()}))" | node | curl -H "Authorization: token $GITHUB_OAUTH_TOKEN" -X PATCH --silent -L --data @- https://api.github.com/repos/rdmtc/RedMatic/releases/$RELEASE > /dev/null
 
 exit $?
