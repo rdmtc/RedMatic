@@ -127,6 +127,15 @@ if [ -d $RED_DIR/var/node_modules/redmatic-homekit ]; then
 fi
 
 #
+#   Migration < 5.5 to >= 5.5
+#   Remove obsolete theme package
+#
+if [ -d $RED_DIR/lib/node_modules/node-red-contrib-theme-midnight-red ]; then
+    rm -r $RED_DIR/lib/node_modules/node-red-contrib-theme-midnight-red
+fi
+
+
+#
 #   Remove package-lock
 #
 if [ -f $RED_DIR/var/package-lock.json ]; then
