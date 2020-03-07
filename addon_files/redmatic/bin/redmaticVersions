@@ -39,6 +39,8 @@ if [ -d /etc/piVCCU3 ]; then
     PRODUCT="piVCCU3"
 fi
 
+PLATFORM="$PLATFORM-`uname -m`"
+
 jo -p ccu=`(echo "VERSION=$VERSION"; echo "PRODUCT=$PRODUCT"; echo "PLATFORM=$PLATFORM" && echo -n "deviceTypes=" && $ADDON_DIR/bin/deviceTypes) | jo` \
     redmatic=$VERSION_ADDON \
     nodejs=`node --version | cut -c 2-` \
