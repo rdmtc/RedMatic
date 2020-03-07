@@ -36,7 +36,7 @@ scan_dir $LOCAL_MODULES
 source /VERSION
 
 if [ -d /etc/piVCCU3 ]; then
-    PRODUCT="piVCCU3"
+    PRODUCT="pivccu3"
 fi
 
 PLATFORM="$PLATFORM-`uname -m`"
