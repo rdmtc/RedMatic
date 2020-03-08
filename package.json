@@ -31,7 +31,7 @@
     "node-red-contrib-modbus": "0.0.0 - 5.2.0",
     "node-red-contrib-mysensors": "0.0.0 - 3.3.1",
     "node-red-contrib-rfxcom": "0.0.0 - 2.10.0",
-    "node-red-contrib-zigbee": "0.0.0 - 0.17.1",
+    "node-red-contrib-zigbee": "0.0.0 - 0.18.0",
     "node-red-contrib-johnny-five": "0.0.0 - 1.0.0-beta.1",
     "node-red-contrib-enocean": "0.0.0 - 0.7.9",
     "node-red-contrib-doorbird": "0.0.0 - 0.2.6",
