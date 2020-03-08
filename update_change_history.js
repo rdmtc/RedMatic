@@ -28,7 +28,7 @@ function parse(data) {
             if (line.startsWith('Module | Version')) {
                 include = false;
             }
-            if (line.startsWith('[Release History]')) {
+            if (line.startsWith('[Release History]') || line.startsWith('**[Change History]')) {
                 include = false;
             }
             if (include && line !== '') {
