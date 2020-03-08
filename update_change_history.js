@@ -34,7 +34,7 @@ function parse(data) {
             if (include && line !== '') {
                 console.log(line.replace(/^\s*\* [0-9a-f]{7} /, '* '));
             }
-            if (line.startsWith('### Changelog')) {
+            if (line.startsWith('### Changes')) {
                 include = true;
             }
         });
