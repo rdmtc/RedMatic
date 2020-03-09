@@ -15,7 +15,7 @@
     "node-red-contrib-johnny-five": "1.0.0-beta.1",
     "node-red-contrib-enocean": "0.7.9",
     "redmatic-homekit": "3.1.0",
-    "@node-red-contrib-themes/midnight-red": "1.1.1",
+    "@node-red-contrib-themes/midnight-red": "1.2.0",
     "node-red-contrib-doorbird": "0.2.6",
     "redmatic-canbus": "1.0.1",
     "node-red-contrib-comfoair": "0.0.4"
