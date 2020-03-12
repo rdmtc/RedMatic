@@ -26,7 +26,7 @@
     "node-red-node-email": "0.0.0 - 1.7.7",
     "node-red-node-rbe": "0.0.0 - 0.2.8",
     "node-red-node-serialport": "0.0.0 - 0.10.0",
-    "node-red-contrib-sun-position": "0.0.0 - 1.0.13",
+    "node-red-contrib-sun-position": "0.0.0 - 1.0.14",
     "node-red-contrib-smartmeter": "0.0.0 - 0.2.3",
     "node-red-contrib-modbus": "0.0.0 - 5.2.0",
     "node-red-contrib-mysensors": "0.0.0 - 3.3.1",
