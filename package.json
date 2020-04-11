@@ -23,7 +23,7 @@
     "redmatic-led": "0.0.0 - 1.1.0",
     "redmatic-webapp": "0.0.0 - 0.3.1",
     "redmatic-homekit": "0.0.0 - 3.1.0",
-    "node-red-node-email": "0.0.0 - 1.7.7",
+    "node-red-node-email": "0.0.0 - 1.7.8",
     "node-red-node-rbe": "0.0.0 - 0.2.8",
     "node-red-node-serialport": "0.0.0 - 0.10.0",
     "node-red-contrib-sun-position": "0.0.0 - 1.0.14",
