@@ -134,6 +134,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Zusätzliche Wettericons für UI-Dashboard in Redmatic verfügbar machen](https://github.com/rdmtc/RedMatic/wiki/Zusätzliche-Wettericons-für-UI-Dashboard-in-Redmatic-verfügbar-machen)
   * [E3DC Anbindung per Modbus-TCP](https://github.com/rdmtc/RedMatic/wiki/E3DC-Anbindung-per-Modbus-TCP)
   * [Alexa Anbindung mit node-red-contrib-alexa-home-skill](https://homematic-forum.de/forum/viewtopic.php?f=77&t=55931#p556001)
+  * [Steuerung von Miele Geräten](https://github.com/rdmtc/RedMatic/wiki/Steuerung-Miele)
 * Sonstiges
   * [Berichterstattung, Blogbeiträge, Videos über RedMatic](https://github.com/rdmtc/RedMatic/wiki/Berichterstattung)
   * [Node-RED Link Sammlung](https://github.com/rdmtc/RedMatic/wiki/Links)
