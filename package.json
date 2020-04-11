@@ -36,7 +36,7 @@
     "node-red-contrib-enocean": "0.0.0 - 0.7.9",
     "node-red-contrib-doorbird": "0.0.0 - 0.2.6",
     "redmatic-canbus": "0.0.0 - 1.0.1",
-    "node-red-contrib-comfoair": "0.0.0 - 0.0.4",
+    "node-red-contrib-comfoair": "0.0.0 - 0.0.5",
     "@node-red-contrib-themes/midnight-red": "0.0.0 - 1.2.1"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
