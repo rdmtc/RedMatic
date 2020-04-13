@@ -65,6 +65,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
 
 ## Dokumentation
 
+* [FAQ - Häufig gestellte Fragen](https://github.com/rdmtc/RedMatic/wiki/Faq)
 * Administration
   * [Installation](https://github.com/rdmtc/RedMatic/wiki/Installation)
   * [Update](https://github.com/rdmtc/RedMatic/wiki/Update)
@@ -82,7 +83,6 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Node-RED Grundlagen](https://github.com/rdmtc/RedMatic/wiki/Node-RED)
   * [CCU Nodes](https://github.com/rdmtc/RedMatic/wiki/CCU-Nodes)
   * [Tipps](https://github.com/rdmtc/RedMatic/wiki/Tipps)
-  * [FAQ - Häufig gestellte Fragen](https://github.com/rdmtc/RedMatic/wiki/Faq)
   * [Flows exportieren](https://github.com/rdmtc/RedMatic/wiki/Flow-Export)
   * [Flows importieren](https://github.com/rdmtc/RedMatic/wiki/Flow-Import)
 * Erweiterungen
@@ -93,20 +93,21 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Zeit, Rolladen Steuerung](https://github.com/rdmtc/node-red-contrib-sun-position)
 
 * Beispiel Flows
+  * [Kostenlose Alexa (und Google) Anbindung](https://github.com/rdmtc/RedMatic/wiki/Node-RED-Smart-Home-Control)
+  * [Sprachausgabe über Alexa/Echo](https://github.com/rdmtc/RedMatic/wiki/Sprachausgabe-mit-node-red-contrib-alexa-remote2)
+  * [CCU an MQTT anbinden](https://github.com/rdmtc/RedMatic/wiki/Flow-MQTT)
   * [Anzahl und Liste offener Fenster im Dashboard anzeigen](https://github.com/rdmtc/RedMatic/wiki/Flow-Windows)
   * [Hue Lampen mit langem Tastendruck dimmen](https://github.com/rdmtc/RedMatic/wiki/Flow-Hue)
   * [UNREACH Meldung unterdrücken](https://github.com/rdmtc/RedMatic/wiki/Flow-Unreach)
   * [STICKY_UNREACH Meldungen bestätigen und zählen](https://github.com/rdmtc/RedMatic/wiki/Flow-Sticky)
   * [Anzeigen und Setzen von Systemvariablen im Dashboard](https://github.com/rdmtc/RedMatic/wiki/Flow-Sysvar-Dashboard)
   * [DutyCycle Graph im Dashboard anzeigen](https://github.com/rdmtc/RedMatic/wiki/Flow-DutyCycle)
-  * [Per Pushover benachrichtigen wenn Fenster länger als 10 Minuten offen ist](https://github.com/rdmtc/RedMatic/wiki/Flow-Window-Pushover)
-  * [CPU Auslastung als Graph im Dashboard anzeigen](https://github.com/rdmtc/RedMatic/wiki/Flow-CPU-Usage)
   * [JSON Daten von Webservice abfragen und in Systemvariable schreiben](https://github.com/rdmtc/RedMatic/wiki/Flow-HTTP-Client)
   * [Inhalt einer Systemvariablen über einfachen Webservice bereitstellen](https://github.com/rdmtc/RedMatic/wiki/Flow-HTTP-Server)
+  * [Per Pushover benachrichtigen wenn Fenster länger als 10 Minuten offen ist](https://github.com/rdmtc/RedMatic/wiki/Flow-Window-Pushover)
+  * [CPU Auslastung als Graph im Dashboard anzeigen](https://github.com/rdmtc/RedMatic/wiki/Flow-CPU-Usage)
   * [Schnelles Blinken der LED im Offline-Betrieb unterbinden](https://github.com/rdmtc/RedMatic/wiki/Flow-Offline-LED)
-  * [CCU an MQTT anbinden](https://github.com/rdmtc/RedMatic/wiki/Flow-MQTT)
   * [Bidcos-Wired Dimmer mit Bidcos-RF Tasten steuern](https://github.com/rdmtc/RedMatic/wiki/Flow-Wired-Dimmer)
-  * [Sprachausgabe auf Echo mit node-red-contrib-alexa-remote2](https://github.com/rdmtc/RedMatic/wiki/Sprachausgabe-mit-node-red-contrib-alexa-remote2)
   * [Discovery von Geräten mit Echo Dot v3 und node-red-contrib-amazon-echo](https://github.com/rdmtc/RedMatic/wiki/Discovery-von-Geräten-mit-Echo-Dot-v3-und-node-red-contrib-amazon-echo)
 * Von Usern bereitgestellte Flows
   * [Licht mittels Tastendruck aus und einschalten](https://github.com/rdmtc/RedMatic/wiki/Flow-simple-toggle-light)
@@ -133,7 +134,6 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Pillenförmige-Schalter sychron mit globaler Variable](https://github.com/rdmtc/RedMatic/wiki/Pillenförmige-Schalter-synchron-mit-globalen-Variablen)
   * [Zusätzliche Wettericons für UI-Dashboard in Redmatic verfügbar machen](https://github.com/rdmtc/RedMatic/wiki/Zusätzliche-Wettericons-für-UI-Dashboard-in-Redmatic-verfügbar-machen)
   * [E3DC Anbindung per Modbus-TCP](https://github.com/rdmtc/RedMatic/wiki/E3DC-Anbindung-per-Modbus-TCP)
-  * [Alexa Anbindung mit node-red-contrib-alexa-home-skill](https://homematic-forum.de/forum/viewtopic.php?f=77&t=55931#p556001)
   * [Steuerung von Miele Geräten](https://github.com/rdmtc/RedMatic/wiki/Steuerung-Miele)
 * Sonstiges
   * [Berichterstattung, Blogbeiträge, Videos über RedMatic](https://github.com/rdmtc/RedMatic/wiki/Berichterstattung)
