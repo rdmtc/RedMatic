@@ -44,7 +44,7 @@ _RedMatic_ 은 __CCU3와 RasberryMatic에만 적합하다__. RedMatic은 200MB �
 
 모든 종류의 질문, 제안, 소망 및 버그 리포트에 대한 피드백을 보려면 [Issue Tracker](https://github.com/rdmtc/RedMatic/issues)를 사용하십시오. 아니면 [Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNDgyNDM2OTkyMDA2LWY1YjY0NTE0NmY0OWM3YWUzMzAzMTgxYmRjMTMyOWE3NjkxNDdlMDY5ZjlhYzM5Nzg2N2U2YjdmNzNlYWNhNTU)을 사용하십시오.
 
-어떤 형태의 참여도 환영하며, 특히 모든 사용자는 [성공적으로 테스트된 node의 목록](https://github.com/rdmtc/RedMatic/wiki/Erfolgreich-getestete-Nodes)을 확장하고, sample flow를 게시하며, [documentation](https://github.com/rdmtc/RedMatic/wiki)의 개선과 확장에 기여할 수 있도록 초대된다.
+어떤 형태의 참여도 환영하며, 특히 모든 사용자는 [성공적으로 테스트된 node의 목록](https://github.com/rdmtc/RedMatic/wiki/Erfolgreich-getestete-Nodes)을 확장하고, sample flow를 게시하며, [documentation](https://github.com/rdmtc/RedMatic/wiki)의 개선과 확장에 기여할 수 있도록 초대된다. 
 
 기부는 받지 않겠지만, 이 프로젝트에 Github star ⭐️를 부여해 이 소프트웨어의 성공적인 사용을 인정받는다면 행복합니다.
 
