@@ -31,28 +31,26 @@ _RedMatic_ 은 Homematic CCU3나 RaspberryMatic에 편안하게 설치할 수 �
 
 ## 요구사항(Requirements)
 
-_RedMatic_ 은 __CCU3와 RasberryMatic에만 적합하다__. RedMatic은 200MB 이상의 메모리를 소비할 수 있으므로 1GB RAM(Pi 2B 이상)이 포함된 RasberryPi를 사용하는 것이 좋다. On the CCU1/2 _RedMatic_ can not be used.
+_RedMatic_ 은 __CCU3와 RasberryMatic에만 적합하다__. RedMatic은 200MB 이상의 메모리를 소비할 수 있으므로 1GB RAM(Pi 2B 이상)이 포함된 RasberryPi를 사용하는 것이 좋다. CCU1/2에서는 _RedMatic_ 을 사용할 수 없다.
 
-A modern browser is required to use the web interfaces, Internet Explorer is not supported.
-
+웹 인터페이스를 사용하려면 최신 브라우저가 필요하며, Internet Explorer는 지원되지 않는다.
 
 ## Quick Start
 
-On the [Releases](https://github.com/rdmtc/RedMatic/releases/latest) Page the file `redmatic-<version>.tar.gz` is available for download. After the installation of the addon via the Homematic WebUI (Control Panel -> additional software) and the subsequent reboot of the CCU is Node-RED is reachable at `http://<ccu-addresse>/addons/red`. Patience is required during installation, it can take up to ~10 minutes. Some sample flows as well as a simple dashboard are already preconfigured, the dashboard is reachable at `http://<ccu-address>/addons/red/ui`. 
+[Releases](https://github.com/rdmtc/RedMatic/releases/latest) 페이지에서 `redmatic-<version>.tar.gz` 파일을 다운로드할 수 있다. Homematic WebUI(Control Panel -> additional software)를 통해 애드온을 설치하고 CCU를 재부팅한 후에는 `http://<ccu-addresse>/addons/red`에서 노드-RED에 연결할 수 있다. 설치 시 인내가 필요하며 최대 10분이 소요될 수 있다. 일부 샘플 흐름과 간단한 대시보드는 이미 사전 구성되어 있으며, 대시보드는 `http://<ccu-address>/addons/red/ui`에서 연결할 수 있다.
 
 
 ## Support, Contributing
 
-For feedback of any kind, questions, suggestions, wishes and bug reports please use the 
-[Issue Tracker](https://github.com/rdmtc/RedMatic/issues). Alternatively there is [Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNDgyNDM2OTkyMDA2LWY1YjY0NTE0NmY0OWM3YWUzMzAzMTgxYmRjMTMyOWE3NjkxNDdlMDY5ZjlhYzM5Nzg2N2U2YjdmNzNlYWNhNTU). 
+모든 종류의 질문, 제안, 소망 및 버그 리포트에 대한 피드백을 보려면 [Issue Tracker](https://github.com/rdmtc/RedMatic/issues)를 사용하십시오. 아니면 [Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNDgyNDM2OTkyMDA2LWY1YjY0NTE0NmY0OWM3YWUzMzAzMTgxYmRjMTMyOWE3NjkxNDdlMDY5ZjlhYzM5Nzg2N2U2YjdmNzNlYWNhNTU)을 사용하십시오.
 
-Participation in any form is welcome and desired, especially all users are invited to extend the [list of successfully tested nodes](https://github.com/rdmtc/RedMatic/wiki/Erfolgreich-getestete-Nodes), to publish sample flows and to contribute to the improvement and extension of the [documentation](https://github.com/rdmtc/RedMatic/wiki).
+어떤 형태의 참여도 환영하며, 특히 모든 사용자는 [성공적으로 테스트된 node의 목록](https://github.com/rdmtc/RedMatic/wiki/Erfolgreich-getestete-Nodes)을 확장하고, sample flow를 게시하며, [documentation](https://github.com/rdmtc/RedMatic/wiki)의 개선과 확장에 기여할 수 있도록 초대된다.
 
-No donations will be accepted, but I would be happy if the successful usage of this software is acknowledged by giving the project a Github star ⭐️
+기부는 받지 않겠지만, 이 프로젝트에 Github star ⭐️를 부여해 이 소프트웨어의 성공적인 사용을 인정받는다면 행복합니다.
 
 ## Documentation
 
-Sorry, the Documentation is not yet translated into English. [German Documentation](https://github.com/rdmtc/RedMatic/wiki/Home)
+Documentation은 아직 한국어로 번역되지 않았습니다. [German Documentation](https://github.com/rdmtc/RedMatic/wiki/Home)
 
 
 ## Licenses
