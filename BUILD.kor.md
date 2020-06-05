@@ -37,5 +37,5 @@ Github Wiki에서 `CHANGE_HISTORY`를 업데이트한다.
 
 ## Update 3rd Party Licenses <3rd Party Licences 업데이트>
 
-`update_reduced.js`는 `LICENSES.md` 및 `addon_files/redmatic/redw/properties.js` 파일을 생성한다. 이렇게 하려면 'addon_tmp`에 
+`update_reduced.js`는 `LICENSES.md` 및 `addon_files/redmatic/redw/properties.js` 파일을 생성한다. 이렇게 하려면 `addon_tmp`에 
 모든 종속성이 이미 설치되어 있어야 하므로 이 스크립트를 실행하기 전에 로컬 빌드를 수행해야 한다.
