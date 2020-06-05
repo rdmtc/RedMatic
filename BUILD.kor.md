@@ -6,8 +6,8 @@
 * `addon_files/redmatic/www/package.json` (Modules used by config UI, jQuery, Bootstrap, Bcrypt.js)
 에서 종속성이 정의된다.
 
-addon과 함께 번들로 제공되는 Node.js 버전은 “engines”:{“node”:“<version”>}} 아래의 
-./package.jason에 정의되어 있다.
+addon과 함께 번들로 제공되는 Node.js 버전은 `"engines":{"node":"<version>"}}` 아래의 
+`./package.jason`에 정의되어 있다.
 
 
 ## Binary Modules <바이너리 모듈>
