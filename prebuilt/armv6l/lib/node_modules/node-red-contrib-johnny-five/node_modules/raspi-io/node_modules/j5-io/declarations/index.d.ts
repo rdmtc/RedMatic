@@ -33,17 +33,17 @@ export interface IOptions {
     };
 }
 export declare class J5IO extends AbstractIO {
-    readonly defaultLed: number | undefined;
-    readonly name: string;
-    readonly SERIAL_PORT_IDs: {
+    get defaultLed(): number | undefined;
+    get name(): string;
+    get SERIAL_PORT_IDs(): {
         [id: string]: any;
     };
-    readonly I2C_PORT_IDS: {
+    get I2C_PORT_IDS(): {
         [id: string]: any;
     };
-    readonly pins: ReadonlyArray<IPinConfiguration>;
-    readonly analogPins: ReadonlyArray<number>;
-    readonly isReady: boolean;
+    get pins(): ReadonlyArray<IPinConfiguration>;
+    get analogPins(): ReadonlyArray<number>;
+    get isReady(): boolean;
     getInternalPinInstances?: () => {
         [pin: number]: IPeripheral;
     };
@@ -80,6 +80,7 @@ export declare class J5IO extends AbstractIO {
     i2cConfig(options: II2CConfig): void;
     i2cWrite(address: number, byte: number): void;
     i2cWrite(address: number, inBytes: number[]): void;
+    i2cWrite(address: number, register: number, byte: number): void;
     i2cWrite(address: number, register: number, inBytes: number[]): void;
     i2cWriteReg(address: number, register: number, value: number): void;
     i2cRead(address: number, bytesToRead: number, handler: Handler<number[]>): void;

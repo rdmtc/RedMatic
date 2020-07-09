@@ -457,18 +457,22 @@ class J5IO extends abstract_io_1.AbstractIO {
     i2cConfig(options) {
         // Do nothing because we don't currently support delay
     }
-    i2cWrite(address, registerOrInBytes, inBytes) {
+    i2cWrite(address, registerOrInBytes, byteOrInBytes) {
         const i2cManagerInstance = this[i2cManager];
         if (!i2cManagerInstance) {
             throw new Error('I2C support is disabled');
         }
         let value;
         let register;
-        if (typeof registerOrInBytes === 'number' && Array.isArray(inBytes)) {
+        if (typeof registerOrInBytes === 'number' && Array.isArray(byteOrInBytes)) {
             register = registerOrInBytes;
-            value = inBytes;
+            value = byteOrInBytes;
         }
-        else if (typeof registerOrInBytes === 'number' && typeof inBytes === 'undefined') {
+        else if (typeof registerOrInBytes === 'number' && typeof byteOrInBytes === 'number') {
+            register = registerOrInBytes;
+            value = [byteOrInBytes];
+        }
+        else if (typeof registerOrInBytes === 'number' && typeof byteOrInBytes === 'undefined') {
             register = undefined;
             value = [registerOrInBytes];
         }

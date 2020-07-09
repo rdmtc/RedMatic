@@ -1,3 +1,7 @@
+## 7.3.1 (2020-3-9)
+
+- Added support for another Raspberry Pi 4 Model B variant
+
 ## 7.3.0 (2019-9-12)
 
 - Added better error checking so this module fails gracefully on non-Raspberry Pi systems (thanks to [@wolasss](https://github.com/wolasss) for the PR!)

@@ -1,3 +1,7 @@
+## 3.2.0 (2020-2-13)
+
+- Added support for missing i2cWrite method
+
 ## 3.1.2 (2019-10-30)
 
 - Fixed incorrect i2cWrite signature
