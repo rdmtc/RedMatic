@@ -85,12 +85,12 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Tipps](https://github.com/rdmtc/RedMatic/wiki/Tipps)
   * [Flows exportieren](https://github.com/rdmtc/RedMatic/wiki/Flow-Export)
   * [Flows importieren](https://github.com/rdmtc/RedMatic/wiki/Flow-Import)
-* Erweiterungen
-  * [node-red-contrib-zigbee](https://github.com/rdmtc/RedMatic/wiki/ZigBee)
-  * [RedMatic HomeKit](https://github.com/rdmtc/RedMatic/wiki/Homekit)
-  * [RedMatic WebApp](https://github.com/rdmtc/RedMatic/wiki/Webapp)
+* Spezielle Nodes und Erweiterungen
+  * [node-red-contrib-zigbee](https://github.com/rdmtc/RedMatic/wiki/ZigBee) - Einbindung von Zigbee Geräten über USB-Interface (z.B. Xiaomi Aqara, Philips Hue, IKEA Tradfri, Osram/Ledvance Lightify, Müller Licht Tint, ...)
+  * [RedMatic-HomeKit](https://github.com/rdmtc/RedMatic/wiki/Homekit) - Anbindung an Apple HomeKit, Steuerung via Siri und Home.app
+  * [RedMatic-WebApp](https://github.com/rdmtc/RedMatic/wiki/Webapp)
   * [Node-RED Dashboard](https://github.com/rdmtc/RedMatic/wiki/Dashboard-Screenshots)
-  * [Zeit, Rolladen Steuerung](https://github.com/rdmtc/node-red-contrib-sun-position)
+  * [node-red-contrib-sun-position](https://github.com/rdmtc/node-red-contrib-sun-position) Zeit- und Sonnenstandabhängige Funktionen, Komfortable Beschattungssteuerung
 
 * Beispiel Flows
   * [Kostenlose Alexa (und Google) Anbindung](https://github.com/rdmtc/RedMatic/wiki/Node-RED-Smart-Home-Control)
@@ -135,6 +135,8 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Zusätzliche Wettericons für UI-Dashboard in Redmatic verfügbar machen](https://github.com/rdmtc/RedMatic/wiki/Zusätzliche-Wettericons-für-UI-Dashboard-in-Redmatic-verfügbar-machen)
   * [E3DC Anbindung per Modbus-TCP](https://github.com/rdmtc/RedMatic/wiki/E3DC-Anbindung-per-Modbus-TCP)
   * [Steuerung von Miele Geräten](https://github.com/rdmtc/RedMatic/wiki/Steuerung-Miele)
+  * [Subflow für Enigma2 Receiver](https://github.com/Matten-Matten/node-red-enigma2-flow)
+  * [INSTAR Kameras anbinden](https://wiki.instar.de/Erweitert/Homematic_CCU3_und_RedMatic/)
 * Sonstiges
   * [Berichterstattung, Blogbeiträge, Videos über RedMatic](https://github.com/rdmtc/RedMatic/wiki/Berichterstattung)
   * [Node-RED Link Sammlung](https://github.com/rdmtc/RedMatic/wiki/Links)
