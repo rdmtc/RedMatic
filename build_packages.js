@@ -85,10 +85,14 @@ fs.writeFileSync(__dirname + '/addon_tmp/redmatic/lib/pkg-repo.json', JSON.strin
 
 remove.forEach(path => {
     console.log('remove', path);
-    if (fs.statSync(path).isDirectory()) {
-        cp.execSync('rm -r ' + path);
+    if (fs.existsSync(path)) {
+        if (fs.statSync(path).isDirectory()) {
+            cp.execSync('rm -r ' + path);
+        } else {
+            fs.unlinkSync(path);
+        }
     } else {
-        fs.unlinkSync(path);
+        console.log(path, 'does not exist');
     }
 });
 

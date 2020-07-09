@@ -4,7 +4,7 @@ DEST="prebuilt/i686"
 REMOTE="root@debian-32"
 REMOTE_PATH="/root/redmatic-prebuild"
 
-cat addon_files/redmatic/lib/package.json | jq 'del(.dependencies.npm,.dependencies."node-red",.dependencies."@node-red-contrib-themes/midnight-red",.dependencies.node-red-contrib-johnny-five,.dependencies.node-red-contrib-rcswitch2)' > $DEST/package.json
+cat addon_files/redmatic/lib/package.json | jq 'del(.dependencies.npm,.dependencies."node-red",.dependencies."@node-red-contrib-themes/midnight-red",.dependencies."node-red-contrib-johnny-five",.dependencies."node-red-contrib-rcswitch2")' > $DEST/package.json
 
 scp $DEST/package.json $REMOTE:$REMOTE_PATH
 

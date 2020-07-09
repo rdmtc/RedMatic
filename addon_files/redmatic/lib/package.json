@@ -17,7 +17,6 @@
     "redmatic-homekit": "3.2.0",
     "@node-red-contrib-themes/midnight-red": "1.4.0",
     "node-red-contrib-doorbird": "0.2.6",
-    "redmatic-canbus": "1.0.1",
     "node-red-contrib-comfoair": "0.0.5",
     "node-red-contrib-nukible": "1.0.3",
     "node-red-node-discovery": "0.0.22",

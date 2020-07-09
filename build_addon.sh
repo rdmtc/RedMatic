@@ -39,9 +39,16 @@ cp $BUILD_DIR/assets/favicon/apple-icon-180x180.png $ADDON_TMP/redmatic/www/
 cp $BUILD_DIR/assets/favicon/favicon-96x96.png $ADDON_TMP/redmatic/www/
 
 echo "installing node modules..."
+if [ "$ARCH" == "i686" ]; then
+    echo "removing raspberrypi specific modules..."
+    mv $ADDON_TMP/redmatic/lib/package.json $ADDON_TMP/redmatic/lib/package.json.tmp
+    cat $ADDON_TMP/redmatic/lib/package.json.tmp | jq 'del(.dependencies."node-red-contrib-johnny-five",.dependencies."node-red-contrib-rcswitch2")' >  $ADDON_TMP/redmatic/lib/package.json
+    rm $ADDON_TMP/redmatic/lib/package.json.tmp
+fi
+
 cd $ADDON_TMP/redmatic/lib
-npm install --silent --no-package-lock --production --no-optional --global-style
-npm install --slient --no-package-lock --production --global-style ain2
+npm install --no-package-lock --production --no-optional --global-style
+npm install --no-package-lock --production --global-style ain2
 rm $ADDON_TMP/redmatic/lib/package.json
 
 echo "installing additional Node-RED nodes..."
