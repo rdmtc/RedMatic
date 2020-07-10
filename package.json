@@ -35,10 +35,10 @@
     "node-red-contrib-johnny-five": "0.0.0 - 1.0.0-beta.1",
     "node-red-contrib-enocean": "0.0.0 - 0.8.5",
     "node-red-contrib-doorbird": "0.0.0 - 0.2.6",
-    "redmatic-canbus": "0.0.0 - 1.0.1",
+    "redmatic-canbus": "0.0.0 - 0.0.0 - 1.0.1",
     "node-red-contrib-comfoair": "0.0.0 - 0.0.5",
     "@node-red-contrib-themes/midnight-red": "0.0.0 - 1.4.0",
-    "node-red-contrib-nukible": "0.0.0 - 1.0.3",
+    "node-red-contrib-nukible": "0.0.0 - 0.0.0 - 1.0.3",
     "node-red-node-discovery": "0.0.0 - 0.0.22",
     "node-red-contrib-rcswitch2": "0.0.0 - 0.5.0",
     "node-red-contrib-chatbot": "0.0.0 - 0.19.3"
