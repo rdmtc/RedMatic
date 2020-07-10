@@ -8,6 +8,8 @@ cat addon_files/redmatic/lib/package.json | jq 'del(.dependencies.npm,.dependenc
 
 scp $DEST/package.json $REMOTE:$REMOTE_PATH
 
+rm -r ${DEST}/lib/node_modules
+
 ssh -t $REMOTE "cd $REMOTE_PATH ; npm install --global-style --unsafe-perm --no-package-lock"
 ssh -t $REMOTE "cd $REMOTE_PATH/node_modules/node-red-node-sqlite ; npm install --unsafe-perm --build-from-source --no-package-lock sqlite3"
 

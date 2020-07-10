@@ -4,7 +4,7 @@ DEST="prebuilt/armv6l"
 REMOTE="root@pi-black"
 REMOTE_PATH="/root/redmatic-prebuild"
 
-rm -r ${DEST}/lib/node_modules
+
 
 files=`ssh -t $REMOTE "cd $REMOTE_PATH ; find ./ -type f -name \*.node |grep -v obj.target"`
 

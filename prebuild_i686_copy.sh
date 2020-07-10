@@ -4,7 +4,6 @@ DEST="prebuilt/i686"
 REMOTE="root@debian-32"
 REMOTE_PATH="/root/redmatic-prebuild"
 
-rm -r ${DEST}/lib/node_modules
 
 files=`ssh -t $REMOTE "cd $REMOTE_PATH ; find ./ -type f -name \*.node |grep -v obj.target"`
 
