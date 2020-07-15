@@ -15,11 +15,11 @@
     "node-red-contrib-johnny-five": "1.0.0-beta.1",
     "node-red-contrib-enocean": "0.8.5",
     "redmatic-homekit": "3.2.1",
-    "@node-red-contrib-themes/midnight-red": "1.4.0",
+    "@node-red-contrib-themes/midnight-red": "1.4.2",
     "node-red-contrib-doorbird": "0.2.6",
     "node-red-contrib-comfoair": "0.0.5",
     "node-red-node-discovery": "0.0.22",
     "node-red-contrib-rcswitch2": "0.5.0",
-    "node-red-contrib-chatbot": "0.19.3"
+    "node-red-contrib-chatbot": "0.19.6"
   }
 }
