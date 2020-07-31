@@ -26,9 +26,17 @@ const extraFiles = {
         'bin/pig2vcd',
         'bin/pigpiod',
         'bin/pigs',
-        'lib/libpigpio*',
+        'lib/libpigpio.so',
+        'lib/libpigpiod_if.so',
+        'lib/libpigpiod_if2.so',
     ]
 };
+
+if (arch === 'armv7l') {
+    extraFiles['node-red-contrib-johnny-five'].push('lib/libpigpio.so.1');
+    extraFiles['node-red-contrib-johnny-five'].push('lib/libpigpiod_if.so.1');
+    extraFiles['node-red-contrib-johnny-five'].push('lib/libpigpiod_if2.so.1');
+}
 
 const remove = [];
 const repo = {};
