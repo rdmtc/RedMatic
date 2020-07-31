@@ -4,10 +4,10 @@ const crypto = require('crypto');
 const pkgLib = require(__dirname + '/addon_files/redmatic/lib/package.json');
 const redmaticVersion = require(__dirname + '/package.json').version;
 
-let tarch = process.argv[2] || 'armv6l';
+let tarch = process.argv[2] || 'armv7l';
 let arch = '';
 
-if (tarch !== 'armv6l') {
+if (tarch !== 'armv7l') {
     arch = '-' + tarch;
 }
 
@@ -26,9 +26,7 @@ const extraFiles = {
         'bin/pig2vcd',
         'bin/pigpiod',
         'bin/pigs',
-        'lib/libpigpiod_if2.so',
-        'lib/libpigpiod_if.so',
-        'lib/libpigpio.so'
+        'lib/libpigpio*',
     ]
 };
 

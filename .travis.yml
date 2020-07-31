@@ -1,10 +1,11 @@
 language: node_js
 node_js:
-- '10'
+- '14'
 addons:
   apt:
     packages:
     - jq
+    - libavahi-compat-libdnssd-dev
 branches:
   only:
   - master

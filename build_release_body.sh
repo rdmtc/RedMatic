@@ -14,15 +14,30 @@ echo "creating RELEASE_BODY.md"
 
 DOWNLOAD="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz"
 DOWNLOAD_I686="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-i686-$VERSION_ADDON.tar.gz"
+DOWNLOAD_ARMV6L="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-armv6l-$VERSION_ADDON.tar.gz"
 
 cat >RELEASE_BODY.md <<EOL
 ### Downloads
 
-#### CCU3, piVCCU3 und RaspberryMatic Varianten _rpi0_, _rpi3_, _rpi4_ und _tinkerboard_
+#### CCU3, piVCCU3 und RaspberryMatic Varianten _rpi3_, _rpi4_ und _tinkerboard_
   [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
+EOL
+
+if [ -f $BUILD_DIR/redmatic-armv6l-$VERSION_ADDON.tar.gz ]; then
+cat >>RELEASE_BODY.md <<EOL
+#### RaspberryMatic Variante _rpi0_
+  [![Downloads redmatic-armv6l-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-armv6l-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_ARMV6L)
+EOL
+fi
+
+if [ -f $BUILD_DIR/redmatic-i686-$VERSION_ADDON.tar.gz ]; then
+cat >>RELEASE_BODY.md <<EOL
 #### RaspberryMatic Varianten _ova_ und _intelnuc_
   [![Downloads redmatic-i686-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-i686-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_I686)
+EOL
+fi
 
+cat >>RELEASE_BODY.md <<EOL
 
 
 ### Changes

@@ -5,7 +5,7 @@ const www = require(__dirname + '/addon_files/redmatic/www/package.json');
 const common = require(__dirname + '/package.json');
 
 common.dependencies = Object.assign(
-    common.dependencies,
+    //common.dependencies,
     base.dependencies,
     nodes.dependencies,
     www.dependencies,

@@ -1,19 +1,40 @@
 #!/bin/bash
 
-ARCH=${1:-armv6l}
+ARCH=${1:-armv7l}
 
 BUILD_DIR=`cd ${0%/*} && pwd -P`
 
 VERSION_ADDON=`jq -r '.version' package.json`
 NODE_VERSION=`jq -r '.engines.node' package.json`
 
-if [ "$ARCH" == "i686" ]; then
+echo ""
+echo "Build RedMatic v$VERSION_ADDON ($ARCH)"
+echo ""
+
+case $ARCH in
+  x86_64)
+    NODE_NAME=node-v${NODE_VERSION}-linux-x64
+    ;;
+  i686)
     NODE_NAME=node-v${NODE_VERSION}-linux-x86
-    NODE_URL=https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/${NODE_NAME}.tar.xz
-else
+    ;;
+  *)
     NODE_NAME=node-v${NODE_VERSION}-linux-${ARCH}
+    ;;
+esac
+
+case $ARCH in
+  armv6l)
+    NODE_URL=https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/${NODE_NAME}.tar.xz
+    ;;
+  i686)
+    # Todo - Node 14 i686 (32bit) build https://github.com/rdmtc/RedMatic/issues/374
+    NODE_URL=https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/${NODE_NAME}.tar.xz
+    ;;
+  *)
     NODE_URL=https://nodejs.org/dist/v${NODE_VERSION}/${NODE_NAME}.tar.xz
-fi
+    ;;
+esac
 
 PREBUILT=$BUILD_DIR/prebuilt/$ARCH
 
@@ -24,7 +45,7 @@ VERSION_FILE=$ADDON_TMP/redmatic/versions
 mkdir $ADDON_TMP 2> /dev/null || rm -r $ADDON_TMP/*
 
 echo "download and extract Node.js $NODE_URL ..."
-curl --silent $NODE_URL | tar -xJf - -C $ADDON_TMP
+curl --silent $NODE_URL | tar -xJf - -C $ADDON_TMP || exit 1
 mv $ADDON_TMP/$NODE_NAME $ADDON_TMP/redmatic
 rm $ADDON_TMP/redmatic/README.md
 rm $ADDON_TMP/redmatic/CHANGELOG.md
@@ -40,7 +61,7 @@ cp $BUILD_DIR/assets/favicon/favicon-96x96.png $ADDON_TMP/redmatic/www/
 
 echo "installing node modules..."
 if [ "$ARCH" == "i686" ]; then
-    echo "removing raspberrypi specific modules..."
+    echo "removing Raspberry Pi specific modules..."
     mv $ADDON_TMP/redmatic/lib/package.json $ADDON_TMP/redmatic/lib/package.json.tmp
     cat $ADDON_TMP/redmatic/lib/package.json.tmp | jq 'del(.dependencies."node-red-contrib-johnny-five",.dependencies."node-red-contrib-rcswitch2")' >  $ADDON_TMP/redmatic/lib/package.json
     rm $ADDON_TMP/redmatic/lib/package.json.tmp
@@ -85,7 +106,7 @@ sed "s/var args = \['remove'/var args = ['remove','--no-package-lock'/" $INSTALL
 
 cd $BUILD_DIR
 
-if [ "$ARCH" == "armv6l" ]; then
+if [ "$ARCH" == "armv7l" ]; then
     ADDON_FILE=redmatic-$VERSION_ADDON.tar.gz
 else
     ADDON_FILE=redmatic-$ARCH-$VERSION_ADDON.tar.gz
