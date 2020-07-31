@@ -50,7 +50,7 @@ Object.keys(pkgLib.dependencies).forEach(name => {
 
     remove.push(__dirname + '/addon_tmp/redmatic/lib/node_modules/' + name);
 
-    if (tarch !== 'armv6l' && name === 'node-red-contrib-johnny-five') {
+    if (tarch === 'i686' && name === 'node-red-contrib-johnny-five') {
         return;
     }
 
