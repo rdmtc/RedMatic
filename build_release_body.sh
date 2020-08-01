@@ -23,14 +23,14 @@ cat >RELEASE_BODY.md <<EOL
   [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
 EOL
 
-if [ -f $BUILD_DIR/redmatic-armv6l-$VERSION_ADDON.tar.gz ]; then
+if [ -f $BUILD_DIR/dist/redmatic-armv6l-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
 #### RaspberryMatic Variante _rpi0_
   [![Downloads redmatic-armv6l-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-armv6l-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_ARMV6L)
 EOL
 fi
 
-if [ -f $BUILD_DIR/redmatic-i686-$VERSION_ADDON.tar.gz ]; then
+if [ -f $BUILD_DIR/dist/redmatic-i686-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
 #### RaspberryMatic Varianten _ova_ und _intelnuc_
   [![Downloads redmatic-i686-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-i686-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_I686)
