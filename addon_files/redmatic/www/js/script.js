@@ -187,7 +187,7 @@ $(document).ready(() => {
                     return;
                 }
                 let match;
-                match = line.match(/([0-9]+[a-z]?)\s+([0-9]+[a-z]?)\s+node-red\s+node-red/);
+                match = line.match(/([0-9]+[a-z]?)\s+([0-9]+[a-z]?)\s+node\s+node-red/);
                 if (match) {
                     let [, vsz, rss] = match;
                     vsz = vsz.replace('m', 'MB').replace('g', 'GB');
