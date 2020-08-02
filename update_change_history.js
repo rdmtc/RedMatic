@@ -6,7 +6,8 @@ function req() {
     request({
         url: `https://api.github.com/repos/rdmtc/RedMatic/releases?page=${page}&per_page=100`,
         headers: {
-            'User-Agent': 'node-request'
+            'User-Agent': 'node-request',
+            'Authorization': `token ${process.env.GITHUB_OAUTH_TOKEN}`
         }
     }, (err, res, body) => {
         if (!err) {
