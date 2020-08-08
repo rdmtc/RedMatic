@@ -27,11 +27,11 @@ async function compareVersions(dir) {
 
         const actual = dependencies[pkg];
         const latest = json.body['dist-tags'].latest;
-        if (dependencies[pkg] !== latest) {
+        if (actual !== latest) {
             const response = await prompts({
                 type: 'confirm',
                 name: 'confirmed',
-                message: `update ${pkg} ${dependencies[pkg]} to ${latest}?`
+                message: `update ${pkg} ${actual} to ${latest}?`
             });
             if (response.confirmed) {
                 dependencies[pkg] = latest;
@@ -39,7 +39,7 @@ async function compareVersions(dir) {
                 const file = path.join('addon_files/redmatic', dir, 'package.json')
                 await fs.writeFile(path.join(__dirname, 'package.json'), JSON.stringify(pkgs.combined, null, '  '));
                 await fs.writeFile(path.join(__dirname, file), JSON.stringify(pkgs[dir], null, '  '));
-                const {stdout, stderr} = await exec(`git commit package.json ${file} -m 'update ${pkg} to ${latest}'`);
+                const {stdout, stderr} = await exec(`git commit package.json ${file} -m 'update ${pkg} ${actual} to ${latest}'`);
                 console.log(stderr, stdout);
                 updateCount += 1;
             }
