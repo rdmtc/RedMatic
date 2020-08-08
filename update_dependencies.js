@@ -5,6 +5,8 @@ const prompts = require('prompts');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
+let updateCount = 0;
+
 const dirs = ['var', 'lib', 'www'];
 
 const pkgs = {
@@ -13,7 +15,6 @@ const pkgs = {
 
 dirs.forEach(dir => {
     pkgs[dir] = require(path.join(__dirname, 'addon_files/redmatic', dir, 'package.json'));
-    console.log(dir)
 });
 
 async function compareVersions(dir) {
@@ -40,17 +41,20 @@ async function compareVersions(dir) {
                 await fs.writeFile(path.join(__dirname, file), JSON.stringify(pkgs[dir], null, '  '));
                 const {stdout, stderr} = await exec(`git commit package.json ${file} -m 'update ${pkg} to ${latest}'`);
                 console.log(stderr, stdout);
+                updateCount += 1;
             }
         }
     }
-    console.log(pkgs[dir].dependencies, pkgs.combined.dependencies);
 
 }
 async function checkDirs() {
     for (dir of dirs) {
         await compareVersions(dir);
     }
+    if (updateCount === 0) {
+        console.log('all dependencies are up to date :)');
+    }
+    console.log('');
 }
-
 
 checkDirs();
