@@ -26,17 +26,20 @@ esac
 case $ARCH in
   armv6l)
     NODE_URL=https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/${NODE_NAME}.tar.xz
+    PREBUILT=$BUILD_DIR/prebuilt/$ARCH
     ;;
   i686)
     # Todo - Node 14 i686 (32bit) build https://github.com/rdmtc/RedMatic/issues/374
     NODE_URL=https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/${NODE_NAME}.tar.xz
+    PREBUILT=$BUILD_DIR/prebuilt/$ARCH
     ;;
   *)
     NODE_URL=https://nodejs.org/dist/v${NODE_VERSION}/${NODE_NAME}.tar.xz
+    PREBUILT=$BUILD_DIR/prebuilt/armv6l
     ;;
 esac
 
-PREBUILT=$BUILD_DIR/prebuilt/$ARCH
+
 
 ADDON_FILES=$BUILD_DIR/addon_files
 ADDON_TMP=$BUILD_DIR/addon_tmp
