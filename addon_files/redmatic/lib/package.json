@@ -19,6 +19,6 @@
     "node-red-contrib-doorbird": "0.2.6",
     "node-red-contrib-comfoair": "0.0.5",
     "node-red-node-discovery": "0.0.22",
-    "node-red-contrib-chatbot": "0.19.6"
+    "node-red-contrib-chatbot": "0.19.7"
   }
 }
