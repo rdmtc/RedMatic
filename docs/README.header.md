@@ -8,7 +8,7 @@
 
 
 **[Node-RED](https://nodered.org/about/) als Addon für die 
-[Homematic CCU3](https://www.eq-3.de/produkte/homematic/zentralen-und-gateways/smart-home-zentrale-ccu3.html) und 
+[Homematic CCU3](https://www.homematic-ip.com/produkte/detail/smart-home-zentrale-ccu3.html) und 
 [RaspberryMatic](https://github.com/jens-maus/RaspberryMatic)**
 <br><br>
 <sub>[Click here for 🇬🇧🇺🇸 english readme](README.en.md)</sub>
