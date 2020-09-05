@@ -6,7 +6,7 @@
   "private": true,
   "main": "none",
   "engines": {
-    "node": "14.7.0"
+    "node": "14.8.0"
   },
   "dependencies": {
     "npm": "0.0.0 - 6.14.7",
@@ -27,7 +27,7 @@
     "node-red-contrib-comfoair": "0.0.0 - 0.0.5",
     "node-red-node-discovery": "0.0.0 - 0.0.22",
     "node-red-contrib-chatbot": "0.0.0 - 0.19.6",
-    "node-red-node-email": "0.0.0 - 1.7.8",
+    "node-red-node-email": "0.0.0 - 1.7.9",
     "node-red-node-rbe": "0.0.0 - 0.2.9",
     "node-red-dashboard": "0.0.0 - 2.23.2",
     "node-red-contrib-ccu": "0.0.0 - 3.2.1",
