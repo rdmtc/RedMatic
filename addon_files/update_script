@@ -136,6 +136,16 @@ fi
 
 
 #
+#   Migration from <= 6.0.2
+#   Move npm-cache and exclude from backup
+#
+if [ -d $RED_DIR/npm-cache ]; then
+    mv $RED_DIR/npm-cache $RED_DIR/var/
+    touch $RED_DIR/var/npm-cache/.nobackup
+fi
+
+
+#
 #   Remove package-lock
 #
 if [ -f $RED_DIR/var/package-lock.json ]; then
