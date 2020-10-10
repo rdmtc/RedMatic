@@ -1,2 +1,2 @@
-cache = /usr/local/addons/redmatic/npm-cache
+cache = /usr/local/addons/redmatic/var/npm-cache
 prefix = /usr/local/addons/redmatic
