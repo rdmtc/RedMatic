@@ -33,6 +33,10 @@ case $ARCH in
     NODE_URL=https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/${NODE_NAME}.tar.xz
     PREBUILT=$BUILD_DIR/prebuilt/$ARCH
     ;;
+  x86_64)
+    NODE_URL=https://nodejs.org/dist/v${NODE_VERSION}/${NODE_NAME}.tar.xz
+    PREBUILT=$BUILD_DIR/prebuilt/$ARCH
+    ;;
   *)
     NODE_URL=https://nodejs.org/dist/v${NODE_VERSION}/${NODE_NAME}.tar.xz
     PREBUILT=$BUILD_DIR/prebuilt/armv6l
