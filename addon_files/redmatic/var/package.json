@@ -5,7 +5,7 @@
   "dependencies": {
     "node-red-node-email": "1.8.2",
     "node-red-node-rbe": "0.2.9",
-    "node-red-dashboard": "2.23.4",
+    "node-red-dashboard": "2.23.5",
     "node-red-contrib-ccu": "3.2.1",
     "node-red-contrib-combine": "1.8.1",
     "node-red-contrib-sun-position": "1.1.7",
