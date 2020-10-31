@@ -77,6 +77,12 @@ fi
 cd $ADDON_TMP/redmatic/lib
 npm install --no-package-lock --production --no-optional --global-style
 npm install --no-package-lock --production --global-style ain2
+
+if [ "$ARCH" == "x86_64" ]; then
+  cd $ADDON_TMP/redmatic/lib/node_modules/ain2
+  npm install --no-package-lock --production unix-dgram
+fi
+
 rm $ADDON_TMP/redmatic/lib/package.json
 
 echo "installing additional Node-RED nodes..."
