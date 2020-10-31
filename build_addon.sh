@@ -80,7 +80,7 @@ npm install --no-package-lock --production --global-style ain2
 
 if [ "$ARCH" == "x86_64" ]; then
   cd $ADDON_TMP/redmatic/lib/node_modules/ain2
-  npm install --no-package-lock --production unix-dgram
+  npm install --no-package-lock --no-save unix-dgram
 fi
 
 rm $ADDON_TMP/redmatic/lib/package.json
