@@ -50,7 +50,7 @@ Object.keys(pkgLib.dependencies).forEach(name => {
 
     remove.push(__dirname + '/addon_tmp/redmatic/lib/node_modules/' + name);
 
-    if (tarch === 'i686' && name === 'node-red-contrib-johnny-five') {
+    if ((tarch === 'i686' || tarch === 'x86_64') && name === 'node-red-contrib-johnny-five') {
         return;
     }
 
@@ -93,7 +93,11 @@ remove.forEach(path => {
     console.log('remove', path);
     if (fs.existsSync(path)) {
         if (fs.statSync(path).isDirectory()) {
-            cp.execSync('rm -r ' + path);
+            try {
+                cp.execSync('rm -r ' + path);
+            } catch (error) {
+                console.error(error.message);
+            }
         } else {
             fs.unlinkSync(path);
         }
