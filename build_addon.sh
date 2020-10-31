@@ -51,6 +51,8 @@ VERSION_FILE=$ADDON_TMP/redmatic/versions
 
 mkdir $ADDON_TMP 2> /dev/null || rm -r $ADDON_TMP/*
 
+echo "node version on build system: `node --version`"
+
 echo "download and extract Node.js $NODE_URL ..."
 curl --silent $NODE_URL | tar -xJf - -C $ADDON_TMP || exit 1
 mv $ADDON_TMP/$NODE_NAME $ADDON_TMP/redmatic

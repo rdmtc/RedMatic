@@ -13,7 +13,7 @@ jobs:
       run: sudo apt-get install libavahi-compat-libdnssd-dev jq
   
     - name: Setup Node.js for use with actions
-      uses: actions/setup-node@v1.1.0
+      uses: actions/setup-node@v2-beta
       with:
         node-version: '14'
 
