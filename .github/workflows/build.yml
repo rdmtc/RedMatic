@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: Install apt packages
+      run: sudo apt-get install libavahi-compat-libdnssd-dev jq
   
     - name: Setup Node.js for use with actions
       uses: actions/setup-node@v1.1.0
