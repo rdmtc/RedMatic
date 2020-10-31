@@ -22,7 +22,7 @@
     "node-red-contrib-johnny-five": "0.0.0 - 1.0.0-beta.2",
     "node-red-contrib-enocean": "0.0.0 - 0.8.5",
     "redmatic-homekit": "0.0.0 - 3.2.2",
-    "@node-red-contrib-themes/midnight-red": "0.0.0 - 1.4.4",
+    "@node-red-contrib-themes/midnight-red": "0.0.0 - 1.4.5",
     "node-red-contrib-doorbird": "0.0.0 - 0.2.6",
     "node-red-contrib-comfoair": "0.0.0 - 0.0.5",
     "node-red-node-discovery": "0.0.0 - 0.0.22",
