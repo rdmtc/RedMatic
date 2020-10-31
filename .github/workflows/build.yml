@@ -14,7 +14,9 @@ jobs:
   
     - name: Setup Node.js for use with actions
       uses: actions/setup-node@v1.1.0
-          
+      with:
+        node-version: '14'
+
     - uses: actions/checkout@v2
       
     - name: Cache node modules
