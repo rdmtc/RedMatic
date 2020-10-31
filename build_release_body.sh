@@ -37,6 +37,13 @@ cat >>RELEASE_BODY.md <<EOL
 EOL
 fi
 
+if [ -f $BUILD_DIR/dist/redmatic-x86_64-$VERSION_ADDON.tar.gz ]; then
+cat >>RELEASE_BODY.md <<EOL
+#### RaspberryMatic Varianten _ova_ und _intelnuc_ ([nur für die neuen 64bit Builds](https://homematic-forum.de/forum/viewtopic.php?f=65&t=62074))
+  [![Downloads redmatic-i686-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-i686-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_I686)
+EOL
+fi
+
 cat >>RELEASE_BODY.md <<EOL
 
 
