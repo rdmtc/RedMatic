@@ -20,6 +20,7 @@
     "node-red-contrib-comfoair": "0.0.6",
     "node-red-node-discovery": "0.0.22",
     "node-red-contrib-chatbot": "0.19.7",
-    "node-red-contib-lgtv": "1.1.0"
+    "node-red-contib-lgtv": "1.1.0",
+    "node-red-contrib-harmony-websocket": "2.2.4"
   }
 }
