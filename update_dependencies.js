@@ -39,7 +39,17 @@ async function compareVersions(dir) {
                 const file = path.join('addon_files/redmatic', dir, 'package.json')
                 await fs.writeFile(path.join(__dirname, 'package.json'), JSON.stringify(pkgs.combined, null, '  '));
                 await fs.writeFile(path.join(__dirname, file), JSON.stringify(pkgs[dir], null, '  '));
-                const {stdout, stderr} = await exec(`git commit package.json ${file} -m 'update ${pkg} ${actual} to ${latest}'`);
+                let changelog = '';
+                switch (pkg) {
+                    case 'node-red':
+                        changelog = ' ([Changelog](https://github.com/node-red/node-red/blob/master/CHANGELOG.md))';
+                        break;
+                    case 'node-red-dashboard':
+                        changelog = ' ([Changelog](https://github.com/node-red/node-red-dashboard/blob/master/CHANGELOG.md))';
+                        break;
+                    default:
+                }
+                const {stdout, stderr} = await exec(`git commit package.json ${file} -m 'update ${pkg} ${actual} to ${latest}${changelog}'`);
                 console.log(stderr, stdout);
                 updateCount += 1;
             }
