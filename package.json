@@ -12,7 +12,7 @@
     "npm": "0.0.0 - 6.14.8",
     "node-red": "0.0.0 - 1.2.3",
     "ain2": "0.0.0 - 3.0.0",
-    "node-red-node-serialport": "0.0.0 - 0.11.0",
+    "node-red-node-serialport": "0.0.0 - 0.11.1",
     "node-red-node-sqlite": "0.0.0 - 0.4.4",
     "node-red-contrib-smartmeter": "0.0.0 - 0.3.1",
     "node-red-contrib-modbus": "0.0.0 - 5.13.3",
