@@ -40,7 +40,8 @@
     "@fortawesome/fontawesome-free": "0.0.0 - 5.15.1",
     "jquery": "0.0.0 - 3.5.1",
     "node-red-contib-lgtv": "1.1.0",
-    "node-red-contrib-harmony-websocket": "2.2.4"
+    "node-red-contrib-harmony-websocket": "2.2.4",
+    "node-red-contrib-loxone": "0.10.11"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",

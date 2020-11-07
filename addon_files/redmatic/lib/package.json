@@ -21,6 +21,7 @@
     "node-red-node-discovery": "0.0.22",
     "node-red-contrib-chatbot": "0.19.7",
     "node-red-contib-lgtv": "1.1.0",
-    "node-red-contrib-harmony-websocket": "2.2.4"
+    "node-red-contrib-harmony-websocket": "2.2.4",
+    "node-red-contrib-loxone": "0.10.11"
   }
 }
