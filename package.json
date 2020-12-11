@@ -29,7 +29,7 @@
     "node-red-contrib-chatbot": "0.0.0 - 0.19.7",
     "node-red-node-email": "0.0.0 - 1.8.2",
     "node-red-node-rbe": "0.0.0 - 0.2.9",
-    "node-red-dashboard": "0.0.0 - 2.24.1",
+    "node-red-dashboard": "0.0.0 - 2.25.0",
     "node-red-contrib-ccu": "0.0.0 - 3.2.1",
     "node-red-contrib-combine": "0.0.0 - 1.8.1",
     "node-red-contrib-sun-position": "0.0.0 - 1.1.7",
