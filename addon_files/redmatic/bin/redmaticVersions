@@ -21,7 +21,7 @@ scan_dir()
         dir=${dir%*/}
         PKG=${dir##*/}
         PKGJSON=$1/$PKG/package.json
-        if [[ -f $PKGJSON ]]; then
+        if [[ -f "$PKGJSON" ]]; then
             JO_ARGS="$JO_ARGS `jq -r '.name' $1/$PKG/package.json`=`jq -r '.version' $1/$PKG/package.json`"
         fi
         case $PKG in @*)
