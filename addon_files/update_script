@@ -144,6 +144,13 @@ if [ -d $RED_DIR/npm-cache ]; then
     touch $RED_DIR/var/npm-cache/.nobackup
 fi
 
+#
+#   https://github.com/rdmtc/RedMatic/issues/449
+#
+if [ -d $RED_DIR/lib/node_modules/\ node-red-contrib-harmony-websocket ]; then
+    rm -r $RED_DIR/lib/node_modules/\ node-red-contrib-harmony-websocket
+fi
+
 
 #
 #   Remove package-lock
