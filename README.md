@@ -56,8 +56,7 @@ erreichbar. Bei der Installation ist Geduld erforderlich, es kann bis zu ~10 Min
 
 ## Support, Mitarbeit
 
-Für Feedback jeglicher Art, Fragen, Vorschläge, Wünsche und Fehlerberichte bitte den 
-[Issue Tracker](https://github.com/rdmtc/RedMatic/issues) nutzen. Alternativ steht auch [ein Chatraum in Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNjAzMDA0MjM3NzY1LTY2MzkzODUzODIyNGQ0YmVmZTJkNDRjN2U0MWQxNWRmNTQ0NjI4MjMyNjZjOWFmNjkyNjNiMTcwZGZmYWNlNjQ) zur Verfügung. 
+Für Feedback jeglicher Art, Fragen, Vorschläge und Wünsche bitte das [Diskussionsforum](https://github.com/rdmtc/RedMatic/discussions) nutzen. Für Bug Reports bitte den [Issue Tracker](https://github.com/rdmtc/RedMatic/issues) nutzen. Alternativ steht auch [ein Chatraum in Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNjAzMDA0MjM3NzY1LTY2MzkzODUzODIyNGQ0YmVmZTJkNDRjN2U0MWQxNWRmNTQ0NjI4MjMyNjZjOWFmNjkyNjNiMTcwZGZmYWNlNjQ) zur Verfügung. 
 
 Beteiligung in jeder Form ist willkommen und gewünscht, insbesondere sind alle Nutzer aufgefordert die [Liste erfolgreich getesteter Nodes](https://github.com/rdmtc/RedMatic/wiki/Erfolgreich-getestete-Nodes) zu ergänzen, Beispiel-Flows zu veröffentlichen und an der Verbesserung und Erweiterung der [Dokumentation](https://github.com/rdmtc/RedMatic/wiki) mitzuarbeiten.
 
@@ -140,6 +139,12 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Subflow für Home24-Mediaplayer App](https://github.com/Matten-Matten/node-red-home24-mediaplayer-flow)
   * [EASY Push Subflow Push Nachrichten an EASY-Smarthome App oder Smartha App](https://github.com/Matten-Matten/Redmatic-EASY-Push-Flow)
   * [Shelly Relais zu Schalten von Leuchten](https://github.com/rdmtc/RedMatic/wiki/Shelly-Relais-zum-Schalten-von-Leuchten)
+  * [Waschmaschine fertig? Waschmaschine mit HmIP-PSM Messsteckdose monitoren](https://github.com/rdmtc/RedMatic/wiki/Waschmaschine-fertig%3F-Waschmaschine-mit-hmip-psm-Messsteckdose-monitoren)
+  * [SMS mit SIM800 Modul: SMS senden & empfangen](https://github.com/Matten-Matten/SIM800-NodeRed)
+  * [BMW Connect Status in Dashboard und Apple HomeKit](https://github.com/rdmtc/RedMatic/wiki/BMW-Connect-Status-in-Dashboard-und-als-Apple-Homekit-Objekt)
+  * [EgiGeoZone Geofence Subflow: An/abmelden von Geozonen, in Redmatic empfangen](https://github.com/Matten-Matten/EgiGeoZone-Geofence-Subfow/blob/main/README.md)
+  * [Xiaomi / Roborock S1-S6 in Dashboard](https://github.com/rdmtc/RedMatic/wiki/Xiaomi-Staubsauger-in-Dashboard#roborock-oder-xiaomi-staubsauger-s1-s6-im-dashboard)
+
 * Sonstiges
   * [Berichterstattung, Blogbeiträge, Videos über RedMatic](https://github.com/rdmtc/RedMatic/wiki/Berichterstattung)
   * [Node-RED Link Sammlung](https://github.com/rdmtc/RedMatic/wiki/Links)
@@ -152,8 +157,8 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
 
 ## Lizenzen
 
-* [RedMatic](https://github.com/rdmtc/RedMatic) © 2018-2020 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
-* [RedMatic Documentation](https://github.com/rdmtc/RedMatic/wiki) © 2018-2020 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+* [RedMatic](https://github.com/rdmtc/RedMatic) © 2018-2021 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
+* [RedMatic Documentation](https://github.com/rdmtc/RedMatic/wiki) © 2018-2021 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 * [Third Party Licenses](LICENSES.md)
 
 DIE SOFTWARE WIRD OHNE JEDE AUSDRÜCKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, EINSCHLIEẞLICH DER GARANTIE ZUR 

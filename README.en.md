@@ -74,8 +74,8 @@ Sorry, the Documentation is not yet translated into English. [German Documentati
 
 ## Licenses
 
-* [RedMatic](https://github.com/rdmtc/RedMatic) © 2018-2020 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
-* [RedMatic Documentation](https://github.com/rdmtc/RedMatic/wiki) © 2018-2020 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+* [RedMatic](https://github.com/rdmtc/RedMatic) © 2018-2021 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
+* [RedMatic Documentation](https://github.com/rdmtc/RedMatic/wiki) © 2018-2021 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 * [Third Party Licenses](LICENSES.md)
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
