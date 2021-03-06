@@ -32,7 +32,7 @@
     "node-red-dashboard": "0.0.0 - 2.28.1",
     "node-red-contrib-ccu": "0.0.0 - 3.4.2",
     "node-red-contrib-combine": "0.0.0 - 1.8.1",
-    "node-red-contrib-sun-position": "0.0.0 - 1.1.7",
+    "node-red-contrib-sun-position": "0.0.0 - 1.2.4",
     "redmatic-led": "0.0.0 - 1.1.0",
     "redmatic-webapp": "0.0.0 - 0.3.1",
     "bcryptjs": "0.0.0 - 2.4.3",
