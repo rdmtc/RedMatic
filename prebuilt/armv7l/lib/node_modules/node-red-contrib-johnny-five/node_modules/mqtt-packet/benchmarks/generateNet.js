@@ -1,13 +1,13 @@
 
-var mqtt = require('../')
-var max = 1000000
-var i = 0
-var start = Date.now()
-var time
-var buf = Buffer.allocUnsafe(10)
-var net = require('net')
-var server = net.createServer(handle)
-var dest
+const mqtt = require('../')
+const max = 1000000
+let i = 0
+const start = Date.now()
+let time
+const buf = Buffer.allocUnsafe(10)
+const net = require('net')
+const server = net.createServer(handle)
+let dest
 
 buf.fill('test')
 
@@ -15,12 +15,12 @@ function handle (sock) {
   sock.resume()
 }
 
-server.listen(0, function () {
+server.listen(0, () => {
   dest = net.connect(server.address())
 
   dest.on('connect', tickWait)
   dest.on('drain', tickWait)
-  dest.on('finish', function () {
+  dest.on('finish', () => {
     time = Date.now() - start
     console.log('Total time', time)
     console.log('Total packets', max)
@@ -31,7 +31,7 @@ server.listen(0, function () {
 
 function tickWait () {
   // console.log('tickWait', i)
-  var res = true
+  let res = true
   // var toSend = new Buffer(5 + buf.length)
 
   for (; i < max && res; i++) {

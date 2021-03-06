@@ -1,9 +1,7 @@
-'use strict'
-
-var mqtt = require('../')
-var max = 100000
-var i
-var buf = Buffer.from('test')
+const mqtt = require('../')
+const max = 100000
+let i
+const buf = Buffer.from('test')
 
 // initialize it
 mqtt.generate({
@@ -12,8 +10,7 @@ mqtt.generate({
   payload: buf
 })
 
-var start = Date.now()
-var time
+const start = Date.now()
 
 for (i = 0; i < max; i++) {
   mqtt.generate({
@@ -23,7 +20,7 @@ for (i = 0; i < max; i++) {
   })
 }
 
-time = Date.now() - start
+const time = Date.now() - start
 console.log('Total time', time)
 console.log('Total packets', max)
 console.log('Packet/s', max / time * 1000)

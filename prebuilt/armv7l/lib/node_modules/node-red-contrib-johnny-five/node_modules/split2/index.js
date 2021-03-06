@@ -40,7 +40,11 @@ function transform (chunk, enc, cb) {
   this[kLast] = list.pop()
 
   for (var i = 0; i < list.length; i++) {
-    push(this, this.mapper(list[i]))
+    try {
+      push(this, this.mapper(list[i]))
+    } catch (error) {
+      return cb(error)
+    }
   }
 
   this.overflow = this[kLast].length > this.maxLength
@@ -54,7 +58,11 @@ function flush (cb) {
   this[kLast] += this[kDecoder].end()
 
   if (this[kLast]) {
-    push(this, this.mapper(this[kLast]))
+    try {
+      push(this, this.mapper(this[kLast]))
+    } catch (error) {
+      return cb(error)
+    }
   }
 
   cb()
