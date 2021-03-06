@@ -1,0 +1,25 @@
+#/bin/sh
+
+ADDON_DIR=/usr/local/addons/redmatic
+
+source $ADDON_DIR/home/.profile
+
+CONTEXT_DIR="`jq -r '.contextStorage.file.config.dir' $ADDON_DIR/etc/settings.json`"
+
+check() {
+    FILE=$1
+    if [ -f $FILE ]; then
+        echo "checking $1" # | logger -p daemon.info -t redmatic
+        TYPE=`jq -r -e type $1 2> /dev/null`
+        if [ $? != 0 ] || [ -z $TYPE ] || [ $TYPE != "object" ]; then
+             echo "$1 corrupted." # | logger -p daemon.err -t redmatic
+        fi
+    fi
+
+
+}
+
+if [ -d "$CONTEXT_DIR/context" ]; then
+    export check
+    find "$CONTEXT_DIR/context" -name \*.json | while read file; do check "$file"; done
+fi
