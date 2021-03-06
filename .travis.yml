@@ -28,7 +28,7 @@ deploy:
     branches:
       only:
       - master
-  draft: false,
+  draft: true,
   prerelease: false
 after_deploy:
 - "./update_release_body.sh"
