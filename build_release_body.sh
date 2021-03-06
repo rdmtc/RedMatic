@@ -20,27 +20,33 @@ DOWNLOAD_ARMV6L="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_A
 cat >RELEASE_BODY.md <<EOL
 ### Downloads
 
-#### CCU3, piVCCU3 und RaspberryMatic Varianten _rpi3_, _rpi4_ und _tinkerboard_
+#### CCU3, piVCCU3 und RaspberryMatic Variante _rpi2_ (armv7l)
   [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
 EOL
 
+if [ -f $BUILD_DIR/dist/redmatic-aarch64-$VERSION_ADDON.tar.gz ]; then
+cat >>RELEASE_BODY.md <<EOL
+#### RaspberryMatic Varianten _rpi3_, _rpi4_ und _tinkerboard_ (aarch64)
+  [![Downloads redmatic-armv6l-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-armv6l-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_ARMV6L)
+EOL
+fi
 if [ -f $BUILD_DIR/dist/redmatic-armv6l-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic Variante _rpi0_
+#### RaspberryMatic Variante _rpi0_ (armv6l)
   [![Downloads redmatic-armv6l-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-armv6l-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_ARMV6L)
 EOL
 fi
 
 if [ -f $BUILD_DIR/dist/redmatic-i686-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic Varianten _ova_ und _intelnuc_
+#### RaspberryMatic Varianten _ova_ und _intelnuc_ (i686)
   [![Downloads redmatic-i686-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-i686-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_I686)
 EOL
 fi
 
 if [ -f $BUILD_DIR/dist/redmatic-x86_64-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic Varianten _ova_ und _intelnuc_ ([nur für die neuen 64bit Builds](https://homematic-forum.de/forum/viewtopic.php?f=65&t=62074))
+#### RaspberryMatic Varianten _ova_ und _intelnuc_ (x86_64)
   [![Downloads redmatic-x86_64-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-x86_64-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_X86_64)
 EOL
 fi
