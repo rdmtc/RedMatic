@@ -14,27 +14,31 @@ case "$ARCH" in
     REMOTE_PATH="/home/redmatic/redmatic-prebuild"
     ;;
   armv7l)
-    REMOTE=redmatic@pi-metal
+    REMOTE=redmatic@debian9-armv7l
+    REMOTE_PATH="/home/redmatic/redmatic-prebuild"
+    ;;
+  aarch64)
+    REMOTE=redmatic@debian9-aarch64
     REMOTE_PATH="/home/redmatic/redmatic-prebuild"
     ;;
 esac
 
-#if [ $ARCH == "i686" ]; then
-#  JQ_CMD='del(.dependencies."node-red-contrib-johnny-five",.dependencies.npm,.dependencies."node-red",.dependencies."@node-red-contrib-themes/midnight-red")'
-#else
-#  JQ_CMD='del(.dependencies.npm,.dependencies."node-red",.dependencies."@node-red-contrib-themes/midnight-red")'
-#fi
-#
-#cat addon_files/redmatic/lib/package.json | jq $JQ_CMD > $DEST/package.json
-#
-#scp $DEST/package.json $REMOTE:$REMOTE_PATH
-#
-#ssh -t $REMOTE "cd $REMOTE_PATH ; env JOBS=max npm install --global-style --no-package-lock"
-#ssh -t $REMOTE "cd $REMOTE_PATH ; env JOBS=max npm rebuild"
-#
-#if ! [ $ARCH == "i686" ]; then
-#  ssh -t $REMOTE "cd $REMOTE_PATH/node_modules/node-red-contrib-johnny-five && npm install --save --unsafe-perm --global-style --production raspi-io"
-#fi
+if [ $ARCH == "i686" ]; then
+  JQ_CMD='del(.dependencies."node-red-contrib-johnny-five",.dependencies.npm,.dependencies."node-red",.dependencies."@node-red-contrib-themes/midnight-red")'
+else
+  JQ_CMD='del(.dependencies.npm,.dependencies."node-red",.dependencies."@node-red-contrib-themes/midnight-red")'
+fi
+
+cat addon_files/redmatic/lib/package.json | jq $JQ_CMD > $DEST/package.json
+
+scp $DEST/package.json $REMOTE:$REMOTE_PATH
+
+ssh -t $REMOTE "cd $REMOTE_PATH ; env JOBS=max npm install --global-style --no-package-lock"
+ssh -t $REMOTE "cd $REMOTE_PATH ; env JOBS=max npm rebuild"
+
+if ! [ $ARCH == "i686" ]; then
+  ssh -t $REMOTE "cd $REMOTE_PATH/node_modules/node-red-contrib-johnny-five && npm install --save --unsafe-perm --global-style --production raspi-io"
+fi
 
 files=`ssh -t $REMOTE "cd $REMOTE_PATH ; find ./ -type f -name \*.node |grep -v obj.target"`
 

@@ -15,9 +15,6 @@ case $ARCH in
   x86_64)
     NODE_NAME=node-v${NODE_VERSION}-linux-x64
     ;;
-  i686)
-    NODE_NAME=node-v${NODE_VERSION}-linux-x86
-    ;;
   *)
     NODE_NAME=node-v${NODE_VERSION}-linux-${ARCH}
     ;;
@@ -28,18 +25,13 @@ case $ARCH in
     NODE_URL=https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/${NODE_NAME}.tar.xz
     PREBUILT=$BUILD_DIR/prebuilt/$ARCH
     ;;
-  i686)
-    # Todo - Node 14 i686 (32bit) build https://github.com/rdmtc/RedMatic/issues/374
-    NODE_URL=https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/${NODE_NAME}.tar.xz
-    PREBUILT=$BUILD_DIR/prebuilt/$ARCH
-    ;;
   x86_64)
     NODE_URL=https://nodejs.org/dist/v${NODE_VERSION}/${NODE_NAME}.tar.xz
     PREBUILT=$BUILD_DIR/prebuilt/$ARCH
     ;;
   *)
     NODE_URL=https://nodejs.org/dist/v${NODE_VERSION}/${NODE_NAME}.tar.xz
-    PREBUILT=$BUILD_DIR/prebuilt/armv6l
+    PREBUILT=$BUILD_DIR/prebuilt/$ARCH
     ;;
 esac
 
@@ -69,7 +61,7 @@ cp $BUILD_DIR/assets/favicon/apple-icon-180x180.png $ADDON_TMP/redmatic/www/
 cp $BUILD_DIR/assets/favicon/favicon-96x96.png $ADDON_TMP/redmatic/www/
 
 echo "installing node modules..."
-if [ "$ARCH" == "i686" ] || [ "$ARCH" == "x86_64" ]; then
+if [ "$ARCH" == "x86_64" ]; then
     echo "removing Raspberry Pi specific modules..."
     mv $ADDON_TMP/redmatic/lib/package.json $ADDON_TMP/redmatic/lib/package.json.tmp
     cat $ADDON_TMP/redmatic/lib/package.json.tmp | jq 'del(.dependencies."node-red-contrib-johnny-five",.dependencies."node-red-contrib-rcswitch2")' >  $ADDON_TMP/redmatic/lib/package.json
