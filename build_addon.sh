@@ -15,6 +15,9 @@ case $ARCH in
   x86_64)
     NODE_NAME=node-v${NODE_VERSION}-linux-x64
     ;;
+  aarch64)
+    NODE_NAME=node-v${NODE_VERSION}-linux-arm64
+    ;;
   *)
     NODE_NAME=node-v${NODE_VERSION}-linux-${ARCH}
     ;;
