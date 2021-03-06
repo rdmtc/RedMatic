@@ -10,7 +10,7 @@ jobs:
     steps:
 
     - name: Install apt packages
-      run: sudo apt-get install libavahi-compat-libdnssd-dev jq
+      run: sudo apt-get install libavahi-compat-libdnssd-dev jq libudev-dev
   
     - name: Setup Node.js for use with actions
       uses: actions/setup-node@v2-beta

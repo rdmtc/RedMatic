@@ -6,6 +6,7 @@ addons:
     packages:
     - jq
     - libavahi-compat-libdnssd-dev
+    - libudev-dev
 branches:
   only:
   - master
