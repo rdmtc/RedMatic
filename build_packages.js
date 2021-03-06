@@ -73,18 +73,20 @@ Object.keys(pkgLib.dependencies).forEach(name => {
         });
     }
     console.log(`  ${filename}`);
-    cp.execSync(cmd);
-
-    repo[name] = {
-        integrity: checksum(fs.readFileSync(__dirname + '/dist/' + filename)),
-        resolved: 'https://github.com/rdmtc/RedMatic/releases/download/v' + redmaticVersion + '/' + filename,
-        version,
-        description,
-        keywords,
-        homepage,
-        repository
-    };
-
+    try {
+        cp.execSync(cmd);
+        repo[name] = {
+            integrity: checksum(fs.readFileSync(__dirname + '/dist/' + filename)),
+            resolved: 'https://github.com/rdmtc/RedMatic/releases/download/v' + redmaticVersion + '/' + filename,
+            version,
+            description,
+            keywords,
+            homepage,
+            repository
+        };
+    } catch (error) {
+        console.error(error.message);
+    }
 });
 
 fs.writeFileSync(__dirname + '/addon_tmp/redmatic/lib/pkg-repo.json', JSON.stringify(repo, null, '  '));
