@@ -1,0 +1,17 @@
+{
+  "name": "socket.io-serial-examples",
+  "version": "0.1.0",
+  "description": "example of using socket.io-serial",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luis Montes",
+  "license": "MIT",
+  "dependencies": {
+    "firmata": "^0.3.8",
+    "serialport": "^1.4.9",
+    "socket.io": "^1.2.1",
+    "socket.io-client": "^1.2.1"
+  }
+}
