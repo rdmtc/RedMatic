@@ -20,14 +20,14 @@ DOWNLOAD_ARMV6L="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_A
 cat >RELEASE_BODY.md <<EOL
 ### Downloads
 
-#### CCU3, piVCCU3 und RaspberryMatic Variante _rpi2_ (armv7l)
+#### CCU3, piVCCU3 und RaspberryMatic Varianten _rpi2_ und _oci_arm_ (armv7l)
   [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
 EOL
 
 if [ -f $BUILD_DIR/dist/redmatic-aarch64-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic Varianten _rpi3_, _rpi4_ und _tinkerboard_ (aarch64)
-  [![Downloads redmatic-armv6l-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-armv6l-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_ARMV6L)
+#### RaspberryMatic (>= 3.53.34.20201121) Varianten _rpi3_, _rpi4_, _tinkerboard_ und _oci_arm64_ (aarch64)
+  [![Downloads redmatic-aarch64-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-aarch64-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_ARMV6L)
 EOL
 fi
 if [ -f $BUILD_DIR/dist/redmatic-armv6l-$VERSION_ADDON.tar.gz ]; then
@@ -46,7 +46,7 @@ fi
 
 if [ -f $BUILD_DIR/dist/redmatic-x86_64-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic Varianten _ova_ und _intelnuc_ (x86_64)
+#### RaspberryMatic (>= 3.53.34.20201121) Varianten _ova_, _intelnuc_ und _oci_amd64_ (x86_64)
   [![Downloads redmatic-x86_64-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-x86_64-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_X86_64)
 EOL
 fi
