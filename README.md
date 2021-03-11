@@ -41,9 +41,9 @@ Nicht zuletzt kann _RedMatic_ auch als stabile und mit wesentlich mehr Möglichk
 
 ## Voraussetzungen
 
-_RedMatic_ ist __nur für die CCU3, piVCCU3 und die RaspberryMatic Varianten _rpi0_, _rpi3_, _rpi4_ und _tinkerboard_ geeignet__. Da RedMatic unter Umständen über 200MB Speicher benötigt ist es ratsam Hardware mit mindestens 1GB RAM zu nutzen. 
+_RedMatic_ ist nur für die CCU3, piVCCU3 und die RaspberryMatic Varianten _rpi2_, _rpi3_, _rpi4_, _tinkerboard_, _intelnuc_ und _ova_ geeignet. 
 
-Auf der CCU1/2 kann _RedMatic_ nicht verwendet werden. 
+Auf der CCU1, CCU2 und der RaspberryMatic Variante _rpi0_ kann _RedMatic_ nicht verwendet werden. 
 
 
 ## Schnellstart
