@@ -9,7 +9,7 @@
     "node": "14.16.0"
   },
   "dependencies": {
-    "npm": "0.0.0 - 7.6.1",
+    "npm": "0.0.0 - 7.6.2",
     "node-red": "0.0.0 - 1.2.9",
     "ain2": "0.0.0 - 3.0.0",
     "node-red-node-serialport": "0.0.0 - 0.11.1",
@@ -41,7 +41,8 @@
     "jquery": "0.0.0 - 3.6.0",
     "node-red-contrib-lgtv": "1.1.0",
     "node-red-contrib-harmony-websocket": "0.0.0 - 2.2.6",
-    "node-red-contrib-loxone": "0.10.11"
+    "node-red-contrib-loxone": "0.10.11",
+    "nodered-contrib-signal-client": "0.0.0 - 2.4.0"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",
