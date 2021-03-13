@@ -21,13 +21,13 @@ DOWNLOAD_AARCH64="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_
 cat >RELEASE_BODY.md <<EOL
 ### Downloads
 
-#### CCU3, piVCCU3 und RaspberryMatic Varianten _rpi2_ und _oci_arm_ (armv7l)
+#### CCU3, piVCCU3 und RaspberryMatic Varianten _rpi2_, _tinkerboard_ und _oci_arm_ (armv7l)
   [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
 EOL
 
 if [ -f $BUILD_DIR/dist/redmatic-aarch64-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic (>= 3.53.34.20201121) Varianten _rpi3_, _rpi4_, _tinkerboard_ und _oci_arm64_ (aarch64)
+#### RaspberryMatic (>= 3.53.34.20201121) Varianten _rpi3_, _rpi4_ und _oci_arm64_ (aarch64)
   [![Downloads redmatic-aarch64-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-aarch64-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_AARCH64)
 EOL
 fi
