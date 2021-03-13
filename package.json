@@ -28,7 +28,7 @@
     "node-red-node-discovery": "0.0.0 - 0.0.22",
     "node-red-contrib-chatbot": "0.0.0 - 0.19.7",
     "node-red-node-email": "0.0.0 - 1.8.3",
-    "node-red-node-rbe": "0.0.0 - 0.2.9",
+    "node-red-node-rbe": "0.0.0 - 0.4.0",
     "node-red-dashboard": "0.0.0 - 2.28.1",
     "node-red-contrib-ccu": "0.0.0 - 3.4.2",
     "node-red-contrib-combine": "0.0.0 - 1.8.1",
