@@ -42,7 +42,8 @@
     "node-red-contrib-lgtv": "1.1.0",
     "node-red-contrib-harmony-websocket": "0.0.0 - 2.2.6",
     "node-red-contrib-loxone": "0.10.11",
-    "nodered-contrib-signal-client": "0.0.0 - 2.4.2"
+    "nodered-contrib-signal-client": "0.0.0 - 2.4.2",
+    "node-red-contrib-tfjs-coco-ssd": "0.0.0 - 1.0.2"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",
