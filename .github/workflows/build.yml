@@ -8,17 +8,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: apt update
+      run: sudo apt-get update
 
     - name: Install apt packages
       run: sudo apt-get install libavahi-compat-libdnssd-dev jq libudev-dev
-  
+
     - name: Setup Node.js for use with actions
       uses: actions/setup-node@v2-beta
       with:
         node-version: '14'
 
     - uses: actions/checkout@v2
-      
+
     - name: Cache node modules
       uses: actions/cache@v1
       env:
@@ -31,7 +33,7 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
 
-        
+
     - uses: EndBug/version-check@v1.2.0
       name: Check for version change
       id: check_version
@@ -41,7 +43,7 @@ jobs:
     - name: Build addon package
       #if: steps.check_version.outputs.changed == 'true'
       run: ./build.sh
-      
+
     - uses: actions/upload-artifact@v1
       name: Save release artifacts
       #if: steps.check_version.outputs.changed == 'true'
@@ -55,4 +57,4 @@ jobs:
       with:
         name: description
         path: RELEASE_BODY.md
- 
+
