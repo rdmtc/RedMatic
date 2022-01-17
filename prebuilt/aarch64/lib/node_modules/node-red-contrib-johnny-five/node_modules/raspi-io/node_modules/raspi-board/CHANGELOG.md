@@ -1,3 +1,9 @@
+## 7.4.0 (2021-6-3)
+
+- Added more missing boards
+- Added Pi 400 board type
+- Removed warning message for unsupported types, since this project isn't really supported anymore.
+
 ## 7.3.4 (2020-1-17)
 
 - Added another missing board

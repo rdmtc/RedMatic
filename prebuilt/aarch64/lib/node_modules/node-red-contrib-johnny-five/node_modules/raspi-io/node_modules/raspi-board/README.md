@@ -106,6 +106,10 @@ Be sure to read the [full list of pins](https://github.com/nebrius/raspi-io/wiki
     <td>Constant representing the Raspberry Pi 4 Model B. Returned from <code>getBoardRevision()</code></td>
   </tr>
   <tr>
+    <td>VERSION_400</td>
+    <td>Constant representing the Raspberry Pi 400. Returned from <code>getBoardRevision()</code></td>
+  </tr>
+  <tr>
     <td>VERSION_UNKNOWN</td>
     <td>Constant representing an unknown or unsupported version of the Raspberry Pi. Returned from <code>getBoardRevision()</code></td>
   </tr>

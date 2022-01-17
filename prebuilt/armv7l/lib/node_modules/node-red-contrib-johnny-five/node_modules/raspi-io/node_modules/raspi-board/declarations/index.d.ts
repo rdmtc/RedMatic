@@ -11,6 +11,7 @@ export declare const VERSION_3_MODEL_B = "rpi3_b";
 export declare const VERSION_3_MODEL_B_PLUS = "rpi3_bplus";
 export declare const VERSION_3_MODEL_A_PLUS = "rpi3_aplus";
 export declare const VERSION_4_MODEL_B = "rpi4_b";
+export declare const VERSION_400 = "rpi400";
 export declare const VERSION_UNKNOWN = "unknown";
 export interface IRaspiPinInfo extends IPinInfo {
     gpio: number;

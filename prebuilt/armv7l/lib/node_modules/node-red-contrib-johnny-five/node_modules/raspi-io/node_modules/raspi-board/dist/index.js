@@ -23,7 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getGpioNumber = exports.getPinNumber = exports.getPins = exports.getBoardRevision = exports.VERSION_UNKNOWN = exports.VERSION_4_MODEL_B = exports.VERSION_3_MODEL_A_PLUS = exports.VERSION_3_MODEL_B_PLUS = exports.VERSION_3_MODEL_B = exports.VERSION_2_MODEL_B = exports.VERSION_1_MODEL_ZERO_W = exports.VERSION_1_MODEL_ZERO = exports.VERSION_1_MODEL_A_PLUS = exports.VERSION_1_MODEL_B_PLUS = exports.VERSION_1_MODEL_B_REV_2 = exports.VERSION_1_MODEL_B_REV_1 = exports.VERSION_1_MODEL_A = void 0;
+exports.getGpioNumber = exports.getPinNumber = exports.getPins = exports.getBoardRevision = exports.VERSION_UNKNOWN = exports.VERSION_400 = exports.VERSION_4_MODEL_B = exports.VERSION_3_MODEL_A_PLUS = exports.VERSION_3_MODEL_B_PLUS = exports.VERSION_3_MODEL_B = exports.VERSION_2_MODEL_B = exports.VERSION_1_MODEL_ZERO_W = exports.VERSION_1_MODEL_ZERO = exports.VERSION_1_MODEL_A_PLUS = exports.VERSION_1_MODEL_B_PLUS = exports.VERSION_1_MODEL_B_REV_2 = exports.VERSION_1_MODEL_B_REV_1 = exports.VERSION_1_MODEL_A = void 0;
 const fs_1 = require("fs");
 const j5_io_types_1 = require("j5-io-types");
 exports.VERSION_1_MODEL_A = 'rpi1_a';
@@ -38,6 +38,7 @@ exports.VERSION_3_MODEL_B = 'rpi3_b';
 exports.VERSION_3_MODEL_B_PLUS = 'rpi3_bplus';
 exports.VERSION_3_MODEL_A_PLUS = 'rpi3_aplus';
 exports.VERSION_4_MODEL_B = 'rpi4_b';
+exports.VERSION_400 = 'rpi400';
 exports.VERSION_UNKNOWN = 'unknown';
 const BOARD_REVISIONS = {
     '0002': exports.VERSION_1_MODEL_B_REV_1,
@@ -79,9 +80,12 @@ const BOARD_REVISIONS = {
     'a03111': exports.VERSION_4_MODEL_B,
     'b03111': exports.VERSION_4_MODEL_B,
     'b03112': exports.VERSION_4_MODEL_B,
+    'b03114': exports.VERSION_4_MODEL_B,
     'c03111': exports.VERSION_4_MODEL_B,
     'c03112': exports.VERSION_4_MODEL_B,
-    'd03114': exports.VERSION_4_MODEL_B // 8GB RAM
+    'c03114': exports.VERSION_4_MODEL_B,
+    'd03114': exports.VERSION_4_MODEL_B,
+    'c03130': exports.VERSION_400,
 };
 const B1 = {
     0: {
@@ -846,12 +850,7 @@ switch (BOARD_REVISIONS[rev]) {
     case exports.VERSION_3_MODEL_B_PLUS:
     case exports.VERSION_3_MODEL_A_PLUS:
     case exports.VERSION_4_MODEL_B:
-        pins = BPLUS;
-        break;
     default:
-        console.info(`Unknown board revision ${rev}, assuming Raspberry Pi Zero/2/3 pinout. ` +
-            `Unless you are running a compute module or very old Raspberry Pi, you can safely ignore this message. ` +
-            `Please report this board revision in a GitHub issue at https://github.com/nebrius/raspi-board.`);
         pins = BPLUS;
         break;
 }
