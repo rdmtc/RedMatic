@@ -5,7 +5,7 @@
     "npm": "8.3.1",
     "node-red": "2.1.5",
     "ain2": "3.0.0",
-    "node-red-node-serialport": "0.13.0",
+    "node-red-node-serialport": "0.15.0",
     "node-red-node-sqlite": "0.5.0",
     "node-red-contrib-smartmeter": "0.5.1",
     "node-red-contrib-modbus": "5.13.3",
