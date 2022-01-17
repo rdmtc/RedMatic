@@ -11,7 +11,7 @@
     "node-red-contrib-modbus": "5.16.0",
     "node-red-contrib-mysensors": "3.3.1",
     "node-red-contrib-rfxcom": "2.11.3",
-    "node-red-contrib-zigbee": "0.20.3",
+    "node-red-contrib-zigbee": "0.21.0",
     "node-red-contrib-johnny-five": "1.0.0-beta.2",
     "node-red-contrib-enocean": "0.8.5",
     "redmatic-homekit": "3.3.0",
