@@ -8,7 +8,7 @@
     "node-red-node-serialport": "0.15.0",
     "node-red-node-sqlite": "1.0.3",
     "node-red-contrib-smartmeter": "0.6.0",
-    "node-red-contrib-modbus": "5.13.3",
+    "node-red-contrib-modbus": "5.16.0",
     "node-red-contrib-mysensors": "3.3.1",
     "node-red-contrib-rfxcom": "2.11.3",
     "node-red-contrib-zigbee": "0.20.3",
