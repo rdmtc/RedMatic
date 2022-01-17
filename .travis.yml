@@ -29,7 +29,7 @@ deploy:
       only:
       - master
   draft: false,
-  prerelease: false
+  prerelease: true
 after_deploy:
 - "./update_release_body.sh"
 notifications:
