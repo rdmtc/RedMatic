@@ -26,7 +26,7 @@
     "node-red-contrib-doorbird": "0.0.0 - 0.2.8",
     "node-red-contrib-comfoair": "0.0.0 - 0.0.8",
     "node-red-node-discovery": "0.0.0 - 0.0.23",
-    "node-red-contrib-chatbot": "0.0.0 - 0.19.7",
+    "node-red-contrib-chatbot": "0.0.0 - 0.19.11",
     "node-red-node-email": "0.0.0 - 1.14.0",
     "node-red-node-rbe": "0.0.0 - 0.5.0",
     "node-red-dashboard": "0.0.0 - 3.1.4",
