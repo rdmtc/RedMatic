@@ -7,6 +7,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - name: apt update
@@ -56,11 +58,20 @@ jobs:
 #        name: description
 #        path: RELEASE_BODY.md
 
+    - name: get-npm-version
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@master
+
+    - uses: rickstaa/action-create-tag@v1
+      with:
+        tag: "v${{ steps.package-version.outputs.current-version}}"
+
     - uses: ncipollo/release-action@v1
       name: Create Release
       with:
         draft: true
-        preprelease: true
+        prerelease: true
         artifacts: dist/*
         bodyFile: RELEASE_BODY.md
+        tag: "v${{ steps.package-version.outputs.current-version}}"
 
