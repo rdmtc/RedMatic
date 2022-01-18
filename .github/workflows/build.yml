@@ -43,6 +43,14 @@ jobs:
 #      with:
 #        diff-search: true
 
+    - name: get-npm-version
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@master
+
+    - uses: rickstaa/action-create-tag@v1
+      with:
+        tag: "v${{ steps.package-version.outputs.current-version}}"
+
     - name: Build addon package
       run: ./build.sh
 
@@ -58,13 +66,7 @@ jobs:
 #        name: description
 #        path: RELEASE_BODY.md
 
-    - name: get-npm-version
-      id: package-version
-      uses: martinbeentjes/npm-get-version-action@master
 
-    - uses: rickstaa/action-create-tag@v1
-      with:
-        tag: "v${{ steps.package-version.outputs.current-version}}"
 
     - uses: ncipollo/release-action@v1
       name: Create Release
