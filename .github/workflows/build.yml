@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    tags:
+    - '*'
 
 jobs:
   build:
@@ -41,20 +44,25 @@ jobs:
         diff-search: true
 
     - name: Build addon package
-      #if: steps.check_version.outputs.changed == 'true'
       run: ./build.sh
 
-    - uses: actions/upload-artifact@v1
-      name: Save release artifacts
-      #if: steps.check_version.outputs.changed == 'true'
-      with:
-        name: release
-        path: dist
+#    - uses: actions/upload-artifact@v1
+#      name: Save release artifacts
+#      with:
+#        name: release
+#        path: dist
 
-    - uses: actions/upload-artifact@v1
-      name: Save changelog
-      #if: steps.check_version.outputs.changed == 'true'
+#    - uses: actions/upload-artifact@v1
+#      name: Save changelog
+#      with:
+#        name: description
+#        path: RELEASE_BODY.md
+
+    - uses: ncipollo/release-action@v1
+      name: Create Release
       with:
-        name: description
-        path: RELEASE_BODY.md
+        draft: true
+        preprelease: true
+        artifacts: dist/*
+        bodyFile: RELEASE_BODY.md
 
