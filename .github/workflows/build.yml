@@ -1,9 +1,7 @@
-name: CI
+name: build-release
 
 on:
-  push:
-    tags:
-    - '*'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -37,11 +35,11 @@ jobs:
           ${{ runner.os }}-
 
 
-    - uses: EndBug/version-check@v1.2.0
-      name: Check for version change
-      id: check_version
-      with:
-        diff-search: true
+#    - uses: EndBug/version-check@v1.2.0
+#      name: Check for version change
+#      id: check_version
+#      with:
+#        diff-search: true
 
     - name: Build addon package
       run: ./build.sh
