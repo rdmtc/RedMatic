@@ -1,6 +1,6 @@
 {
   "name": "redmatic",
-  "version": "8.0.0-alpha.0",
+  "version": "8.0.0-alpha.1",
   "description": "Node-RED packaged as Homematic CCU addon",
   "repository": "github:rdmtc/redmatic",
   "private": true,
@@ -36,7 +36,7 @@
     "redmatic-led": "0.0.0 - 1.1.0",
     "redmatic-webapp": "0.0.0 - 0.3.1",
     "bcryptjs": "0.0.0 - 2.4.3",
-    "bootstrap": "0.0.0 - 5.1.3",
+    "bootstrap": "0.0.0 - 4.6.1",
     "@fortawesome/fontawesome-free": "0.0.0 - 5.15.4",
     "jquery": "0.0.0 - 3.6.0",
     "node-red-contrib-lgtv": "1.1.0",
