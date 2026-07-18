@@ -52,6 +52,11 @@ The build/maintenance tooling is circa 2021 and partly built on dead services.
   `update.sh` / `update_dependencies.js` flow.
 - Add basic quality tooling: ESLint (or Biome), `.editorconfig`, and a
   `scripts` block in `package.json` (currently none exists).
+- Add a `.gitattributes` normalizing line endings (`* text=auto eol=lf`):
+  Windows checkouts currently get CRLF via autocrlf, which makes WSL git
+  report the whole tree as modified and risks CRLF creeping into the bash
+  scripts that run on Linux (CI/CCU). Normalize once, renormalize the repo
+  (`git add --renormalize .`).
 - Consider rewriting the bash build scripts' version/JSON handling
   (currently `jq`-based) in Node for portability.
 
