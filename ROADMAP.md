@@ -20,7 +20,8 @@ install them via the Node-RED palette manager.
   - `addon_files/redmatic/var/package.json`
   - root `package.json` (merged mirror)
 - Drop the arch-specific dependency juggling in `build_addon.sh`
-  (jq-deletion of Pi-only modules for x86_64, `ain2`/`unix-dgram` special cases).
+  (jq-deletion of Pi-only modules for x86_64; the `ain2`/`unix-dgram`
+  special case is handled in task 4b).
 - Regenerate `LICENSES.md` / `www/licenses.html` afterwards (should shrink drastically).
 - Side effect: virtually no native modules remain → enables task 2.
 
@@ -62,17 +63,68 @@ The build/maintenance tooling is circa 2021 and partly built on dead services.
 
 ## 4. Modernize Node.js and Node-RED
 
-- Node.js: **14.18.3 (EOL since 2023) → 24.x**.
+- Node.js: **14.18.3 (EOL since 2023) → 22.x LTS** (not 24 — see below).
+  - **Why not Node 24:** nodejs.org publishes no linux-armv7l binaries for
+    v24 anymore (dropped after v22), and unofficial-builds.nodejs.org does
+    not provide armv7l for v24 either. The stock CCU3 firmware is 32-bit ARM
+    (armv7l), so Node 24 would mean dropping CCU3 stock-firmware support or
+    self-building Node — not worth it. Node 22 LTS (maintained until
+    April 2027) is the newest line with official armv7l binaries.
+    Revisit Node 24+ when armv7l support is dropped for real.
   - Bump `engines.node` in `package.json` (consumed by `build_addon.sh` and
     `update_nodejs.js` — adjust the hardcoded `v14` major in `update_nodejs.js`).
-  - Check availability of official nodejs.org binaries for all remaining target
-    archs (x86_64, armv7l, aarch64); armv6l relied on unofficial-builds — decide
-    whether to keep armv6l at all.
 - Node-RED: **2.1.5 → current 4.x**.
   - Review breaking changes (settings.json format, editor, subflows, node API).
-  - Verify node-red-contrib-ccu compatibility with Node-RED 4 / Node 24.
+  - Verify node-red-contrib-ccu compatibility with Node-RED 4 / Node 22.
 - Verify bundled `npm` version pin (currently ≤8.3.1) or drop the npm bundling
   entirely if no longer needed.
+
+## 4a. Limit target platforms to armv7l, aarch64, x86_64
+
+- Officially supported platforms in future: **armv7l** (CCU3 stock firmware,
+  default package), **aarch64** (RaspberryMatic 64-bit, ARM SBCs),
+  **x86_64** (RaspberryMatic/debmatic on x86, containers).
+- Deprecate **i686** and **armv6l** (Raspberry Pi 1/Zero). They are already
+  commented out in `build.sh`; armv6l additionally depended on
+  unofficial-builds.nodejs.org and modern Node versions aren't available
+  for it anyway. Remove:
+  - `prebuilt/i686/` and `prebuilt/armv6l/` (goes away with task 2 anyway)
+  - the armv6l/i686 branches in `build_addon.sh` (arch case, unofficial-builds
+    URL) and the i686-only `node-red-contrib-rcswitch2` handling
+  - mentions in `BUILD.md` / README
+
+## 4b. Replace ain2 / unix-dgram syslog logging (last native dep)
+
+Analysis (2026-07): the only consumer of `ain2` is
+`addon_files/redmatic/lib/logger.js` — a Node-RED log handler that writes to
+the CCU syslog via the `/dev/log` unix datagram socket, so Node-RED logs show
+up in `/var/log/messages` and the CCU web UI. `/dev/log` is SOCK_DGRAM, which
+Node core cannot speak (`dgram` is UDP-only, `net` is stream-only) — that is
+the sole reason for the native `unix-dgram` module. It is also the reason for
+the special install dance in `build_addon.sh` (separate `ain2` install,
+x86_64-only `unix-dgram` compile, ARM archs served from `prebuilt/`).
+
+Status quo upstream: `ain2` is unmaintained (3.0.0, 2018);
+`unix-dgram` is maintained (2.0.7, 2025) but compiles from source via
+node-gyp at install time — no prebuilt binaries. After task 1 this would be
+the **only remaining native module** in the addon.
+
+**Decision: drop ain2/unix-dgram and pipe Node-RED log output through the
+CCU's busybox `logger` binary** (the shell scripts in `bin/redmatic` already
+use it). Rewrite `logger.js` to spawn/pipe into `logger -t node-red` instead
+of using ain2. Trade-off: coarser per-message severity mapping (busybox
+`logger` takes one priority per invocation/pipe). With this, the addon
+contains **zero native modules**, which is what makes tasks 2 (no prebuilds)
+and 4a possible without any cross-compilation infrastructure.
+
+Considered alternatives (rejected):
+- keep unix-dgram + cross-compile the single module in CI — feasible and
+  cheap, but keeps native-build infrastructure alive for marginal benefit
+  (exact syslog severities)
+- UDP syslog to 127.0.0.1:514 in pure JS — busybox syslogd does not listen
+  on UDP by default on the CCU
+- drop syslog integration entirely — user-visible regression (no Node-RED
+  logs in the CCU log viewer)
 
 ## 5. Review Node-RED patches — are they still necessary?
 
@@ -102,6 +154,6 @@ Goal: **zero source patching of Node-RED** if possible.
     `ncipollo/release-action`, tag action)
   - re-enable/clean up the commented-out steps (version check, artifact upload)
   - trigger on tag push or release, not only `workflow_dispatch`
-  - Node 24 toolchain, drop apt packages only needed for removed native
-    modules (`libavahi-compat-libdnssd-dev`, `libudev-dev`)
+  - Node 22 toolchain (see task 4), drop apt packages only needed for removed
+    native modules (`libavahi-compat-libdnssd-dev`, `libudev-dev`)
   - add a CI job for lint/build sanity on PRs (currently CI runs no checks at all)
