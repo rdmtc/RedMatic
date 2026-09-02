@@ -256,7 +256,16 @@ $(document).ready(() => {
             return;
         }
         config = JSON.parse(data);
-        $loglevel.val(config.logging.ain.level);
+        // settings not yet migrated by lib/settings.js (pre-9.x keys)
+        if (!config.logging) {
+            config.logging = {};
+        }
+        if (!config.logging.syslog) {
+            config.logging.syslog = config.logging.ain || config.logging.console || { level: 'info', metrics: false, audit: false };
+            delete config.logging.ain;
+            delete config.logging.console;
+        }
+        $loglevel.val(config.logging.syslog.level);
 
         if (config.adminAuth) {
             $adminauthSessionExpiryTime.val(config.adminAuth.sessionExpiryTime || '604800');
@@ -346,7 +355,7 @@ $(document).ready(() => {
     });
 
     $loglevel.change(() => {
-        config.logging.ain.level = $loglevel.val();
+        config.logging.syslog.level = $loglevel.val();
         save();
     });
 

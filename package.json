@@ -1,6 +1,6 @@
 {
   "name": "redmatic",
-  "version": "9.0.0-dev.2",
+  "version": "9.0.0-dev.3",
   "description": "Node-RED packaged as Homematic CCU addon",
   "repository": "github:rdmtc/redmatic",
   "private": true,
@@ -11,7 +11,6 @@
   "dependencies": {
     "npm": "0.0.0 - 8.3.1",
     "node-red": "0.0.0 - 2.1.5",
-    "ain2": "0.0.0 - 3.0.0",
     "node-red-contrib-ccu": "0.0.0 - 3.4.2",
     "bcryptjs": "0.0.0 - 2.4.3",
     "bootstrap": "0.0.0 - 4.6.1",

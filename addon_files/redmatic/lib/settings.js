@@ -4,10 +4,22 @@ const defaults = require('/usr/local/addons/redmatic/lib/node_modules/node-red/s
 const settings = require('/usr/local/addons/redmatic/etc/settings.json');
 const logging = require('/usr/local/addons/redmatic/lib/logger.js');
 
-// Migration
+// Migration: logging key was named "console" (1.x) and "ain" (2.x - 8.x)
+if (!settings.logging) {
+    settings.logging = {};
+}
+let loggingMigrated = false;
 if (settings.logging.console) {
-    settings.logging.ain = settings.logging.console;
+    settings.logging.syslog = settings.logging.console;
     delete settings.logging.console;
+    loggingMigrated = true;
+}
+if (settings.logging.ain) {
+    settings.logging.syslog = settings.logging.ain;
+    delete settings.logging.ain;
+    loggingMigrated = true;
+}
+if (loggingMigrated) {
     fs.writeFileSync('/usr/local/addons/redmatic/etc/settings.json', JSON.stringify(settings, null, '  '));
 }
 
@@ -18,7 +30,7 @@ if (fs.existsSync('/usr/local/addons/redmatic/etc/credentials.key')) {
 
 // Logging
 delete defaults.logging.console;
-Object.assign(logging.logging.ain, settings.logging.ain);
+Object.assign(logging.logging.syslog, settings.logging.syslog);
 
 // Enable Projects Feature
 if (!defaults.editorTheme) {
