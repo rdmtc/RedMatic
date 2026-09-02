@@ -24,13 +24,6 @@ if [ -f $CONF_DIR/rc.d/redmatic ]; then
 fi
 
 #
-#   Upgrade packages on update
-#
-if [ -d $RED_DIR/var ]; then
-    touch $RED_DIR/var/do_pkg_upgrade
-fi
-
-#
 #   Rename extra nodes package.json on update
 #
 if [ -f $RED_DIR/var/package.json ]; then
@@ -38,16 +31,12 @@ if [ -f $RED_DIR/var/package.json ]; then
 fi
 
 #
-#   Delete included modules from lib/node_modules on update
+#   Delete included modules from lib/node_modules on update.
+#   The lib layer is fully owned by the addon (palette installs live in var),
+#   so stale modules from previous versions must not survive an update.
 #
-if [ -d $RED_DIR/lib/node_modules/node-red ]; then
-    rm -r $RED_DIR/lib/node_modules/node-red
-fi
-if [ -d $RED_DIR/lib/node_modules/npm ]; then
-    rm -r $RED_DIR/lib/node_modules/npm
-fi
-if [ -d $RED_DIR/lib/node_modules/ain2 ]; then
-    rm -r $RED_DIR/lib/node_modules/ain2
+if [ -d $RED_DIR/lib/node_modules ]; then
+    rm -r $RED_DIR/lib/node_modules
 fi
 
 #
@@ -78,72 +67,22 @@ if [ ! -f $RED_DIR/etc/credentials.key ]; then
 fi
 
 #
-#   export lib path for jq usage
-#
-export LD_LIBRARY_PATH=$RED_DIR/lib
-
-#
-#   Extend extra nodes package.json
+#   Extend extra nodes package.json: keep the user's palette-installed nodes,
+#   let versions shipped with the addon (node-red-contrib-ccu) win
 #
 if [ -f $RED_DIR/var/package.json.old ]; then
     mv $RED_DIR/var/package.json $RED_DIR/var/package.json.new
-    $RED_DIR/bin/jq -s '.[0] * .[1]' $RED_DIR/var/package.json.old $RED_DIR/var/package.json.new > $RED_DIR/var/package.json
+    $RED_DIR/bin/node -e '
+        const fs = require("fs");
+        const [oldFile, newFile, outFile] = process.argv.slice(1);
+        const oldPkg = JSON.parse(fs.readFileSync(oldFile, "utf8"));
+        const newPkg = JSON.parse(fs.readFileSync(newFile, "utf8"));
+        const merged = Object.assign({}, oldPkg, newPkg);
+        merged.dependencies = Object.assign({}, oldPkg.dependencies, newPkg.dependencies);
+        fs.writeFileSync(outFile, JSON.stringify(merged, null, 2) + "\n");
+    ' $RED_DIR/var/package.json.old $RED_DIR/var/package.json.new $RED_DIR/var/package.json
     rm $RED_DIR/var/package.json.old $RED_DIR/var/package.json.new
 fi
-
-#
-#   Migration <= 1.9.0 to > 1.9.0
-#   Remove Packages that where moved to lib dir
-#
-if [ -d $RED_DIR/var/node_modules/node-red-node-sqlite ]; then
-    rm -r $RED_DIR/var/node_modules/node-red-node-sqlite
-    cp $RED_DIR/var/package.json $RED_DIR/var/package.json.bak
-    cat $RED_DIR/var/package.json.bak | $RED_DIR/bin/jq 'del(.dependencies."node-red-node-sqlite")' > $RED_DIR/var/package.json
-    rm $RED_DIR/var/package.json.bak
-fi
-if [ -d $RED_DIR/var/node_modules/node-red-node-serialport ]; then
-    rm -r $RED_DIR/var/node_modules/node-red-node-serialport
-    cp $RED_DIR/var/package.json $RED_DIR/var/package.json.bak
-    cat $RED_DIR/var/package.json.bak | $RED_DIR/bin/jq 'del(.dependencies."node-red-node-serialport")' > $RED_DIR/var/package.json
-    rm $RED_DIR/var/package.json.bak
-fi
-
-#
-#   Migration <= 2.6.0 to > 2.6.0
-#   Remove Packages that where moved to lib dir
-#
-if [ -d $RED_DIR/var/node_modules/redmatic-homekit ]; then
-    rm -r $RED_DIR/var/node_modules/redmatic-homekit
-    cp $RED_DIR/var/package.json $RED_DIR/var/package.json.bak
-    cat $RED_DIR/var/package.json.bak | $RED_DIR/bin/jq 'del(.dependencies."redmatic-homekit")' > $RED_DIR/var/package.json
-    rm $RED_DIR/var/package.json.bak
-fi
-
-#
-#   Migration < 5.5 to >= 5.5
-#   Remove obsolete theme package
-#
-if [ -d $RED_DIR/lib/node_modules/node-red-contrib-theme-midnight-red ]; then
-    rm -r $RED_DIR/lib/node_modules/node-red-contrib-theme-midnight-red
-fi
-
-
-#
-#   Migration from <= 6.0.2
-#   Move npm-cache and exclude from backup
-#
-if [ -d $RED_DIR/npm-cache ]; then
-    mv $RED_DIR/npm-cache $RED_DIR/var/
-    touch $RED_DIR/var/npm-cache/.nobackup
-fi
-
-#
-#   https://github.com/rdmtc/RedMatic/issues/449
-#
-if [ -d $RED_DIR/lib/node_modules/\ node-red-contrib-harmony-websocket ]; then
-    rm -r $RED_DIR/lib/node_modules/\ node-red-contrib-harmony-websocket
-fi
-
 
 #
 #   Remove package-lock
@@ -153,24 +92,23 @@ if [ -f $RED_DIR/var/package-lock.json ]; then
 fi
 
 #
+#   Migration to 9.x: remove tools, the package manager and files of
+#   previous versions that are no longer part of the addon
+#
+for f in git jq jo ffmpeg coap-client pig2vcd pigpiod pigs redmatic-pkg deviceTypes; do
+    rm -f $RED_DIR/bin/$f
+done
+rm -rf $RED_DIR/libexec/git-core $RED_DIR/share/git-core
+rm -f $RED_DIR/www/pkg.cgi
+rm -f $RED_DIR/var/do_pkg_upgrade $RED_DIR/var/pkg-upgrade.log
+
+#
 #   Create Links
 #
 rmdir $WWW_DIR rmdir $WWW_DIR
 ln -sfT $RED_DIR/www $WWW_DIR
 ln -sf $RED_DIR/bin/redmatic $CONF_DIR/rc.d/redmatic
 ln -sf $RED_DIR/etc/lighttpd.conf $CONF_DIR/lighttpd/redmatic.conf
-
-#
-#   Decompress git-core
-#
-tar -xzf $RED_DIR/libexec/git-core.tar.gz --directory $RED_DIR/libexec/
-rm $RED_DIR/libexec/git-core.tar.gz
-
-#
-#   Migration: Remove old Buttons (=< v1.0.3)
-#
-./update_addon node-red
-./update_addon node-red-dashboard
 
 #
 #   Create Buttons in Homematic WebUI

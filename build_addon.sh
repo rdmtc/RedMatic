@@ -23,22 +23,7 @@ case $ARCH in
     ;;
 esac
 
-case $ARCH in
-  armv6l)
-    NODE_URL=https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/${NODE_NAME}.tar.xz
-    PREBUILT=$BUILD_DIR/prebuilt/$ARCH
-    ;;
-  x86_64)
-    NODE_URL=https://nodejs.org/dist/v${NODE_VERSION}/${NODE_NAME}.tar.xz
-    PREBUILT=$BUILD_DIR/prebuilt/$ARCH
-    ;;
-  *)
-    NODE_URL=https://nodejs.org/dist/v${NODE_VERSION}/${NODE_NAME}.tar.xz
-    PREBUILT=$BUILD_DIR/prebuilt/$ARCH
-    ;;
-esac
-
-
+NODE_URL=https://nodejs.org/dist/v${NODE_VERSION}/${NODE_NAME}.tar.xz
 
 ADDON_FILES=$BUILD_DIR/addon_files
 ADDON_TMP=$BUILD_DIR/addon_tmp
@@ -94,13 +79,11 @@ export VERSION_ADDON=$VERSION_ADDON
 export RED_VERSION=$RED_VERSION
 EOL
 
-echo "copying prebuilt binaries for $ARCH to tmp dir..."
-cp -r $PREBUILT/* $ADDON_TMP/redmatic/
+echo "copying tools for $ARCH to tmp dir..."
+cp -r $BUILD_DIR/tools/$ARCH/* $ADDON_TMP/redmatic/
+
 cd $ADDON_TMP
 ln -s redmatic/bin/update_addon ./
-
-echo "bundling packages..."
-node $BUILD_DIR/build_packages.js $ARCH
 
 echo "adapt Node-RED..."
 INSTALLER=$ADDON_TMP/redmatic/lib/node_modules/node-red/node_modules/@node-red/registry/lib/installer.js

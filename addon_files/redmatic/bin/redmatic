@@ -16,7 +16,6 @@ BACKUP_CGI=/www/config/cp_security.cgi
 
 export PATH=$ADDON_DIR/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/addons/redmatic/lib:/usr/lib:/usr/local/lib
-export GIT_EXEC_PATH=/usr/local/addons/redmatic/libexec/git-core
 export NO_UPDATE_NOTIFIER=true
 
 Stop () {
@@ -51,7 +50,8 @@ Stop () {
 }
 
 Start () {
-    if [ `$ADDON_DIR/bin/jq -r '.ccuBackup' $ADDON_DIR/etc/settings.json` = "full" ]; then
+    CCU_BACKUP=`$NODE -e "try { console.log(JSON.parse(require('fs').readFileSync('$ADDON_DIR/etc/settings.json', 'utf8')).ccuBackup || '') } catch (e) { console.log('') }"`
+    if [ "$CCU_BACKUP" = "full" ]; then
         rm $ADDON_DIR/bin/.nobackup 2>/dev/null
         rm $ADDON_DIR/include/.nobackup 2>/dev/null
         rm $ADDON_DIR/lib/.nobackup 2>/dev/null
@@ -69,15 +69,6 @@ Start () {
         touch $ADDON_DIR/tmp/.nobackup
         #touch $ADDON_DIR/var/node_modules/.nobackup
         touch $ADDON_DIR/www/.nobackup
-    fi
-
-    if [ -f $ADDON_DIR/var/do_pkg_upgrade ]; then
-        echo "Updating Packages"
-        date +"%b %d %H:%M:%S" >> $ADDON_DIR/var/pkg-upgrade.log
-        set -o pipefail
-        $ADDON_DIR/bin/redmatic-pkg upgrade 2>&1 | tee -a $ADDON_DIR/var/pkg-upgrade.log | logger -t redmatic-pkg -p daemon.info && rm $ADDON_DIR/var/do_pkg_upgrade
-        echo "" >> $ADDON_DIR/var/pkg-upgrade.log
-        sleep 1
     fi
 
     if ! grep -Fq "/etc/config/lighttpd/" $LIGHTTPD_CONF

@@ -26,9 +26,6 @@
             <a class="nav-link pb-0" id="configuration-tab" data-toggle="tab" role="tab" aria-controls="configuration" aria-selected href="#configuration">Konfiguration</a>
         </li>
         <li class="nav-item ml-3">
-            <a class="nav-link pb-0" id="packages-tab" data-toggle="tab" role="tab" aria-controls="packages" aria-selected href="#packages">Pakete</a>
-        </li>
-        <li class="nav-item ml-3">
             <a class="nav-link pb-0" id="versions-tab" data-toggle="tab" role="tab" aria-controls="versions" aria-selected href="#versions">Debug</a>
         </li>
         <li class="nav-item ml-3">
@@ -36,8 +33,7 @@
         </li>
     </ul>
     <div class="ml-3 mr-2 pl-2">
-        <a id="link-red" role="button" class="btn btn-sm btn-outline-info" target="_blank" href="/addons/red/"><i class="fa fa-external-link-alt"></i> Node-RED</a>
-        <a id="link-ui" role="button" class="btn btn-sm btn-outline-info mr-3" target="_blank" href="/addons/red/ui/"><i class="fa fa-external-link-alt"></i> Dashboard</a>
+        <a id="link-red" role="button" class="btn btn-sm btn-outline-info mr-3" target="_blank" href="/addons/red/"><i class="fa fa-external-link-alt"></i> Node-RED</a>
     </div>
     <div style="min-width: 130px" id="redmatic-version"></div>
 </nav>
@@ -306,41 +302,6 @@
                 </div>
             </div>
 
-        </div>
-
-        <div class="tab-pane fade show" id="packages" role="tabpanel" aria-labelledby="packages-tab">
-
-            <div id="package-hint" class="card mb-4" style="border-color: blue; display: none;">
-                <div class="card-body">
-                    <button type="button" class="btn btn-mini btn-info" id="discard-package-hint" style="padding: 0px 8px 2px; margin-top: -4px;">x</button>
-                    <b>Tipp:</b> Nicht-verwendete Pakete deinstallieren, das spart Speicher und reduziert den RAM-Bedarf und die Startzeit von Node-RED.
-                </div>
-            </div>
-
-            <table id="table-packages" class="table">
-                <thead>
-                <tr>
-                    <th scope="col" style="min-width: 300px;">Paket</th>
-                    <th scope="col" style="min-width: 120px;">Version</th>
-                    <th scope="col" style="min-width: 80px; width: 80px;">Installiert</th>
-                    <th scope="col" style="min-width: 300px;"></th>
-                </tr>
-                <tr>
-                    <th scope="col"><input class="form-control form-control-sm" id="package-filter"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody id="package-table">
-
-                </tbody>
-            </table>
-            <div id="pkg-spinner" class="text-center">
-                <div class="spinner-border text-center" role="status">
-                    <span class="sr-only">Lade...</span>
-                </div>
-            </div>
         </div>
 
         <div class="tab-pane fade show" id="versions" role="tabpanel" aria-labelledby="versions-tab">

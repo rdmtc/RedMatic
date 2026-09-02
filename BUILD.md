@@ -2,37 +2,34 @@
 
 Dependencies are defined in
 
-* `addon_files/redmatic/lib/package.json` (Node-RED, npm, Modules with binary dependencies)
-* `addon_files/redmatic/var/package.json` (additional Node-RED nodes)
+* `addon_files/redmatic/lib/package.json` (Node-RED, npm)
+* `addon_files/redmatic/var/package.json` (Node-RED nodes: node-red-contrib-ccu)
 * `addon_files/redmatic/www/package.json` (Modules used by config UI, jQuery, Bootstrap, Bcrypt.js)
 
-The Node.js version that is bundled with the addon is defined in `./package.json` under 
+The Node.js version that is bundled with the addon is defined in `./package.json` under
 `"engines":{"node":"<version>"}}`.
 
-
-## Binary Modules
-
-The binary modules that are needed before the build is started are created by the script `prebuild.sh`, I'm doing this
-locally, afterwards the binaries are added to git repo. This is something I'm not happy with, but the
-effort of creating the binaries on Travis (via QEMU) is quite high and Travis limits a job run to 45 minutes which is
-not enough - especially when using QEMU... Cross-compilation is also not really practically, node-gyp doesn't give you
-full control of the build...
+The addon contains no native node modules, so no prebuilds and no
+cross-compilation are needed. The only per-architecture binaries are the
+Node.js runtime (downloaded at build time) and the small `update_addon` CCU
+tool checked in under `tools/<arch>/`.
 
 
 ## Pipeline
 
-The Travis Job sets a tag, creates a release, runs `build.sh`, uploads the files in the `dist` folder and calls
-`update_release_body.sh` afterwards. This Job is triggered manually.
-
-`build.sh` creates the CCU addons and the package files and puts them in the `dist` folder. It also creates
+`build.sh` creates the CCU addon packages (one per architecture: armv7l,
+aarch64, x86_64) and puts them in the `dist` folder. It also creates
 `RELEASE_BODY.md` and updates the `CHANGE_HISTORY` in the Github Wiki.
+
+Releases are built by the GitHub Actions workflow
+(`.github/workflows/build.yml`).
 
 
 ## Update Dependencies
 
-`update.sh` updates all dependencies defined in the 3 package.json files mentioned before to the latest version and 
-calls `update_package.js` which combines them in `./package.json` (needed to have one place to check all dependencies 
-for updates/issues by david-dm/libraries.io). Furthermore it calls `update_readme.js` that merges 
+`update.sh` updates all dependencies defined in the 3 package.json files mentioned before to the latest version and
+calls `update_package.js` which combines them in `./package.json` (needed to have one place to check all dependencies
+for updates/issues). Furthermore it calls `update_readme.js` that merges
 `docs/README.header.md`, `wiki/Intro.md`, `wiki/Home.md` and `docs/README.footer.md` into the `README.md` file.
 
 

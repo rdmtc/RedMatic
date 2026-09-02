@@ -53,9 +53,6 @@ $(document).ready(() => {
     const $stop = $('#stop');
 
     const $linkRed = $('#link-red');
-    const $linkUi = $('#link-ui');
-
-    const $packageTable = $('#package-table');
 
     let config;
 
@@ -103,69 +100,8 @@ $(document).ready(() => {
 
     checkUpdate();
 
-    function pkg() {
-        let packages;
-        $.get(`pkg.cgi?sid=${sid}&cmd=repo`, data => {
-            packages = data;
-            $.get(`pkg.cgi?sid=${sid}&cmd=ls`, data => {
-                $('#pkg-spinner').hide();
-                data.split('\n').forEach(line => {
-                    const [name, currentVersion] = line.split(' ');
-                    if (name && packages[name]) {
-                        packages[name].installed = true;
-                        packages[name].currentVersion = currentVersion;
-                    }
-                });
-                $packageTable.html('');
-                Object.keys(packages).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())).forEach(name => {
-                    const installed = packages[name].installed ?
-                        (packages[name].version === packages[name].currentVersion ? '✅' : `⚠${packages[name].currentVersion}`) :
-                        '&nbsp;';
-
-                    let url = packages[name].homepage || (packages[name].repository && packages[name].repository.url) || packages[name].repository;
-                    if (url) {
-                        url = url.replace(/^git\+/, '').replace(/\.git$/, '');
-                    }
-
-                    $packageTable.append(`<tr><td><a href="${url}" target="_blank">${name}</a><br><span class="pkg-desc">${packages[name].description || ''}</span></td><td>${packages[name].version}</td><td style="text-align: center;">${installed}</td><td><button data-pkg="${name}" type="button" class="btn btn-primary btn-sm pkg-install" ${packages[name].installed ? 'disabled' : ''}><span class="spinner-install spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
-  install</button> <button data-pkg="${name}" type="button" class="btn btn-danger btn-sm pkg-remove" ${packages[name].installed ? '' : 'disabled'}><span class="spinner-remove spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
-  remove</button></td></tr>`)
-                });
-                $('.pkg-install').click(function () {
-                    $(this).attr('disabled', true);
-                    $(this).find('.spinner-install').removeAttr('hidden');
-                    $.get(`pkg.cgi?sid=${sid}&cmd=install&package=${$(this).data('pkg')}`, (data, success) => {
-                        $(this).find('.spinner-install').attr('hidden', true);
-                        if (data.includes('Done.')) {
-                            alert($alertExec);
-                        } else {
-                            alert($alertError);
-                        }
-                        pkg();
-                    });
-                });
-                $('.pkg-remove').click(function () {
-                    $(this).attr('disabled', true);
-                    $(this).find('.spinner-remove').removeAttr('hidden');
-                    $.get(`pkg.cgi?sid=${sid}&cmd=remove&package=${$(this).data('pkg')}`, (data, success) => {
-                        $(this).find('.spinner-remove').attr('hidden', true);
-                        if (data.includes('Done.')) {
-                            alert($alertExec);
-                        } else {
-                            alert($alertError);
-                        }
-                        pkg();
-                    });
-                })
-            });
-        });
-    }
-
-    pkg();
-
     function refresh() {
         checkUpdate();
-        pkg();
     }
 
     function cpu() {
@@ -211,7 +147,6 @@ $(document).ready(() => {
                     $dropdownRestart.removeClass('disabled');
                     $stop.removeClass('disabled');
                     $linkRed.removeClass('disabled');
-                    $linkUi.removeClass('disabled');
                     $dropdownStart.addClass('disabled');
                     psInterval = 5000;
                     return;
@@ -236,23 +171,7 @@ $(document).ready(() => {
                     $stop.addClass('disabled');
                     $dropdownStart.addClass('disabled');
                     $linkRed.addClass('disabled');
-                    $linkUi.addClass('disabled');
                     psInterval = 2500;
-                    return;
-                }
-                match = line.match(/redmatic-pkg install ([^\s]+)/);
-                if (match) {
-                    noderedState = 'upgrading';
-                    $('#status-spinner').show();
-                    $status.html('<span class="status-upgrade">Upgrading ' + match[1] + '</span>');
-                    $memory.html('');
-                    found = true;
-                    $dropdownRestart.addClass('disabled');
-                    $stop.addClass('disabled');
-                    $dropdownStart.addClass('disabled');
-                    $linkRed.addClass('disabled');
-                    $linkUi.addClass('disabled');
-                    psInterval = 5000;
                     return;
                 }
             });
@@ -265,7 +184,6 @@ $(document).ready(() => {
                 $stop.addClass('disabled');
                 $dropdownStart.removeClass('disabled');
                 $linkRed.addClass('disabled');
-                $linkUi.addClass('disabled');
                 psInterval = 5000;
             }
             psTimeout = setTimeout(ps, psInterval);
@@ -823,10 +741,6 @@ $(document).ready(() => {
         $('#modal-nickname').modal('show');
     });
 
-    $('#upgrade-log').on('click', () => {
-        download('redmatic-pkg-upgrade.' + (new Date()).toISOString() + '.log', 'log.cgi' + location.search + '&cmd=upgrade');
-    });
-
     $('#autorestart').on('change', event => {
         config.restartOnCrash = parseInt(event.target.value, 10);
         save();
@@ -835,26 +749,6 @@ $(document).ready(() => {
     $backup.on('change', () => {
         config.ccuBackup = $backup.val();
         save();
-    });
-
-    $('#discard-package-hint').on('click', () => {
-        localStorage.setItem('package-hint', 'discarded');
-        $('#package-hint').hide();
-    });
-    if (localStorage.getItem('package-hint') !== 'discarded') {
-        $('#package-hint').show();
-    }
-
-    $('#package-filter').on('keyup', () => {
-        const filter = $('#package-filter').val();
-        $packageTable.find('tr').each(function () {
-            const name = $(this).find('td').html().toLowerCase();
-            if (name.includes(filter.toLowerCase())) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
     });
 
 });

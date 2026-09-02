@@ -19,7 +19,7 @@ SETTINGS=$ADDON_DIR/lib/settings.js
 
 status=1
 restarts=0
-limit=`jq '.restartOnCrash' $ADDON_DIR/etc/settings.json`
+limit=`$NODE -e "try { console.log(JSON.parse(require('fs').readFileSync('$ADDON_DIR/etc/settings.json', 'utf8')).restartOnCrash || 0) } catch (e) { console.log(0) }"`
 
 if [[ -z $limit ]]; then
   limit = 0
