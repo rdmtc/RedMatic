@@ -63,21 +63,55 @@ The build/maintenance tooling is circa 2021 and partly built on dead services.
 
 ## 4. Modernize Node.js and Node-RED
 
-- Node.js: **14.18.3 (EOL since 2023) → 22.x LTS** (not 24 — see below).
-  - **Why not Node 24:** nodejs.org publishes no linux-armv7l binaries for
-    v24 anymore (dropped after v22), and unofficial-builds.nodejs.org does
-    not provide armv7l for v24 either. The stock CCU3 firmware is 32-bit ARM
-    (armv7l), so Node 24 would mean dropping CCU3 stock-firmware support or
-    self-building Node — not worth it. Node 22 LTS (maintained until
-    April 2027) is the newest line with official armv7l binaries.
-    Revisit Node 24+ when armv7l support is dropped for real.
+- Node.js: **14.18.3 (EOL since 2023) → 24.x LTS**.
+  - **armv7l:** nodejs.org publishes no linux-armv7l binaries for v24 anymore
+    (dropped after v23), and even the older ones need a newer glibc/libstdc++
+    than the stock CCU3 firmware ships (glibc 2.27, Buildroot 2019). Solved in
+    the **hm2mqtt.js** project (`addon/build-runtime.sh` there): take Alpine's
+    musl-based `nodejs` armv7 package, copy the musl loader + transitive
+    shared-library closure + ICU data into the addon, and `patchelf` the
+    interpreter/RPATH to point inside the addon prefix. The runtime is fully
+    self-contained, independent of the CCU's libc — verified on real CCU3
+    hardware (firmware 3.87.6) with Node 24. Port that approach here.
+  - aarch64 / x86_64: stock nodejs.org tarballs, as today.
   - Bump `engines.node` in `package.json` (consumed by `build_addon.sh` and
     `update_nodejs.js` — adjust the hardcoded `v14` major in `update_nodejs.js`).
-- Node-RED: **2.1.5 → current 4.x**.
-  - Review breaking changes (settings.json format, editor, subflows, node API).
-  - Verify node-red-contrib-ccu compatibility with Node-RED 4 / Node 22.
-- Verify bundled `npm` version pin (currently ≤8.3.1) or drop the npm bundling
-  entirely if no longer needed.
+- Node-RED: **2.1.5 → 5.x** (released 2026-06; requires Node ≥ 22.9,
+  recommends Node 24 — matches the Node 24 target above).
+  - Review breaking changes across 2 → 3 → 4 → 5 (settings.json format,
+    editor, subflows, node API).
+  - node-red-contrib-ccu: bump the bundled **3.4.2 → 4.0.0** (released
+    2026-09-02; declares `node-red >=4.0.0` and
+    `node ^20.19 || ^22.12 || >=24`, so it matches the Node-RED 5 / Node 24
+    targets) in `addon_files/redmatic/var/package.json` and the root
+    `package.json` mirror (currently capped at `0.0.0 - 3.4.2`).
+- npm: **must stay bundled** — unlike hm2mqtt (node binary only), RedMatic
+  needs npm on the CCU for Node-RED palette-manager installs, which becomes
+  more important once task 1 unbundles all extra nodes. Feasible on the
+  armv7l musl runtime: npm is pure JS (no native code), and Alpine ships it
+  as a separate `npm` package (currently 12.x in edge/community) alongside
+  `nodejs` — unpack it into the addon like the node package, or install the
+  registry tarball (`npm pack npm@…`) into the prefix. Points to watch:
+  - npm's bin scripts run node via `#!/usr/bin/env node` and npm re-executes
+    node child processes via `process.execPath` — both fine once the addon's
+    `bin` is on PATH and the ELF interpreter is patched (hm2mqtt verified
+    child-process spawning works on the patched runtime).
+  - Version jump from the current pin (≤8.3.1) to 11/12.x interacts with
+    task 5: `--global-style` is gone in npm ≥9
+    (→ `--install-strategy=shallow`), so the installer sed patch / `etc/npmrc`
+    must be adapted together with the npm bump.
+  - Musl caveat for palette installs on armv7l: native-addon nodes won't work —
+    no compiler on the CCU (as before), and glibc armv7 prebuilds
+    (prebuild-install / node-gyp-build) don't load against a musl node.
+    Pure-JS nodes are unaffected.
+  - **User docs:** state prominently in the README (edit
+    `docs/README.header.md` / `docs/README.header.en.md` — `README.md` /
+    `README.en.md` are generated — plus the wiki) that npm packages /
+    Node-RED nodes with **binary (native) dependencies can NOT be
+    installed**. This is a **known and accepted limitation** on all
+    architectures (no compiler toolchain on the CCU; prebuilds are gone
+    with task 2; on armv7l additionally the musl runtime), not a bug to
+    be worked around.
 
 ## 4a. Limit target platforms to armv7l, aarch64, x86_64
 
@@ -144,6 +178,38 @@ Inventory of current patching:
 
 Goal: **zero source patching of Node-RED** if possible.
 
+## 5a. Fold in still-valid open issues
+
+Triage of the issue backlog (2026-09: 178 open issues, 2019–2024, no open
+PRs). The vast majority concern components scheduled for removal (bundled
+extra nodes, the package manager, binary packages, palette-install failures
+rooted in the EOL Node 14 / npm ≤8 stack, armv6l) or are support questions
+and example-flow requests for the old stack — **mass-close those with a
+pointer to the 9.0.0 release notes / this roadmap once the strip-down
+ships.** Several validate the plan directly: #351 asks for exactly the
+"Lite" build (task 1), #319 is task 6, #534/#556/#592 are task 4,
+#404/#440 are the documented native-module limitation.
+
+Still-valid items to fix as part of 9.0.0, all in the addon runtime scripts:
+
+- **#521** — uninstall leaves the `monit-redmatic.cfg` symlink in
+  `/usr/local/etc/` behind, breaking monit; remove it in the uninstall path.
+- **#452** — a corrupted context-store JSON file prevents Node-RED from
+  starting; validate/quarantine corrupt context files in `bin/redmatic`
+  before start.
+- **#142** — raise the Node-RED process's OOM score
+  (`/proc/<pid>/oom_score_adj`) so the kernel prefers killing Node-RED over
+  core CCU services (hmipserver) under memory pressure.
+- **#271** — set the monit memory limit relative to the machine's RAM
+  instead of a hardcoded value.
+- **#46** — custom CA certificates: support `NODE_EXTRA_CA_CERTS` pointing
+  at a user-supplied PEM bundle under the addon dir.
+- **#353 / #50** — support a user settings override file (e.g.
+  `redmatic-settings.js` merged into `lib/settings.js`) so TLS/https,
+  `httpStatic` etc. survive updates without patching addon files.
+- **#318** — scoped-module palette installs: verify fixed by the modern
+  npm/Node-RED stack (task 4), then close.
+
 ## 6. GitHub Actions instead of Travis
 
 - Delete `.travis.yml` (Travis CI is effectively dead for OSS; config also has
@@ -154,6 +220,7 @@ Goal: **zero source patching of Node-RED** if possible.
     `ncipollo/release-action`, tag action)
   - re-enable/clean up the commented-out steps (version check, artifact upload)
   - trigger on tag push or release, not only `workflow_dispatch`
-  - Node 22 toolchain (see task 4), drop apt packages only needed for removed
-    native modules (`libavahi-compat-libdnssd-dev`, `libudev-dev`)
+  - Node 24 toolchain (see task 4), drop apt packages only needed for removed
+    native modules (`libavahi-compat-libdnssd-dev`, `libudev-dev`);
+    armv7l runtime assembly needs `patchelf` (see task 4)
   - add a CI job for lint/build sanity on PRs (currently CI runs no checks at all)
