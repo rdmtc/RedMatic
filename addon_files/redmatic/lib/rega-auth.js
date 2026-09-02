@@ -1,7 +1,8 @@
 const path = require('path');
 const dgram = require('dgram');
 
-const Rega = require(path.join(__dirname, '..', 'var/node_modules/node-red-contrib-ccu/node_modules/homematic-rega'));
+// homematic-rega ships nested inside node-red-contrib-ccu (shallow install strategy)
+const { Rega } = require(path.join(__dirname, '..', 'var/node_modules/node-red-contrib-ccu/node_modules/homematic-rega'));
 
 const regaHost = '127.0.0.1';
 const regaAuthPort = 1998;
@@ -9,40 +10,30 @@ const regaScriptPort = 8183;
 
 const rega = new Rega({
     host: regaHost,
-    port: regaScriptPort
+    port: regaScriptPort,
+    translate: false
 });
 
-function getUserLevel(username, callback) {
-    rega.exec(`
-        var user = dom.GetObject(ID_USERS).Get("${username}");
-        var level;
-        if (user) {
-            level = user.UserLevel();
-        }
-    `, (err, stdout, objects) => {
-        if (objects.user === username) {
-            let permissions;
-            switch (objects.level) {
-                // Todo set Node-RED permissions dependent on Rega User Level
-                /*
-                case 8:
-                    // Admin
-                    break;
-                case 2:
-                    // User
-                    break;
-                case 1:
-                    // Guest
-                    break;
-                 */
-                default:
-                    permissions = '*';
+async function getUserLevel(username) {
+    // the username ends up inside a rega script string literal
+    const name = String(username).replace(/[\\"]/g, '');
+    try {
+        const { objects } = await rega.exec(`
+            var user = dom.GetObject(ID_USERS).Get("${name}");
+            var level;
+            if (user) {
+                level = user.UserLevel();
             }
-            callback({username, permissions})
-        } else {
-            callback(null)
+        `);
+        if (objects.user === name) {
+            // Todo: set Node-RED permissions dependent on the rega user level
+            // (objects.level: 8 = admin, 2 = user, 1 = guest)
+            return { username: name, permissions: '*' };
         }
-    });
+    } catch {
+        // rega not reachable - treat as unknown user
+    }
+    return null;
 }
 
 function escapeColon(str) {
@@ -60,32 +51,16 @@ function checkPassword(username, password, callback) {
 }
 
 module.exports = {
-    type: "credentials",
-    users: username => {
+    type: 'credentials',
+    users: username => getUserLevel(username),
+    authenticate: async (username, password) => {
+        const user = await getUserLevel(username);
+        if (!user) {
+            return null;
+        }
         return new Promise(resolve => {
-            getUserLevel(username, resolve);
+            checkPassword(username, password, valid => resolve(valid ? user : null));
         });
     },
-    authenticate: (username, password) => {
-        return new Promise(resolve => {
-            getUserLevel(username, user => {
-                if (user) {
-                    checkPassword(username, password, valid => {
-                        if (valid) {
-                            resolve(user);
-                        } else {
-                            resolve(null);
-                        }
-                    });
-                } else {
-                    resolve(null);
-                }
-            });
-        });
-    },
-    default: () => {
-        return new Promise(resolve => {
-            resolve(null);
-        });
-    }
+    default: () => Promise.resolve(null)
 };

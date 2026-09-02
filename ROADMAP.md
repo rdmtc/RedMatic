@@ -95,10 +95,12 @@ All of the above issues (plus #351, #319, #510, #534, #491) were commented
 and closed on 2026-09-02, signed as written by Claude on behalf of the
 maintainer. 166 issues remain open.
 
+✅ **#318** closed 2026-09-02 — all three checklist items resolved
+(redmaticVersions and the release-body scan handle scopes, the package
+manager no longer exists).
+
 Still open:
 
-- **#318** — scoped-module palette installs: verify fixed by the modern
-  npm/Node-RED stack, then close.
 - The mass-close of the obsolete backlog (after the 9.0.0 release; comment
   + close, signed as written by Claude on behalf of the maintainer).
 
@@ -126,13 +128,21 @@ Still open:
 
 The implementation is on `master`; before anything is tagged or released:
 
-- Green CI runs of `ci.yml` on GitHub (3-arch build matrix; first workflow
-  runs pending).
+- ✅ Green CI runs of `ci.yml` on GitHub (3-arch build matrix + ESLint,
+  green since 2026-09-02).
+- ✅ Container smoke test of the built x86_64 tree (Debian, linux/amd64):
+  node 24.20/npm 11.19 run, redmaticVersions/checkContext work, Node-RED
+  5.0.6 starts with lib/settings.js and serves /addons/red (HTTP 200),
+  all 15 node-red-contrib-ccu node sets register without errors. This
+  caught and fixed a real bug: rega-auth.js was still written against the
+  homematic-rega 1.x API (2.x has a named export and a promise-based
+  exec()).
 - **armv7l/CCU3 hardware test** of the full addon: install, update from
   8.x, Node-RED 5 editor + node-red-contrib-ccu 4 against a real CCU,
-  palette install of a pure-JS node (also verifies #318), syslog logging,
-  monit, uninstall. The musl runtime approach itself is hardware-verified
-  in hm2mqtt.js; the RedMatic packaging of it is not yet.
+  rega login (adminAuth type "rega" — rewritten, needs a real CCU),
+  palette install of a pure-JS node, syslog logging, monit, uninstall.
+  The musl runtime approach itself is hardware-verified in hm2mqtt.js;
+  the RedMatic packaging of it is not yet.
 - Verify the update/migration path (settings `logging.ain → syslog`,
   lib/node_modules wipe, stale-tool cleanup, var package.json merge).
 - Release notes must prominently state the breaking changes: unbundled
