@@ -149,7 +149,9 @@ if [ "$ARCH" == "armv7l" ]; then
 
     rm -rf $ROOT
 
-    curl -fsSL --max-time 120 https://raw.githubusercontent.com/nodejs/node/v$NODE_VERSION/LICENSE > $BUILD_DIR/licenses/nodejs || true
+    # the Alpine package carries no LICENSE file; fetch Node's own
+    NODE_LICENSE_TMP=$ADDON_TMP/LICENSE.node
+    curl -fsSL --max-time 120 https://raw.githubusercontent.com/nodejs/node/v$NODE_VERSION/LICENSE > $NODE_LICENSE_TMP || exit 1
 else
     case $ARCH in
       aarch64) NODE_NAME=node-v${NODE_VERSION}-linux-arm64 ;;
@@ -162,7 +164,8 @@ else
     mv $ADDON_TMP/$NODE_NAME $ADDON
     rm $ADDON/README.md
     rm $ADDON/CHANGELOG.md
-    mv $ADDON/LICENSE $BUILD_DIR/licenses/nodejs
+    NODE_LICENSE_TMP=$ADDON_TMP/LICENSE.node
+    mv $ADDON/LICENSE $NODE_LICENSE_TMP
 fi
 
 echo "copying files to tmp dir..."
@@ -172,10 +175,12 @@ echo "copying assets to tmp dir..."
 cp $BUILD_DIR/assets/redmatic5* $ADDON/www/
 cp $BUILD_DIR/assets/favicon/apple-icon-180x180.png $ADDON/www/
 cp $BUILD_DIR/assets/favicon/favicon-96x96.png $ADDON/www/
+mv $NODE_LICENSE_TMP $ADDON/www/LICENSE.node.txt
 
 echo "installing node modules..."
 cd $ADDON/lib
 npm install --no-package-lock --no-audit --no-fund --omit=dev --omit=optional --install-strategy=shallow || exit 1
+npm sbom --sbom-format cyclonedx --omit dev --omit optional > $ADDON/www/sbom-runtime.json || exit 1
 rm $ADDON/lib/package.json
 
 # npm is bundled via lib/package.json on all architectures - (re)create the
@@ -189,10 +194,17 @@ rm -f $ADDON/bin/corepack
 echo "installing additional Node-RED nodes..."
 cd $ADDON/var
 npm install --silent --no-package-lock --no-audit --no-fund --omit=dev --omit=optional --install-strategy=shallow || exit 1
+npm sbom --sbom-format cyclonedx --omit dev --omit optional > $ADDON/www/sbom-nodes.json || exit 1
 
 echo "installing www node modules"
 cd $ADDON/www
 npm install --silent --no-package-lock --no-audit --no-fund --omit=dev --omit=optional || exit 1
+npm sbom --sbom-format cyclonedx --omit dev --omit optional > $ADDON/www/sbom-www.json || exit 1
+
+# the SBOMs are architecture-independent; attach them to releases
+cp $ADDON/www/sbom-runtime.json $BUILD_DIR/dist/redmatic-$VERSION_ADDON-sbom-runtime.json
+cp $ADDON/www/sbom-nodes.json $BUILD_DIR/dist/redmatic-$VERSION_ADDON-sbom-nodes.json
+cp $ADDON/www/sbom-www.json $BUILD_DIR/dist/redmatic-$VERSION_ADDON-sbom-www.json
 
 cd $BUILD_DIR
 

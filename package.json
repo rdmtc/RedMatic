@@ -1,6 +1,6 @@
 {
   "name": "redmatic",
-  "version": "9.0.0-dev.7",
+  "version": "9.0.0-dev.8",
   "description": "Node-RED packaged as Homematic CCU addon",
   "repository": "github:rdmtc/redmatic",
   "private": true,
@@ -19,14 +19,14 @@
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",
-  "devDependencies": {
-    "github-markdown-css": "^3.0.1",
-    "got": "^11.5.2",
-    "latest-semver": "^1.0.0",
-    "npm-check-updates": "^3.1.1",
-    "prompts": "^2.3.2",
-    "request": "^2.88.0",
-    "showdown": "^1.9.0",
-    "sync-request": "^6.1.0"
+  "scripts": {
+    "build": "./build.sh",
+    "build:armv7l": "./build_addon.sh armv7l",
+    "build:aarch64": "./build_addon.sh aarch64",
+    "build:x86_64": "./build_addon.sh x86_64",
+    "outdated": "npm outdated --prefix addon_files/redmatic/lib; npm outdated --prefix addon_files/redmatic/var; npm outdated --prefix addon_files/redmatic/www; true",
+    "update:nodejs": "node update_nodejs.js",
+    "update:package": "node update_package.js",
+    "update:readme": "node update_readme.js"
   }
 }

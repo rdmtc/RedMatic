@@ -1,5 +1,6 @@
 {
   "name": "redmatic-www",
+  "version": "0.0.0",
   "private": true,
   "dependencies": {
     "bcryptjs": "2.4.3",

@@ -31,31 +31,31 @@ gate.
 
 ## 3. Modernize tooling
 
-The build/maintenance tooling is circa 2021 and partly built on dead services.
-Partially done: on-device and build-script `jq` is gone, `update_readme.js`
-and `update_change_history.js` were rewritten on global `fetch`, the defunct
-david-dm badge was removed, `update_nodejs.js` tracks v24.
+The build/maintenance tooling was circa 2021 and partly built on dead
+services. Mostly done in `9.0.0-dev.x`:
 
-- Replace the remaining deprecated/dead devDependencies (`request`,
-  `sync-request`, `npm-check-updates@3`, `got@11`, `showdown@1`,
-  `latest-semver`, `prompts`, `github-markdown-css`) — `update_licenses.js`
-  goes away with the SBOM item below, `update_dependencies.js` / `update.sh`
-  are replaced by `npm outdated` / Dependabot / Renovate; `update_nodejs.js`
-  still uses `sync-request`/`latest-semver` → rewrite on fetch.
-- Add basic quality tooling: ESLint (or Biome), `.editorconfig`, and a
-  `scripts` block in `package.json` (currently none exists).
-- Add a `.gitattributes` normalizing line endings (`* text=auto eol=lf`):
-  Windows checkouts currently get CRLF via autocrlf, which makes WSL git
-  report the whole tree as modified and risks CRLF creeping into the bash
-  scripts that run on Linux (CI/CCU). Normalize once, renormalize the repo
-  (`git add --renormalize .`).
-- Replace the huge generated third-party license files (`LICENSES.md`,
-  `www/licenses.html`) with a **standard SBOM**: `npm sbom` (built into the
-  bundled npm ≥10) emits SPDX or CycloneDX JSON per dependency layer at
-  build time — ship it in the addon and attach it to releases. Full license
-  texts stay available anyway, since every npm package carries its own
-  LICENSE file inside `node_modules`. Drop `update_licenses.js` and the
-  licenses tab's giant HTML (link/serve the SBOM instead).
+- ✅ All deprecated/dead devDependencies are gone (`request`, `sync-request`,
+  `npm-check-updates`, `got`, `showdown`, `latest-semver`, `prompts`,
+  `github-markdown-css`): the `update_*` scripts were rewritten on global
+  `fetch`, `update_licenses.js`/`update_dependencies.js`/`update.sh` were
+  deleted. Dependency tracking = `npm run outdated` + GitHub security
+  alerts. **No Dependabot/Renovate PRs — the maintainer finds them too
+  noisy.**
+- ✅ `.editorconfig` and a `scripts` block in `package.json`
+  (build/outdated/update:*).
+- ✅ `.gitattributes` with `* text=auto eol=lf`, repo renormalized.
+- ✅ SBOM instead of generated license files: `npm sbom` (CycloneDX) per
+  dependency layer at build time, shipped in `www/` (linked from a new
+  lightweight `licenses.html`), attached to releases as
+  `redmatic-<version>-sbom-*.json`; `LICENSES.md`, the giant
+  `licenses.html` and `update_licenses.js` are deleted; Node's LICENSE
+  ships as `www/LICENSE.node.txt`.
+- ✅ On-device and build-script `jq`/`jo` gone; david-dm badge removed.
+
+Still open:
+
+- ESLint (or Biome) for the remaining JS (addon lib scripts, update/build
+  scripts), wired into ci.yml.
 - README logo is not suitable for GitHub dark mode (the dark "Matic"
   letters become unreadable). Add a dark-mode variant of the logo to
   `assets/` and embed it via

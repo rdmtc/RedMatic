@@ -67,7 +67,7 @@ erreichbar. Bei der Installation ist Geduld erforderlich, es kann bis zu ~10 Min
 
 ## Support, Mitarbeit
 
-Für Feedback jeglicher Art, Fragen, Vorschläge und Wünsche bitte das [Diskussionsforum](https://github.com/rdmtc/RedMatic/discussions) nutzen. Für Bug Reports bitte den [Issue Tracker](https://github.com/rdmtc/RedMatic/issues) nutzen. Alternativ steht auch [ein Chatraum in Slack](https://join.slack.com/t/homematicuser/shared_invite/enQtNjAzMDA0MjM3NzY1LTY2MzkzODUzODIyNGQ0YmVmZTJkNDRjN2U0MWQxNWRmNTQ0NjI4MjMyNjZjOWFmNjkyNjNiMTcwZGZmYWNlNjQ) zur Verfügung. 
+Für Feedback jeglicher Art, Fragen, Vorschläge und Wünsche bitte das [Diskussionsforum](https://github.com/rdmtc/RedMatic/discussions) nutzen. Für Bug Reports bitte den [Issue Tracker](https://github.com/rdmtc/RedMatic/issues) nutzen. 
 
 Beteiligung in jeder Form ist willkommen und gewünscht, insbesondere sind alle Nutzer aufgefordert die [Liste erfolgreich getesteter Nodes](https://github.com/rdmtc/RedMatic/wiki/Erfolgreich-getestete-Nodes) zu ergänzen, Beispiel-Flows zu veröffentlichen und an der Verbesserung und Erweiterung der [Dokumentation](https://github.com/rdmtc/RedMatic/wiki) mitzuarbeiten.
 
@@ -169,9 +169,9 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
 
 ## Lizenzen
 
-* [RedMatic](https://github.com/rdmtc/RedMatic) © 2018-2022 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
-* [RedMatic Documentation](https://github.com/rdmtc/RedMatic/wiki) © 2018-2022 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
-* [Third Party Licenses](LICENSES.md)
+* [RedMatic](https://github.com/rdmtc/RedMatic) © 2018-2026 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
+* [RedMatic Documentation](https://github.com/rdmtc/RedMatic/wiki) © 2018-2026 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+* Third-party components are listed in the SBOM files (CycloneDX) attached to each [release](https://github.com/rdmtc/RedMatic/releases); the full license texts ship inside the addon in each package's `node_modules` directory
 
 DIE SOFTWARE WIRD OHNE JEDE AUSDRÜCKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, EINSCHLIEẞLICH DER GARANTIE ZUR 
 BENUTZUNG FÜR DEN VORGESEHENEN ODER EINEM BESTIMMTEN ZWECK SOWIE JEGLICHER RECHTSVERLETZUNG, JEDOCH NICHT DARAUF 
