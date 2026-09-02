@@ -17,7 +17,7 @@ ___
 > **⚠️ RedMatic 9:** RedMatic wird radikal verschlankt und modernisiert
 > (Node.js 24, Node-RED 5). Ab Version 9 ist nur noch
 > [node-red-contrib-ccu](https://github.com/rdmtc/node-red-contrib-ccu)
-> vorinstalliert — alle weiteren Nodes (Dashboard, HomeKit, Zigbee, …)
+> vorinstalliert — alle weiteren Nodes (z.&nbsp;B. Dashboard, HomeKit)
 > werden bei Bedarf über den Node-RED Paletten-Manager installiert.
 > Der RedMatic-Paketmanager und die RedMatic-WebApp sind deprecated und
 > entfallen ersatzlos.
@@ -25,3 +25,5 @@ ___
 > binären (nativen) Abhängigkeiten können auf der CCU **nicht**
 > installiert werden — auf der CCU gibt es keine Compiler-Toolchain,
 > und vorkompilierte Binaries werden nicht mehr mitgeliefert.
+
+

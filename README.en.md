@@ -13,8 +13,8 @@
 > **⚠️ RedMatic 9:** RedMatic is being radically slimmed down and
 > modernized (Node.js 24, Node-RED 5). As of version 9 only
 > [node-red-contrib-ccu](https://github.com/rdmtc/node-red-contrib-ccu)
-> comes preinstalled — any additional nodes (dashboard, HomeKit,
-> Zigbee, …) are installed on demand via the Node-RED palette manager.
+> comes preinstalled — any additional nodes (e.g. dashboard, HomeKit)
+> are installed on demand via the Node-RED palette manager.
 > The RedMatic package manager and the RedMatic-WebApp are deprecated
 > and removed without replacement.
 > **Known and accepted limitation:** npm packages / nodes with binary
