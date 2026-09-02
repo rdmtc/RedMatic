@@ -1,4 +1,7 @@
-<img height="112px" src="assets/redmatic5-compact.png" align="left"/>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/redmatic5-compact-dark.png">
+  <img height="112px" src="assets/redmatic5-compact.png" align="left"/>
+</picture>
 
 <br>
 
@@ -25,57 +28,48 @@
 > RedMatic 9 is **still in development** — expect a first release in a
 > few days at the earliest.
 
-_RedMatic_ combines several software components into a CCU Addon, a software package that can be comfortably installed on a Homematic CCU3 or RaspberryMatic. Homematic is a series of smart home automation products by the manufacturer [eQ-3](https://eq-3.de), popular especially in Germany.
+_RedMatic_ packages [Node-RED](https://nodered.org/about/) as a CCU Addon, a software package that can be comfortably installed on a Homematic CCU3 or [OpenCCU](https://github.com/jens-maus/OpenCCU) (formerly RaspberryMatic) via the WebUI. Homematic is a series of smart home automation products by the manufacturer [eQ-3](https://eq-3.de), popular especially in Germany.
 
-The basis is formed by [Node-RED](https://nodered.org/about/) with the 
+The basis is formed by [Node-RED](https://nodered.org/about/) with the
 [CCU Nodes for Node-RED](https://github.com/rdmtc/node-red-contrib-ccu). These components offer the possibility to visually and easily create rules, automations, scripts and connections to external services and systems for a Homematic System. To a large extent even without programming knowledge. In the
-[Wiki](https://github.com/rdmtc/RedMatic/wiki) you can find more information about Node-RED and some 
-Application examples (so-called _Flows_).
+[Wiki](https://github.com/rdmtc/RedMatic/wiki) you can find more information about Node-RED and some
+application examples (so-called _Flows_).
 
-For visualization and control [RedMatic WebApp](https://github.com/rdmtc/RedMatic-WebApp) and 
-[Node-RED Dashboard](https://github.com/node-red/node-red-dashboard) are included. _RedMatic WebApp_ is a
-User interface that can be used immediately without further configuration (comparable to _WebMatic_ or _Yahui_).
-_Node-RED Dashboard_ is a configurable user interface which can offer more possibilities than the _RedMatic WebApp_, 
-but needs some configuration effort. 
-Example screenshots: [RedMatic WebApp](https://github.com/rdmtc/RedMatic/wiki/Webapp), 
-[Node-RED Dashboard](https://github.com/rdmtc/RedMatic/wiki/Dashboard-Screenshots).
+As of **RedMatic 9** the addon is deliberately lean: only the CCU nodes come preinstalled. Any additional nodes — e.g. the [Node-RED Dashboard](https://flows.nodered.org/node/@flowfuse/node-red-dashboard) for visualization and control — are [installed](https://github.com/rdmtc/RedMatic/wiki/Node-Installation) on demand via the Node-RED palette manager. The former _RedMatic WebApp_ and the RedMatic package manager are deprecated and no longer included. **Known and accepted limitation:** nodes with binary (native) dependencies can not be installed on the CCU — there is no compiler toolchain on the CCU, and precompiled binaries are no longer shipped.
 
-Furthermore the included extension 
-[RedMatic HomeKit](https://github.com/rdmtc/RedMatic/wiki/Homekit) makes it possible to control Homematic devices and other in Node-RED available systems via Siri and with HomeKit apps.
-
-A connection of the CCU to a [MQTT](https://github.com/rdmtc/RedMatic/wiki/Flow-MQTT) broker with convenient 
+A connection of the CCU to a [MQTT](https://github.com/rdmtc/RedMatic/wiki/Flow-MQTT) broker with conveniently
 configurable topic and payload structure is simplified by a special node.
 
-In addition, a large and active community around Node-RED created a 
-[library of thousands of additional nodes](https://flows.nodered.org/?type=node&num_pages=1) which 
-[can be installed](https://github.com/rdmtc/RedMatic/wiki/Node-Installation) easily and offer connections to various other services and systems - 
-such as the Xiaomi Aqara Smart Home System, Loxone, the Logitech Harmony Hub, various Smart TVs and AV receivers, 
-Sonoff, Hue, Lightify, Tradfri, ArtNET/DMX, Modbus, Amazon Alexa, Google Home, various databases such as InfluxDB 
+In addition, a large and active community around Node-RED created a
+[library of thousands of additional nodes](https://flows.nodered.org/?type=node&num_pages=1) which
+[can be installed](https://github.com/rdmtc/RedMatic/wiki/Node-Installation) easily and offer connections to various other services and systems -
+such as KNX, Loxone, various Smart TVs and AV receivers, Sonos, Hue, Amazon Alexa, Google Home, various databases such as InfluxDB
 or MySQL, web services to query weather data and much more.
 
-_RedMatic_ can thus - especially for those who don't want to run another server besides the CCU - provide an alternative to a "mature" Smart Home System such as Home Assistant, ioBroker, OpenHAB or FHEM. 
-For the automation of a Homematic system, _RedMatic_ can also be used as an alternative or supplement to "Rega". 
-Programs/Scripts. 
+_RedMatic_ can thus - especially for those who don't want to run another server besides the CCU - provide an alternative to a "mature" Smart Home System such as Home Assistant, ioBroker, OpenHAB or FHEM.
+For the automation of a Homematic system, _RedMatic_ can also be used as an alternative or supplement to "Rega"
+programs/scripts.
 
 
 ## Requirements
 
-_RedMatic_ is __only suitable for the CCU3 and RaspberryMatic__. Since RedMatic may consume more than 200MB memory 
-it is advisable to use a RaspberryPi with 1GB RAM (Pi 2B and up). On the CCU1/2 _RedMatic_ can not be used.
+_RedMatic_ is suitable for the **CCU3** (and piVCCU3) and for **OpenCCU** on the architectures armv7l (e.g. Raspberry Pi 2), aarch64 (e.g. Raspberry Pi 3/4) and x86_64 (e.g. _ova_, _intelnuc_, containers).
+
+On the CCU1, CCU2 and on armv6l systems (Raspberry Pi 1/Zero) _RedMatic_ can not be used.
 
 A modern browser is required to use the web interfaces, Internet Explorer is not supported.
 
 
 ## Quick Start
 
-On the [Releases](https://github.com/rdmtc/RedMatic/releases/latest) Page the file `redmatic-<version>.tar.gz` is available for download. After the installation of the addon via the Homematic WebUI (Control Panel -> additional software) and the subsequent reboot of the CCU is Node-RED is reachable at `http://<ccu-addresse>/addons/red`. Patience is required during installation, it can take up to ~10 minutes. Some sample flows as well as a simple dashboard are already preconfigured, the dashboard is reachable at `http://<ccu-address>/addons/red/ui`. 
+On the [Releases](https://github.com/rdmtc/RedMatic/releases/latest) page the file `redmatic-<version>.tar.gz` is available for download. After the installation of the addon via the Homematic WebUI (Control Panel -> additional software) and the subsequent reboot of the CCU, Node-RED is reachable at `http://<ccu-address>/addons/red`. Patience is required during installation, it can take a few minutes.
 
 
 ## Support, Contributing
 
 For feedback of any kind, questions, suggestions and wishes please use the
 [discussion forum](https://github.com/rdmtc/RedMatic/discussions), for bug reports the
-[Issue Tracker](https://github.com/rdmtc/RedMatic/issues). 
+[Issue Tracker](https://github.com/rdmtc/RedMatic/issues).
 
 Participation in any form is welcome and desired, especially all users are invited to extend the [list of successfully tested nodes](https://github.com/rdmtc/RedMatic/wiki/Erfolgreich-getestete-Nodes), to publish sample flows and to contribute to the improvement and extension of the [documentation](https://github.com/rdmtc/RedMatic/wiki).
 

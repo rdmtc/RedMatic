@@ -1,4 +1,7 @@
-<img height="112px" src="assets/redmatic5-compact.png" align="left"/>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/redmatic5-compact-dark.png">
+  <img height="112px" src="assets/redmatic5-compact.png" align="left"/>
+</picture>
 
 <br>
 
