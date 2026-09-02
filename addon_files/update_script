@@ -78,13 +78,6 @@ if [ ! -f $RED_DIR/etc/credentials.key ]; then
 fi
 
 #
-#   Create example flows on first install
-#
-if [ ! -f $RED_DIR/var/flows.json ]; then
-    mv $RED_DIR/var/example-flows.json $RED_DIR/var/flows.json
-fi
-
-#
 #   export lib path for jq usage
 #
 export LD_LIBRARY_PATH=$RED_DIR/lib

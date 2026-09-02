@@ -30,7 +30,6 @@ $(document).ready(() => {
     const $staticauthSet = $('#staticauth-set');
 
     const $projects = $('#projects');
-    const $theme = $('#theme');
     const $backup = $('#backup');
     
     const $alertSaved = $('#alert-saved');
@@ -404,12 +403,10 @@ $(document).ready(() => {
             $projects.prop('disabled', true);
         }
 
-        if (config.editorTheme.page) {
-            switch (config.editorTheme.page.css) {
-                case '/usr/local/addons/redmatic/lib/node_modules/@node-red-contrib-themes/midnight-red/theme.css':
-                    $theme.val('midnight-red');
-                    break;
-            }
+        // Migration to 9.x: the bundled midnight-red theme is gone
+        if (config.editorTheme.page && config.editorTheme.page.css === '/usr/local/addons/redmatic/lib/node_modules/@node-red-contrib-themes/midnight-red/theme.css') {
+            delete config.editorTheme.page;
+            save();
         }
 
         // Migration from 1.x to 2.x
@@ -455,20 +452,6 @@ $(document).ready(() => {
         if (config.editorTheme.projects.enabled) {
             $projects.prop('disabled', true)
         }
-    });
-
-    $theme.change(() => {
-        switch ($theme.val()) {
-            case 'midnight-red':
-                config.editorTheme.page = {
-                    css: '/usr/local/addons/redmatic/lib/node_modules/@node-red-contrib-themes/midnight-red/theme.css'
-                };
-                break;
-
-            default:
-                delete config.editorTheme.page;
-        }
-        save();
     });
 
     $contextStorageDefault.change(() => {

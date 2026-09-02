@@ -4,29 +4,6 @@
   "dependencies": {
     "npm": "8.3.1",
     "node-red": "2.1.5",
-    "ain2": "3.0.0",
-    "node-red-node-serialport": "0.15.0",
-    "node-red-node-sqlite": "1.0.3",
-    "node-red-contrib-smartmeter": "0.6.0",
-    "node-red-contrib-modbus": "5.16.0",
-    "node-red-contrib-mysensors": "3.3.1",
-    "node-red-contrib-rfxcom": "2.11.3",
-    "node-red-contrib-zigbee": "0.21.0",
-    "node-red-contrib-johnny-five": "1.0.0-beta.2",
-    "node-red-contrib-enocean": "0.8.5",
-    "redmatic-homekit": "3.3.0",
-    "@node-red-contrib-themes/midnight-red": "2.1.4",
-    "node-red-contrib-doorbird": "0.2.8",
-    "node-red-contrib-comfoair": "0.0.8",
-    "node-red-node-discovery": "0.0.23",
-    "node-red-contrib-chatbot": "0.19.11",
-    "node-red-contrib-lgtv": "1.1.0",
-    "node-red-contrib-harmony-websocket": "2.2.6",
-    "node-red-contrib-loxone": "0.10.11",
-    "nodered-contrib-signal-client": "2.4.2",
-    "node-red-contrib-xiaomi-ble": "1.3.3",
-    "node-red-contrib-m-bus": "2.0.0",
-    "node-red-contrib-tfjs-coco-ssd": "1.0.2",
-    "node-red-contrib-uhppoted": "0.7.1"
+    "ain2": "3.0.0"
   }
 }

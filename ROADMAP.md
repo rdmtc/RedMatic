@@ -23,6 +23,11 @@ install them via the Node-RED palette manager.
   (jq-deletion of Pi-only modules for x86_64; the `ain2`/`unix-dgram`
   special case is handled in task 4b).
 - Regenerate `LICENSES.md` / `www/licenses.html` afterwards (should shrink drastically).
+- **No example/starter flows anymore**: remove
+  `addon_files/redmatic/var/example-flows.json` and the "create example flows
+  on first install" step in `addon_files/update_script` — new installs start
+  with an empty flow. (The old example flows depended on dashboard/combine
+  nodes that get unbundled anyway.)
 - Side effect: virtually no native modules remain → enables task 2.
 
 ## 2. Remove RedMatic package manager and package prebuilds
