@@ -9,11 +9,16 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
+
+      - name: ESLint
+        run: |
+          npm install --no-package-lock --no-audit --no-fund
+          npx eslint .
 
       - name: Shell script syntax
         run: |
@@ -38,9 +43,9 @@ jobs:
       matrix:
         arch: [armv7l, aarch64, x86_64]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
 
@@ -53,7 +58,7 @@ jobs:
           mkdir -p dist
           ./build_addon.sh ${{ matrix.arch }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: redmatic-${{ matrix.arch }}
           path: dist/*

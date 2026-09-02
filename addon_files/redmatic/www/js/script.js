@@ -684,10 +684,6 @@ $(document).ready(() => {
         });
     });
 
-    function setHeader(xhr) {
-        xhr.setRequestHeader('accept', 'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*');
-    }
-
     $.get('restart_count', data => {
         $('#restarts').html(data || 'keine');
     });
@@ -748,6 +744,11 @@ $(document).ready(() => {
 
     $('#log-upload').on('click', () => {
         $('#modal-nickname').modal('show');
+    });
+
+    $('#log-upload-do').on('click', () => {
+        $('#modal-nickname').modal('hide');
+        logUpload();
     });
 
     $('#autorestart').on('change', event => {

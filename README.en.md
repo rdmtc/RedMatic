@@ -21,6 +21,9 @@
 > (native) dependencies can **not** be installed on the CCU — there is
 > no compiler toolchain on the CCU, and precompiled binaries are no
 > longer shipped.
+>
+> RedMatic 9 is **still in development** — expect a first release in a
+> few days at the earliest.
 
 _RedMatic_ combines several software components into a CCU Addon, a software package that can be comfortably installed on a Homematic CCU3 or RaspberryMatic. Homematic is a series of smart home automation products by the manufacturer [eQ-3](https://eq-3.de), popular especially in Germany.
 

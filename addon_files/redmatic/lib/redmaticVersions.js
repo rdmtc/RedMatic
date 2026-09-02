@@ -22,7 +22,7 @@ function readEnvFile(file) {
 }
 
 function scanModules(dir, res) {
-    let entries = [];
+    let entries;
     try {
         entries = fs.readdirSync(dir);
     } catch {

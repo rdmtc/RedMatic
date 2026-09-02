@@ -38,7 +38,7 @@ function check(file) {
 }
 
 function walk(d) {
-    let entries = [];
+    let entries;
     try {
         entries = fs.readdirSync(d, { withFileTypes: true });
     } catch {

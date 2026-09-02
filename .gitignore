@@ -6,5 +6,4 @@
 /RELEASE_BODY.md
 /node_modules
 /package-lock.json
-/prebuilt/armv6l/package.json
-/prebuilt/i686/package.json
+/RedMatic.wiki

@@ -21,4 +21,7 @@
 > (native) dependencies can **not** be installed on the CCU — there is
 > no compiler toolchain on the CCU, and precompiled binaries are no
 > longer shipped.
+>
+> RedMatic 9 is **still in development** — expect a first release in a
+> few days at the earliest.
 

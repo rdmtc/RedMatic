@@ -25,5 +25,8 @@ ___
 > binären (nativen) Abhängigkeiten können auf der CCU **nicht**
 > installiert werden — auf der CCU gibt es keine Compiler-Toolchain,
 > und vorkompilierte Binaries werden nicht mehr mitgeliefert.
+>
+> RedMatic 9 ist **noch in Entwicklung** — mit einem ersten Release ist
+> frühestens in einigen Tagen zu rechnen.
 
 
