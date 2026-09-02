@@ -16,7 +16,11 @@
 #   aarch64  OpenCCU (formerly RaspberryMatic) 64-bit, glibc is current -> stock nodejs.org tarball.
 #   x86_64   OpenCCU/debmatic on x86, glibc is current -> stock nodejs.org tarball.
 #
-# Requires: curl, tar, node, npm and - for armv7l - patchelf.
+# git (needed by the Node-RED projects feature and for npm installs from git
+# URLs) is assembled the same way from Alpine's musl build on all three
+# architectures - the CCU firmware ships no git.
+#
+# Requires: curl, tar, node, npm and patchelf.
 
 set -o pipefail
 
@@ -37,12 +41,16 @@ echo "Build RedMatic v$VERSION_ADDON ($ARCH)"
 echo ""
 
 case $ARCH in
-  armv7l | aarch64 | x86_64) ;;
+  armv7l)  ALPINE_ARCH=armv7 ;;
+  aarch64) ALPINE_ARCH=aarch64 ;;
+  x86_64)  ALPINE_ARCH=x86_64 ;;
   *)
     echo "usage: $0 <armv7l|aarch64|x86_64>" >&2
     exit 1
     ;;
 esac
+
+command -v patchelf >/dev/null 2>&1 || { echo "error: patchelf is required" >&2; exit 1; }
 
 ADDON_FILES=$BUILD_DIR/addon_files
 ADDON_TMP=$BUILD_DIR/addon_tmp
@@ -53,78 +61,89 @@ mkdir $ADDON_TMP 2> /dev/null || rm -r $ADDON_TMP/*
 
 echo "node version on build system: `node --version`"
 
-ICU_VERSION=""
+# --- helpers for assembling self-contained musl binaries from Alpine packages ---
 
-if [ "$ARCH" == "armv7l" ]; then
-    command -v patchelf >/dev/null 2>&1 || { echo "error: patchelf is required for the armv7l build" >&2; exit 1; }
-
-    mkdir -p $ADDON/bin $ADDON/lib
-
-    # Resolve nodejs and everything it needs from the Alpine package index,
-    # then download and unpack the .apk files (concatenated gzipped tars).
-    PACKAGES=`node $BUILD_DIR/alpine-packages.mjs nodejs armv7 $ALPINE_BRANCH $ALPINE_MIRROR` || exit 1
-    APK_VERSION=`echo "$PACKAGES" | sed -n 's|.*/nodejs-\(.*\)\.apk$|\1|p' | head -1`
-    NODE_VERSION_ARMV7L=${APK_VERSION%%-r*}
-    case $NODE_VERSION_ARMV7L in
-        $NODE_MAJOR.*) ;;
-        *)
-            echo "error: alpine/$ALPINE_BRANCH/armv7 ships nodejs $NODE_VERSION_ARMV7L, expected ${NODE_MAJOR}.x." >&2
-            echo "       Pick another ALPINE_BRANCH or move engines.node in package.json." >&2
-            exit 1
-            ;;
-    esac
-    echo "alpine/$ALPINE_BRANCH/armv7: nodejs $APK_VERSION"
-    NODE_VERSION=$NODE_VERSION_ARMV7L
-
-    ROOT=$ADDON_TMP/alpine-root
-    rm -rf $ROOT
-    mkdir -p $ROOT
-    for url in $PACKAGES; do
+# resolve an Alpine package closure and unpack it into a staging root
+alpine_fetch() {
+    local pkg="$1" root="$2" packages url
+    packages=`node $BUILD_DIR/alpine-packages.mjs $pkg $ALPINE_ARCH $ALPINE_BRANCH $ALPINE_MIRROR` || return 1
+    rm -rf "$root"
+    mkdir -p "$root"
+    for url in $packages; do
         echo "download and extract `basename $url` ..."
-        curl -fsSL --max-time 300 "$url" | tar -xzf - -C $ROOT 2>/dev/null
+        curl -fsSL --max-time 300 "$url" | tar -xzf - -C "$root" 2>/dev/null
     done
+}
 
-    [ -f $ROOT/usr/bin/node ] || { echo "error: the nodejs package did not contain usr/bin/node" >&2; exit 1; }
-    cp -a $ROOT/usr/bin/node $ADDON/bin/node
+# copy one shared library (following symlinks) from $SRCROOT into $ADDON/lib
+copy_lib() {
+    local name="$1" dir real base
+    [ -e "$ADDON/lib/$name" ] && return 0
+    for dir in "$SRCROOT/lib" "$SRCROOT/usr/lib"; do
+        [ -e "$dir/$name" ] || continue
+        real=`readlink -f "$dir/$name"`
+        base=`basename "$real"`
+        cp -a "$real" "$ADDON/lib/$base"
+        [ "$base" == "$name" ] || ln -sfn "$base" "$ADDON/lib/$name"
+        return 0
+    done
+    echo "error: shared library $name not found in the staging root" >&2
+    return 1
+}
 
-    # Copy the transitive DT_NEEDED closure of the node binary. Only these
-    # libraries end up in the package - not everything apk happened to unpack.
-    copy_lib() {
-        local name="$1" dir real base
-        [ -e "$ADDON/lib/$name" ] && return 0
-        for dir in "$ROOT/lib" "$ROOT/usr/lib"; do
-            [ -e "$dir/$name" ] || continue
-            real=`readlink -f "$dir/$name"`
-            base=`basename "$real"`
-            cp -a "$real" "$ADDON/lib/$base"
-            [ "$base" == "$name" ] || ln -sfn "$base" "$ADDON/lib/$name"
-            return 0
-        done
-        echo "error: shared library $name not found in the staging root" >&2
-        return 1
-    }
-
-    queue="$ADDON/bin/node"
+# copy the transitive DT_NEEDED closure of the given ELF files into $ADDON/lib
+copy_closure() {
+    local queue="$*" current needed
     while [ -n "$queue" ]; do
         current=${queue%% *}
         queue=${queue#"$current"}
         queue=${queue# }
         for needed in `patchelf --print-needed "$current" 2>/dev/null`; do
             if [ ! -e "$ADDON/lib/$needed" ]; then
-                copy_lib "$needed" || exit 1
+                copy_lib "$needed" || return 1
                 queue="$queue `readlink -f $ADDON/lib/$needed`"
             fi
         done
     done
+}
+
+ICU_VERSION=""
+
+if [ "$ARCH" == "armv7l" ]; then
+    mkdir -p $ADDON/bin $ADDON/lib
+
+    # Resolve nodejs and everything it needs from the Alpine package index,
+    # then download and unpack the .apk files (concatenated gzipped tars).
+    PACKAGES=`node $BUILD_DIR/alpine-packages.mjs nodejs $ALPINE_ARCH $ALPINE_BRANCH $ALPINE_MIRROR` || exit 1
+    APK_VERSION=`echo "$PACKAGES" | sed -n 's|.*/nodejs-\(.*\)\.apk$|\1|p' | head -1`
+    NODE_VERSION_ARMV7L=${APK_VERSION%%-r*}
+    case $NODE_VERSION_ARMV7L in
+        $NODE_MAJOR.*) ;;
+        *)
+            echo "error: alpine/$ALPINE_BRANCH/$ALPINE_ARCH ships nodejs $NODE_VERSION_ARMV7L, expected ${NODE_MAJOR}.x." >&2
+            echo "       Pick another ALPINE_BRANCH or move engines.node in package.json." >&2
+            exit 1
+            ;;
+    esac
+    echo "alpine/$ALPINE_BRANCH/$ALPINE_ARCH: nodejs $APK_VERSION"
+    NODE_VERSION=$NODE_VERSION_ARMV7L
+
+    SRCROOT=$ADDON_TMP/alpine-root
+    alpine_fetch nodejs $SRCROOT || exit 1
+
+    [ -f $SRCROOT/usr/bin/node ] || { echo "error: the nodejs package did not contain usr/bin/node" >&2; exit 1; }
+    cp -a $SRCROOT/usr/bin/node $ADDON/bin/node
+
+    copy_closure $ADDON/bin/node || exit 1
 
     # ICU data. Alpine builds node against the system ICU, whose data lives in
     # a .dat file under a path compiled into the library (/usr/share/icu/<ver>).
     # That path does not exist on a CCU, so the data ships inside the addon and
     # the runtime scripts export ICU_DATA (via the versions file); without it
     # node does not start.
-    if [ -d $ROOT/usr/share/icu ]; then
+    if [ -d $SRCROOT/usr/share/icu ]; then
         mkdir -p $ADDON/share
-        cp -a $ROOT/usr/share/icu $ADDON/share/
+        cp -a $SRCROOT/usr/share/icu $ADDON/share/
         ICU_VERSION=`ls $ADDON/share/icu | head -1`
     else
         echo "error: no ICU data in the staging root - node would not start" >&2
@@ -133,21 +152,14 @@ if [ "$ARCH" == "armv7l" ]; then
 
     # the ELF interpreter itself (musl's loader), which is not a DT_NEEDED entry
     LOADER=`patchelf --print-interpreter $ADDON/bin/node`
-    cp -a $ROOT$LOADER $ADDON/lib/`basename $LOADER`
+    cp -a $SRCROOT$LOADER $ADDON/lib/`basename $LOADER`
 
     # Point everything inside the addon: absolute prefix path first (the
     # installed location), $ORIGIN as well so the tree also works elsewhere.
     patchelf --set-interpreter $PREFIX/lib/`basename $LOADER` \
         --set-rpath "$PREFIX/lib:\$ORIGIN/../lib" $ADDON/bin/node
-    for lib in $ADDON/lib/*; do
-        [ -L "$lib" ] && continue
-        case `basename "$lib"` in
-            ld-musl-*) continue ;;
-        esac
-        patchelf --set-rpath "$PREFIX/lib:\$ORIGIN" "$lib"
-    done
 
-    rm -rf $ROOT
+    rm -rf $SRCROOT
 
     # the Alpine package carries no LICENSE file; fetch Node's own
     NODE_LICENSE_TMP=$ADDON_TMP/LICENSE.node
@@ -167,6 +179,48 @@ else
     NODE_LICENSE_TMP=$ADDON_TMP/LICENSE.node
     mv $ADDON/LICENSE $NODE_LICENSE_TMP
 fi
+
+# --- bundled git (musl build from Alpine, self-contained via patchelf) ---
+# Needed by the Node-RED projects feature and for npm installs from git URLs;
+# the CCU firmware ships no git. In Alpine the git-core builtins are symlinks
+# to ../../bin/git, which resolve correctly inside the addon tree as well.
+
+echo "assembling git from alpine/$ALPINE_BRANCH/$ALPINE_ARCH ..."
+GITROOT=$ADDON_TMP/alpine-git-root
+alpine_fetch git $GITROOT || exit 1
+[ -f $GITROOT/usr/bin/git ] || { echo "error: the git package did not contain usr/bin/git" >&2; exit 1; }
+
+mkdir -p $ADDON/bin $ADDON/lib $ADDON/libexec $ADDON/share
+GIT_MAIN=$ADDON/bin/git
+cp -a $GITROOT/usr/bin/git $GIT_MAIN
+cp -a $GITROOT/usr/libexec/git-core $ADDON/libexec/
+if [ -d $GITROOT/usr/share/git-core ]; then
+    cp -a $GITROOT/usr/share/git-core $ADDON/share/
+fi
+
+# the main binary plus every real (non-symlink) ELF in git-core
+GIT_ELFS="$GIT_MAIN"
+for f in $ADDON/libexec/git-core/*; do
+    [ -f "$f" ] || continue
+    [ -L "$f" ] && continue
+    if head -c 4 "$f" | grep -q ELF; then
+        GIT_ELFS="$GIT_ELFS $f"
+    fi
+done
+
+SRCROOT=$GITROOT
+copy_closure $GIT_ELFS || exit 1
+
+GIT_LOADER=`patchelf --print-interpreter $GIT_MAIN`
+if [ ! -e $ADDON/lib/`basename $GIT_LOADER` ]; then
+    cp -a $GITROOT$GIT_LOADER $ADDON/lib/`basename $GIT_LOADER`
+fi
+
+for f in $GIT_ELFS; do
+    patchelf --set-interpreter $PREFIX/lib/`basename $GIT_LOADER` --set-rpath "$PREFIX/lib" "$f"
+done
+
+rm -rf $GITROOT
 
 echo "copying files to tmp dir..."
 cp -r $ADDON_FILES/* $ADDON_TMP/
@@ -226,20 +280,24 @@ cp -r $BUILD_DIR/tools/$ARCH/* $ADDON/
 cd $ADDON_TMP
 ln -s redmatic/bin/update_addon ./
 
-# Self-check for the patched armv7l runtime: every library the binary asks
-# for must be part of the tree, and the interpreter must point inside the prefix.
+# Self-check for the patched musl binaries: every library they ask for must be
+# part of the tree, and the interpreter must point inside the prefix.
+check_elf() {
+    local f="$1" needed
+    for needed in `patchelf --print-needed "$f"`; do
+        [ -e "$ADDON/lib/$needed" ] || { echo "MISSING: $needed (for $f)" >&2; return 1; }
+    done
+    case `patchelf --print-interpreter "$f" 2>/dev/null` in
+        $PREFIX/*|"") ;;
+        *) echo "error: interpreter of $f points outside $PREFIX" >&2; return 1 ;;
+    esac
+}
+
+check_elf $ADDON/bin/git || exit 1
 if [ "$ARCH" == "armv7l" ]; then
+    check_elf $ADDON/bin/node || exit 1
     echo "interpreter: `patchelf --print-interpreter $ADDON/bin/node`"
     echo "rpath:       `patchelf --print-rpath $ADDON/bin/node`"
-    MISSING=0
-    for needed in `patchelf --print-needed $ADDON/bin/node`; do
-        [ -e "$ADDON/lib/$needed" ] || { echo "MISSING: $needed" >&2; MISSING=1; }
-    done
-    [ "$MISSING" == "0" ] || exit 1
-    case `patchelf --print-interpreter $ADDON/bin/node` in
-        $PREFIX/*) ;;
-        *) echo "error: interpreter points outside $PREFIX" >&2; exit 1 ;;
-    esac
 fi
 
 if [ "$ARCH" == "armv7l" ]; then

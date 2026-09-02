@@ -137,12 +137,23 @@ The implementation is on `master`; before anything is tagged or released:
   caught and fixed a real bug: rega-auth.js was still written against the
   homematic-rega 1.x API (2.x has a named export and a promise-based
   exec()).
-- **armv7l/CCU3 hardware test** of the full addon: install, update from
-  8.x, Node-RED 5 editor + node-red-contrib-ccu 4 against a real CCU,
-  rega login (adminAuth type "rega" — rewritten, needs a real CCU),
-  palette install of a pure-JS node, syslog logging, monit, uninstall.
-  The musl runtime approach itself is hardware-verified in hm2mqtt.js;
-  the RedMatic packaging of it is not yet.
+- ✅ **x86_64/OpenCCU hardware test** (2026-09-02, OpenCCU 3.89.8 ova at
+  a real test system): fresh install, service start via rc.d, editor
+  through lighttpd (200), **rega login end-to-end** (token on correct
+  CCU credentials, 403 on wrong password), palette install of a pure-JS
+  node via the editor API (shallow, no lockfile), per-severity syslog
+  logging, monit limit computed from RAM, context quarantine, update
+  path (palette node survives the var merge), settings-user.js
+  override, **bundled git + projects feature active**, clean uninstall
+  incl. the #521 monit-link fix. Findings fixed along the way:
+  cp_security.cgi patch is obsolete on OpenCCU (guarded now),
+  update_script's 9.x cleanup ran after the copy and deleted the
+  freshly installed git (moved before the copy).
+- **armv7l/CCU3 hardware test** of the same checklist on real CCU3
+  hardware (musl runtime + musl git + npm on musl are the
+  armv7l-specific parts). The musl runtime approach itself is
+  hardware-verified in hm2mqtt.js; the RedMatic packaging of it is not
+  yet.
 - Verify the update/migration path (settings `logging.ain → syslog`,
   lib/node_modules wipe, stale-tool cleanup, var package.json merge).
 - Release notes must prominently state the breaking changes: unbundled

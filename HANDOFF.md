@@ -7,8 +7,26 @@ Written by Claude Fable on behalf of hobbyquaker at the end of the
 
 ## Where things stand
 
-`master` is at **9.0.0-dev.11**, everything pushed. **No tags, no
-releases yet** — hardware testing is the gate (roadmap task 8).
+`master` is at **9.0.0-dev.12**, everything pushed. **No tags, no
+releases yet** — the armv7l hardware test is the remaining gate
+(roadmap task 8).
+
+**x86_64 hardware testing is DONE** (2026-09-02, OpenCCU 3.89.8 ova at
+172.16.23.119 — WebUI Admin/12345678, ssh root/12345678, my ssh key is
+installed): the full task-8 checklist passed there, including rega
+login, palette install, update path, syslog severities, monit,
+context quarantine, settings-user override, uninstall (#521 fix), and
+the **projects feature with the newly bundled git**. The box is left
+with a running fresh install. Details in ROADMAP task 8.
+
+**git is bundled again** (decision reversed during testing): assembled
+self-contained from Alpine's musl build on all three archs via
+patchelf (`build_addon.sh`), `GIT_EXEC_PATH`/`GIT_TEMPLATE_DIR`
+exported by redmaticLoader/.profile, projects toggle back in the
+config UI. Note: the legacy `LD_LIBRARY_PATH=$ADDON_DIR/lib` exports
+were removed everywhere — musl libraries now live in `lib/` on ALL
+archs and must only be found via the binaries' patched RPATH, never
+via LD_LIBRARY_PATH (would poison glibc firmware binaries).
 
 The whole stack is modernized and implemented:
 
@@ -67,11 +85,20 @@ cp etc/default-settings.json etc/settings.json; echo key > etc/credentials.key
 bin/node lib/node_modules/node-red/red.js -s lib/settings.js'
 ```
 
-## Test-day checklist (armv7l CCU3 + x86 system)
+## Test-day checklist (armv7l CCU3 — x86_64 already done)
 
-Build locally (`./build_addon.sh armv7l` — needs Linux/WSL + patchelf)
-or download the artifacts from the latest green `ci` run on GitHub
-Actions (14-day retention).
+Build locally (`./build_addon.sh armv7l` — needs patchelf; works on
+macOS with brew patchelf too) or download the artifacts from the
+latest green `ci` run on GitHub Actions (14-day retention).
+
+Manual install over ssh, exactly what the firmware does:
+`scp` the tarball, untar to a temp dir, `chmod +x update_script`,
+run `./update_script`, then `/usr/local/etc/config/rc.d/redmatic
+start`. After a first manual install, restart lighttpd once
+(`/etc/init.d/S50lighttpd restart`) — the WebUI install path gets
+this via the post-install reboot. armv7l-specific things to watch:
+the musl node/git start at all (ICU_DATA from `versions`), npm works,
+and glibc firmware binaries are unaffected (no LD_LIBRARY_PATH).
 
 1. **Fresh install** via WebUI (Zusatzsoftware) on both systems; reboot.
    - Node-RED reachable at `http://<ccu>/addons/red`, login via CCU

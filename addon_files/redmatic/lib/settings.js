@@ -32,7 +32,7 @@ if (fs.existsSync('/usr/local/addons/redmatic/etc/credentials.key')) {
 delete defaults.logging.console;
 Object.assign(logging.logging.syslog, settings.logging.syslog);
 
-// Enable Projects Feature
+// Projects feature (git is bundled with the addon)
 if (!defaults.editorTheme) {
     defaults.editorTheme = {};
 }

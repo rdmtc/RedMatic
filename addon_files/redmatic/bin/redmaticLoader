@@ -7,8 +7,9 @@ WWW_DIR=/usr/local/etc/config/addons/www/redmatic
 NODE=$ADDON_DIR/bin/node
 
 export PATH=$ADDON_DIR/bin:$PATH
-export LD_LIBRARY_PATH=$ADDON_DIR/lib:$LD_LIBRARY_PATH
 export HOME=$ADDON_DIR/home
+export GIT_EXEC_PATH=$ADDON_DIR/libexec/git-core
+export GIT_TEMPLATE_DIR=$ADDON_DIR/share/git-core/templates
 
 export NO_UPDATE_NOTIFIER=true
 

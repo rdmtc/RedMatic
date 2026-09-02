@@ -20,8 +20,11 @@ on-device CLI tools, which required:
   converted to node one-liners; the `update_script` package.json merge
   converted to node.
 - bundled `git` dropped (served the Node-RED projects feature);
-  `GIT_EXEC_PATH`/git-core handling removed. Projects feature simply
-  stays off without git.
+  `GIT_EXEC_PATH`/git-core handling removed. *(Revised 2026-09-02: git
+  is bundled again — assembled self-contained from Alpine's musl build
+  on all three architectures via the patchelf infrastructure, so the
+  projects feature and npm git installs keep working. The old
+  prebuilt-git maintenance burden does not return.)*
 - `update_script` got a 9.x migration removing stale tools, package
   manager files and logs from existing installs; pre-8.x migration
   blocks dropped.
