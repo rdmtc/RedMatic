@@ -1,54 +1,41 @@
+// Assembles README.md / README.en.md from docs/README.header*.md, the GitHub
+// wiki pages Intro/Home (or en:Intro/en:Home) and docs/README.footer*.md.
+// The README files are generated - edit the docs/ parts, not the output.
+
 const fs = require('fs');
-const request = require('sync-request');
 
-console.log('\nAssemble Readme files');
-
-let out = fs.readFileSync(__dirname + '/docs/README.header.md').toString();
-
-let res = request('GET', 'https://raw.githubusercontent.com/wiki/rdmtc/RedMatic/Intro.md');
-if (res && res.statusCode === 200) {
-    console.log('  fetched wiki/Intro');
-    out += res.body.toString();
+async function page(name) {
+    const res = await fetch(`https://raw.githubusercontent.com/wiki/rdmtc/RedMatic/${name}.md`);
+    if (!res.ok) {
+        console.log(`  wiki/${name} not fetched (${res.status})`);
+        return '';
+    }
+    console.log(`  fetched wiki/${name}`);
+    return res.text();
 }
 
-out += '\n## Dokumentation\n\n';
+async function assemble(target, header, intro, home, docTitle, footer) {
+    let out = fs.readFileSync(`${__dirname}/docs/${header}`).toString();
 
-res = request('GET', 'https://raw.githubusercontent.com/wiki/rdmtc/RedMatic/Home.md');
-if (res && res.statusCode === 200) {
-    console.log('  fetched wiki/Home');
-    let toc = res.body.toString();
+    out += await page(intro);
+    out += `\n## ${docTitle}\n\n`;
+
+    let toc = await page(home);
     toc = toc.replace(/^.*\(Intro\)\n/, '');
     toc = toc.replace(/]\((?!http)/g, '](https://github.com/rdmtc/RedMatic/wiki/');
     out += toc;
+
+    out += '\n\n\n' + fs.readFileSync(`${__dirname}/docs/${footer}`).toString();
+
+    fs.writeFileSync(target, out);
 }
 
-out += '\n\n\n' + fs.readFileSync(__dirname + '/docs/README.footer.md').toString();
-
-fs.writeFileSync('README.md', out);
-
-
-
-out = fs.readFileSync(__dirname + '/docs/README.header.en.md').toString();
-
-res = request('GET', 'https://raw.githubusercontent.com/wiki/rdmtc/RedMatic/en:Intro.md');
-if (res && res.statusCode === 200) {
-    console.log('  fetched wiki/en:Intro');
-    out += res.body.toString();
-}
-
-out += '\n## Documentation\n\n';
-
-res = request('GET', 'https://raw.githubusercontent.com/wiki/rdmtc/RedMatic/en:Home.md');
-if (res && res.statusCode === 200) {
-    console.log('  fetched wiki/en:Home');
-    let toc = res.body.toString();
-    toc = toc.replace(/^.*\(Intro\)\n/, '');
-    toc = toc.replace(/]\((?!http)/g, '](https://github.com/rdmtc/RedMatic/wiki/');
-    out += toc;
-}
-
-out += '\n\n\n' + fs.readFileSync(__dirname + '/docs/README.footer.en.md').toString();
-
-fs.writeFileSync('README.en.md', out);
-
-console.log('  done.');
+(async () => {
+    console.log('\nAssemble Readme files');
+    await assemble('README.md', 'README.header.md', 'Intro', 'Home', 'Dokumentation', 'README.footer.md');
+    await assemble('README.en.md', 'README.header.en.md', 'en:Intro', 'en:Home', 'Documentation', 'README.footer.en.md');
+    console.log('  done.');
+})().catch(err => {
+    console.error(err.message);
+    process.exit(1);
+});

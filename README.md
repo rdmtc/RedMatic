@@ -3,17 +3,28 @@
 <br>
 
 [![Current Release](https://img.shields.io/github/release/rdmtc/RedMatic.svg?colorB=4cc61e)](https://github.com/rdmtc/RedMatic/releases/latest)
-[![Dependencies Status](https://david-dm.org/rdmtc/redmatic/status.svg)](https://david-dm.org/rdmtc/redmatic)
 [![Installs](https://telemetry.redmatic.de/total.svg)](https://telemetry.redmatic.de/#36500)
 
 
 **[Node-RED](https://nodered.org/about/) als Addon für die 
 [Homematic CCU3](https://www.homematic-ip.com/produkte/detail/smart-home-zentrale-ccu3.html) und 
-[RaspberryMatic](https://github.com/jens-maus/RaspberryMatic)**
+[OpenCCU](https://github.com/jens-maus/OpenCCU)**
 <br><br>
 <sub>[Click here for 🇬🇧🇺🇸 english readme](README.en.md)</sub>
 ### [🚀 Schnellstart](#voraussetzungen)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[📚 Dokumentation](https://github.com/rdmtc/RedMatic/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[📦 Download](https://github.com/rdmtc/RedMatic/releases/latest)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[🚑 Support](#support-mitarbeit)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[👮 Lizenzen](#lizenzen)
 ___
+
+> **⚠️ RedMatic 9:** RedMatic wird radikal verschlankt und modernisiert
+> (Node.js 24, Node-RED 5). Ab Version 9 ist nur noch
+> [node-red-contrib-ccu](https://github.com/rdmtc/node-red-contrib-ccu)
+> vorinstalliert — alle weiteren Nodes (Dashboard, HomeKit, Zigbee, …)
+> werden bei Bedarf über den Node-RED Paletten-Manager installiert.
+> Der RedMatic-Paketmanager und die RedMatic-WebApp sind deprecated und
+> entfallen ersatzlos.
+> **Bekannte und akzeptierte Einschränkung:** npm-Pakete bzw. Nodes mit
+> binären (nativen) Abhängigkeiten können auf der CCU **nicht**
+> installiert werden — auf der CCU gibt es keine Compiler-Toolchain,
+> und vorkompilierte Binaries werden nicht mehr mitgeliefert.
 _RedMatic_ fasst mehrere Softwarekomponenten zu einem CCU Addon zusammen, einem Softwarepaket, das auf einer Homematic CCU3 oder RaspberryMatic als Zusatzsoftware komfortabel über das WebUI installiert werden kann.
 
 Die Grundlage bildet [Node-RED](https://nodered.org/about/) mit den [CCU Nodes für Node-RED](https://github.com/rdmtc/node-red-contrib-ccu). Hiermit ist es auf einfache und visuelle Weise möglich Regeln, Automationen, Scripte und Anbindungen von externen Services und Systemen für ein Homematic System zu realisieren - und das weitgehend auch ohne Programmierkenntnisse. Im [Wiki](https://github.com/rdmtc/RedMatic/wiki) gibt es weitere Informationen zu Node-RED und einige Anwendungsbeispiele (sogenannte _Flows_).
@@ -137,8 +148,6 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Steuerung von Miele Geräten](https://github.com/rdmtc/RedMatic/wiki/Steuerung-Miele)
   * [Subflow für Enigma2 Receiver](https://github.com/Matten-Matten/node-red-enigma2-flow)
   * [INSTAR Kameras anbinden](https://wiki.instar.de/Erweitert/Homematic_CCU3_und_RedMatic/)
-  * [Subflow für Home24-Mediaplayer App](https://github.com/Matten-Matten/node-red-home24-mediaplayer-flow)
-  * [EASY Push Subflow Push Nachrichten an EASY-Smarthome App oder Smartha App](https://github.com/Matten-Matten/Redmatic-EASY-Push-Flow)
   * [Shelly Relais zu Schalten von Leuchten](https://github.com/rdmtc/RedMatic/wiki/Shelly-Relais-zum-Schalten-von-Leuchten)
   * [Waschmaschine fertig? Waschmaschine mit HmIP-PSM Messsteckdose monitoren](https://github.com/rdmtc/RedMatic/wiki/Waschmaschine-fertig%3F-Waschmaschine-mit-hmip-psm-Messsteckdose-monitoren)
   * [SMS mit SIM800 Modul: SMS senden & empfangen](https://github.com/Matten-Matten/SIM800-NodeRed)
@@ -146,6 +155,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [EgiGeoZone Geofence Subflow: An/abmelden von Geozonen, in Redmatic empfangen](https://github.com/Matten-Matten/EgiGeoZone-Geofence-Subfow/blob/main/README.md)
   * [Xiaomi / Roborock S1-S6 in Dashboard](https://github.com/rdmtc/RedMatic/wiki/Xiaomi-Staubsauger-in-Dashboard#roborock-oder-xiaomi-staubsauger-s1-s6-im-dashboard)
   * [Anrufsperre über Fritzbox für eingehende Anrufe](https://github.com/rdmtc/RedMatic/wiki/Anrufsperre-%C3%BCber-Fritzbox)
+  * [AIO NEO Popup Subflow (öffnen von AIO-NEO Popups auf Tablet oder Smartphone)](https://github.com/Matten-Matten/AIO-NEO-Pop-up-Subflow)
 
 * Sonstiges
   * [Berichterstattung, Blogbeiträge, Videos über RedMatic](https://github.com/rdmtc/RedMatic/wiki/Berichterstattung)
@@ -159,8 +169,8 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
 
 ## Lizenzen
 
-* [RedMatic](https://github.com/rdmtc/RedMatic) © 2018-2021 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
-* [RedMatic Documentation](https://github.com/rdmtc/RedMatic/wiki) © 2018-2021 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+* [RedMatic](https://github.com/rdmtc/RedMatic) © 2018-2022 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
+* [RedMatic Documentation](https://github.com/rdmtc/RedMatic/wiki) © 2018-2022 Sebastian Raff and RedMatic Contributors, licensed under [CC BY-SA License 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 * [Third Party Licenses](LICENSES.md)
 
 DIE SOFTWARE WIRD OHNE JEDE AUSDRÜCKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, EINSCHLIEẞLICH DER GARANTIE ZUR 
