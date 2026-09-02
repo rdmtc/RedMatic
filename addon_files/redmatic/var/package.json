@@ -3,6 +3,6 @@
   "description": "A Node-RED Project",
   "version": "0.0.1",
   "dependencies": {
-    "node-red-contrib-ccu": "3.4.2"
+    "node-red-contrib-ccu": "4.0.0"
   }
 }

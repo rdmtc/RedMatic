@@ -1,2 +1,11 @@
 cache = /usr/local/addons/redmatic/var/npm-cache
 prefix = /usr/local/addons/redmatic
+
+; palette-manager installs run npm in the var dir; keep each module's
+; dependencies nested under the module (like the former --global-style)
+; and never write a package-lock on the CCU
+install-strategy = shallow
+package-lock = false
+audit = false
+fund = false
+update-notifier = false

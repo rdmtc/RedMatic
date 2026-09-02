@@ -18,6 +18,9 @@ export PATH=$ADDON_DIR/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/addons/redmatic/lib:/usr/lib:/usr/local/lib
 export NO_UPDATE_NOTIFIER=true
 
+# provides NODE_VERSION, VERSION_ADDON, RED_VERSION and (armv7l) ICU_DATA
+source $ADDON_DIR/versions
+
 Stop () {
     if [ -f /usr/bin/monit ]; then
         /usr/bin/monit -g redmatic unmonitor
@@ -122,7 +125,6 @@ Start () {
               sleep 30
         fi
         echo -n "Starting Node-RED: "
-        source $ADDON_DIR/versions
         logger -t redmatic -p daemon.info "RedMatic v$VERSION_ADDON (c) Sebastian Raff https://github.com/rdmtc/RedMatic"
         start-stop-daemon -S -q -b --exec $ADDON_DIR/bin/redmaticLoader
         echo "OK"

@@ -2,4 +2,7 @@
 
 ADDON_DIR=/usr/local/addons/redmatic
 
+# provides ICU_DATA on armv7l, without which node does not start
+. $ADDON_DIR/versions
+
 exec $ADDON_DIR/bin/node $ADDON_DIR/lib/redmaticVersions.js

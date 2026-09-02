@@ -51,6 +51,11 @@ fi
 #
 cp -af redmatic $ADDONS_DIR/
 
+#
+#   provides ICU_DATA on armv7l, without which the bundled node does not start
+#
+. $RED_DIR/versions
+
 
 #
 #   Create default config on first install

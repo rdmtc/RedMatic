@@ -65,6 +65,12 @@ The build/maintenance tooling is circa 2021 and partly built on dead services.
   (`git add --renormalize .`).
 - Consider rewriting the bash build scripts' version/JSON handling
   (currently `jq`-based) in Node for portability.
+- README logo is not suitable for GitHub dark mode (the dark "Matic"
+  letters become unreadable). Add a dark-mode variant of the logo to
+  `assets/` and embed it via
+  `<picture><source media="(prefers-color-scheme: dark)" …>` in
+  `docs/README.header*.md` (remember: `README.md` / `README.en.md` are
+  generated).
 
 ## 4. Modernize Node.js and Node-RED
 

@@ -12,6 +12,9 @@ export HOME=$ADDON_DIR/home
 
 export NO_UPDATE_NOTIFIER=true
 
+# provides NODE_VERSION, VERSION_ADDON, RED_VERSION and (armv7l) ICU_DATA
+. $ADDON_DIR/versions
+
 RED_DIR=$ADDON_DIR/lib/node_modules/node-red
 RED=$RED_DIR/red.js
 
