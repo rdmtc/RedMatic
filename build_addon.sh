@@ -13,8 +13,8 @@
 #            with the musl loader and its shared libraries, and rewrite its ELF
 #            interpreter and RPATH to point inside the addon. The CCU's own libc
 #            is then irrelevant: the runtime is self-contained.
-#   aarch64  RaspberryMatic 64-bit, glibc is current -> stock nodejs.org tarball.
-#   x86_64   RaspberryMatic/debmatic on x86, glibc is current -> stock nodejs.org tarball.
+#   aarch64  OpenCCU (formerly RaspberryMatic) 64-bit, glibc is current -> stock nodejs.org tarball.
+#   x86_64   OpenCCU/debmatic on x86, glibc is current -> stock nodejs.org tarball.
 #
 # Requires: curl, tar, node, npm and - for armv7l - patchelf.
 

@@ -93,6 +93,14 @@ const result = Object.assign(
     logging
 );
 
+// User settings overrides (#353, #50): etc/settings-user.js is not part of
+// the addon package, so it survives updates. It is merged last - anything
+// Node-RED's settings know (https/TLS, httpStatic, ...) can be set there
+// without patching addon files.
+if (fs.existsSync('/usr/local/addons/redmatic/etc/settings-user.js')) {
+    Object.assign(result, require('/usr/local/addons/redmatic/etc/settings-user.js'));
+}
+
 fs.writeFileSync('/tmp/red-settings.json', JSON.stringify(result));
 
 module.exports = result;

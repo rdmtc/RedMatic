@@ -112,6 +112,10 @@ Start () {
     fi
     LD_LIBRARY_PATH=/usr/lib:/usr/local/lib:/usr/local/addons/redmatic/lib ; /usr/local/addons/redmatic/bin/redmaticVersions | /usr/bin/curl -H "Content-Type: application/json" -H "X-RedMatic-uuid: `cat /etc/config/rdmtc.uuid`" --data @- -s --max-time 3 https://telemetry.redmatic.de
 
+    # quarantine corrupted context-store files that would prevent
+    # Node-RED from starting (#452)
+    $ADDON_DIR/bin/checkContext 2>&1 | logger -t redmatic -p daemon.warn
+
     PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
     if [ "$PSPID" != "" ]; then
         echo "Node-RED already running"
@@ -131,6 +135,22 @@ Start () {
     fi
 
     if [ -f /usr/bin/monit ]; then
+        # set the monit memory alert limit relative to the machine's RAM:
+        # half of MemTotal, at least 200 MB (#271)
+        MEMTOTAL_KB=`grep MemTotal /proc/meminfo | awk '{print $2}'`
+        if [ -n "$MEMTOTAL_KB" ] && [ -f $ADDON_DIR/etc/monit.tmpl ]; then
+            MEMLIMIT=$((MEMTOTAL_KB / 2048))
+            if [ $MEMLIMIT -lt 200 ]; then
+                MEMLIMIT=200
+            fi
+            sed "s/@MEMLIMIT@/$MEMLIMIT/" $ADDON_DIR/etc/monit.tmpl > $ADDON_DIR/etc/monit.cfg.new
+            if cmp -s $ADDON_DIR/etc/monit.cfg.new $ADDON_DIR/etc/monit.cfg; then
+                rm $ADDON_DIR/etc/monit.cfg.new
+            else
+                mv $ADDON_DIR/etc/monit.cfg.new $ADDON_DIR/etc/monit.cfg
+                /usr/bin/monit reload
+            fi
+        fi
         nohup $ADDON_DIR/bin/monit-start > /dev/null 2>&1 &
     fi
 }
@@ -170,9 +190,14 @@ case "$1" in
         rm $CONF_DIR/lighttpd/redmatic.conf
         rm $CONF_DIR/rc.d/redmatic
 
-        if [ -f /usr/local/etc/monit-redmatic.cfg ]; then
+        # -L: the symlink is already dangling here because the addon dir is
+        # gone, so a -f test would miss it and monit would keep a stale
+        # config forever (#521)
+        if [ -L /usr/local/etc/monit-redmatic.cfg ] || [ -f /usr/local/etc/monit-redmatic.cfg ]; then
             rm /usr/local/etc/monit-redmatic.cfg
-            /usr/bin/monit reload
+            if [ -f /usr/bin/monit ]; then
+                /usr/bin/monit reload
+            fi
         fi
 
         mount -o remount,rw /

@@ -9,6 +9,6 @@
 
 **[Node-RED](https://nodered.org/about/) as Addon for the
 [Homematic CCU3](https://www.homematic-ip.com/en/products/detail/smart-home-central-control-unit-ccu3.html) and
-[RaspberryMatic](https://github.com/jens-maus/RaspberryMatic)**
+[OpenCCU](https://github.com/jens-maus/OpenCCU)**
 
 

@@ -15,6 +15,15 @@ export NO_UPDATE_NOTIFIER=true
 # provides NODE_VERSION, VERSION_ADDON, RED_VERSION and (armv7l) ICU_DATA
 . $ADDON_DIR/versions
 
+# prefer killing Node-RED over core CCU services (hmipserver etc.) under
+# memory pressure; inherited by the node child processes (#142)
+echo 800 > /proc/$$/oom_score_adj 2>/dev/null
+
+# user-supplied additional CA certificates (#46)
+if [ -f $ADDON_DIR/etc/extra-ca-certs.pem ]; then
+    export NODE_EXTRA_CA_CERTS=$ADDON_DIR/etc/extra-ca-certs.pem
+fi
+
 RED_DIR=$ADDON_DIR/lib/node_modules/node-red
 RED=$RED_DIR/red.js
 

@@ -1,6 +1,6 @@
 # Agent instructions for RedMatic
 
-RedMatic packages Node-RED as an addon for the Homematic CCU3 / RaspberryMatic
+RedMatic packages Node-RED as an addon for the Homematic CCU3 / OpenCCU (formerly RaspberryMatic)
 smart-home central. The build output is per-architecture `.tar.gz` addon
 packages (installed on the CCU under `/usr/local/addons/redmatic`).
 
