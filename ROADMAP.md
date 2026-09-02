@@ -91,6 +91,10 @@ Fixes implemented in `9.0.0-dev.5`:
   last into the Node-RED settings — https/TLS, `httpStatic` etc. without
   patching addon files.
 
+All of the above issues (plus #351, #319, #510, #534, #491) were commented
+and closed on 2026-09-02, signed as written by Claude on behalf of the
+maintainer. 166 issues remain open.
+
 Still open:
 
 - **#318** — scoped-module palette installs: verify fixed by the modern
@@ -101,8 +105,9 @@ Still open:
 ## 7. Documentation overhaul
 
 - **RedMatic-WebApp is deprecated** (no longer bundled since task 1, no
-  replacement): archive the `rdmtc/RedMatic-WebApp` repo on GitHub and
-  remove/adjust its mentions in the wiki. ✅ README notice done: both
+  replacement): ✅ the `rdmtc/RedMatic-WebApp` repo was archived on GitHub
+  (2026-09-02); its mentions in the wiki still need adjusting. ✅ README
+  notice done: both
   README headers now carry a prominent "RedMatic 9" block (only
   node-red-contrib-ccu bundled, palette manager for everything else,
   package manager + WebApp deprecated, native-module limitation as a known
