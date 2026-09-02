@@ -1,0 +1,60 @@
+name: ci
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Shell script syntax
+        run: |
+          bash -n build.sh build_addon.sh build_release_body.sh build_change_history.sh
+          for f in addon_files/update_script addon_files/redmatic/bin/redmatic \
+                   addon_files/redmatic/bin/redmaticLoader addon_files/redmatic/bin/redmaticVersions \
+                   addon_files/redmatic/bin/checkContext addon_files/redmatic/bin/monit-start \
+                   addon_files/redmatic/bin/monit-du addon_files/redmatic/bin/redmatic-logupload; do
+            sh -n "$f"
+          done
+
+      - name: JavaScript syntax
+        run: |
+          for f in addon_files/redmatic/lib/*.js update_change_history.js alpine-packages.mjs; do
+            node --check "$f"
+          done
+
+  build:
+    needs: check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [armv7l, aarch64, x86_64]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install patchelf
+        if: matrix.arch == 'armv7l'
+        run: sudo apt-get update && sudo apt-get install -y patchelf
+
+      - name: Build addon package
+        run: |
+          mkdir -p dist
+          ./build_addon.sh ${{ matrix.arch }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: redmatic-${{ matrix.arch }}
+          path: dist/*
+          retention-days: 14

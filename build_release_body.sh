@@ -2,10 +2,9 @@
 
 BUILD_DIR=`cd ${0%/*} && pwd -P`
 ADDON_TMP=$BUILD_DIR/addon_tmp
-MODULES_DIR=$ADDON_TMP/redmatic/lib/node_modules
 
-VERSION_ADDON=`jq -r '.version' package.json`
-NODE_VERSION=`jq -r '.engines.node' package.json`
+VERSION_ADDON=`node -p "require('$BUILD_DIR/package.json').version"`
+NODE_VERSION=`node -p "require('$BUILD_DIR/package.json').engines.node"`
 
 MODIFIED=`git diff-index --quiet HEAD || echo "(modified)"`
 echo "git diff $MODIFIED"
@@ -13,41 +12,26 @@ echo "git diff $MODIFIED"
 echo "creating RELEASE_BODY.md"
 
 DOWNLOAD="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz"
-DOWNLOAD_I686="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-i686-$VERSION_ADDON.tar.gz"
 DOWNLOAD_X86_64="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-x86_64-$VERSION_ADDON.tar.gz"
-DOWNLOAD_ARMV6L="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-armv6l-$VERSION_ADDON.tar.gz"
 DOWNLOAD_AARCH64="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_ADDON/redmatic-aarch64-$VERSION_ADDON.tar.gz"
 
 cat >RELEASE_BODY.md <<EOL
 ### Downloads
 
-#### CCU3, piVCCU3 und RaspberryMatic Varianten _rpi2_, _tinkerboard_ und _oci_arm_ (armv7l)
+#### CCU3, piVCCU3 und OpenCCU/RaspberryMatic Varianten _rpi2_, _tinkerboard_ und _oci_arm_ (armv7l)
   [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
 EOL
 
 if [ -f $BUILD_DIR/dist/redmatic-aarch64-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic (>= 3.53.34.20201121) Varianten _rpi3_, _rpi4_ und _oci_arm64_ (aarch64)
+#### OpenCCU/RaspberryMatic Varianten _rpi3_, _rpi4_ und _oci_arm64_ (aarch64)
   [![Downloads redmatic-aarch64-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-aarch64-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_AARCH64)
-EOL
-fi
-if [ -f $BUILD_DIR/dist/redmatic-armv6l-$VERSION_ADDON.tar.gz ]; then
-cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic Variante _rpi0_ (armv6l)
-  [![Downloads redmatic-armv6l-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-armv6l-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_ARMV6L)
-EOL
-fi
-
-if [ -f $BUILD_DIR/dist/redmatic-i686-$VERSION_ADDON.tar.gz ]; then
-cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic Varianten _ova_ und _intelnuc_ (i686)
-  [![Downloads redmatic-i686-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-i686-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_I686)
 EOL
 fi
 
 if [ -f $BUILD_DIR/dist/redmatic-x86_64-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
-#### RaspberryMatic (>= 3.53.34.20201121) Varianten _ova_, _intelnuc_ und _oci_amd64_ (x86_64)
+#### OpenCCU/RaspberryMatic Varianten _ova_, _intelnuc_ und _oci_amd64_ (x86_64)
   [![Downloads redmatic-x86_64-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-x86_64-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_X86_64)
 EOL
 fi
@@ -76,32 +60,27 @@ cat >>RELEASE_BODY.md <<EOL
 
 Module | Version
 ------ | -------
-[Node.js](https://nodejs.org/de/) | $NODE_VERSION
+[Node.js](https://nodejs.org/) | $NODE_VERSION
 EOL
 
-scan_dir()
-{
-    for DIR in $1/*
-    do
-        if [[ -f $DIR/package.json ]]; then
-            PKG=$(jq -r '.name' $DIR/package.json)
-            VERSION=$(jq -r '.version' $DIR/package.json)
-            HOMEPAGE=$(jq -r '.homepage' $DIR/package.json)
-
-            if [ $HOMEPAGE != null ]; then
-                echo "[$PKG]($HOMEPAGE) | $VERSION" >> RELEASE_BODY.md
-            else
-                echo "$PKG | $VERSION" >> RELEASE_BODY.md
-            fi
-        fi
-        case ${DIR##*/} in @*)
-            scan_dir "$DIR"
-        esac
-    done
+node -e '
+const fs = require("fs");
+const path = require("path");
+function scan(dir) {
+    let entries = [];
+    try { entries = fs.readdirSync(dir); } catch { return; }
+    for (const name of entries) {
+        try {
+            const pkg = JSON.parse(fs.readFileSync(path.join(dir, name, "package.json"), "utf8"));
+            if (pkg.name && pkg.version) {
+                console.log(pkg.homepage ? `[${pkg.name}](${pkg.homepage}) | ${pkg.version}` : `${pkg.name} | ${pkg.version}`);
+            }
+        } catch {}
+        if (name.startsWith("@")) scan(path.join(dir, name));
+    }
 }
-
-scan_dir $MODULES_DIR
-scan_dir $ADDON_TMP/redmatic/var/node_modules
+for (const dir of process.argv.slice(1)) scan(dir);
+' $ADDON_TMP/redmatic/lib/node_modules $ADDON_TMP/redmatic/var/node_modules >> RELEASE_BODY.md
 
 cat >>RELEASE_BODY.md <<EOL
 
@@ -109,9 +88,7 @@ cat >>RELEASE_BODY.md <<EOL
 ### Build
 EOL
 
-if [ $TRAVIS_BUILD_ID ]; then
-    echo -e "[Travis Build #$TRAVIS_BUILD_NUMBER](https://travis-ci.org/rdmtc/RedMatic/builds/$TRAVIS_BUILD_ID)" >> RELEASE_BODY.md
-elif [ $GITHUB_RUN_ID ]; then
+if [ $GITHUB_RUN_ID ]; then
     echo -e "[Github Action $GITHUB_WORKFLOW #$GITHUB_RUN_NUMBER](https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)" >> RELEASE_BODY.md
 else
     echo -e "\n\nCustom build `git rev-parse --abbrev-ref HEAD` `git rev-parse HEAD` $MODIFIED `date '+%Y-%m-%d %H:%M:%S'`" >> RELEASE_BODY.md
