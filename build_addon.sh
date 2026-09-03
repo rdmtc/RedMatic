@@ -57,6 +57,7 @@ ADDON_TMP=$BUILD_DIR/addon_tmp
 ADDON=$ADDON_TMP/redmatic
 VERSION_FILE=$ADDON/versions
 
+mkdir -p $BUILD_DIR/dist
 mkdir $ADDON_TMP 2> /dev/null || rm -r $ADDON_TMP/*
 
 echo "node version on build system: `node --version`"

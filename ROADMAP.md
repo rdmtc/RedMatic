@@ -149,13 +149,48 @@ The implementation is on `master`; before anything is tagged or released:
   cp_security.cgi patch is obsolete on OpenCCU (guarded now),
   update_script's 9.x cleanup ran after the copy and deleted the
   freshly installed git (moved before the copy).
-- **armv7l/CCU3 hardware test** of the same checklist on real CCU3
-  hardware (musl runtime + musl git + npm on musl are the
-  armv7l-specific parts). The musl runtime approach itself is
-  hardware-verified in hm2mqtt.js; the RedMatic packaging of it is not
-  yet.
-- Verify the update/migration path (settings `logging.ain → syslog`,
-  lib/node_modules wipe, stale-tool cleanup, var package.json merge).
+- ✅ **armv7l/CCU3 hardware test** (2026-09-03, original eQ-3 CCU3
+  firmware 3.89.8 on CCU3 hardware, glibc 2.27): the musl runtime is
+  self-contained as intended — `bin/node` 24.18 (Alpine), `npm` 11.19
+  and the musl `git` 2.55 all run with an empty `LD_LIBRARY_PATH`
+  (`ICU_DATA` from `versions`). Manual install via `update_script` (what
+  the firmware does), rc.d start, editor through lighttpd (200), rega
+  login end-to-end (200/403/401 incl. case-sensitive user name),
+  palette install of a pure-JS node through the editor API in 4.5 s
+  (shallow, no lockfile), per-severity syslog (info/warn/debug pipes,
+  log-level change through the real settings CGIs with a CCU session),
+  context quarantine, `oom_score_adj` 800, `.nobackup` markers, clean
+  uninstall. **Real device test**: a flow deployed via the admin API
+  switched an HmIPW-DRS8 output on/off through node-red-contrib-ccu
+  4.0.0, confirmed by the CCU JSON-API. ~93 MB RSS on a fresh install.
+  Not exercised: the WebUI upload path (Zusatzsoftware) — same script,
+  plus the post-install reboot.
+- ✅ **Update/migration path** verified on the CCU3 with the last
+  public release (7.2.1 → 9.0.0-dev.12): lib/node_modules wiped, stale
+  tools (`jq`, `jo`, glibc git, `redmatic-pkg`, `pkg.cgi`, libjq/libpigpio)
+  gone, `logging.ain → syslog` migrated with the level preserved, var
+  merge keeps the user's palette nodes (ccu bumped to 4.0.0), the 7.2.1
+  flows (dashboard + ccu nodes) start on Node-RED 5, editor fine with
+  the stale midnight-red `editorTheme.page.css`. Found and fixed in
+  dev.13: `lib/pkg-repo.json` / `var/example-flows.json` survived,
+  `var/do_pkg_upgrade` was still shipped, busybox `ln -sfT` refused to
+  renew the www symlink on updates (`-sfn` now), the monit link used
+  `ln -s` without `-f`, `build_addon.sh` did not create `dist/` when run
+  standalone. Uninstall after the update restores the 7.2.1-era
+  `cp_security.cgi.orig`.
+- **Open question for the release notes**: in 7.x/8.x the bundled extra
+  nodes lived in `var` (dashboard 2.28, email, rbe, sun-position,
+  combine, redmatic-led, redmatic-webapp), so the var merge keeps them
+  all after an update — they keep working (rbe just warns "already
+  registered" because it is core now) but are no longer maintained by
+  the addon; users have to update/remove them via the palette manager.
+- Note: the CCU3 firmware (product ≥ 3) creates backups with
+  `--exclude-tag=.nobackup` natively and lighttpd.conf already includes
+  `/etc/config/lighttpd/*.conf` — both runtime patches in `bin/redmatic`
+  are now dead code on every supported platform (guarded, harmless; a
+  7.2.1 install still left a `cp_security.cgi.orig` behind that the
+  uninstall restores). monit does not exist on the CCU3 firmware; all
+  monit handling is OpenCCU-only.
 - Release notes must prominently state the breaking changes: unbundled
   nodes, removed package manager/WebApp, native-module limitation,
   Node-RED 2 → 5 flow compatibility.

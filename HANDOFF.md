@@ -1,36 +1,38 @@
-# Handoff — RedMatic 9.0.0 (2026-09-02)
+# Handoff — RedMatic 9.0.0 (2026-09-03)
 
 State of the 9.0.0 modernization for continuing on another machine.
 Written by Claude Fable on behalf of hobbyquaker at the end of the
-2026-09-02 session. Read `ROADMAP.md` first; completed tasks are in
+2026-09-03 session. Read `ROADMAP.md` first; completed tasks are in
 `roadmap-archive/`.
 
 ## Where things stand
 
-`master` is at **9.0.0-dev.12**, everything pushed. **No tags, no
-releases yet** — the armv7l hardware test is the remaining gate
-(roadmap task 8).
+`master` is at **9.0.0-dev.13**. **No tags, no releases yet.**
 
-**x86_64 hardware testing is DONE** (2026-09-02, OpenCCU 3.89.8 ova at
-172.16.23.119 — WebUI Admin/12345678, ssh root/12345678, my ssh key is
-installed): the full task-8 checklist passed there, including rega
-login, palette install, update path, syslog severities, monit,
-context quarantine, settings-user override, uninstall (#521 fix), and
-the **projects feature with the newly bundled git**. The box is left
-with a running fresh install. Details in ROADMAP task 8.
+**Hardware verification (roadmap task 8) is complete on both target
+platforms**:
 
-**git is bundled again** (decision reversed during testing): assembled
-self-contained from Alpine's musl build on all three archs via
-patchelf (`build_addon.sh`), `GIT_EXEC_PATH`/`GIT_TEMPLATE_DIR`
-exported by redmaticLoader/.profile, projects toggle back in the
-config UI. Note: the legacy `LD_LIBRARY_PATH=$ADDON_DIR/lib` exports
-were removed everywhere — musl libraries now live in `lib/` on ALL
-archs and must only be found via the binaries' patched RPATH, never
-via LD_LIBRARY_PATH (would poison glibc firmware binaries).
+- x86_64 / OpenCCU 3.89.8 (2026-09-02) — full checklist, details in
+  ROADMAP task 8.
+- armv7l / original CCU3 firmware 3.89.8 on CCU3 hardware (2026-09-03) —
+  full checklist including the musl runtime (node/npm/git with no
+  `LD_LIBRARY_PATH`), rega login, palette install, syslog severities,
+  settings CGIs, context quarantine, uninstall, a **real device switch
+  through node-red-contrib-ccu**, and the **update path from the last
+  public release 7.2.1** (lib wipe, stale-tool cleanup, `logging.ain →
+  syslog`, var merge). Findings were fixed in dev.13 (see ROADMAP).
+- Not exercised anywhere: installing through the CCU WebUI upload
+  (Zusatzsoftware). It runs the same `update_script`, followed by the
+  firmware's reboot — worth one click before the release.
+
+Both lab systems are left with a running fresh install of the dev.13
+`update_script` state (built as dev.12 before the bump; contents are
+identical apart from the version string). Lab addresses and credentials
+are intentionally **not** in this file.
 
 The whole stack is modernized and implemented:
 
-- Node.js **24.20.0** (nodejs.org for aarch64/x86_64), **armv7l from
+- Node.js **24.x** (nodejs.org for aarch64/x86_64), **armv7l from
   Alpine musl** (`alpine-packages.mjs` resolves the apk closure,
   `build_addon.sh` assembles bin/node + musl loader + lib closure +
   ICU data and patchelfs interpreter/RPATH to the addon prefix;
@@ -39,43 +41,49 @@ The whole stack is modernized and implemented:
 - Node-RED **5.0.6**, npm **11.19.1** (bundled via lib/package.json on
   all archs, bin/npm+npx links created by the build),
   node-red-contrib-ccu **4.0.0**.
+- git is bundled (musl build from Alpine on all three archs, patchelf'd;
+  `GIT_EXEC_PATH`/`GIT_TEMPLATE_DIR` exported by redmaticLoader/.profile).
+  The legacy `LD_LIBRARY_PATH=$ADDON_DIR/lib` exports are gone — musl
+  libraries live in `lib/` on ALL archs and must only be found via the
+  binaries' patched RPATH (LD_LIBRARY_PATH would poison glibc firmware
+  binaries).
 - Only node-red-contrib-ccu is bundled; no example flows; package
-  manager, prebuilds, WebApp, bundled git/jq/jo/ffmpeg all removed.
-  Zero native modules, zero Node-RED source patching (palette-install
-  behavior via `etc/npmrc`: install-strategy=shallow, package-lock off).
+  manager, prebuilds, WebApp, jq/jo/ffmpeg all removed. Zero native
+  modules, zero Node-RED source patching (palette-install behavior via
+  `etc/npmrc`: install-strategy=shallow, package-lock off).
 - Logging via persistent per-severity busybox `logger` pipes
   (`lib/logger.js`); settings key migrated `logging.ain → logging.syslog`.
 - Issue-backlog fixes shipped: #521 monit symlink on uninstall, #452
-  context quarantine (`lib/checkContext.js`, wired into start), #142
-  oom_score_adj 800, #271 RAM-relative monit limit (`etc/monit.tmpl`),
-  #46 `etc/extra-ca-certs.pem` → NODE_EXTRA_CA_CERTS, #353/#50
-  update-proof `etc/settings-user.js` merged last into settings.
+  context quarantine, #142 oom_score_adj 800, #271 RAM-relative monit
+  limit, #46 `etc/extra-ca-certs.pem`, #353/#50 `etc/settings-user.js`.
 - CI: `ci.yml` (ESLint + shell/JS syntax + 3-arch build matrix with
-  artifacts) — **green**; `build.yml` = manual release workflow
-  (tags v<version>, draft prerelease, SBOMs + tarballs from dist/).
-- SBOMs (CycloneDX, `npm sbom`) replace LICENSES.md/licenses.html;
-  shipped in `www/`, copied to `dist/` for release attachment.
-- Docs: README headers carry the "RedMatic 9" notice (incl. "still in
-  development"); wiki Intro/Home rewritten for v9 + OpenCCU naming;
-  dark-mode logo (`assets/redmatic5-*-dark.png` + `<picture>`).
-  READMEs are generated: edit `docs/README.header*.md` /
-  `docs/README.footer*.md`, then `node update_readme.js`.
+  artifacts); `build.yml` = manual release workflow (tags v<version>,
+  draft prerelease, SBOMs + tarballs from dist/).
+- SBOMs (CycloneDX, `npm sbom`) replace LICENSES.md/licenses.html.
+- Docs: README headers carry the "RedMatic 9" notice; wiki Intro/Home
+  rewritten; dark-mode logo. READMEs are generated: edit
+  `docs/README.header*.md` / `docs/README.footer*.md`, then
+  `node update_readme.js`.
 
-## Verified so far (no hardware yet)
+## Building and testing locally
 
-- CI builds all three arch packages, including the armv7l musl runtime
-  (patchelf self-check passes).
+- `./build_addon.sh <arch>` needs curl, tar, node, npm and **patchelf**
+  (a static release binary from github.com/NixOS/patchelf works fine
+  without root). Output goes to `dist/`.
+- Manual install over ssh, exactly what the firmware does: `scp` the
+  tarball to `/usr/local/tmp`, untar into a temp dir, `chmod +x
+  update_script`, `./update_script` (exit 10 = fresh install, 0 =
+  update), then `/usr/local/etc/config/rc.d/redmatic start`. After a
+  first manual install restart lighttpd once
+  (`/etc/init.d/S50lighttpd restart`).
+- Useful for scripted checks on a CCU: Node-RED token via
+  `POST /addons/red/auth/token`, CCU session via the JSON-API
+  (`Session.login`; note the response has a space after the colon),
+  `settings.cgi?sid=@<session>@` for the config UI, inject nodes via
+  `POST /addons/red/inject/<id>` — send an empty body (`-d ""`) or
+  lighttpd answers 411.
 - Container smoke test (Debian linux/amd64 against the built x86_64
-  tree): node/npm run, `redmaticVersions` + `checkContext` work,
-  **Node-RED 5.0.6 starts with `lib/settings.js`, serves
-  `/addons/red` (HTTP 200), all 15 ccu node sets register error-free**.
-  This caught a real bug (fixed in dev.11): `rega-auth.js` was written
-  against homematic-rega 1.x; 2.x has a named `Rega` export and
-  promise-based `exec()`.
-- Release-body generation, README generation, ESLint: all run clean.
-
-Container smoke test one-liner (from repo root, after
-`./build_addon.sh x86_64`):
+  tree):
 
 ```
 docker run --rm --platform linux/amd64 -v "$PWD/addon_tmp/redmatic:/src:ro" debian:bookworm-slim bash -c '
@@ -85,69 +93,32 @@ cp etc/default-settings.json etc/settings.json; echo key > etc/credentials.key
 bin/node lib/node_modules/node-red/red.js -s lib/settings.js'
 ```
 
-## Test-day checklist (armv7l CCU3 — x86_64 already done)
+## Release flow
 
-Build locally (`./build_addon.sh armv7l` — needs patchelf; works on
-macOS with brew patchelf too) or download the artifacts from the
-latest green `ci` run on GitHub Actions (14-day retention).
-
-Manual install over ssh, exactly what the firmware does:
-`scp` the tarball, untar to a temp dir, `chmod +x update_script`,
-run `./update_script`, then `/usr/local/etc/config/rc.d/redmatic
-start`. After a first manual install, restart lighttpd once
-(`/etc/init.d/S50lighttpd restart`) — the WebUI install path gets
-this via the post-install reboot. armv7l-specific things to watch:
-the musl node/git start at all (ICU_DATA from `versions`), npm works,
-and glibc firmware binaries are unaffected (no LD_LIBRARY_PATH).
-
-1. **Fresh install** via WebUI (Zusatzsoftware) on both systems; reboot.
-   - Node-RED reachable at `http://<ccu>/addons/red`, login via CCU
-     credentials (**rega auth was rewritten — first real test!**).
-   - `bin/node` starts on the CCU3 (musl runtime; check
-     `/usr/local/addons/redmatic/versions` has ICU_DATA and
-     `bin/redmaticVersions` prints JSON).
-   - Config UI at `http://<ccu>/addons/redmatic/settings.cgi`: no
-     Pakete tab, licenses tab shows the new SBOM page, log level
-     change works (settings key is now `logging.syslog`).
-2. **Update from 8.x/7.x** on a system that has an old install:
-   - old bundled nodes in lib are wiped, user palette nodes in var
-     survive (package.json merge), `logging.ain → syslog` migration,
-     stale tools (jq/jo/git/redmatic-pkg…) removed, old midnight-red
-     theme config cleaned by the settings UI.
-3. **Palette install** of a pure-JS node (e.g. node-red-contrib-combine
-   or a dashboard) through the editor — verifies npm 11 + npmrc
-   (shallow strategy, no package-lock) and, on armv7l, npm on musl.
-4. **Syslog**: Node-RED log lines appear in /var/log/messages / CCU
-   log viewer with correct severities (new logger.js).
-5. **monit**: `/usr/local/etc/monit-redmatic.cfg` link exists, limit in
-   `etc/monit.cfg` reflects machine RAM, watchdog restarts Node-RED.
-6. **Context quarantine**: corrupt a var/context/*.json, restart,
-   file becomes `.corrupt`, Node-RED starts.
-7. **Uninstall**: removes monit link (fix #521), lighttpd/backup
-   patches reverted.
-8. CCU runtime patches (lighttpd include, cp_security.cgi backup
-   exclude) against **current** firmware/OpenCCU — re-verify they still
-   apply (roadmap archive task-5 note).
-
-## After successful tests (release flow)
-
-1. Set final version in `package.json` (e.g. `9.0.0-beta.0` or `9.0.0`).
-2. Run the **build-release** workflow (workflow_dispatch) — it tags
+1. Optionally do the one WebUI-upload install mentioned above.
+2. Set the final version in `package.json` (e.g. `9.0.0-beta.0` or
+   `9.0.0`), run `node update_package.js`.
+3. Run the **build-release** workflow (workflow_dispatch) — it tags
    `v<version>`, creates a **draft prerelease** with tarballs + SBOMs +
    RELEASE_BODY.md and pushes the wiki change history.
-3. Release notes: breaking changes are pre-listed in roadmap task 8.
-4. Then the issue mass-close (task 5a) — comment + close obsolete
+4. Release notes: breaking changes are pre-listed in roadmap task 8;
+   also mention that formerly bundled extra nodes in `var` (dashboard,
+   email, rbe, sun-position, combine, redmatic-led, redmatic-webapp)
+   survive an update but are no longer maintained by the addon.
+5. Then the issue mass-close (task 5a) — comment + close obsolete
    backlog (~166 issues), each signed
    "Written by Claude Fable on behalf of hobbyquaker."
 
 ## Open items (see ROADMAP.md)
 
-- Task 8: hardware verification (above), then release.
+- Task 8: release (hardware verification done).
 - Task 5a: issue mass-close after release.
 - Task 7: wiki deep pages (Node-Installation, Homekit, ZigBee,
   package-manager mentions in FAQ/Installation etc.) still describe the
   old world; Intro/Home are done. RedMatic-WebApp repo is archived.
-- Task 3 leftover: nothing blocking; ESLint is wired, dark logo done.
+- Possible cleanup: the lighttpd.conf / cp_security.cgi runtime patches
+  in `bin/redmatic` are dead code on all supported firmware (both are
+  native there now) — keep or drop, maintainer's call.
 
 ## Conventions in this repo (important)
 
@@ -162,13 +133,15 @@ and glibc firmware binaries are unaffected (no LD_LIBRARY_PATH).
   lag a few minutes after a wiki push).
 - Pushing to master is fine; **no tags/releases** without the
   maintainer.
+- Lab test systems, their addresses and credentials stay out of the
+  repo, the wiki and issues.
 
 ## Misc notes
 
 - Telemetry: entries like "26.1.0" (and 7.3.x/7.4.x) on
   telemetry.redmatic.de are **not from this work** — the endpoint is
-  unauthenticated and forks/custom builds report to it. Our dev builds
-  never sent telemetry (only `bin/redmatic start` on a CCU does).
+  unauthenticated and forks/custom builds report to it. Dev builds only
+  send telemetry when `bin/redmatic start` runs on a CCU.
 - Alpine edge currently ships nodejs 24.18.x for armv7 while
   nodejs.org is at 24.20.0 — the build accepts that (major must match)
   and records the actual version per arch in `versions`.
