@@ -163,6 +163,24 @@ else
     fail "palette uninstall failed (http $code)"
 fi
 
+# --- self-update worker (ROADMAP task 11) -------------------------------------
+log "self-update worker: same package from a local http server"
+# the container has no /bin/install_addon, so this runs the worker's own
+# extract-and-update_script path; --force because the package is not newer
+busybox httpd -p 127.0.0.1:8081 -h /dist || die "busybox httpd"
+REDMATIC_UPDATE_BASE_URL=http://127.0.0.1:8081 $ADDON_DIR/bin/redmatic-update --force $VERSION_ADDON
+rc=$?
+echo "--- update.log"; cat /tmp/redmatic-update/update.log
+echo "--- state.json"; cat /tmp/redmatic-update/state.json
+[ $rc -eq 0 ] || die "redmatic-update exit code $rc"
+grep -q '"phase":"done"' /tmp/redmatic-update/state.json || die "worker did not reach phase done"
+grep -q '"error":""' /tmp/redmatic-update/state.json || die "worker reported an error"
+[ -f /usr/local/tmp/new_addon.tar.gz ] && fail "new_addon.tar.gz left behind"
+ls -d /usr/local/tmp/tmp.* >/dev/null 2>&1 && fail "installer temp dir left behind"
+ok "worker finished: download, checksum, install, restart"
+check_running
+grep -q '"node-red-contrib-ccu"' $ADDON_DIR/var/package.json || fail "var/package.json lost node-red-contrib-ccu after the self-update"
+
 # --- stop -----------------------------------------------------------------------
 log "stop"
 $CONF_DIR/rc.d/redmatic stop

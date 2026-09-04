@@ -7,8 +7,10 @@ Written by Claude Fable on behalf of hobbyquaker at the end of the
 
 ## Where things stand
 
-`master` is at **9.0.1**, **released on 2026-09-04** (9.0.0 the same day; the
-alphas 9.0.0-alpha.0/1 remain as prereleases).
+`master` is at **9.2.0** (2026-09-04): 9.0.0 and 9.0.1 were released that
+day, 9.1.0 came from the first automatic release (task 10), 9.2.0 adds the
+one-click self-update on the settings page (task 11: `bin/redmatic-update`,
+`www/update.cgi`, progress model measured on all three lab boxes).
 
 **Hardware verification (roadmap task 8) is complete on all three target
 platforms**:

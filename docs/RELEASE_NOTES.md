@@ -1,3 +1,18 @@
+### RedMatic 9.2.0
+
+- **Update mit einem Klick:** Steht eine neue Version bereit, bietet die
+  RedMatic-Einstellungsseite neben dem Hinweis jetzt den Button
+  „Herunterladen und installieren" an. RedMatic lädt das Paket für die
+  Zentrale von GitHub, prüft die Prüfsumme und installiert es genauso wie
+  die Zusatzsoftware-Seite der CCU – mit Fortschrittsbalken für Download
+  und Installation und **ohne Neustart der Zentrale**, auch auf der CCU3.
+  Vorher werden freier Speicher und freie Datei-Einträge (Inodes) geprüft
+  und Reste abgebrochener Installationen aufgeräumt. Node-RED ist während
+  der Installation gestoppt; auf einer CCU3 dauert das rund sieben Minuten,
+  auf OpenCCU unter einer Minute. Der manuelle Weg über die
+  Zusatzsoftware-Seite bleibt bestehen. Wie immer gilt: vorher CCU-Backup
+  und Flow-Export.
+
 ### RedMatic 9.0.1
 
 - **Paletten-Manager fehlte nach einem Update auf OpenCCU** (#599): Nach

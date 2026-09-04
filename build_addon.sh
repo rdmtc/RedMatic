@@ -28,7 +28,10 @@ ARCH=${1:-armv7l}
 
 BUILD_DIR=`cd ${0%/*} && pwd -P`
 
-VERSION_ADDON=`node -p "require('$BUILD_DIR/package.json').version"`
+# VERSION_ADDON=9.2.0-dev.1 ./build_addon.sh x86_64 builds a test package with
+# another version than package.json (e.g. a prerelease that the self-update
+# can then update to the released version)
+VERSION_ADDON=${VERSION_ADDON:-`node -p "require('$BUILD_DIR/package.json').version"`}
 NODE_VERSION=`node -p "require('$BUILD_DIR/package.json').engines.node"`
 NODE_MAJOR=${NODE_VERSION%%.*}
 
@@ -225,6 +228,8 @@ rm -rf $GITROOT
 
 echo "copying files to tmp dir..."
 cp -r $ADDON_FILES/* $ADDON_TMP/
+# the scripts must be executable no matter how the checkout was made
+chmod 755 $ADDON/bin/* $ADDON/www/*.cgi $ADDON_TMP/update_script
 
 echo "copying assets to tmp dir..."
 cp $BUILD_DIR/assets/redmatic5* $ADDON/www/

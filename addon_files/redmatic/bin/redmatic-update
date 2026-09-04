@@ -1,0 +1,554 @@
+#!/bin/sh
+#
+#   RedMatic self-update worker (ROADMAP task 11).
+#
+#   Started detached by www/update.cgi; reports through a JSON state file
+#   that the settings page polls (www/js/script.js):
+#
+#     {"phase": "...", "message": "...", "percent": 0-100, "bytes": n,
+#      "total": n, "version": "9.2.0", "installed": "9.1.0", "error": "",
+#      "reboot": 0|1, "elapsed": seconds, "ts": epoch}
+#
+#   Phases: starting resolve preflight download verify extract chroot
+#           install start done error
+#
+#   Usage: redmatic-update [--force] [version]
+#
+#   Without a version the newest GitHub release is installed. --force skips
+#   the "must be newer than the installed version" check (tests, re-installs).
+#   REDMATIC_UPDATE_BASE_URL overrides the download location for tests: a
+#   directory that holds the package and its .sha256 file.
+#
+#   The install replaces the addon tree (this script included), so the worker
+#   copies itself to the state directory on tmpfs and runs from there.
+#
+#   Files in /tmp/redmatic-update: state.json (polled), update.log (shown on
+#   errors), install.log (installer output), trace.log (one line per 2 s
+#   during the install: elapsed, phase, KB written to the partition since
+#   the installer started and since the phase started, Node-RED running,
+#   bar percent - the basis for the platform profiles below).
+#
+
+ADDON_DIR=/usr/local/addons/redmatic
+CONF_DIR=/usr/local/etc/config
+STATE_DIR=/tmp/redmatic-update
+STATE=$STATE_DIR/state.json
+LOG=$STATE_DIR/update.log
+INSTALL_LOG=$STATE_DIR/install.log
+TRACE=$STATE_DIR/trace.log
+ARCHIVE=/usr/local/tmp/new_addon.tar.gz
+API_URL=https://api.github.com/repos/rdmtc/RedMatic/releases/latest
+RELEASES_URL=https://github.com/rdmtc/RedMatic/releases/download
+
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export HOME=/root
+
+case "$0" in
+    $STATE_DIR/*) ;;
+    *)
+        mkdir -p $STATE_DIR
+        cp "$0" $STATE_DIR/worker.sh || exit 1
+        exec /bin/sh $STATE_DIR/worker.sh "$@"
+        ;;
+esac
+
+FORCE=0
+VERSION=""
+for arg in "$@"; do
+    case $arg in
+        --force) FORCE=1 ;;
+        -*) echo "usage: redmatic-update [--force] [version]" >&2; exit 1 ;;
+        *) VERSION=$arg ;;
+    esac
+done
+
+T0=`date +%s`
+
+# --- state file --------------------------------------------------------------
+
+PHASE=starting
+MESSAGE=""
+PERCENT=0
+BYTES=0
+TOTAL=0
+INSTALLED=""
+ERROR=""
+REBOOT=0
+
+elapsed() {
+    echo $((`date +%s` - T0))
+}
+
+json_escape() {
+    printf '%s' "$1" | tr -d '\r' | tr '\n' ' ' | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g'
+}
+
+write_state() {
+    printf '{"phase":"%s","message":"%s","percent":%s,"bytes":%s,"total":%s,"version":"%s","installed":"%s","error":"%s","reboot":%s,"elapsed":%s,"ts":%s}\n' \
+        "$PHASE" "`json_escape "$MESSAGE"`" "${PERCENT:-0}" "${BYTES:-0}" "${TOTAL:-0}" \
+        "$VERSION" "$INSTALLED" "`json_escape "$ERROR"`" "$REBOOT" "`elapsed`" "`date +%s`" > $STATE.tmp
+    mv $STATE.tmp $STATE
+}
+
+# set_state <phase> <message> [percent]
+set_state() {
+    PHASE=$1
+    MESSAGE=$2
+    PERCENT=${3:-$PERCENT}
+    write_state
+    log "$PHASE: $MESSAGE"
+}
+
+log() {
+    echo "`date '+%H:%M:%S'` +`elapsed`s $*" >> $LOG
+    if command -v logger >/dev/null 2>&1; then
+        logger -t redmatic -p daemon.info "update: $*"
+    fi
+}
+
+fail() {
+    ERROR=$1
+    MESSAGE=$1
+    PHASE=error
+    write_state
+    log "error: $1"
+    rm -f $ARCHIVE.part
+    rm -f $STATE_DIR/pid
+    exit 1
+}
+
+# --- lock --------------------------------------------------------------------
+
+mkdir -p $STATE_DIR
+if [ -f $STATE_DIR/pid ]; then
+    OLD_PID=`cat $STATE_DIR/pid`
+    if [ -n "$OLD_PID" ] && [ "$OLD_PID" != "$$" ] && kill -0 $OLD_PID 2>/dev/null; then
+        echo "an update is already running (pid $OLD_PID)" >&2
+        exit 2
+    fi
+fi
+echo $$ > $STATE_DIR/pid
+: > $LOG
+: > $INSTALL_LOG
+: > $TRACE
+
+# --- helpers -----------------------------------------------------------------
+
+# vercmp A B: prints 1 if A is newer than B, 0 if equal, -1 if older.
+# x.y.z compared numerically, a prerelease (9.2.0-dev.1) is older than its
+# release (9.2.0), two prereleases compare as strings.
+vercmp() {
+    a=${1%%-*}
+    b=${2%%-*}
+    apre=${1#"$a"}
+    bpre=${2#"$b"}
+    i=1
+    while [ $i -le 3 ]; do
+        x=`echo "$a" | cut -d. -f$i`
+        y=`echo "$b" | cut -d. -f$i`
+        x=${x:-0}
+        y=${y:-0}
+        if [ "$x" -gt "$y" ] 2>/dev/null; then echo 1; return; fi
+        if [ "$x" -lt "$y" ] 2>/dev/null; then echo -1; return; fi
+        i=$((i + 1))
+    done
+    if [ -z "$apre" ] && [ -n "$bpre" ]; then echo 1; return; fi
+    if [ -n "$apre" ] && [ -z "$bpre" ]; then echo -1; return; fi
+    if [ "$apre" = "$bpre" ]; then echo 0; return; fi
+    if [ "$apre" \> "$bpre" ]; then echo 1; else echo -1; fi
+}
+
+node_red_running() {
+    [ -n "`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`" ]
+}
+
+# directories the installer created below /usr/local/tmp since we started
+new_tmp_dirs() {
+    for d in /usr/local/tmp/tmp.*; do
+        [ -d "$d" ] || continue
+        case " $TMP_BEFORE " in
+            *" $d "*) ;;
+            *) echo "$d" ;;
+        esac
+    done
+}
+
+# pct <value> <expected> [cap]: integer percent, capped
+pct() {
+    exp=$2
+    [ "$exp" -gt 0 ] 2>/dev/null || exp=1
+    v=$(($1 * 100 / exp))
+    cap=${3:-100}
+    [ $v -gt $cap ] && v=$cap
+    [ $v -lt 0 ] && v=0
+    echo $v
+}
+
+max() {
+    if [ $1 -gt $2 ]; then echo $1; else echo $2; fi
+}
+
+# --- resolve -----------------------------------------------------------------
+
+. $ADDON_DIR/versions
+INSTALLED=$VERSION_ADDON
+
+if [ -z "$VERSION" ]; then
+    set_state resolve "Suche nach der neuesten Version ..."
+    VERSION=`curl -fsSL --max-time 30 $API_URL 2>>$LOG | sed -n 's/.*"tag_name": *"v\([^"]*\)".*/\1/p' | head -1`
+    [ -n "$VERSION" ] || fail "Die neueste Version konnte nicht ermittelt werden (GitHub nicht erreichbar?)"
+fi
+write_state
+
+if [ $FORCE -eq 0 ] && [ "`vercmp "$VERSION" "$INSTALLED"`" != "1" ]; then
+    fail "Version $VERSION ist nicht neuer als die installierte Version $INSTALLED"
+fi
+
+ARCH=`uname -m`
+case $ARCH in
+    armv7l) FILE=redmatic-$VERSION.tar.gz ;;
+    x86_64|aarch64) FILE=redmatic-$ARCH-$VERSION.tar.gz ;;
+    *) fail "Nicht unterstützte Architektur: $ARCH" ;;
+esac
+URL=${REDMATIC_UPDATE_BASE_URL:-$RELEASES_URL/v$VERSION}/$FILE
+
+# --- preflight ---------------------------------------------------------------
+
+set_state preflight "Prüfe Voraussetzungen ..."
+
+# The original CCU3 firmware installs through a chroot that copies parts of
+# the root filesystem next to the unpacked package; OpenCCU unpacks only.
+# Measured on 2026-09-04 (ROADMAP task 11): 434 MB temp dir on the CCU3,
+# and the CCU3's /usr/local has only 96k inodes of which the package needs
+# ~13k and the chroot copies ~17k - a stale temp dir is enough to run out
+# of inodes with a gigabyte still free.
+if [ -f /etc/init.d/S00InstallAddon ]; then
+    CHROOT=1
+    NEED_KB=563200
+    NEED_INODES=36000
+else
+    CHROOT=0
+    NEED_KB=460800
+    NEED_INODES=20000
+fi
+
+installer_running() {
+    ps -o pid,comm,args 2>/dev/null | grep -v grep | grep -q "install_addon\|update_script"
+}
+
+# Leftovers of an earlier installation attempt (a temp dir with a mount
+# that could not be released, an archive nobody picked up) eat the space
+# and the inodes the update needs. Release the mounts and remove them;
+# a dir that stays mounted blocks the update, deleting through a bind
+# mount of /usr/local would be fatal.
+if ! installer_running; then
+    for d in /usr/local/tmp/tmp.*; do
+        [ -d "$d" ] || continue
+        for m in usr/local dev/pts sys proc dev; do
+            if grep -q " $d/$m " /proc/mounts 2>/dev/null; then
+                umount "$d/$m" 2>>$LOG && log "released stale mount $d/$m"
+            fi
+        done
+        if grep -q " $d/" /proc/mounts 2>/dev/null; then
+            fail "Altes Installationsverzeichnis $d hat noch eingehängte Dateisysteme und kann nicht entfernt werden - bitte die Zentrale neu starten"
+        fi
+        rm -rf "$d" && log "removed stale $d"
+    done
+    if [ -f $ARCHIVE ]; then
+        rm -f $ARCHIVE && log "removed stale $ARCHIVE"
+    fi
+elif [ -f $ARCHIVE ] || [ -n "`ls -d /usr/local/tmp/tmp.* 2>/dev/null`" ]; then
+    fail "Es läuft gerade eine andere Installation (install_addon)"
+fi
+
+# The download and the installer's temp dir live in /usr/local/tmp, the
+# addon in /usr/local/addons - the same partition on the CCU3 and OpenCCU,
+# but checked separately in case a system mounts them apart. Bytes and
+# inodes; blocks before a single byte is downloaded.
+for where in /usr/local/tmp /usr/local/addons; do
+    FREE_KB=`df -Pk $where 2>/dev/null | awk 'NR == 2 {print $4}'`
+    if [ -z "$FREE_KB" ] || [ "$FREE_KB" -lt $NEED_KB ]; then
+        fail "Nicht genug freier Speicher auf $where: $((${FREE_KB:-0} / 1024)) MB frei, mindestens $((NEED_KB / 1024)) MB werden benötigt"
+    fi
+    FREE_INODES=`df -Pi $where 2>/dev/null | awk 'NR == 2 {print $4}'`
+    if [ -n "$FREE_INODES" ] && [ "$FREE_INODES" -gt 0 ] 2>/dev/null && [ "$FREE_INODES" -lt $NEED_INODES ]; then
+        fail "Nicht genug freie Datei-Einträge (Inodes) auf $where: $FREE_INODES frei, mindestens $NEED_INODES werden benötigt. Alte Dateien oder nicht mehr benötigte Nodes entfernen."
+    fi
+done
+log "installed $INSTALLED, target $VERSION, arch $ARCH, chroot $CHROOT, free $((FREE_KB / 1024)) MB / ${FREE_INODES:-?} inodes, url $URL"
+
+# --- download ----------------------------------------------------------------
+
+set_state download "Lade $FILE herunter ..." 0
+
+SHA=`curl -fsSL --max-time 30 "$URL.sha256" 2>>$LOG | awk '{print $1}'`
+[ -n "$SHA" ] || fail "Die Prüfsumme für $FILE konnte nicht geladen werden ($URL.sha256)"
+
+TOTAL=`curl -sIL --max-time 30 "$URL" 2>/dev/null | tr -d '\r' | awk 'tolower($1) == "content-length:" {n = $2} END {print n + 0}'`
+
+rm -f $ARCHIVE.part
+curl -fsSL --max-time 3600 -o $ARCHIVE.part "$URL" 2>>$LOG &
+CURL_PID=$!
+while kill -0 $CURL_PID 2>/dev/null; do
+    BYTES=`stat -c %s $ARCHIVE.part 2>/dev/null`
+    BYTES=${BYTES:-0}
+    if [ "$TOTAL" -gt 0 ]; then
+        PERCENT=$((BYTES / (TOTAL / 100 + 1)))
+        MESSAGE="Lade herunter: $((BYTES / 1048576)) MB von $((TOTAL / 1048576)) MB"
+    else
+        PERCENT=0
+        MESSAGE="Lade herunter: $((BYTES / 1048576)) MB"
+    fi
+    write_state
+    sleep 1
+done
+wait $CURL_PID || fail "Download fehlgeschlagen: $URL"
+BYTES=`stat -c %s $ARCHIVE.part 2>/dev/null`
+[ "${BYTES:-0}" -gt 0 ] || fail "Download fehlgeschlagen: leere Datei"
+PERCENT=100
+log "downloaded $BYTES bytes"
+
+# --- verify ------------------------------------------------------------------
+
+set_state verify "Prüfe Prüfsumme ..." 100
+ACTUAL=`sha256sum $ARCHIVE.part | awk '{print $1}'`
+if [ "$ACTUAL" != "$SHA" ]; then
+    fail "Prüfsumme stimmt nicht (erwartet $SHA, erhalten $ACTUAL)"
+fi
+mv $ARCHIVE.part $ARCHIVE
+log "sha256 ok"
+
+# --- install -----------------------------------------------------------------
+#
+#   Progress model for the installation bar. The installer goes through
+#   extract (tar into the temp dir), chroot (CCU3 firmware only: copies of
+#   /bin /lib /sbin /etc /usr into the temp dir), install (update_script:
+#   stop Node-RED, wipe lib/node_modules, copy the tree, relink) and start
+#   (service start until port 1880 answers). Each phase gets a share of the
+#   bar proportional to its measured duration on the platform, and two
+#   estimators run side by side: elapsed time inside the phase against its
+#   expected duration (capped at 97 so the bar waits for the installer's
+#   real transitions), and the bytes written to the /usr/local partition
+#   since the installer started (/proc/diskstats - free to read, on every
+#   firmware) against the total the whole run writes: the unpacked package
+#   twice (tar, then the copy in update_script) plus the chroot's copies on
+#   the CCU3 firmware, doubled with ext4 data=journal. The bar shows
+#   whichever is further. Disk writes lag behind the work (page cache) and
+#   never lead it, so the disk estimate is a floor that stays honest on a
+#   slow SD card, while time carries the bar through cached phases.
+#   Durations from trace.log runs on the lab boxes, 2026-09-04 (task 11).
+#
+#   Seconds per phase and the unpacked package on disk (KB) per platform:
+#   CCU3 (armv7l, chroot): 112 / 158 / 109 / 29 s; Pi 4 (aarch64): 8 / - /
+#   31 / 2 s; x86_64 VM: 11-14 / - / 15-19 / 0-2 s.
+case $ARCH in
+    armv7l)  EXP_EXTRACT=110; EXP_CHROOT=160; EXP_INSTALL=110; EXP_START=30; EXTRACT_KB=235000 ;;
+    aarch64) EXP_EXTRACT=8;   EXP_CHROOT=60;  EXP_INSTALL=30;  EXP_START=3;  EXTRACT_KB=375000 ;;
+    *)       EXP_EXTRACT=12;  EXP_CHROOT=30;  EXP_INSTALL=17;  EXP_START=3;  EXTRACT_KB=380000 ;;
+esac
+[ $CHROOT -eq 1 ] || EXP_CHROOT=0
+EXP_TOTAL=$((EXP_EXTRACT + EXP_CHROOT + EXP_INSTALL + EXP_START))
+
+# the chroot's copies of the root filesystem, in KB; everything doubled
+# when the partition journals data (ext4 data=journal on the CCU3)
+CHROOT_KB=80000
+WRITE_FACTOR=1
+if grep " /usr/local " /proc/mounts 2>/dev/null | grep -q "data=journal"; then
+    WRITE_FACTOR=2
+fi
+W_EXP_TOTAL=$(((EXTRACT_KB * 2 + CHROOT_KB * CHROOT) * WRITE_FACTOR))
+
+DISK_DEV=`df -P /usr/local 2>/dev/null | awk 'NR == 2 {print $1}' | sed 's|.*/||'`
+disk_written_kb() {
+    awk -v d="$DISK_DEV" '$3 == d {printf "%d\n", $10 / 2; found = 1} END {if (!found) print 0}' /proc/diskstats 2>/dev/null
+}
+
+TMP_BEFORE=`ls -d /usr/local/tmp/tmp.* 2>/dev/null | tr '\n' ' '`
+NR_BEFORE=0
+node_red_running && NR_BEFORE=1
+set_state extract "Entpacke $FILE ..." 0
+log "disk $DISK_DEV, write factor $WRITE_FACTOR, expected $EXP_EXTRACT+$EXP_CHROOT+$EXP_INSTALL+$EXP_START s"
+
+if [ -x /bin/install_addon ]; then
+    # what the CCU WebUI does under Zusatzsoftware. Exit codes: 0 installed,
+    # 10 reboot required, OpenCCU 101-106 for archive/checksum problems.
+    /bin/install_addon >> $INSTALL_LOG 2>&1 &
+    INSTALL_PID=$!
+else
+    # no firmware installer (debmatic, containers): the same steps by hand
+    (
+        dir=`mktemp -d -p /usr/local/tmp` || exit 102
+        echo "Extracting addon..."
+        tar -C "$dir" --no-same-owner --no-same-permissions -xf $ARCHIVE || exit 102
+        rm -f $ARCHIVE
+        [ -x "$dir/update_script" ] || exit 104
+        echo "Executing update_script..."
+        cd "$dir" && ./update_script HM-RASPBERRYMATIC
+        rc=$?
+        cd /
+        rm -rf "$dir"
+        exit $rc
+    ) >> $INSTALL_LOG 2>&1 &
+    INSTALL_PID=$!
+fi
+
+# install_pct: percent of the installation bar from the phase weights
+#   $1 current phase, $2 percent inside that phase
+install_pct() {
+    case $1 in
+        extract) done_s=0; cur=$EXP_EXTRACT ;;
+        chroot)  done_s=$EXP_EXTRACT; cur=$EXP_CHROOT ;;
+        install) done_s=$((EXP_EXTRACT + EXP_CHROOT)); cur=$EXP_INSTALL ;;
+        start)   done_s=$((EXP_EXTRACT + EXP_CHROOT + EXP_INSTALL)); cur=$EXP_START ;;
+    esac
+    echo $(((done_s * 100 + cur * $2) / EXP_TOTAL))
+}
+
+trace() {
+    echo "`elapsed` $PHASE w=$((W_NOW - W_START)) wp=$((W_NOW - W_PHASE)) nr=$NR pct=$PERCENT time=$A disk=$B" >> $TRACE
+}
+
+PHASE_T0=`date +%s`
+W_START=`disk_written_kb`
+W_PHASE=$W_START
+# where the installer's share of the bar ends and the start phase begins
+INSTALLER_END=`install_pct start 0`
+DISK_CAP=$((INSTALLER_END * 90 / 100))
+SUB=0
+A=0
+B=0
+NR=$NR_BEFORE
+while kill -0 $INSTALL_PID 2>/dev/null; do
+    NOW=`date +%s`
+    W_NOW=`disk_written_kb`
+    NR=0
+    node_red_running && NR=1
+
+    # phase transitions
+    NEXT=""
+    case $PHASE in
+        extract)
+            if [ $CHROOT -eq 1 ] && grep -q "Preparing chroot" $INSTALL_LOG 2>/dev/null; then
+                NEXT=chroot
+            elif grep -q "Executing update_script" $INSTALL_LOG 2>/dev/null; then
+                NEXT=install
+            elif [ $CHROOT -eq 0 ] && [ $NR_BEFORE -eq 1 ] && [ $NR -eq 0 ]; then
+                # OpenCCU's install_addon prints nothing; update_script's
+                # first action is to stop Node-RED
+                NEXT=install
+            fi
+            ;;
+        chroot)
+            if grep -q "Executing update_script" $INSTALL_LOG 2>/dev/null; then
+                NEXT=install
+            fi
+            ;;
+    esac
+    if [ -n "$NEXT" ]; then
+        log "$PHASE finished after $((NOW - PHASE_T0)) s, wrote $(((W_NOW - W_PHASE) / 1024)) MB"
+        PHASE=$NEXT
+        PHASE_T0=$NOW
+        W_PHASE=$W_NOW
+    fi
+
+    # time inside the phase ...
+    case $PHASE in
+        extract)
+            SUB=`pct $((NOW - PHASE_T0)) $EXP_EXTRACT 97`
+            MESSAGE="Entpacke $FILE ..."
+            ;;
+        chroot)
+            SUB=`pct $((NOW - PHASE_T0)) $EXP_CHROOT 97`
+            MESSAGE="Bereite die Installationsumgebung vor ..."
+            ;;
+        install)
+            SUB=`pct $((NOW - PHASE_T0)) $EXP_INSTALL 97`
+            MESSAGE="Installiere RedMatic $VERSION ..."
+            ;;
+    esac
+    A=`install_pct $PHASE $SUB`
+    # ... versus bytes written since the installer started
+    B=$(((W_NOW - W_START) * INSTALLER_END / W_EXP_TOTAL))
+    [ $B -gt $DISK_CAP ] && B=$DISK_CAP
+    NEW=`max $A $B`
+    # never move backwards
+    [ $NEW -gt $PERCENT ] && PERCENT=$NEW
+    write_state
+    trace
+    sleep 1
+done
+wait $INSTALL_PID
+RC=$?
+W_NOW=`disk_written_kb`
+log "$PHASE finished after $((`date +%s` - PHASE_T0)) s, wrote $(((W_NOW - W_PHASE) / 1024)) MB, installer exit code $RC"
+cat $INSTALL_LOG >> $LOG
+
+# The CCU3 firmware's install_addon leaves its temp dir behind (434 MB).
+# Never remove a dir that still has something mounted below it: a failed
+# umount of the /usr/local bind mount would otherwise be deleted through.
+for d in `new_tmp_dirs`; do
+    if grep -q " $d/" /proc/mounts 2>/dev/null; then
+        log "warning: $d still has mounts, not removed"
+    else
+        rm -rf "$d"
+        log "removed $d"
+    fi
+done
+rm -f $ARCHIVE
+
+case $RC in
+    0) ;;
+    10) REBOOT=1 ;;
+    *) fail "Installation fehlgeschlagen (Code $RC), Details im Update-Log" ;;
+esac
+
+. $ADDON_DIR/versions
+INSTALLED=$VERSION_ADDON
+if [ "$INSTALLED" != "$VERSION" ]; then
+    fail "Nach der Installation ist Version $INSTALLED aktiv, erwartet war $VERSION"
+fi
+
+# --- start -------------------------------------------------------------------
+
+if [ $REBOOT -eq 1 ]; then
+    set_state done "RedMatic $VERSION installiert. Die Zentrale muss neu gestartet werden." 100
+    rm -f $STATE_DIR/pid
+    exit 0
+fi
+
+PHASE=start
+PHASE_T0=`date +%s`
+W_PHASE=`disk_written_kb`
+set_state start "Starte Node-RED ..." `install_pct start 0`
+if ! node_red_running; then
+    # On the CCU3 firmware update_script does not start the service (it
+    # cannot tell a live run from the chroot at shutdown), on OpenCCU it
+    # already did. Never start from a directory that may vanish (#599).
+    (cd / && $CONF_DIR/rc.d/redmatic start) >> $LOG 2>&1
+fi
+i=0
+UP=0
+while [ $i -lt 120 ]; do
+    if curl -s -o /dev/null --max-time 3 http://127.0.0.1:1880/addons/red/ 2>/dev/null; then
+        UP=1
+        break
+    fi
+    NOW=`date +%s`
+    SUB=`pct $((NOW - PHASE_T0)) $EXP_START 97`
+    A=`install_pct start $SUB`
+    [ $A -gt $PERCENT ] && PERCENT=$A
+    NR=0; node_red_running && NR=1
+    W_NOW=`disk_written_kb`
+    write_state
+    trace
+    sleep 1
+    i=$((i + 1))
+done
+log "start finished after $((`date +%s` - PHASE_T0)) s (port 1880 up: $UP), total `elapsed` s"
+if [ $UP -eq 0 ]; then
+    set_state done "RedMatic $VERSION installiert. Node-RED antwortet noch nicht - bitte den Prozessstatus prüfen." 100
+else
+    set_state done "RedMatic $VERSION installiert, Node-RED läuft." 100
+fi
+rm -f $STATE_DIR/pid
+exit 0

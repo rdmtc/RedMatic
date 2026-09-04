@@ -71,6 +71,56 @@
         </div>
     </div>
 
+    <div id="modal-update" class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">RedMatic Update auf Version <span id="update-version"></span></h5>
+                </div>
+                <div class="modal-body">
+                    <div id="update-confirm">
+                        <div class="alert alert-warning">
+                            <strong>Vorher ein CCU-Backup anlegen und die Flows exportieren.</strong>
+                            Einen Weg zurück gibt es nur über das Backup. Das Update erfolgt auf eigene Verantwortung.
+                        </div>
+                        <p>
+                            Das Paket für diese Zentrale wird von GitHub geladen, die Prüfsumme geprüft und das Update wie
+                            über die Zusatzsoftware-Seite installiert. Node-RED wird dabei gestoppt und danach wieder
+                            gestartet, ein Neustart der Zentrale ist nicht nötig. Auf einer CCU3 dauert die Installation
+                            einige Minuten. Diese Seite kann währenddessen geöffnet bleiben.
+                        </p>
+                        <p class="small text-muted mb-0">
+                            Details zu den Änderungen: <a id="update-release-link" href="https://github.com/rdmtc/RedMatic/releases/latest" target="_blank">Release Notes auf GitHub</a>
+                        </p>
+                    </div>
+                    <div id="update-progress" style="display: none;">
+                        <label class="mb-1">Download</label>
+                        <div class="progress mb-3" style="height: 22px;">
+                            <div id="update-bar-download" class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+                        </div>
+                        <label class="mb-1">Installation</label>
+                        <div class="progress mb-3" style="height: 22px;">
+                            <div id="update-bar-install" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                        </div>
+                        <div id="update-message" class="mb-1"></div>
+                        <div id="update-hint" class="small text-muted"></div>
+                    </div>
+                    <div id="update-result" style="display: none;">
+                        <div id="update-success" class="alert alert-success" style="display: none;"></div>
+                        <div id="update-error" class="alert alert-danger" style="display: none;"></div>
+                        <pre id="update-log" class="small bg-light p-2" style="display: none; max-height: 240px; overflow: auto;"></pre>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="update-cancel" data-dismiss="modal">Abbrechen</button>
+                    <button type="button" class="btn btn-warning" id="update-go"><i class="fa fa-download"></i> Update starten</button>
+                    <button type="button" class="btn btn-secondary" id="update-close" style="display: none;" data-dismiss="modal">Schliessen</button>
+                    <button type="button" class="btn btn-primary" id="update-reload" style="display: none;"><i class="fa fa-sync-alt"></i> Seite neu laden</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="modal-nickname" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -96,7 +146,9 @@
 
             <div id="update-notify" class="card mb-4" style="border-color: orange; display: none;">
                 <div class="card-body">
-                    RedMatic Update steht zur Verfügung: <span id="update-link"></span> (siehe <a href="https://github.com/rdmtc/RedMatic/wiki/Update" target="_blank">Installationsanleitung im RedMatic Wiki</a>)
+                    RedMatic Update steht zur Verfügung: <span id="update-link"></span>
+                    <button id="update-start" type="button" class="btn btn-sm btn-warning ml-3"><i class="fa fa-download"></i> Herunterladen und installieren</button>
+                    <div class="small text-muted mt-2">Alternativ manuell über die Zusatzsoftware-Seite der CCU, siehe <a href="https://github.com/rdmtc/RedMatic/wiki/Update" target="_blank">Installationsanleitung im RedMatic Wiki</a>.</div>
                 </div>
             </div>
 

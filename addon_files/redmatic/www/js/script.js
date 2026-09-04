@@ -126,6 +126,8 @@ $(document).ready(() => {
         return false;
     }
 
+    let availableVersion = '';
+
     function checkUpdate() {
         $.getJSON(`update_check.cgi?cmd=versions&sid=${sid}`, (current, success) => {
             $('#redmatic-version').html('RedMatic Version ' + current.redmatic);
@@ -133,14 +135,194 @@ $(document).ready(() => {
                 available = $.trim(available);
                 // the latest GitHub release can be older than a prerelease running here
                 if (available !== 'n/a' && isNewer(available, current.redmatic)) {
-                    $('#update-link').html(`<a href="https://github.com/rdmtc/RedMatic/releases/latest" target="_blank">Download Version ${available}</a>`);
+                    availableVersion = available;
+                    $('#update-link').html(`<a href="https://github.com/rdmtc/RedMatic/releases/latest" target="_blank">Version ${available}</a>`);
                     $('#update-notify').show();
+                } else {
+                    availableVersion = '';
+                    $('#update-notify').hide();
                 }
             });
         });
     }
 
     checkUpdate();
+
+    // --- self-update (bin/redmatic-update via update.cgi, ROADMAP task 11) ---
+
+    const $modalUpdate = $('#modal-update');
+    const $updateConfirm = $('#update-confirm');
+    const $updateProgress = $('#update-progress');
+    const $updateResult = $('#update-result');
+    const $updateBarDownload = $('#update-bar-download');
+    const $updateBarInstall = $('#update-bar-install');
+    const $updateMessage = $('#update-message');
+    const $updateHint = $('#update-hint');
+    const $updateSuccess = $('#update-success');
+    const $updateError = $('#update-error');
+    const $updateLog = $('#update-log');
+    const $updateCancel = $('#update-cancel');
+    const $updateGo = $('#update-go');
+    const $updateClose = $('#update-close');
+    const $updateReload = $('#update-reload');
+
+    let updateTimer;
+    let updatePollFailures = 0;
+
+    // the phases the worker reports, in order
+    const updatePhases = ['starting', 'resolve', 'preflight', 'download', 'verify', 'extract', 'install', 'start', 'done', 'error'];
+
+    function updateView(view) {
+        $updateConfirm.toggle(view === 'confirm');
+        $updateProgress.toggle(view === 'progress');
+        $updateResult.toggle(view === 'result');
+        $updateCancel.toggle(view === 'confirm');
+        $updateGo.toggle(view === 'confirm');
+        $updateClose.toggle(view === 'result');
+        $updateReload.toggle(view === 'result');
+    }
+
+    function setBar($bar, percent, active, done) {
+        percent = Math.max(0, Math.min(100, Math.round(percent || 0)));
+        $bar.css('width', percent + '%').text(percent > 8 ? percent + '%' : '');
+        $bar.toggleClass('progress-bar-striped progress-bar-animated', active && !done);
+        $bar.toggleClass('bg-success', done);
+    }
+
+    function renderUpdate(state) {
+        const idx = updatePhases.indexOf(state.phase);
+        const downloadIdx = updatePhases.indexOf('download');
+        const extractIdx = updatePhases.indexOf('extract');
+        const startIdx = updatePhases.indexOf('start');
+
+        if (state.version) {
+            $('#update-version').text(state.version);
+        }
+
+        if (state.phase === 'error') {
+            updateView('result');
+            $updateSuccess.hide();
+            $updateError.text(state.error || state.message || 'Unbekannter Fehler').show();
+            $updateReload.hide();
+            $.get(`update.cgi?cmd=log&sid=${sid}`, log => {
+                $updateLog.text(log).show();
+            });
+            checkUpdate();
+            return;
+        }
+
+        if (state.phase === 'done') {
+            updateView('result');
+            $updateError.hide();
+            $updateLog.hide();
+            $updateSuccess.text(state.message).show();
+            checkUpdate();
+            return;
+        }
+
+        updateView('progress');
+
+        // download bar: indeterminate before, exact during, full after
+        if (idx < downloadIdx) {
+            setBar($updateBarDownload, 100, true, false);
+            $updateBarDownload.text('');
+        } else if (state.phase === 'download') {
+            setBar($updateBarDownload, state.total > 0 ? state.percent : 100, true, false);
+            if (!(state.total > 0)) {
+                $updateBarDownload.text('');
+            }
+        } else {
+            setBar($updateBarDownload, 100, false, true);
+        }
+
+        // install bar: the worker estimates extract/install progress, start = 95
+        if (idx < extractIdx) {
+            setBar($updateBarInstall, 0, false, false);
+        } else if (idx < startIdx) {
+            setBar($updateBarInstall, state.percent, true, false);
+        } else {
+            setBar($updateBarInstall, 95, true, false);
+        }
+
+        $updateMessage.text(state.message || '');
+        const age = state.ts ? Math.round(Date.now() / 1000 - state.ts) : 0;
+        if (updatePollFailures > 2) {
+            $updateHint.text('Keine Verbindung zur Zentrale, versuche weiter ...');
+        } else if (age > 120) {
+            $updateHint.text(`Seit ${age} Sekunden keine Rückmeldung des Updaters. Falls das so bleibt: Update-Log im Debug-Tab / syslog prüfen.`);
+        } else if (state.phase === 'install' || state.phase === 'extract') {
+            $updateHint.text('Node-RED ist während der Installation gestoppt. Bitte die Zentrale jetzt nicht neu starten.');
+        } else {
+            $updateHint.text('');
+        }
+    }
+
+    function pollUpdate() {
+        clearTimeout(updateTimer);
+        $.getJSON(`update.cgi?cmd=status&_=${Date.now()}`)
+            .done(state => {
+                updatePollFailures = 0;
+                renderUpdate(state);
+                if (state.phase !== 'done' && state.phase !== 'error' && state.phase !== 'idle') {
+                    updateTimer = setTimeout(pollUpdate, 1500);
+                }
+            })
+            .fail(() => {
+                // the CGI can be unreachable for a moment while the tree is replaced
+                updatePollFailures += 1;
+                if (updatePollFailures > 2) {
+                    $updateHint.text('Keine Verbindung zur Zentrale, versuche weiter ...');
+                }
+                updateTimer = setTimeout(pollUpdate, 3000);
+            });
+    }
+
+    $('#update-start').click(() => {
+        $('#update-version').text(availableVersion);
+        $updateError.hide();
+        $updateSuccess.hide();
+        $updateLog.hide();
+        updateView('confirm');
+        $modalUpdate.modal('show');
+    });
+
+    $updateGo.click(() => {
+        updateView('progress');
+        setBar($updateBarDownload, 100, true, false);
+        $updateBarDownload.text('');
+        setBar($updateBarInstall, 0, false, false);
+        $updateMessage.text('Update wird gestartet ...');
+        $updateHint.text('');
+        $.getJSON(`update.cgi?cmd=start&sid=${sid}`)
+            .done(state => {
+                if (state.error) {
+                    renderUpdate({ phase: 'error', error: state.error });
+                    return;
+                }
+                updateTimer = setTimeout(pollUpdate, 1000);
+            })
+            .fail(() => {
+                renderUpdate({ phase: 'error', error: 'Das Update konnte nicht gestartet werden (update.cgi nicht erreichbar).' });
+            });
+    });
+
+    $updateReload.click(() => {
+        location.reload();
+    });
+
+    $modalUpdate.on('hidden.bs.modal', () => {
+        clearTimeout(updateTimer);
+        $.get(`update.cgi?cmd=reset&sid=${sid}`);
+    });
+
+    // an update started earlier (page reloaded meanwhile?) - pick it up
+    $.getJSON(`update.cgi?cmd=status&_=${Date.now()}`, state => {
+        if (state && state.phase && state.phase !== 'idle' && state.phase !== 'done' && state.phase !== 'error') {
+            renderUpdate(state);
+            $modalUpdate.modal('show');
+            updateTimer = setTimeout(pollUpdate, 1000);
+        }
+    });
 
     function refresh() {
         checkUpdate();

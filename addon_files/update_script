@@ -136,11 +136,15 @@ sync
 
 #
 #   Start the service again after an update (exit code 0 = no reboot).
-#   The original CCU3 firmware installs addons during the reboot that follows
-#   the upload (/etc/init.d/S00InstallAddon runs this script in a chroot at
-#   boot); there the boot sequence starts the addon and nothing may be
-#   started from inside the chroot. OpenCCU runs this script live and does
-#   not reboot after an update.
+#   The original CCU3 firmware installs addons during the SHUTDOWN phase of
+#   the reboot that follows the upload: /etc/init.d/S00InstallAddon only
+#   implements stop(), which runs /bin/install_addon, which in turn runs this
+#   script in a chroot. The following boot sequence starts the addon, so
+#   nothing may be started from inside the chroot. OpenCCU runs this script
+#   live and does not reboot after an update.
+#   Note: this test cannot tell a chroot install from a live run on the CCU3
+#   firmware, so a self-update (ROADMAP task 11) has to start the service
+#   itself there.
 #
 if [ $EXITCODE -eq 0 ] && [ ! -f /etc/init.d/S00InstallAddon ]; then
     # never start from the installer's temp dir (OpenCCU deletes it afterwards,
