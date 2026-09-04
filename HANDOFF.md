@@ -7,7 +7,7 @@ Written by Claude Fable on behalf of hobbyquaker at the end of the
 
 ## Where things stand
 
-`master` is at **9.0.0-alpha.0** (first pre-release built by the
+`master` is at **9.0.0-alpha.1** (alpha.0 = first pre-release built by the
 `build-release` workflow on 2026-09-04; see ROADMAP task 8 for the state
 of that draft).
 
