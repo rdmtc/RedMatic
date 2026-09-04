@@ -7,8 +7,8 @@ Written by Claude Fable on behalf of hobbyquaker at the end of the
 
 ## Where things stand
 
-`master` is at **9.0.0-alpha.1**. **9.0.0-alpha.0 and alpha.1 are
-published as GitHub prereleases** (2026-09-04); no final 9.0.0 yet.
+`master` is at **9.0.0**, **released on 2026-09-04** (full release; the
+alphas 9.0.0-alpha.0/1 remain as prereleases).
 
 **Hardware verification (roadmap task 8) is complete on all three target
 platforms**:
@@ -112,8 +112,7 @@ bin/node lib/node_modules/node-red/red.js -s lib/settings.js'
 
 ## Open items (see ROADMAP.md)
 
-- Task 8: final 9.0.0 release after alpha feedback (hardware
-  verification and the alpha prereleases are done).
+- Task 8: done (9.0.0 released 2026-09-04).
 - Task 5a: done 2026-09-04 (backlog closed/transferred, discussions
   closed; only #226 open).
 - Task 7: wiki overhaul done 2026-09-04 (see ROADMAP); remaining are the

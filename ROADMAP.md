@@ -9,11 +9,10 @@ content moves to [roadmap-archive/](roadmap-archive/) (one file per task,
 e.g. `task-1.md`) and its line in the contents below gets a ✅ marker linking
 into the archive.
 
-Status 2026-09-02: the strip-down and modernization are implemented on
-`master` as `9.0.0-dev.x` (Node 24, Node-RED 5.0.6, npm 11,
-node-red-contrib-ccu 4.0.0, zero native modules, zero Node-RED patching,
-GitHub Actions CI). Not yet released — hardware verification (task 8) is the
-gate.
+Status 2026-09-04: **RedMatic 9.0.0 is released** (Node 24, Node-RED
+5.0.6, npm 11, node-red-contrib-ccu 4.0.0, zero native modules, zero
+Node-RED patching, GitHub Actions CI). The wiki is overhauled and the
+issue backlog closed; what remains is feedback-driven follow-up work.
 
 ## Contents
 
@@ -209,6 +208,12 @@ The implementation is on `master`; before anything is tagged or released:
   The latter found a real bug: after an update nothing started Node-RED
   again (OpenCCU only reboots on exit code 10) — `update_script` now
   starts the service itself unless the firmware installs at boot.
+- ✅ **9.0.0 released** (2026-09-04, full release, `releases/latest` now
+  points at it, so the on-CCU update check offers it to 7.x installs).
+  Released on the maintainer's decision without external alpha feedback;
+  README and release notes state that a CCU backup before updating is the
+  user's responsibility. Built by the build-release workflow, the aarch64
+  asset re-verified as an update on the Pi 4.
 - ✅ **9.0.0-alpha.0 and 9.0.0-alpha.1 published** as GitHub prereleases
   on 2026-09-04 (alpha.0 carries a note pointing at alpha.1 because of
   the OpenCCU update bug above). `releases/latest` still resolves to
