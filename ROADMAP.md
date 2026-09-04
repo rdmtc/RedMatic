@@ -287,7 +287,22 @@ What is known (verified 2026-09-04 on the lab boxes):
   LTS major), npm (node-red, node-red-contrib-ccu), bump the layer files
   and the addon patch version, build, and publish.
 
-To decide:
+**Decided 2026-09-04 (maintainer): automatic releases, triggered by
+Node.js and Node-RED updates within the pinned majors.**
+
+- A new Node.js release of the bundled major (`engines.node` in
+  package.json) and/or a new Node-RED release of the bundled major each
+  trigger an automatic RedMatic patch release. Every such release also
+  picks up the latest node-red-contrib-ccu.
+- A **major** switch of Node.js or Node-RED stays manual: hardware round,
+  release notes, minor/major bump of the addon version.
+- No in-addon "update Node-RED" mechanism (Node-RED cannot update itself,
+  the palette manager only covers the userDir, an in-place npm install in
+  `lib` has no rollback and is undone by the next addon update). The
+  RedMatic package stays the tested unit; the update banner from
+  `update_check.cgi` is the user-facing path.
+
+Still to decide:
 
 - Automatic **draft** (maintainer promotes after a lab check) vs. fully
   automatic publish. Suggested start: scheduled draft releases plus a CI
