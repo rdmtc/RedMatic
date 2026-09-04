@@ -32,7 +32,7 @@ ___
 > RedMatic 9 ist **veröffentlicht** - siehe
 > [Releases](https://github.com/rdmtc/RedMatic/releases). Voraussetzung:
 > CCU3 mit Firmware ab 3.61.5 oder aktuelles OpenCCU. **Vor einem Update
-> von RedMatic 7/8 unbedingt ein CCU-Backup anlegen - das Backup liegt in
+> von RedMatic 7 unbedingt ein CCU-Backup anlegen - das Backup liegt in
 > der Verantwortung des Anwenders, ein Weg zurück führt nur darüber.**
 > Bitte die [Release-Hinweise](https://github.com/rdmtc/RedMatic/wiki/RedMatic-9-Migration) lesen.
 

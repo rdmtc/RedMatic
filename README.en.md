@@ -28,7 +28,7 @@
 > RedMatic 9 is **released** - see
 > [Releases](https://github.com/rdmtc/RedMatic/releases). Requirements:
 > CCU3 with firmware 3.61.5 or newer, or current OpenCCU. **Before updating
-> from RedMatic 7/8, create a CCU backup - the backup is your own
+> from RedMatic 7, create a CCU backup - the backup is your own
 > responsibility and the only way back.** Please read the
 > [migration notes](https://github.com/rdmtc/RedMatic/wiki/RedMatic-9-Migration).
 
@@ -51,10 +51,10 @@ the CCU, without an additional server:
   node adds MQTT auto-discovery on top of ccu-mqtt: selected devices show up as
   entities in Home Assistant automatically. _(in preparation, node-red-contrib-ccu 4.2.0)_
 * **Matter** - [RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter) exposes Homematic
-  devices as a Matter bridge, usable with Apple Home, Amazon Alexa, Google Home and
-  Home Assistant. _(in preparation, release coming soon)_
+  devices as a Matter bridge, usable e.g. with Apple Home, Amazon Alexa and Google Home.
 * **HomeKit** - [RedMatic-HomeKit](https://github.com/rdmtc/RedMatic-HomeKit) exposes Homematic
-  devices as HomeKit accessories.
+  devices as HomeKit accessories. (A possible complement to Matter for Apple users, to work
+  around the missing Matter support for certain devices such as garage doors or irrigation systems.)
 
 All bridges share a single `ccu-connection`; devices are exposed opt-in by ticking
 them in the editor. Matter and HomeKit are installed via the Node-RED palette manager,

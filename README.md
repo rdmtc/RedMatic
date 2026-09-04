@@ -32,7 +32,7 @@ ___
 > RedMatic 9 ist **veröffentlicht** - siehe
 > [Releases](https://github.com/rdmtc/RedMatic/releases). Voraussetzung:
 > CCU3 mit Firmware ab 3.61.5 oder aktuelles OpenCCU. **Vor einem Update
-> von RedMatic 7/8 unbedingt ein CCU-Backup anlegen - das Backup liegt in
+> von RedMatic 7 unbedingt ein CCU-Backup anlegen - das Backup liegt in
 > der Verantwortung des Anwenders, ein Weg zurück führt nur darüber.**
 > Bitte die [Release-Hinweise](https://github.com/rdmtc/RedMatic/wiki/RedMatic-9-Migration) lesen.
 
@@ -54,10 +54,10 @@ direkt auf der CCU, ohne zusätzlichen Server:
   Node ergänzt ccu-mqtt um MQTT Auto-Discovery: ausgewählte Geräte erscheinen
   automatisch als Entitäten in Home Assistant. _(in Vorbereitung, node-red-contrib-ccu 4.2.0)_
 * **Matter** - [RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter) stellt Homematic-Geräte
-  als Matter-Bridge bereit, nutzbar mit Apple Home, Amazon Alexa, Google Home und
-  Home Assistant. _(in Vorbereitung, Release in Kürze)_
+  als Matter-Bridge bereit, nutzbar u.a. mit Apple Home, Amazon Alexa und Google Home. 
 * **HomeKit** - [RedMatic-HomeKit](https://github.com/rdmtc/RedMatic-HomeKit) stellt Homematic-Geräte
-  als HomeKit-Zubehör bereit.
+  als HomeKit-Zubehör bereit. (Mögliche Ergänzung zu Matter für Apple Nutzer um den fehlenden 
+  Matter-Support für bestimmte Geräte wie z.B. Garagentore oder Bewässerungssysteme zu umschiffen)
 
 Alle Anbindungen laufen über eine einzige `ccu-connection`, die auf der CCU ausgewählte
 Geräte per Häkchen freigibt (opt-in). Matter und HomeKit werden über den Node-RED
@@ -209,7 +209,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
 
 * Verwandte Projekte
   * [RedMatic-HomeKit](https://github.com/rdmtc/RedMatic-HomeKit) - Homematic-Geräte in Apple HomeKit
-  * [RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter) - Homematic-Geräte als Matter-Bridge (in Vorbereitung)
+  * [RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter) - Homematic-Geräte als Matter-Bridge
   * [feezal](https://github.com/feezal/feezal) - Dashboards und Apps für MQTT visuell bauen
   * [she](https://github.com/hobbyquaker/she) - Smart Home Engine: Automationen als JavaScript-Scripte mit MQTT und Matter
 
