@@ -25,10 +25,12 @@
 > no compiler toolchain on the CCU, and precompiled binaries are no
 > longer shipped.
 >
-> RedMatic 9 is available as a **pre-release (alpha)** for testing — see
+> RedMatic 9 is **released** - see
 > [Releases](https://github.com/rdmtc/RedMatic/releases). Requirements:
-> CCU3 with firmware 3.61.5 or newer, or current OpenCCU. Before updating
-> from RedMatic 7/8, create a CCU backup and read the release notes.
+> CCU3 with firmware 3.61.5 or newer, or current OpenCCU. **Before updating
+> from RedMatic 7/8, create a CCU backup - the backup is your own
+> responsibility and the only way back.** Please read the
+> [migration notes](https://github.com/rdmtc/RedMatic/wiki/RedMatic-9-Migration).
 
 _RedMatic_ packages [Node-RED](https://nodered.org/about/) as a CCU Addon, a software package that can be comfortably installed on a Homematic CCU3 or [OpenCCU](https://github.com/jens-maus/OpenCCU) (formerly RaspberryMatic) via the WebUI. Homematic is a series of smart home automation products by the manufacturer [eQ-3](https://eq-3.de), popular especially in Germany.
 

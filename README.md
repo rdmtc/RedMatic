@@ -29,11 +29,12 @@ ___
 > installiert werden — auf der CCU gibt es keine Compiler-Toolchain,
 > und vorkompilierte Binaries werden nicht mehr mitgeliefert.
 >
-> RedMatic 9 ist als **Vorabversion (Alpha)** zum Testen verfügbar — siehe
+> RedMatic 9 ist **veröffentlicht** - siehe
 > [Releases](https://github.com/rdmtc/RedMatic/releases). Voraussetzung:
-> CCU3 mit Firmware ab 3.61.5 oder aktuelles OpenCCU. Vor einem Update
-> von RedMatic 7/8 unbedingt ein CCU-Backup anlegen und die
-> Release-Hinweise lesen.
+> CCU3 mit Firmware ab 3.61.5 oder aktuelles OpenCCU. **Vor einem Update
+> von RedMatic 7/8 unbedingt ein CCU-Backup anlegen - das Backup liegt in
+> der Verantwortung des Anwenders, ein Weg zurück führt nur darüber.**
+> Bitte die [Release-Hinweise](https://github.com/rdmtc/RedMatic/wiki/RedMatic-9-Migration) lesen.
 
 
 _RedMatic_ verpackt [Node-RED](https://nodered.org/about/) als CCU Addon, ein Softwarepaket, das auf einer Homematic CCU3 oder [OpenCCU](https://github.com/jens-maus/OpenCCU) (ehemals RaspberryMatic) als Zusatzsoftware komfortabel über das WebUI installiert werden kann.
