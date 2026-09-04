@@ -320,7 +320,7 @@ Node.js and Node-RED updates within the pinned majors.**
 - More end-to-end testing, e.g. install a node through the palette and
   check that its node types appear.
 
-**Implemented 2026-09-04 (`9.1.0-dev`, first real run pending):**
+**Implemented 2026-09-04; first real run the same day: draft v9.1.0 (node-red-contrib-ccu 4.0.0 -> 4.2.0) in 154 s.**
 
 - `update_versions.js` (replaces `update_nodejs.js`): compares Node.js,
   npm, Node-RED and node-red-contrib-ccu with the newest release of their
@@ -350,9 +350,9 @@ Node.js and Node-RED updates within the pinned majors.**
   publishes as latest, otherwise a draft for the maintainer. A failed run
   opens an issue.
 
-Still open: the first real run (`node-red-contrib-ccu` 4.1.0 is already
-newer than the bundled 4.0.0, so the next run creates 9.1.0), the decision
-on `AUTO_RELEASE_PUBLISH`, testing the armv7l/aarch64 packages under qemu
+Still open: the decision
+on `AUTO_RELEASE_PUBLISH` (until then every automatic release is a draft the
+maintainer publishes), testing the armv7l/aarch64 packages under qemu
 in the same container harness, and an e2e check of the settings page
 (needs tclsh) and of a ccu-connection against hm-simulator.
 
