@@ -55,7 +55,7 @@ programs/scripts.
 
 ## Requirements
 
-_RedMatic_ is suitable for the **CCU3** (and piVCCU3) and for **OpenCCU** on the architectures armv7l (e.g. Raspberry Pi 2), aarch64 (e.g. Raspberry Pi 3/4) and x86_64 (e.g. _ova_, _intelnuc_, containers).
+_RedMatic_ is suitable for the **CCU3** (and piVCCU3) with firmware 3.61.5 or newer and for current **OpenCCU** on the architectures armv7l (e.g. Raspberry Pi 2), aarch64 (e.g. Raspberry Pi 3/4/5) and x86_64 (e.g. _ova_, _intelnuc_, containers).
 
 On the CCU1, CCU2 and on armv6l systems (Raspberry Pi 1/Zero) _RedMatic_ can not be used.
 

@@ -58,7 +58,7 @@ Nicht zuletzt kann _RedMatic_ auch als stabile und mit wesentlich mehr Möglichk
 
 ## Voraussetzungen
 
-_RedMatic_ ist geeignet für die **CCU3** (und piVCCU3) sowie für **OpenCCU** auf den Architekturen armv7l (z.B. Raspberry Pi 2), aarch64 (z.B. Raspberry Pi 3/4) und x86_64 (z.B. _ova_, _intelnuc_, Container).
+_RedMatic_ ist geeignet für die **CCU3** (und piVCCU3) mit Firmware ab 3.61.5 sowie für aktuelles **OpenCCU** auf den Architekturen armv7l (z.B. Raspberry Pi 2), aarch64 (z.B. Raspberry Pi 3/4/5) und x86_64 (z.B. _ova_, _intelnuc_, Container).
 
 Auf der CCU1, CCU2 und auf armv6l-Systemen (Raspberry Pi 1/Zero) kann _RedMatic_ nicht verwendet werden.
 
@@ -85,6 +85,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
 * Administration
   * [Installation](https://github.com/rdmtc/RedMatic/wiki/Installation)
   * [Update](https://github.com/rdmtc/RedMatic/wiki/Update)
+  * [Migration auf RedMatic 9](https://github.com/rdmtc/RedMatic/wiki/RedMatic-9-Migration) - was sich gegenüber 7.x/8.x ändert
   * [Backup](https://github.com/rdmtc/RedMatic/wiki/Backup)
   * [Firewall](https://github.com/rdmtc/RedMatic/wiki/Firewall)
   * [Context Storage Konfigurieren](https://github.com/rdmtc/RedMatic/wiki/Context-Storage)
@@ -102,8 +103,8 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Flows exportieren](https://github.com/rdmtc/RedMatic/wiki/Flow-Export)
   * [Flows importieren](https://github.com/rdmtc/RedMatic/wiki/Flow-Import)
 * Spezielle Nodes und Erweiterungen
-  * [node-red-contrib-zigbee](https://github.com/rdmtc/RedMatic/wiki/ZigBee) - ⚠️ deprecated, nicht mehr gepflegt
-  * [RedMatic-HomeKit](https://github.com/rdmtc/RedMatic/wiki/Homekit) - Anbindung an Apple HomeKit (ab RedMatic 9 nicht mehr vorinstalliert)
+  * [node-red-contrib-zigbee](https://github.com/rdmtc/RedMatic/wiki/ZigBee) - ⚠️ deprecated, nicht mehr gepflegt, auf RedMatic 9 nicht installierbar (Alternative: zigbee2mqtt auf einem separaten Rechner)
+  * [RedMatic-HomeKit](https://github.com/rdmtc/RedMatic/wiki/Homekit) - Anbindung an Apple HomeKit (ab RedMatic 9 nicht mehr vorinstalliert, Installation über den Paletten-Manager)
   * [RedMatic-WebApp](https://github.com/rdmtc/RedMatic/wiki/Webapp) - ⚠️ deprecated, ab RedMatic 9 nicht mehr enthalten
   * [Node-RED Dashboard](https://github.com/rdmtc/RedMatic/wiki/Dashboard-Screenshots) - ab RedMatic 9 nicht mehr vorinstalliert, Installation über den Paletten-Manager
   * [node-red-contrib-sun-position](https://github.com/rdmtc/node-red-contrib-sun-position) Zeit- und Sonnenstandabhängige Funktionen, Komfortable Beschattungssteuerung
