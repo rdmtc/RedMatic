@@ -338,20 +338,21 @@ log "sha256 ok"
 #   slow SD card, while time carries the bar through cached phases.
 #   Durations from trace.log runs on the lab boxes, 2026-09-04 (task 11).
 #
-#   Seconds per phase and the unpacked package on disk (KB) per platform:
-#   CCU3 (armv7l, chroot): 112 / 158 / 109 / 29 s; Pi 4 (aarch64): 8 / - /
-#   31 / 2 s; x86_64 VM: 11-14 / - / 15-19 / 0-2 s.
+#   Seconds per phase and KB the extraction writes per platform, from two
+#   runs each: CCU3 (armv7l, chroot) 109-112 / 152-158 / 109-136 / 27-29 s;
+#   Pi 4 (aarch64) 7-8 / - / 30-31 / 1-2 s; x86_64 VM 11-14 / - / 12-19 /
+#   0-2 s. On the CCU3 the chroot copies write about 490 MB and the whole
+#   run 1.37 GB (journal included).
 case $ARCH in
-    armv7l)  EXP_EXTRACT=110; EXP_CHROOT=160; EXP_INSTALL=110; EXP_START=30; EXTRACT_KB=235000 ;;
-    aarch64) EXP_EXTRACT=8;   EXP_CHROOT=60;  EXP_INSTALL=30;  EXP_START=3;  EXTRACT_KB=375000 ;;
-    *)       EXP_EXTRACT=12;  EXP_CHROOT=30;  EXP_INSTALL=17;  EXP_START=3;  EXTRACT_KB=380000 ;;
+    armv7l)  EXP_EXTRACT=110; EXP_CHROOT=155; EXP_INSTALL=120; EXP_START=28; EXTRACT_KB=210000; CHROOT_KB=240000 ;;
+    aarch64) EXP_EXTRACT=8;   EXP_CHROOT=60;  EXP_INSTALL=30;  EXP_START=3;  EXTRACT_KB=380000; CHROOT_KB=250000 ;;
+    *)       EXP_EXTRACT=12;  EXP_CHROOT=30;  EXP_INSTALL=16;  EXP_START=3;  EXTRACT_KB=400000; CHROOT_KB=250000 ;;
 esac
 [ $CHROOT -eq 1 ] || EXP_CHROOT=0
 EXP_TOTAL=$((EXP_EXTRACT + EXP_CHROOT + EXP_INSTALL + EXP_START))
 
-# the chroot's copies of the root filesystem, in KB; everything doubled
-# when the partition journals data (ext4 data=journal on the CCU3)
-CHROOT_KB=80000
+# everything doubled when the partition journals data (ext4 data=journal
+# on the CCU3)
 WRITE_FACTOR=1
 if grep " /usr/local " /proc/mounts 2>/dev/null | grep -q "data=journal"; then
     WRITE_FACTOR=2
