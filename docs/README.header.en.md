@@ -25,6 +25,8 @@
 > no compiler toolchain on the CCU, and precompiled binaries are no
 > longer shipped.
 >
-> RedMatic 9 is **still in development** — expect a first release in a
-> few days at the earliest.
+> RedMatic 9 is available as a **pre-release (alpha)** for testing — see
+> [Releases](https://github.com/rdmtc/RedMatic/releases). Requirements:
+> CCU3 with firmware 3.61.5 or newer, or current OpenCCU. Before updating
+> from RedMatic 7/8, create a CCU backup and read the release notes.
 
