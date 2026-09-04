@@ -42,7 +42,7 @@ Die Grundlage bildet [Node-RED](https://nodered.org/about/) mit den [CCU Nodes f
 
 Die Einrichtung und der Betrieb von _RedMatic_ ist sehr benutzerfreundlich, es bedarf keiner Linux-Kenntnisse und es müssen keine Konfigurationsdateien bearbeitet werden.
 
-## RedMatic als Brücke von der CCU zu MQTT, Home Assistant, Matter und HomeKit
+## RedMatic als Brücke von der CCU zu MQTT, Home Assistant, Alexa, Apple Home, Google Home, ...
 
 _RedMatic_ ist ein guter Weg, eine Homematic CCU an andere Systeme anzubinden -
 direkt auf der CCU, ohne zusätzlichen Server:
@@ -52,7 +52,7 @@ direkt auf der CCU, ohne zusätzlichen Server:
   und nimmt Befehle entgegen ([Beispiel-Flow](https://github.com/rdmtc/RedMatic/wiki/Flow-MQTT)).
 * **Home Assistant** - der [ccu-homeassistant](https://github.com/rdmtc/node-red-contrib-ccu#home-assistant)
   Node ergänzt ccu-mqtt um MQTT Auto-Discovery: ausgewählte Geräte erscheinen
-  automatisch als Entitäten in Home Assistant. _(in Vorbereitung, node-red-contrib-ccu 4.2.0)_
+  automatisch als Entitäten in Home Assistant.
 * **Matter** - [RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter) stellt Homematic-Geräte
   als Matter-Bridge bereit, nutzbar u.a. mit Apple Home, Amazon Alexa und Google Home. 
 * **HomeKit** - [RedMatic-HomeKit](https://github.com/rdmtc/RedMatic-HomeKit) stellt Homematic-Geräte
