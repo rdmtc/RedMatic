@@ -114,12 +114,19 @@ Still open:
   node-red-contrib-ccu bundled, palette manager for everything else,
   package manager + WebApp deprecated, native-module limitation as a known
   and accepted limitation).
-- **Wiki content overhaul** (external repo `rdmtc/RedMatic.wiki`, mostly
-  German): Intro still advertises WebApp/Dashboard/HomeKit as included;
-  pages for the package manager, binary packages, node installation and
-  armv6l need rewriting or removal; RaspberryMatic → OpenCCU naming
-  throughout. The generated README pulls `Intro`/`Home` from the wiki, so
-  regenerate README.md afterwards (`node update_readme.js`).
+- ✅ **Wiki content overhaul** (2026-09-04, external repo
+  `rdmtc/RedMatic.wiki`): Installation, Update, Deinstallation,
+  Node-Installation, FAQ and Probleme-Update-Installation rewritten for
+  RedMatic 9 (palette manager only, firmware requirement, native-module
+  limitation, CLI install path); new page **Migration auf RedMatic 9**
+  linked from Home/Update/FAQ; HomeKit (palette install, 4.0.0 in
+  development), ZigBee (deprecated, not installable on 9 — zigbee2mqtt on
+  a separate machine as the alternative), WebApp (discontinued) and
+  Dashboard (classic vs. Dashboard 2.0) pages marked; references to the
+  community-patched 7.3/7.4 versions removed; RaspberryMatic → OpenCCU
+  naming; settings-user.js / extra-ca-certs documented in Tipps. The
+  community flow pages were left as they are (their Dashboard/extra-node
+  usage is still valid via palette install).
 - Update the RedMatic Homekit / LED / WebApp sibling-repo readmes if they
   reference being bundled with RedMatic (out of scope for this repo, listed
   for completeness).

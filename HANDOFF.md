@@ -117,9 +117,9 @@ bin/node lib/node_modules/node-red/red.js -s lib/settings.js'
 - Task 8: final 9.0.0 release after alpha feedback (hardware
   verification and the alpha prereleases are done).
 - Task 5a: issue mass-close after release.
-- Task 7: wiki deep pages (Node-Installation, Homekit, ZigBee,
-  package-manager mentions in FAQ/Installation etc.) still describe the
-  old world; Intro/Home are done. RedMatic-WebApp repo is archived.
+- Task 7: wiki overhaul done 2026-09-04 (see ROADMAP); remaining are the
+  sibling-repo readmes (out of scope here) and re-testing the
+  "Erfolgreich getestete Nodes" list with RedMatic 9.
 
 ## Conventions in this repo (important)
 
