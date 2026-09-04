@@ -13,8 +13,9 @@ Status 2026-09-04: **RedMatic 9.0.0 is released** (Node 24, Node-RED
 5.0.6, npm 11, node-red-contrib-ccu 4.0.0, zero native modules, zero
 Node-RED patching, GitHub Actions CI). The wiki is overhauled and the
 issue backlog closed; what remains is feedback-driven follow-up work.
-`9.0.1-dev.0` (2026-09-04): IPv6 link-local fix for Matter on the CCU3
-(task 9, verified on hardware).
+**9.0.1 released 2026-09-04**: IPv6 link-local fix for Matter on the CCU3
+(task 9), palette manager after OpenCCU updates (#599), process status on
+the settings page (#600). Next: task 10 (release strategy).
 
 ## Contents
 
@@ -30,6 +31,7 @@ issue backlog closed; what remains is feedback-driven follow-up work.
 - [7. Documentation overhaul](#7-documentation-overhaul)
 - [8. Verify and release 9.0.0](#8-verify-and-release-900)
 - 9. IPv6 link-local address for Matter on the CCU3 ✅ [archived](roadmap-archive/task-9.md)
+- [10. Release strategy and automatic releases](#10-release-strategy-and-automatic-releases)
 
 ## 3. Modernize tooling
 
@@ -240,3 +242,61 @@ The implementation is on `master`; before anything is tagged or released:
   nodes, removed package manager/WebApp, native-module limitation,
   Node-RED 2 → 5 flow compatibility.
 - Then: mass-close of the obsolete issue backlog (see task 5a).
+
+## 10. Release strategy and automatic releases
+
+Filed 2026-09-04 by the maintainer right after 9.0.1. Questions to settle:
+
+- Should users update Node-RED and node-red-contrib-ccu themselves (palette
+  manager), with RedMatic releases only when a new Node.js is out?
+- Is updating the bundled node-red-contrib-ccu through the palette manager
+  possible at all, and is it a problem?
+- Can Node-RED update itself, or should the RedMatic settings page get an
+  "update Node-RED" mechanism?
+- Fully automatic releases: a GitHub Action that runs daily, detects a new
+  Node.js release and creates a RedMatic release that also carries the
+  latest Node-RED and node-red-contrib-ccu?
+
+What is known (verified 2026-09-04 on the lab boxes):
+
+- Two layers. `lib` (Node.js, npm, Node-RED and its `lib/node_modules`) is
+  the runtime: wiped and replaced by every addon update, invisible to the
+  palette manager. Node-RED cannot update itself; it is not a palette
+  module. `var` is Node-RED's userDir: node-red-contrib-ccu is an ordinary
+  dependency in `var/package.json`, so the palette manager **can** update
+  (or remove) it like any other node.
+- But an addon update extracts the bundled `var/node_modules/
+  node-red-contrib-ccu` over the installed one, and `update_script`'s
+  package.json merge lets the addon's pinned version win. Seen today on the
+  lab CCU3: a palette-installed 4.1.0 build was silently replaced by the
+  bundled 4.0.0 by the 9.0.1 update, and flows using a node type that only
+  exists in the newer version stopped with "Waiting for missing types".
+  So palette updates of the ccu nodes work only until the next addon
+  update. Either the addon must keep a newer installed version (merge by
+  semver, do not overwrite when the installed version is newer), or
+  RedMatic releases must follow node-red-contrib-ccu releases closely.
+- "Update Node-RED" from the settings page would be an `npm install
+  node-red@x` into `lib` plus a restart: no rollback, untested
+  combination, little RAM on the CCU3, and the same failure modes the
+  package manager had. Recommendation: no. The RedMatic package is the
+  tested unit, and the CI build takes about a minute.
+- Automatic releases are feasible: `build-release` already builds all
+  three architectures and drafts the release with SBOMs and release body;
+  `update_nodejs.js` / `npm run update:*` already do the bumps. A
+  scheduled workflow could check nodejs.org (newest release of the pinned
+  LTS major), npm (node-red, node-red-contrib-ccu), bump the layer files
+  and the addon patch version, build, and publish.
+
+To decide:
+
+- Automatic **draft** (maintainer promotes after a lab check) vs. fully
+  automatic publish. Suggested start: scheduled draft releases plus a CI
+  smoke test (the container test from HANDOFF.md) and a notification;
+  promote by hand for a few cycles, then automate the publish if it stays
+  boring. `update_check.cgi` only offers full releases, so drafts and
+  prereleases never reach users.
+- Version scheme for automatic bumps (patch per bump), how the change list
+  is generated (module version table is already in the release body), and
+  where failures surface (a GitHub issue opened by the workflow).
+- Whether major Node-RED / Node.js majors stay manual (they need hardware
+  tests and release notes).

@@ -7,7 +7,7 @@ Written by Claude Fable on behalf of hobbyquaker at the end of the
 
 ## Where things stand
 
-`master` is at **9.0.1-dev.0** (9.0.0 **released on 2026-09-04** as a full release; the
+`master` is at **9.0.1**, **released on 2026-09-04** (9.0.0 the same day; the
 alphas 9.0.0-alpha.0/1 remain as prereleases).
 
 **Hardware verification (roadmap task 8) is complete on all three target
@@ -115,8 +115,12 @@ bin/node lib/node_modules/node-red/red.js -s lib/settings.js'
 - Task 8: done (9.0.0 released 2026-09-04).
 - Task 5a: done 2026-09-04 (backlog closed/transferred, discussions
   closed; only #226 open).
-- Task 9: done 2026-09-04 (9.0.1-dev.0, IPv6 link-local fix for Matter,
-  verified on the CCU3; see roadmap-archive/task-9.md).
+- Task 9: done 2026-09-04 (9.0.1, IPv6 link-local fix for Matter,
+  verified on the CCU3; see roadmap-archive/task-9.md). 9.0.1 also fixed
+  #599 (palette manager gone after OpenCCU live updates: Node-RED was
+  started from the installer's deleted temp dir) and #600 (settings page
+  said "stopped").
+- Task 10 (new): release strategy / automatic releases, see ROADMAP.
 - Task 7: wiki overhaul done 2026-09-04 (see ROADMAP); remaining are the
   sibling-repo readmes (out of scope here) and re-testing the
   "Erfolgreich getestete Nodes" list with RedMatic 9.
