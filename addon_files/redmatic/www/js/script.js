@@ -85,12 +85,54 @@ $(document).ready(() => {
     let psTimeout;
     let psInterval = 5000;
 
+    // true if version a is newer than b; a prerelease (9.0.0-alpha.0) is older
+    // than its release (9.0.0), otherwise the parts are compared numerically
+    function isNewer(a, b) {
+        const parse = v => {
+            const [main, pre] = String(v).split('-');
+            return {
+                parts: main.split('.').map(Number),
+                pre: pre ? pre.split('.') : null
+            };
+        };
+        const va = parse(a);
+        const vb = parse(b);
+        for (let i = 0; i < 3; i++) {
+            if ((va.parts[i] || 0) !== (vb.parts[i] || 0)) {
+                return (va.parts[i] || 0) > (vb.parts[i] || 0);
+            }
+        }
+        if (!va.pre && vb.pre) {
+            return true;
+        }
+        if (va.pre && !vb.pre) {
+            return false;
+        }
+        if (va.pre && vb.pre) {
+            for (let i = 0; i < Math.max(va.pre.length, vb.pre.length); i++) {
+                const x = va.pre[i];
+                const y = vb.pre[i];
+                if (x === y) {
+                    continue;
+                }
+                if (x === undefined || y === undefined) {
+                    return x !== undefined;
+                }
+                const nx = Number(x);
+                const ny = Number(y);
+                return (isNaN(nx) || isNaN(ny)) ? x > y : nx > ny;
+            }
+        }
+        return false;
+    }
+
     function checkUpdate() {
         $.getJSON(`update_check.cgi?cmd=versions&sid=${sid}`, (current, success) => {
             $('#redmatic-version').html('RedMatic Version ' + current.redmatic);
             $.get(`update_check.cgi?sid=${sid}`, (available, success) => {
                 available = $.trim(available);
-                if (available !== 'n/a' && current.redmatic !== available) {
+                // the latest GitHub release can be older than a prerelease running here
+                if (available !== 'n/a' && isNewer(available, current.redmatic)) {
                     $('#update-link').html(`<a href="https://github.com/rdmtc/RedMatic/releases/latest" target="_blank">Download Version ${available}</a>`);
                     $('#update-notify').show();
                 }

@@ -18,22 +18,28 @@ DOWNLOAD_AARCH64="https://github.com/rdmtc/RedMatic/releases/download/v$VERSION_
 cat >RELEASE_BODY.md <<EOL
 ### Downloads
 
-#### CCU3, piVCCU3 und OpenCCU/RaspberryMatic Varianten _rpi2_, _tinkerboard_ und _oci_arm_ (armv7l)
+#### CCU3 (Firmware ab 3.61.5), piVCCU3 und OpenCCU Varianten _rpi2_, _tinkerboard_ und _oci_arm_ (armv7l)
   [![Downloads redmatic-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD)
 EOL
 
 if [ -f $BUILD_DIR/dist/redmatic-aarch64-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
-#### OpenCCU/RaspberryMatic Varianten _rpi3_, _rpi4_ und _oci_arm64_ (aarch64)
+#### OpenCCU Varianten _rpi3_, _rpi4_, _rpi5_ und _oci_arm64_ (aarch64)
   [![Downloads redmatic-aarch64-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-aarch64-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_AARCH64)
 EOL
 fi
 
 if [ -f $BUILD_DIR/dist/redmatic-x86_64-$VERSION_ADDON.tar.gz ]; then
 cat >>RELEASE_BODY.md <<EOL
-#### OpenCCU/RaspberryMatic Varianten _ova_, _intelnuc_ und _oci_amd64_ (x86_64)
+#### OpenCCU Varianten _ova_, _intelnuc_ und _oci_amd64_ (x86_64)
   [![Downloads redmatic-x86_64-$VERSION_ADDON](https://img.shields.io/github/downloads/rdmtc/RedMatic/v$VERSION_ADDON/redmatic-x86_64-$VERSION_ADDON.tar.gz.svg)]($DOWNLOAD_X86_64)
 EOL
+fi
+
+# hand-written notes for the release (breaking changes, requirements)
+if [ -f $BUILD_DIR/docs/RELEASE_NOTES.md ]; then
+    echo "" >>RELEASE_BODY.md
+    cat $BUILD_DIR/docs/RELEASE_NOTES.md >>RELEASE_BODY.md
 fi
 
 cat >>RELEASE_BODY.md <<EOL
