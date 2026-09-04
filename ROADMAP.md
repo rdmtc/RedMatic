@@ -302,16 +302,33 @@ Node.js and Node-RED updates within the pinned majors.**
   RedMatic package stays the tested unit; the update banner from
   `update_check.cgi` is the user-facing path.
 
+**Versioning (decided 2026-09-04, maintainer):**
+
+- Automatic releases bump the **minor** (9.1.0, 9.2.0, ...). Every
+  automatic release checks for and includes the newest node-red-contrib-ccu
+  as well, next to the Node.js / Node-RED update that triggered it.
+- Manual bugfix releases in between bump the **patch** of the current minor
+  (like 9.0.1): "x.y.0 came from the workflow, x.y.z had a human".
+- A Node.js or Node-RED major switch bumps the RedMatic **major** (manual).
+
+Recommendation, not decided: let a node-red-contrib-ccu release on its own
+trigger an automatic minor too (builds are free and take a minute; the ccu
+nodes are what most users wait for; otherwise a ccu-nodes fix waits for
+the next Node.js/Node-RED release or a manual patch).
+
 Still to decide:
 
 - Automatic **draft** (maintainer promotes after a lab check) vs. fully
-  automatic publish. Suggested start: scheduled draft releases plus a CI
+  automatic publish. Note: scheduled workflows are free on public repos but
+  GitHub disables them after 60 days without commit activity, and pushes
+  made with GITHUB_TOKEN do not trigger other workflows, so the daily
+  workflow must run the build itself. Suggested start: scheduled draft releases plus a CI
   smoke test (the container test from HANDOFF.md) and a notification;
   promote by hand for a few cycles, then automate the publish if it stays
   boring. `update_check.cgi` only offers full releases, so drafts and
   prereleases never reach users.
-- Version scheme for automatic bumps (patch per bump), how the change list
-  is generated (module version table is already in the release body), and
-  where failures surface (a GitHub issue opened by the workflow).
+- How the change list is generated (the module version table is already in
+  the release body) and where failures surface (a GitHub issue opened by
+  the workflow).
 - Whether major Node-RED / Node.js majors stay manual (they need hardware
   tests and release notes).
