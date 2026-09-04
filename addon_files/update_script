@@ -133,4 +133,17 @@ if [ -f /usr/bin/monit ]; then
 fi
 
 sync
+
+#
+#   Start the service again after an update (exit code 0 = no reboot).
+#   The original CCU3 firmware installs addons during the reboot that follows
+#   the upload (/etc/init.d/S00InstallAddon runs this script in a chroot at
+#   boot); there the boot sequence starts the addon and nothing may be
+#   started from inside the chroot. OpenCCU runs this script live and does
+#   not reboot after an update.
+#
+if [ $EXITCODE -eq 0 ] && [ ! -f /etc/init.d/S00InstallAddon ]; then
+    $CONF_DIR/rc.d/redmatic start
+fi
+
 exit $EXITCODE
