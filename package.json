@@ -9,13 +9,13 @@
     "node": "24.20.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "0.0.0 - 5.15.4",
-    "bcryptjs": "0.0.0 - 2.4.3",
-    "bootstrap": "0.0.0 - 4.6.1",
-    "jquery": "0.0.0 - 3.6.0",
-    "node-red": "0.0.0 - 5.0.6",
-    "node-red-contrib-ccu": "0.0.0 - 4.0.0",
-    "npm": "0.0.0 - 11.19.1"
+    "@fortawesome/fontawesome-free": "5.15.4",
+    "bcryptjs": "2.4.3",
+    "bootstrap": "4.6.1",
+    "jquery": "3.6.0",
+    "node-red": "5.0.6",
+    "node-red-contrib-ccu": "4.0.0",
+    "npm": "11.19.1"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
   "license": "Apache-2.0",
