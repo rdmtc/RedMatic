@@ -108,15 +108,14 @@ bin/node lib/node_modules/node-red/red.js -s lib/settings.js'
    addon no longer patches lighttpd.conf or the backup CGI); also mention that formerly bundled extra nodes in `var` (dashboard,
    email, rbe, sun-position, combine, redmatic-led, redmatic-webapp)
    survive an update but are no longer maintained by the addon.
-4. Then the issue mass-close (task 5a) — comment + close obsolete
-   backlog (~166 issues), each signed
-   "Written by Claude Fable on behalf of hobbyquaker."
+4. (done) The issue mass-close happened after the alpha, see task 5a.
 
 ## Open items (see ROADMAP.md)
 
 - Task 8: final 9.0.0 release after alpha feedback (hardware
   verification and the alpha prereleases are done).
-- Task 5a: issue mass-close after release.
+- Task 5a: done 2026-09-04 (backlog closed/transferred, discussions
+  closed; only #226 open).
 - Task 7: wiki overhaul done 2026-09-04 (see ROADMAP); remaining are the
   sibling-repo readmes (out of scope here) and re-testing the
   "Erfolgreich getestete Nodes" list with RedMatic 9.

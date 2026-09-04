@@ -99,10 +99,16 @@ maintainer. 166 issues remain open.
 (redmaticVersions and the release-body scan handle scopes, the package
 manager no longer exists).
 
-Still open:
-
-- The mass-close of the obsolete backlog (after the 9.0.0 release; comment
-  + close, signed as written by Claude on behalf of the maintainer).
+Done 2026-09-04 (after the 9.0.0-alpha.1 prerelease, at the maintainer's
+request): the remaining 165 open issues were triaged and 151 closed with
+one of five short comments (removed component / old Node 14 stack /
+support question / ccu-nodes-or-HomeKit topic / done-documented), 13
+concrete reports were transferred to the sibling repos (7 to
+node-red-contrib-ccu, 6 device requests to RedMatic-HomeKit for the 4.0
+role mapping), and all 29 open discussions were answered and closed
+(RESOLVED/OUTDATED). Left open on purpose: #226 (English language for the
+settings UI). Everything signed "Written by Claude Fable on behalf of
+hobbyquaker."
 
 ## 7. Documentation overhaul
 
