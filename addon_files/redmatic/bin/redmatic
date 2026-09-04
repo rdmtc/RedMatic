@@ -123,6 +123,10 @@ Start () {
         EnsureIpv6LinkLocal
         echo -n "Starting Node-RED: "
         logger -t redmatic -p daemon.info "RedMatic v$VERSION_ADDON (c) Sebastian Raff https://github.com/rdmtc/RedMatic"
+        # Node-RED must not inherit a working directory that can vanish (the
+        # OpenCCU installer's temp dir): spawning npm from a deleted cwd fails
+        # and Node-RED disables the palette editor (#599)
+        cd /
         start-stop-daemon -S -q -b --exec $ADDON_DIR/bin/redmaticLoader
         echo "OK"
     fi

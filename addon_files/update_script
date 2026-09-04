@@ -143,6 +143,9 @@ sync
 #   not reboot after an update.
 #
 if [ $EXITCODE -eq 0 ] && [ ! -f /etc/init.d/S00InstallAddon ]; then
+    # never start from the installer's temp dir (OpenCCU deletes it afterwards,
+    # spawning npm from a deleted cwd fails: palette editor disabled, #599)
+    cd /
     $CONF_DIR/rc.d/redmatic start
 fi
 

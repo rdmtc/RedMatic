@@ -16,6 +16,10 @@ export NO_UPDATE_NOTIFIER=true
 # provides NODE_VERSION, VERSION_ADDON, RED_VERSION and (armv7l) ICU_DATA
 . $ADDON_DIR/versions
 
+# stable working directory for Node-RED and its child processes (npm), see
+# bin/redmatic (#599)
+cd /
+
 # prefer killing Node-RED over core CCU services (hmipserver etc.) under
 # memory pressure; inherited by the node child processes (#142)
 echo 800 > /proc/$$/oom_score_adj 2>/dev/null

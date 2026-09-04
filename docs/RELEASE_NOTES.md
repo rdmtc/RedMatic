@@ -1,5 +1,15 @@
 ### RedMatic 9.0.1
 
+- **Paletten-Manager fehlte nach einem Update auf OpenCCU** (#599): Nach
+  einer Installation über die WebUI startete Node-RED aus dem temporären
+  Installationsverzeichnis, das OpenCCU anschließend löscht. Node-RED konnte
+  dann kein `npm` mehr starten und blendete „Palette verwalten" aus (bis
+  zum nächsten Neustart). Node-RED startet jetzt immer aus einem festen
+  Verzeichnis. Betroffene Installationen: einmal RedMatic neu starten (oder
+  auf 9.0.1 aktualisieren).
+- **RedMatic-Einstellungsseite zeigte „stopped"** obwohl Node-RED lief
+  (#600): Die Prozessanzeige erwartete noch den Prozessnamen von Node.js 14.
+  Status, Speicher und Uptime werden wieder richtig angezeigt.
 - **IPv6 für Matter:** Auf der CCU3 mit Original-Firmware fehlt `eth0` nach
   dem Booten die IPv6 Link-Local-Adresse (`fe80::`). Matter-Controller
   erreichen eine Bridge nur über IPv6, deshalb legt RedMatic die Adresse

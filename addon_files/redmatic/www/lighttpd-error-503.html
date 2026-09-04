@@ -37,7 +37,7 @@
             let found = false;
             lines.forEach(line => {
                 let match;
-                match = line.match(/([0-9]+[a-z]?)\s+([0-9]+[a-z]?)\s+node-red\s+node-red/);
+                match = line.match(/([0-9.]+[a-z]?)\s+([0-9.]+[a-z]?)\s+node(?:-red)?\s+node-red/);
                 if (match) {
                     $status.html('<span class="status-running">Node-RED gestarted.</span>');
                     found = true;
@@ -47,7 +47,7 @@
                     }, 1000);
                     return;
                 }
-                match = line.match(/([0-9]+[a-z]?)\s+([0-9]+[a-z]?)\s+.*red.js/);
+                match = line.match(/([0-9.]+[a-z]?)\s+([0-9.]+[a-z]?)\s+.*red\.js/);
                 if (match) {
                     $status.html('<span class="status-starting">Node-RED startet...</span><br>Bitte warten, sie werden automatisch weitergeleitet.');
                     found = true;
