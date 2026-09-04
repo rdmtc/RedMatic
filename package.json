@@ -1,6 +1,6 @@
 {
   "name": "redmatic",
-  "version": "9.0.1",
+  "version": "9.1.0",
   "description": "Node-RED packaged as Homematic CCU addon",
   "repository": "github:rdmtc/redmatic",
   "private": true,
@@ -14,7 +14,7 @@
     "bootstrap": "4.6.1",
     "jquery": "3.6.0",
     "node-red": "5.0.6",
-    "node-red-contrib-ccu": "4.0.0",
+    "node-red-contrib-ccu": "4.2.0",
     "npm": "11.19.1"
   },
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
