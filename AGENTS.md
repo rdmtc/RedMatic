@@ -28,8 +28,13 @@ Travis config).
 - `build_packages.js` — carves optional nodes into separate tarballs + `pkg-repo.json`
 - `update_*.js`, `update.sh` — maintenance scripts (dependency bumps, README
   generation from the GitHub wiki, license generation)
-- CI: `.github/workflows/build.yml` (manual trigger, needs fixing);
-  `.travis.yml` is legacy/dead.
+- `update_versions.js` — bumps Node.js / npm / Node-RED / node-red-contrib-ccu
+  within their pinned majors (used by the auto-release workflow).
+- `test/e2e.sh` — end-to-end test of the built x86_64 package in a Debian
+  container (OpenCCU install path, palette install); needs docker.
+- CI: `.github/workflows/ci.yml` (lint, syntax, 3-arch build, e2e),
+  `build.yml` (manual release build), `auto-release.yml` (daily automatic
+  releases on upstream updates, ROADMAP task 10).
 
 ## Conventions & caveats
 
@@ -50,6 +55,6 @@ Travis config).
   toolchain). Anything installed there must work without building native code —
   that is the historical reason for the prebuilds and the sed patch forcing
   `--no-package-lock --global-style` on palette installs.
-- There are no tests and no linting yet (see ROADMAP task 3); CI only builds.
+- Tests: ESLint plus the container e2e test (`npm run test:e2e`, needs docker).
 - User-facing docs live in the GitHub wiki (rdmtc/RedMatic/wiki), primarily in
   German.

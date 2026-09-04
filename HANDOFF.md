@@ -98,6 +98,13 @@ bin/node lib/node_modules/node-red/red.js -s lib/settings.js'
 
 ## Release flow
 
+**Automatic (ROADMAP task 10, since 9.0.1):** `auto-release.yml` runs
+daily; when Node.js, npm, Node-RED or node-red-contrib-ccu have a newer
+release within their pinned majors it bumps the addon minor, builds, runs
+`test/e2e.sh`, pushes the bump and creates the release (draft unless the
+repository variable `AUTO_RELEASE_PUBLISH` is `true`). Major switches
+and bugfix patches stay manual:
+
 1. Set the final version in `package.json` (e.g. `9.0.0-beta.0` or
    `9.0.0`), run `node update_package.js`.
 2. Run the **build-release** workflow (workflow_dispatch) — it tags

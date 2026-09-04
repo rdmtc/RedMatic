@@ -38,29 +38,30 @@ status=1
 restarts=0
 limit=`$NODE -e "try { console.log(JSON.parse(require('fs').readFileSync('$ADDON_DIR/etc/settings.json', 'utf8')).restartOnCrash || 0) } catch (e) { console.log(0) }"`
 
-if [[ -z $limit ]]; then
-  limit = 0
+if [ -z "$limit" ]; then
+  limit=0
 fi
 
-while [[ $status != 0 ]]; do
+while [ "$status" != 0 ]; do
   echo $restarts > $ADDON_DIR/var/restart_count
-  if [[ $restarts -gt 0 ]]; then
+  if [ "$restarts" -gt 0 ]; then
     echo "Restarting Node-RED ($restarts/$limit)" | logger -p daemon.warn -t redmatic
   else
     echo "Starting Node-RED" | logger -p daemon.info -t redmatic
   fi
-  if [[ -f $ADDON_DIR/var/safe_mode ]]; then
+  if [ -f $ADDON_DIR/var/safe_mode ]; then
     SAFE="--safe"
     rm $ADDON_DIR/var/safe_mode
   fi
-  set -o pipefail
+  # pipefail: busybox ash and bash have it, dash (debmatic) does not
+  (set -o pipefail) 2>/dev/null && set -o pipefail
   $NODE $RED $SAFE -s $SETTINGS 2>&1 | logger -p daemon.err -t node-red
   status=$?
-  if [[ $status != 0 ]]; then
+  if [ "$status" != 0 ]; then
     echo "Node-RED exited with non-zero exit status $status" | logger -p daemon.err -t node-red
-    let "restarts=restarts+1"
-    if [[ $restarts -gt $limit ]]; then
-        if [[ $limit -gt 0 ]]; then
+    restarts=$((restarts + 1))
+    if [ "$restarts" -gt "$limit" ]; then
+        if [ "$limit" -gt 0 ]; then
             echo "Maximum Node-RED restarts exceeded" | logger -p daemon.err -t redmatic
         fi
         status=0

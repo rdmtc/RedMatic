@@ -63,3 +63,17 @@ jobs:
           name: redmatic-${{ matrix.arch }}
           path: dist/*
           retention-days: 14
+
+  e2e:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/download-artifact@v5
+        with:
+          name: redmatic-x86_64
+          path: dist
+
+      - name: End-to-end test (x86_64 package in a Debian container)
+        run: test/e2e.sh dist

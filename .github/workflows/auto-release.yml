@@ -1,0 +1,112 @@
+name: auto-release
+
+# Automatic releases (ROADMAP task 10): once a day, check whether a newer
+# release of Node.js, npm, Node-RED or node-red-contrib-ccu exists within the
+# pinned majors. If so: bump the layer files and the addon minor version,
+# build all three architectures, run the end-to-end test, commit, and create
+# the release. A major switch is never done here.
+#
+# Repository variable AUTO_RELEASE_PUBLISH=true publishes the release right
+# away (latest); otherwise it is created as a draft for the maintainer.
+# Note: GitHub disables scheduled workflows after 60 days without commits.
+
+on:
+  schedule:
+    - cron: '23 4 * * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Release even when nothing is new (still bumps the minor)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: auto-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # build_release_body.sh needs tags and history
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Check for new versions
+        id: check
+        run: node update_versions.js
+
+      - name: Nothing new
+        if: steps.check.outputs.updates != 'true' && inputs.force != true
+        run: echo "all bundled components are up to date, no release"
+
+      - name: Apply version bumps
+        if: steps.check.outputs.updates == 'true' || inputs.force == true
+        id: bump
+        run: |
+          node update_versions.js --apply --bump
+          echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+          git diff --stat
+
+      - name: Install patchelf
+        if: steps.bump.outcome == 'success'
+        run: sudo apt-get update && sudo apt-get install -y patchelf
+
+      - name: Build addon packages
+        if: steps.bump.outcome == 'success'
+        env:
+          GITHUB_OAUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./build.sh
+
+      - name: End-to-end test (x86_64 package)
+        if: steps.bump.outcome == 'success'
+        run: test/e2e.sh dist
+
+      - name: Commit and push the version bump
+        if: steps.bump.outcome == 'success'
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json addon_files/redmatic/lib/package.json addon_files/redmatic/var/package.json
+          git commit -m "${{ steps.bump.outputs.version }}: automatic release (${{ steps.check.outputs.summary || 'forced run' }})"
+          git push origin HEAD:master
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Create release
+        if: steps.commit.outcome == 'success'
+        uses: ncipollo/release-action@v1
+        with:
+          draft: ${{ vars.AUTO_RELEASE_PUBLISH != 'true' }}
+          prerelease: false
+          makeLatest: ${{ vars.AUTO_RELEASE_PUBLISH == 'true' }}
+          artifacts: dist/*
+          bodyFile: RELEASE_BODY.md
+          tag: "v${{ steps.bump.outputs.version }}"
+          commit: ${{ steps.commit.outputs.sha }}
+
+      - name: Open an issue when the run failed
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SUMMARY: ${{ steps.check.outputs.summary }}
+          VERSION: ${{ steps.bump.outputs.version }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          {
+            echo "The automatic release run failed: $RUN_URL"
+            echo ""
+            echo "Detected updates: ${SUMMARY:-none}"
+            echo "Target version: ${VERSION:-not bumped}"
+            echo ""
+            echo "Nothing was pushed or released unless the log says otherwise. Re-run the workflow after fixing the cause."
+          } > /tmp/issue.md
+          gh issue create --title "auto-release failed (${SUMMARY:-no updates detected})" --body-file /tmp/issue.md

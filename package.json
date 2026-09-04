@@ -25,9 +25,10 @@
     "build:aarch64": "./build_addon.sh aarch64",
     "build:x86_64": "./build_addon.sh x86_64",
     "outdated": "npm outdated --prefix addon_files/redmatic/lib; npm outdated --prefix addon_files/redmatic/var; npm outdated --prefix addon_files/redmatic/www; true",
-    "update:nodejs": "node update_nodejs.js",
     "update:package": "node update_package.js",
-    "update:readme": "node update_readme.js"
+    "update:readme": "node update_readme.js",
+    "update:versions": "node update_versions.js",
+    "test:e2e": "test/e2e.sh"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

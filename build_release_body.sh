@@ -36,6 +36,12 @@ cat >>RELEASE_BODY.md <<EOL
 EOL
 fi
 
+# automatic releases: what triggered this one (written by update_versions.js --apply)
+if [ -f $BUILD_DIR/RELEASE_SUMMARY.md ]; then
+    echo "" >>RELEASE_BODY.md
+    cat $BUILD_DIR/RELEASE_SUMMARY.md >>RELEASE_BODY.md
+fi
+
 # hand-written notes for the release (breaking changes, requirements)
 if [ -f $BUILD_DIR/docs/RELEASE_NOTES.md ]; then
     echo "" >>RELEASE_BODY.md

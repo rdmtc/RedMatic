@@ -311,15 +311,55 @@ Node.js and Node-RED updates within the pinned majors.**
   (like 9.0.1): "x.y.0 came from the workflow, x.y.z had a human".
 - A Node.js or Node-RED major switch bumps the RedMatic **major** (manual).
 
-Recommendation, not decided: let a node-red-contrib-ccu release on its own
-trigger an automatic minor too (builds are free and take a minute; the ccu
-nodes are what most users wait for; otherwise a ccu-nodes fix waits for
-the next Node.js/Node-RED release or a manual patch).
+**Decided 2026-09-04 (maintainer), second round:**
+
+- A node-red-contrib-ccu release on its own also triggers an automatic
+  minor.
+- The release body must say clearly that the release was made
+  automatically, with one or two sentences of explanation.
+- More end-to-end testing, e.g. install a node through the palette and
+  check that its node types appear.
+
+**Implemented 2026-09-04 (`9.1.0-dev`, first real run pending):**
+
+- `update_versions.js` (replaces `update_nodejs.js`): compares Node.js,
+  npm, Node-RED and node-red-contrib-ccu with the newest release of their
+  pinned majors; `--apply` writes the layer files, regenerates the root
+  package.json mirror and writes `RELEASE_SUMMARY.md` (the "automatic
+  release" paragraph that `build_release_body.sh` puts at the top of the
+  release body); `--bump` bumps the addon minor. Refuses prerelease
+  versions.
+- `test/e2e.sh` + `test/e2e-inner.sh`: the x86_64 package in a
+  debian:bookworm-slim container with busybox as /bin/sh (like the CCU),
+  installed exactly the way OpenCCU's `/bin/install_addon` does it, twice:
+  fresh (exit 10) and update (exit 0, service restarted from the deleted
+  temp dir - the #599 path). Checks: Node-RED answers, the process runs
+  with cwd /, palette editor enabled (`/settings`), no "Palette editor
+  disabled" in syslog, node-red-contrib-ccu loaded with its node types,
+  palette install + uninstall of `node-red-node-random` through the admin
+  API (module in `var/node_modules`, no package-lock), clean stop.
+  The rega login is switched off through `etc/settings-user.js`, the
+  telemetry host is blocked in /etc/hosts. Runs in `ci.yml` on every push
+  (job `e2e` on the x86_64 artifact), gates `build.yml` and the
+  auto-release. First finding: `bin/redmatic` used `source` and
+  `redmaticLoader` bash syntax under `#!/bin/sh` - fine on busybox ash,
+  fatal under dash (debmatic); both are POSIX now.
+- `.github/workflows/auto-release.yml`: daily at 04:23 UTC plus manual
+  dispatch (input `force`): check, bump, build, e2e, commit + push the
+  bump, create the release. Repository variable `AUTO_RELEASE_PUBLISH=true`
+  publishes as latest, otherwise a draft for the maintainer. A failed run
+  opens an issue.
+
+Still open: the first real run (`node-red-contrib-ccu` 4.1.0 is already
+newer than the bundled 4.0.0, so the next run creates 9.1.0), the decision
+on `AUTO_RELEASE_PUBLISH`, testing the armv7l/aarch64 packages under qemu
+in the same container harness, and an e2e check of the settings page
+(needs tclsh) and of a ccu-connection against hm-simulator.
 
 Still to decide:
 
 - Automatic **draft** (maintainer promotes after a lab check) vs. fully
-  automatic publish. Note: scheduled workflows are free on public repos but
+  automatic publish (`AUTO_RELEASE_PUBLISH`). Note: scheduled workflows are free on public repos but
   GitHub disables them after 60 days without commit activity, and pushes
   made with GITHUB_TOKEN do not trigger other workflows, so the daily
   workflow must run the build itself. Suggested start: scheduled draft releases plus a CI
@@ -330,5 +370,3 @@ Still to decide:
 - How the change list is generated (the module version table is already in
   the release body) and where failures surface (a GitHub issue opened by
   the workflow).
-- Whether major Node-RED / Node.js majors stay manual (they need hardware
-  tests and release notes).

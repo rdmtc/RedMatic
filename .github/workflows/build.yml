@@ -30,6 +30,9 @@ jobs:
           GITHUB_OAUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./build.sh
 
+      - name: End-to-end test (x86_64 package)
+        run: test/e2e.sh dist
+
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:

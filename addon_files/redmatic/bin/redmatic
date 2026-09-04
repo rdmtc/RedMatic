@@ -19,7 +19,7 @@ export GIT_EXEC_PATH=$ADDON_DIR/libexec/git-core
 export GIT_TEMPLATE_DIR=$ADDON_DIR/share/git-core/templates
 
 # provides NODE_VERSION, VERSION_ADDON, RED_VERSION and (armv7l) ICU_DATA
-source $ADDON_DIR/versions
+. $ADDON_DIR/versions
 
 Stop () {
     if [ -f /usr/bin/monit ]; then
@@ -169,7 +169,7 @@ case "$1" in
     ;;
 
     info)
-        source $ADDON_DIR/versions
+        . $ADDON_DIR/versions
         echo "Info: <div><a target=\"_blank\" href=\"https://github.com/rdmtc/RedMatic\"><img src=\"/addons/redmatic/redmatic5-wide.png\" height=\"48\"/></a></div>"
         echo "Name: RedMatic"
         echo "Version: $VERSION_ADDON"
