@@ -10,10 +10,6 @@ SETTINGS=$ADDON_DIR/lib/settings.js
 RED_DIR=$ADDON_DIR/lib/node_modules/node-red
 RED=$RED_DIR/red.js
 
-LIGHTTPD_CONF=/etc/lighttpd/lighttpd.conf
-LIGHTTPD_SSL_CONF=/etc/lighttpd/lighttpd_ssl.conf
-BACKUP_CGI=/www/config/cp_security.cgi
-
 # No LD_LIBRARY_PATH here: the bundled binaries find their (musl) libraries
 # via their patched RPATH; exposing $ADDON_DIR/lib globally could poison
 # glibc firmware binaries with same-named musl libraries.
@@ -68,42 +64,6 @@ Start () {
             touch $ADDON_DIR/$dir/.nobackup
         fi
     done
-
-    if ! grep -Fq "/etc/config/lighttpd/" $LIGHTTPD_CONF
-    then
-      echo "patching $LIGHTTPD_CONF"
-      mount -o remount,rw /
-      cp $LIGHTTPD_CONF $LIGHTTPD_CONF.orig
-      echo "include_shell \"test -d /etc/config/lighttpd && cat /etc/config/lighttpd/*.conf\"" >> $LIGHTTPD_CONF
-      mount -o remount,ro /
-      /etc/init.d/S50lighttpd restart
-    fi
-
-    if [ -f $LIGHTTPD_SSL_CONF ]
-    then
-        if ! grep -Fq "/etc/config/lighttpd/" $LIGHTTPD_SSL_CONF
-        then
-          echo "patching $LIGHTTPD_SSL_CONF"
-          mount -o remount,rw /
-          cp $LIGHTTPD_SSL_CONF $LIGHTTPD_SSL_CONF.orig
-          echo "include_shell \"test -d /etc/config/lighttpd && cat /etc/config/lighttpd/*.conf\"" >> $LIGHTTPD_SSL_CONF
-          mount -o remount,ro /
-          /etc/init.d/S50lighttpd restart
-        fi
-    fi
-
-    # Only the original CCU firmware creates the backup inside cp_security.cgi
-    # with a plain tar call; OpenCCU/RaspberryMatic honor .nobackup natively
-    # (createBackup.sh uses --exclude-tag), so there is nothing to patch there.
-    if grep -Fq "exec tar czf /tmp/usr_local.tar.gz usr/local" $BACKUP_CGI 2>/dev/null
-    then
-        echo "patching $BACKUP_CGI"
-        mount -o remount,rw /
-        cp $BACKUP_CGI $BACKUP_CGI.orig
-        sed "s/exec tar czf \/tmp\/usr_local.tar.gz usr\/local/exec tar --exclude-tag=.nobackup -czf \/tmp\/usr_local.tar.gz usr\/local/" $BACKUP_CGI > $BACKUP_CGI.tmp && mv $BACKUP_CGI.tmp $BACKUP_CGI
-        chmod 755 $BACKUP_CGI
-        mount -o remount,ro /
-    fi
 
     if [ ! -f /etc/config/rdmtc.uuid ]; then
         /usr/bin/uuidgen > /etc/config/rdmtc.uuid
@@ -197,18 +157,6 @@ case "$1" in
                 /usr/bin/monit reload
             fi
         fi
-
-        mount -o remount,rw /
-        if [ -f $LIGHTTPD_CONF.orig ]; then
-            mv $LIGHTTPD_CONF.orig $LIGHTTPD_CONF
-        fi
-        if [ -f $LIGHTTPD_SSL_CONF.orig ]; then
-            mv $LIGHTTPD_SSL_CONF.orig $LIGHTTPD_SSL_CONF
-        fi
-        if [ -f $BACKUP_CGI.orig ]; then
-            mv $BACKUP_CGI.orig $BACKUP_CGI
-        fi
-        mount -o remount,ro /
 
         logger -t redmatic -p daemon.info "Uninstalled RedMatic"
     ;;

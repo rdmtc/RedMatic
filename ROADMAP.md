@@ -184,13 +184,19 @@ The implementation is on `master`; before anything is tagged or released:
   all after an update — they keep working (rbe just warns "already
   registered" because it is core now) but are no longer maintained by
   the addon; users have to update/remove them via the palette manager.
-- Note: the CCU3 firmware (product ≥ 3) creates backups with
-  `--exclude-tag=.nobackup` natively and lighttpd.conf already includes
-  `/etc/config/lighttpd/*.conf` — both runtime patches in `bin/redmatic`
-  are now dead code on every supported platform (guarded, harmless; a
-  7.2.1 install still left a `cp_security.cgi.orig` behind that the
-  uninstall restores). monit does not exist on the CCU3 firmware; all
-  monit handling is OpenCCU-only.
+- ✅ **CCU runtime patches dropped** (dev.14): `bin/redmatic` no longer
+  edits firmware files. The lighttpd `/etc/config/lighttpd/*.conf`
+  include is native on current CCU3 firmware and OpenCCU, and backups
+  honor `.nobackup` natively since CCU3 firmware **3.61.5** (verified in
+  `eq-3/occu`: `backup.tcl` uses `--exclude-tag` from 3.61.5 on; the
+  first firmware with the lighttpd include could not be determined from
+  the public sources — the occu copy of lighttpd.conf is a stale
+  template). The `.orig` restores in `uninstall` went with it: older
+  RedMatic versions may leave a byte-identical `cp_security.cgi.orig`
+  on the read-only rootfs, which is harmless and vanishes with the next
+  firmware update. **Release notes: state CCU3 firmware ≥ 3.61.5 (or
+  current OpenCCU) as a requirement.** monit does not exist on the CCU3
+  firmware; all monit handling is OpenCCU-only.
 - Release notes must prominently state the breaking changes: unbundled
   nodes, removed package manager/WebApp, native-module limitation,
   Node-RED 2 → 5 flow compatibility.

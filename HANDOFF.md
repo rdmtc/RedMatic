@@ -7,7 +7,7 @@ Written by Claude Fable on behalf of hobbyquaker at the end of the
 
 ## Where things stand
 
-`master` is at **9.0.0-dev.13**. **No tags, no releases yet.**
+`master` is at **9.0.0-dev.14**. **No tags, no releases yet.**
 
 **Hardware verification (roadmap task 8) is complete on both target
 platforms**:
@@ -25,10 +25,8 @@ platforms**:
   (Zusatzsoftware). It runs the same `update_script`, followed by the
   firmware's reboot — worth one click before the release.
 
-Both lab systems are left with a running fresh install of the dev.13
-`update_script` state (built as dev.12 before the bump; contents are
-identical apart from the version string). Lab addresses and credentials
-are intentionally **not** in this file.
+Both lab systems are left with a running dev.14 install. Lab addresses
+and credentials are intentionally **not** in this file.
 
 The whole stack is modernized and implemented:
 
@@ -102,7 +100,8 @@ bin/node lib/node_modules/node-red/red.js -s lib/settings.js'
    `v<version>`, creates a **draft prerelease** with tarballs + SBOMs +
    RELEASE_BODY.md and pushes the wiki change history.
 4. Release notes: breaking changes are pre-listed in roadmap task 8;
-   also mention that formerly bundled extra nodes in `var` (dashboard,
+   state CCU3 firmware ≥ 3.61.5 / current OpenCCU as requirement (the
+   addon no longer patches lighttpd.conf or the backup CGI); also mention that formerly bundled extra nodes in `var` (dashboard,
    email, rbe, sun-position, combine, redmatic-led, redmatic-webapp)
    survive an update but are no longer maintained by the addon.
 5. Then the issue mass-close (task 5a) — comment + close obsolete
@@ -116,9 +115,6 @@ bin/node lib/node_modules/node-red/red.js -s lib/settings.js'
 - Task 7: wiki deep pages (Node-Installation, Homekit, ZigBee,
   package-manager mentions in FAQ/Installation etc.) still describe the
   old world; Intro/Home are done. RedMatic-WebApp repo is archived.
-- Possible cleanup: the lighttpd.conf / cp_security.cgi runtime patches
-  in `bin/redmatic` are dead code on all supported firmware (both are
-  native there now) — keep or drop, maintainer's call.
 
 ## Conventions in this repo (important)
 
