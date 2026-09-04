@@ -12,6 +12,16 @@
   auf OpenCCU unter einer Minute. Der manuelle Weg über die
   Zusatzsoftware-Seite bleibt bestehen. Wie immer gilt: vorher CCU-Backup
   und Flow-Export.
+- **Editor blieb zufällig bei „Lade Plugins" / „Lade Node Kataloge" hängen**
+  (401 in der Browser-Konsole): Node-RED fragt bei jedem Zugriff auf die
+  Admin-API den Benutzer zum Token ab, und RedMatic hat dafür jedes Mal ein
+  Skript an die ReGaHSS geschickt. Beim Laden des Editors laufen Dutzende
+  Anfragen parallel, die ReGa arbeitet Skripte aber nacheinander ab – ein
+  Teil der Anfragen scheiterte. Der Benutzer wird jetzt 15 Minuten
+  zwischengespeichert, gleichzeitige Abfragen teilen sich einen Aufruf, und
+  wenn die ReGa gerade nicht antwortet, bleibt ein bekannter Benutzer
+  eingeloggt. Das Passwort wird beim Login unverändert gegen die CCU
+  geprüft.
 
 ### RedMatic 9.0.1
 
