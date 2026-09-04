@@ -184,6 +184,18 @@ The implementation is on `master`; before anything is tagged or released:
   all after an update — they keep working (rbe just warns "already
   registered" because it is core now) but are no longer maintained by
   the addon; users have to update/remove them via the palette manager.
+- ✅ **aarch64/OpenCCU hardware test** (2026-09-04, OpenCCU 3.89.8 rpi4
+  on a Raspberry Pi 4, no radio module): the 9.0.0-alpha.0 package from
+  the release workflow — node 24.20 / npm 11.19 / musl git 2.55 with an
+  empty `LD_LIBRARY_PATH`, editor via lighttpd, rega login (200/403),
+  palette install in 2.3 s, syslog, monit limit from RAM, oom_score_adj.
+- ✅ **WebUI installs** (2026-09-04, alpha.0 assets): fresh install on the
+  CCU3 through Zusatzsoftware (upload → reboot → `S00InstallAddon` runs
+  `update_script` in a chroot → addon started by the boot sequence) and
+  an update on OpenCCU x86_64 (runs `update_script` live, no reboot).
+  The latter found a real bug: after an update nothing started Node-RED
+  again (OpenCCU only reboots on exit code 10) — `update_script` now
+  starts the service itself unless the firmware installs at boot.
 - ✅ **CCU runtime patches dropped** (dev.14): `bin/redmatic` no longer
   edits firmware files. The lighttpd `/etc/config/lighttpd/*.conf`
   include is native on current CCU3 firmware and OpenCCU, and backups

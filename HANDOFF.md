@@ -7,9 +7,11 @@ Written by Claude Fable on behalf of hobbyquaker at the end of the
 
 ## Where things stand
 
-`master` is at **9.0.0-dev.14**. **No tags, no releases yet.**
+`master` is at **9.0.0-alpha.0** (first pre-release built by the
+`build-release` workflow on 2026-09-04; see ROADMAP task 8 for the state
+of that draft).
 
-**Hardware verification (roadmap task 8) is complete on both target
+**Hardware verification (roadmap task 8) is complete on all three target
 platforms**:
 
 - x86_64 / OpenCCU 3.89.8 (2026-09-02) — full checklist, details in
@@ -21,11 +23,15 @@ platforms**:
   through node-red-contrib-ccu**, and the **update path from the last
   public release 7.2.1** (lib wipe, stale-tool cleanup, `logging.ain →
   syslog`, var merge). Findings were fixed in dev.13 (see ROADMAP).
-- Not exercised anywhere: installing through the CCU WebUI upload
-  (Zusatzsoftware). It runs the same `update_script`, followed by the
-  firmware's reboot — worth one click before the release.
+- aarch64 / OpenCCU 3.89.8 on a Raspberry Pi 4 (2026-09-04) — checklist
+  with the alpha.0 package (no radio module on that box, so only rega,
+  no device interfaces).
+- WebUI installs done on the CCU3 (fresh, boot-time chroot install) and
+  OpenCCU (live update) — the latter exposed the missing service start
+  after updates, fixed in `update_script`.
 
-Both lab systems are left with a running dev.14 install. Lab addresses
+All three lab systems are left with a running 9.0.0-alpha.0 install
+(with the fixed update_script applied). Lab addresses
 and credentials are intentionally **not** in this file.
 
 The whole stack is modernized and implemented:
@@ -93,18 +99,17 @@ bin/node lib/node_modules/node-red/red.js -s lib/settings.js'
 
 ## Release flow
 
-1. Optionally do the one WebUI-upload install mentioned above.
-2. Set the final version in `package.json` (e.g. `9.0.0-beta.0` or
+1. Set the final version in `package.json` (e.g. `9.0.0-beta.0` or
    `9.0.0`), run `node update_package.js`.
-3. Run the **build-release** workflow (workflow_dispatch) — it tags
+2. Run the **build-release** workflow (workflow_dispatch) — it tags
    `v<version>`, creates a **draft prerelease** with tarballs + SBOMs +
    RELEASE_BODY.md and pushes the wiki change history.
-4. Release notes: breaking changes are pre-listed in roadmap task 8;
+3. Release notes: breaking changes are pre-listed in roadmap task 8;
    state CCU3 firmware ≥ 3.61.5 / current OpenCCU as requirement (the
    addon no longer patches lighttpd.conf or the backup CGI); also mention that formerly bundled extra nodes in `var` (dashboard,
    email, rbe, sun-position, combine, redmatic-led, redmatic-webapp)
    survive an update but are no longer maintained by the addon.
-5. Then the issue mass-close (task 5a) — comment + close obsolete
+4. Then the issue mass-close (task 5a) — comment + close obsolete
    backlog (~166 issues), each signed
    "Written by Claude Fable on behalf of hobbyquaker."
 
