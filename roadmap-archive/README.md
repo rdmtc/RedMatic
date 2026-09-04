@@ -25,3 +25,6 @@ index (marked ✅ there, linking here).
   (`9.0.0-dev.4`, zero source patching, npmrc instead).
 - [task-6.md](task-6.md) — GitHub Actions instead of Travis ✅
   2026-09-02 (`9.0.0-dev.6`, ci.yml + build.yml, Travis deleted).
+- [task-9.md](task-9.md) — IPv6 link-local address for Matter on the
+  CCU3 ✅ 2026-09-04 (`9.0.1-dev.0`, `bin/redmatic` creates fe80:: on eth0
+  at start, verified on CCU3 firmware 3.89.8).

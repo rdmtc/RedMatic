@@ -1,3 +1,13 @@
+### RedMatic 9.0.1
+
+- **IPv6 für Matter:** Auf der CCU3 mit Original-Firmware fehlt `eth0` nach
+  dem Booten die IPv6 Link-Local-Adresse (`fe80::`). Matter-Controller
+  erreichen eine Bridge nur über IPv6, deshalb legt RedMatic die Adresse
+  jetzt beim Start an, falls sie fehlt (dauert etwa zwei Sekunden), und
+  schreibt eine Zeile ins Log. Auf OpenCCU ist die Adresse bereits vorhanden,
+  dort ändert sich nichts. Voraussetzung für
+  [RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter).
+
 ### RedMatic 9
 
 RedMatic 9 ist eine grundlegend verschlankte und modernisierte Version.

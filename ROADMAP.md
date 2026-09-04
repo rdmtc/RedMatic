@@ -13,6 +13,8 @@ Status 2026-09-04: **RedMatic 9.0.0 is released** (Node 24, Node-RED
 5.0.6, npm 11, node-red-contrib-ccu 4.0.0, zero native modules, zero
 Node-RED patching, GitHub Actions CI). The wiki is overhauled and the
 issue backlog closed; what remains is feedback-driven follow-up work.
+`9.0.1-dev.0` (2026-09-04): IPv6 link-local fix for Matter on the CCU3
+(task 9, verified on hardware).
 
 ## Contents
 
@@ -27,7 +29,7 @@ issue backlog closed; what remains is feedback-driven follow-up work.
 - 6. GitHub Actions instead of Travis ✅ [archived](roadmap-archive/task-6.md)
 - [7. Documentation overhaul](#7-documentation-overhaul)
 - [8. Verify and release 9.0.0](#8-verify-and-release-900)
-- [9. IPv6 link-local address for Matter on the CCU3](#9-ipv6-link-local-address-for-matter-on-the-ccu3)
+- 9. IPv6 link-local address for Matter on the CCU3 ✅ [archived](roadmap-archive/task-9.md)
 
 ## 3. Modernize tooling
 
@@ -238,29 +240,3 @@ The implementation is on `master`; before anything is tagged or released:
   nodes, removed package manager/WebApp, native-module limitation,
   Node-RED 2 → 5 flow compatibility.
 - Then: mass-close of the obsolete issue backlog (see task 5a).
-
-## 9. IPv6 link-local address for Matter on the CCU3
-
-Filed 2026-09-04 from the RedMatic-Matter roadmap (its task 13 / D-14,
-decided by the maintainer 2026-09-02): the CCU3 with the original eQ-3
-firmware has **no IPv6 link-local address on `eth0` after boot** (kernel
-bring-up order of the USB NIC; hm2matter M-13 found it and verified the
-fix on hardware 2026-08-31). Matter controllers reach a bridge over IPv6
-only, so `redmatic-matter` shows a red "no IPv6 address on eth0" status on
-such a box; the node deliberately only checks and reports, the platform
-fixes it.
-
-- In `bin/redmatic` (start): if `eth0` has no `fe80::` address, write
-  `/proc/sys/net/ipv6/conf/eth0/disable_ipv6` 1 → 0 and wait for
-  duplicate address detection to finish (a second or two) before Node-RED
-  starts. Harmless when the address already exists (OpenCCU, or a CCU3
-  after the fix).
-- Log one line either way so a support request shows it.
-- Verify on the CCU3 lab box (original firmware) with `ip -6 addr show
-  dev eth0` after a reboot, and that `redmatic-matter`'s bridge node goes
-  from the red status to "pairing code …".
-- Mention in the wiki (Matter page, once it exists) that Matter needs IPv6
-  on the LAN and a controller on the same segment.
-
-Not a 9.0.0 blocker; needed before the first Matter hardware test on a
-CCU3 with the official firmware (RedMatic-Matter task 15).

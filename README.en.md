@@ -78,7 +78,8 @@ author that understand RedMatic's discovery data out of the box:
 * [she](https://github.com/hobbyquaker/she) - smart home engine: automations as plain
   JavaScript scripts with MQTT, a built-in Matter controller, scheduler and a web IDE
   with AI assistant. For those who prefer writing logic in code rather than flows, or
-  need a central engine for several CCUs.
+  are looking for a central engine beyond the usual suspects (e.g. Home Assistant or
+  ioBroker) 😉
 
 ## Automating with Node-RED
 
@@ -98,6 +99,8 @@ programs/scripts.
 _RedMatic_ is suitable for the **CCU3** (and piVCCU3) with firmware 3.61.5 or newer and for current **OpenCCU** on the architectures armv7l (e.g. Raspberry Pi 2), aarch64 (e.g. Raspberry Pi 3/4/5) and x86_64 (e.g. _ova_, _intelnuc_, containers).
 
 On the CCU1, CCU2 and on armv6l systems (Raspberry Pi 1/Zero) _RedMatic_ can not be used.
+
+For **Matter** ([RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter)) IPv6 must be enabled on the LAN (a link-local address is enough; RedMatic creates it on the CCU3 at start if it is missing), and the Matter controller (Apple TV/HomePod, Echo, Nest Hub, Home Assistant) must be on the same network segment as the CCU.
 
 A modern browser is required to use the web interfaces, Internet Explorer is not supported.
 

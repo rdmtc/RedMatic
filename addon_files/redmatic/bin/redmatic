@@ -52,6 +52,40 @@ Stop () {
     fi
 }
 
+# Matter controllers reach a bridge over IPv6 only. On the CCU3 with the
+# original firmware eth0 (USB NIC) comes up before IPv6 is ready, so the
+# link-local address (fe80::) is missing after boot (ROADMAP task 9).
+# Re-enabling IPv6 on the interface creates it; duplicate address
+# detection takes about two seconds. Harmless when the address exists.
+EnsureIpv6LinkLocal () {
+    IFACE=eth0
+    IPV6_DISABLE=/proc/sys/net/ipv6/conf/$IFACE/disable_ipv6
+    if [ ! -f $IPV6_DISABLE ]; then
+        logger -t redmatic -p daemon.info "IPv6: no $IFACE or no IPv6 support, link-local check skipped"
+        return
+    fi
+    if [ "`cat $IPV6_DISABLE`" = "1" ]; then
+        logger -t redmatic -p daemon.info "IPv6 is disabled on $IFACE, leaving it alone (Matter needs IPv6)"
+        return
+    fi
+    if ip -6 addr show dev $IFACE 2>/dev/null | grep -q "inet6 fe80:"; then
+        logger -t redmatic -p daemon.info "IPv6 link-local address on $IFACE present"
+        return
+    fi
+    echo 1 > $IPV6_DISABLE 2>/dev/null
+    echo 0 > $IPV6_DISABLE 2>/dev/null
+    i=0
+    while [ $i -lt 10 ]; do
+        if ip -6 addr show dev $IFACE 2>/dev/null | grep "inet6 fe80:" | grep -qv tentative; then
+            logger -t redmatic -p daemon.info "IPv6 link-local address on $IFACE created (DAD took ${i}s)"
+            return
+        fi
+        sleep 1
+        i=$((i + 1))
+    done
+    logger -t redmatic -p daemon.warn "IPv6 link-local address on $IFACE still missing after re-enabling IPv6"
+}
+
 Start () {
     CCU_BACKUP=`$NODE -e "try { console.log(JSON.parse(require('fs').readFileSync('$ADDON_DIR/etc/settings.json', 'utf8')).ccuBackup || '') } catch (e) { console.log('') }"`
     for dir in bin include lib share tmp www; do
@@ -86,6 +120,7 @@ Start () {
               echo "Starting Node-RED ... waiting 30 seconds..."
               sleep 30
         fi
+        EnsureIpv6LinkLocal
         echo -n "Starting Node-RED: "
         logger -t redmatic -p daemon.info "RedMatic v$VERSION_ADDON (c) Sebastian Raff https://github.com/rdmtc/RedMatic"
         start-stop-daemon -S -q -b --exec $ADDON_DIR/bin/redmaticLoader
