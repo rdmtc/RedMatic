@@ -196,6 +196,12 @@ The implementation is on `master`; before anything is tagged or released:
   The latter found a real bug: after an update nothing started Node-RED
   again (OpenCCU only reboots on exit code 10) — `update_script` now
   starts the service itself unless the firmware installs at boot.
+- ✅ **9.0.0-alpha.0 and 9.0.0-alpha.1 published** as GitHub prereleases
+  on 2026-09-04 (alpha.0 carries a note pointing at alpha.1 because of
+  the OpenCCU update bug above). `releases/latest` still resolves to
+  v7.2.1, so the on-CCU update check does not offer the alphas to 7.x
+  installs. Still to do for 9.0.0: collect tester feedback, then the
+  final release and the issue mass-close (task 5a).
 - ✅ **CCU runtime patches dropped** (dev.14): `bin/redmatic` no longer
   edits firmware files. The lighttpd `/etc/config/lighttpd/*.conf`
   include is native on current CCU3 firmware and OpenCCU, and backups

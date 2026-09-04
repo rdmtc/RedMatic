@@ -7,9 +7,8 @@ Written by Claude Fable on behalf of hobbyquaker at the end of the
 
 ## Where things stand
 
-`master` is at **9.0.0-alpha.1** (alpha.0 = first pre-release built by the
-`build-release` workflow on 2026-09-04; see ROADMAP task 8 for the state
-of that draft).
+`master` is at **9.0.0-alpha.1**. **9.0.0-alpha.0 and alpha.1 are
+published as GitHub prereleases** (2026-09-04); no final 9.0.0 yet.
 
 **Hardware verification (roadmap task 8) is complete on all three target
 platforms**:
@@ -115,7 +114,8 @@ bin/node lib/node_modules/node-red/red.js -s lib/settings.js'
 
 ## Open items (see ROADMAP.md)
 
-- Task 8: release (hardware verification done).
+- Task 8: final 9.0.0 release after alpha feedback (hardware
+  verification and the alpha prereleases are done).
 - Task 5a: issue mass-close after release.
 - Task 7: wiki deep pages (Node-Installation, Homekit, ZigBee,
   package-manager mentions in FAQ/Installation etc.) still describe the
