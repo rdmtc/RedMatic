@@ -13,10 +13,10 @@
 [Homematic CCU3](https://www.homematic-ip.com/en/products/detail/smart-home-central-control-unit-ccu3.html) and
 [OpenCCU](https://github.com/jens-maus/OpenCCU)**
 
-> **⚠️ RedMatic 9:** RedMatic is being radically slimmed down and
+> **⚠️ RedMatic 9:** RedMatic has been radically slimmed down and
 > modernized (Node.js 24, Node-RED 5). As of version 9 only
 > [node-red-contrib-ccu](https://github.com/rdmtc/node-red-contrib-ccu)
-> comes preinstalled — any additional nodes (e.g. dashboard, HomeKit)
+> comes preinstalled — any additional nodes (e.g. dashboard, HomeKit, Matter)
 > are installed on demand via the Node-RED palette manager.
 > The RedMatic package manager and the RedMatic-WebApp are deprecated
 > and removed without replacement.
@@ -39,10 +39,48 @@ The basis is formed by [Node-RED](https://nodered.org/about/) with the
 [Wiki](https://github.com/rdmtc/RedMatic/wiki) you can find more information about Node-RED and some
 application examples (so-called _Flows_).
 
-As of **RedMatic 9** the addon is deliberately lean: only the CCU nodes come preinstalled. Any additional nodes — e.g. the [Node-RED Dashboard](https://flows.nodered.org/node/@flowfuse/node-red-dashboard) for visualization and control — are [installed](https://github.com/rdmtc/RedMatic/wiki/Node-Installation) on demand via the Node-RED palette manager. The former _RedMatic WebApp_ and the RedMatic package manager are deprecated and no longer included. **Known and accepted limitation:** nodes with binary (native) dependencies can not be installed on the CCU — there is no compiler toolchain on the CCU, and precompiled binaries are no longer shipped.
+## RedMatic as a bridge from the CCU to MQTT, Home Assistant, Matter and HomeKit
 
-A connection of the CCU to a [MQTT](https://github.com/rdmtc/RedMatic/wiki/Flow-MQTT) broker with conveniently
-configurable topic and payload structure is simplified by a special node.
+_RedMatic_ is a good way to connect a Homematic CCU to other systems - right on
+the CCU, without an additional server:
+
+* **MQTT** - the [ccu-mqtt](https://github.com/rdmtc/node-red-contrib-ccu#mqtt) node
+  publishes all datapoints with a freely configurable topic and payload structure
+  and accepts commands.
+* **Home Assistant** - the [ccu-homeassistant](https://github.com/rdmtc/node-red-contrib-ccu#home-assistant)
+  node adds MQTT auto-discovery on top of ccu-mqtt: selected devices show up as
+  entities in Home Assistant automatically. _(in preparation, node-red-contrib-ccu 4.2.0)_
+* **Matter** - [RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter) exposes Homematic
+  devices as a Matter bridge, usable with Apple Home, Amazon Alexa, Google Home and
+  Home Assistant. _(in preparation, release coming soon)_
+* **HomeKit** - [RedMatic-HomeKit](https://github.com/rdmtc/RedMatic-HomeKit) exposes Homematic
+  devices as HomeKit accessories.
+
+All bridges share a single `ccu-connection`; devices are exposed opt-in by ticking
+them in the editor. Matter and HomeKit are installed via the Node-RED palette manager,
+MQTT and Home Assistant ship with the preinstalled CCU nodes.
+
+**Why on the CCU rather than with an external bridge project?** There are good
+alternatives such as CCU-Jack, openccu-loom or matterbridge-homematic. The CCU's
+interface processes (rfd, hs485d, HmIPServer) are, however, sensitive to many
+concurrent RPC event subscribers and to network hiccups. RedMatic funnels all bridges
+through a single subscriber per interface, talks the more efficient BIN-RPC instead of
+XML-RPC to rfd and hs485d, and keeps all RPC traffic on the CCU's loopback interface -
+network dropouts never reach the CCU processes at all.
+
+**What can sit on the other side of the MQTT bridge** - two projects by the RedMatic
+author that understand RedMatic's discovery data out of the box:
+
+* [feezal](https://github.com/feezal/feezal) - build MQTT dashboards and apps visually
+  in the browser (WYSIWYG editor, Web Components, PWA, export as a static page or
+  Android/iOS app). Detects the devices RedMatic announces via auto-discovery and wires
+  them up with one click - a modern replacement for the removed RedMatic-WebApp.
+* [she](https://github.com/hobbyquaker/she) - smart home engine: automations as plain
+  JavaScript scripts with MQTT, a built-in Matter controller, scheduler and a web IDE
+  with AI assistant. For those who prefer writing logic in code rather than flows, or
+  need a central engine for several CCUs.
+
+## Automating with Node-RED
 
 In addition, a large and active community around Node-RED created a
 [library of thousands of additional nodes](https://flows.nodered.org/?type=node&num_pages=1) which

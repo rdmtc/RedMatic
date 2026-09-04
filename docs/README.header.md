@@ -17,10 +17,10 @@
 ### [🚀&nbsp;Schnellstart](#voraussetzungen)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;[📚&nbsp;Dokumentation](https://github.com/rdmtc/RedMatic/wiki)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;[📦&nbsp;Download](https://github.com/rdmtc/RedMatic/releases/latest)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;[🚑&nbsp;Support](#support-mitarbeit)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;[👮&nbsp;Lizenzen](#lizenzen)
 ___
 
-> **⚠️ RedMatic 9:** RedMatic wird radikal verschlankt und modernisiert
+> **⚠️ RedMatic 9:** RedMatic wurde radikal verschlankt und modernisiert
 > (Node.js 24, Node-RED 5). Ab Version 9 ist nur noch
 > [node-red-contrib-ccu](https://github.com/rdmtc/node-red-contrib-ccu)
-> vorinstalliert — alle weiteren Nodes (z.&nbsp;B. Dashboard, HomeKit)
+> vorinstalliert — alle weiteren Nodes (z.&nbsp;B. Dashboard, HomeKit, Matter)
 > werden bei Bedarf über den Node-RED Paletten-Manager installiert.
 > Der RedMatic-Paketmanager und die RedMatic-WebApp sind deprecated und
 > entfallen ersatzlos.
@@ -35,5 +35,4 @@ ___
 > von RedMatic 7/8 unbedingt ein CCU-Backup anlegen - das Backup liegt in
 > der Verantwortung des Anwenders, ein Weg zurück führt nur darüber.**
 > Bitte die [Release-Hinweise](https://github.com/rdmtc/RedMatic/wiki/RedMatic-9-Migration) lesen.
-
 

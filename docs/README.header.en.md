@@ -13,10 +13,10 @@
 [Homematic CCU3](https://www.homematic-ip.com/en/products/detail/smart-home-central-control-unit-ccu3.html) and
 [OpenCCU](https://github.com/jens-maus/OpenCCU)**
 
-> **⚠️ RedMatic 9:** RedMatic is being radically slimmed down and
+> **⚠️ RedMatic 9:** RedMatic has been radically slimmed down and
 > modernized (Node.js 24, Node-RED 5). As of version 9 only
 > [node-red-contrib-ccu](https://github.com/rdmtc/node-red-contrib-ccu)
-> comes preinstalled — any additional nodes (e.g. dashboard, HomeKit)
+> comes preinstalled — any additional nodes (e.g. dashboard, HomeKit, Matter)
 > are installed on demand via the Node-RED palette manager.
 > The RedMatic package manager and the RedMatic-WebApp are deprecated
 > and removed without replacement.

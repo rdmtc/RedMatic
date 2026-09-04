@@ -17,10 +17,10 @@
 ### [🚀&nbsp;Schnellstart](#voraussetzungen)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;[📚&nbsp;Dokumentation](https://github.com/rdmtc/RedMatic/wiki)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;[📦&nbsp;Download](https://github.com/rdmtc/RedMatic/releases/latest)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;[🚑&nbsp;Support](#support-mitarbeit)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;[👮&nbsp;Lizenzen](#lizenzen)
 ___
 
-> **⚠️ RedMatic 9:** RedMatic wird radikal verschlankt und modernisiert
+> **⚠️ RedMatic 9:** RedMatic wurde radikal verschlankt und modernisiert
 > (Node.js 24, Node-RED 5). Ab Version 9 ist nur noch
 > [node-red-contrib-ccu](https://github.com/rdmtc/node-red-contrib-ccu)
-> vorinstalliert — alle weiteren Nodes (z.&nbsp;B. Dashboard, HomeKit)
+> vorinstalliert — alle weiteren Nodes (z.&nbsp;B. Dashboard, HomeKit, Matter)
 > werden bei Bedarf über den Node-RED Paletten-Manager installiert.
 > Der RedMatic-Paketmanager und die RedMatic-WebApp sind deprecated und
 > entfallen ersatzlos.
@@ -36,16 +36,55 @@ ___
 > der Verantwortung des Anwenders, ein Weg zurück führt nur darüber.**
 > Bitte die [Release-Hinweise](https://github.com/rdmtc/RedMatic/wiki/RedMatic-9-Migration) lesen.
 
-
 _RedMatic_ verpackt [Node-RED](https://nodered.org/about/) als CCU Addon, ein Softwarepaket, das auf einer Homematic CCU3 oder [OpenCCU](https://github.com/jens-maus/OpenCCU) (ehemals RaspberryMatic) als Zusatzsoftware komfortabel über das WebUI installiert werden kann.
 
 Die Grundlage bildet [Node-RED](https://nodered.org/about/) mit den [CCU Nodes für Node-RED](https://github.com/rdmtc/node-red-contrib-ccu). Hiermit ist es auf einfache und visuelle Weise möglich Regeln, Automationen, Scripte und Anbindungen von externen Services und Systemen für ein Homematic System zu realisieren - und das weitgehend auch ohne Programmierkenntnisse. Im [Wiki](https://github.com/rdmtc/RedMatic/wiki) gibt es weitere Informationen zu Node-RED und einige Anwendungsbeispiele (sogenannte _Flows_).
 
 Die Einrichtung und der Betrieb von _RedMatic_ ist sehr benutzerfreundlich, es bedarf keiner Linux-Kenntnisse und es müssen keine Konfigurationsdateien bearbeitet werden.
 
-Ab **RedMatic 9** ist das Addon bewusst schlank: Nur die CCU Nodes sind vorinstalliert. Alle weiteren Nodes — z.B. das [Node-RED Dashboard](https://flows.nodered.org/node/@flowfuse/node-red-dashboard) für Visualisierung und Steuerung — werden bei Bedarf einfach über den Node-RED Paletten-Manager [installiert](https://github.com/rdmtc/RedMatic/wiki/Node-Installation). Die frühere _RedMatic WebApp_ und der RedMatic-Paketmanager sind deprecated und nicht mehr enthalten. **Bekannte und akzeptierte Einschränkung:** Nodes mit binären (nativen) Abhängigkeiten können auf der CCU nicht installiert werden — auf der CCU gibt es keine Compiler-Toolchain, und vorkompilierte Binaries werden nicht mehr mitgeliefert.
+## RedMatic als Brücke von der CCU zu MQTT, Home Assistant, Matter und HomeKit
 
-Eine Anbindung der CCU an einen [MQTT](https://github.com/rdmtc/RedMatic/wiki/Flow-MQTT) Broker mit komfortabel konfigurierbarer Topic- und Payload-Struktur wird durch einen speziellen Node vereinfacht.
+_RedMatic_ ist ein guter Weg, eine Homematic CCU an andere Systeme anzubinden -
+direkt auf der CCU, ohne zusätzlichen Server:
+
+* **MQTT** - der [ccu-mqtt](https://github.com/rdmtc/node-red-contrib-ccu#mqtt) Node
+  publiziert alle Datenpunkte mit frei konfigurierbarer Topic- und Payload-Struktur
+  und nimmt Befehle entgegen ([Beispiel-Flow](https://github.com/rdmtc/RedMatic/wiki/Flow-MQTT)).
+* **Home Assistant** - der [ccu-homeassistant](https://github.com/rdmtc/node-red-contrib-ccu#home-assistant)
+  Node ergänzt ccu-mqtt um MQTT Auto-Discovery: ausgewählte Geräte erscheinen
+  automatisch als Entitäten in Home Assistant. _(in Vorbereitung, node-red-contrib-ccu 4.2.0)_
+* **Matter** - [RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter) stellt Homematic-Geräte
+  als Matter-Bridge bereit, nutzbar mit Apple Home, Amazon Alexa, Google Home und
+  Home Assistant. _(in Vorbereitung, Release in Kürze)_
+* **HomeKit** - [RedMatic-HomeKit](https://github.com/rdmtc/RedMatic-HomeKit) stellt Homematic-Geräte
+  als HomeKit-Zubehör bereit.
+
+Alle Anbindungen laufen über eine einzige `ccu-connection`, die auf der CCU ausgewählte
+Geräte per Häkchen freigibt (opt-in). Matter und HomeKit werden über den Node-RED
+Paletten-Manager installiert, MQTT und Home Assistant sind in den vorinstallierten CCU Nodes enthalten.
+
+**Warum auf der CCU und nicht mit einem externen Bridge-Projekt?** Es gibt gute
+Alternativen wie CCU-Jack, openccu-loom oder matterbridge-homematic. Die
+Schnittstellen-Prozesse der CCU (rfd, hs485d, HmIPServer) reagieren jedoch empfindlich
+auf viele gleichzeitige RPC-Event-Abonnenten und auf Netzwerkstörungen. RedMatic bündelt
+alle Anbindungen in einem einzigen Abonnenten pro Schnittstelle, spricht mit rfd und
+hs485d das effizientere BIN-RPC statt XML-RPC und hält den gesamten RPC-Verkehr auf
+der Loopback-Schnittstelle der CCU - Netzwerkaussetzer erreichen die CCU-Prozesse so
+gar nicht erst.
+
+**Was auf der anderen Seite der MQTT-Brücke sitzen kann** - zwei Projekte des
+RedMatic-Autors, die die Discovery-Daten von RedMatic direkt verstehen:
+
+* [feezal](https://github.com/feezal/feezal) - Dashboards und Apps für MQTT visuell im
+  Browser bauen (WYSIWYG-Editor, Web Components, PWA, Export als statische Seite oder
+  Android/iOS-App). Erkennt die von RedMatic per Auto-Discovery gemeldeten Geräte und
+  verdrahtet sie mit einem Klick - ein moderner Ersatz für die entfallene RedMatic-WebApp.
+* [she](https://github.com/hobbyquaker/she) - Smart Home Engine: Automationen als
+  einfache JavaScript-Scripte mit MQTT, integriertem Matter-Controller, Scheduler und
+  Web-IDE mit KI-Assistent. Für alle, die Logik lieber in Code als in Flows schreiben
+  oder eine zentrale Engine für mehrere CCUs brauchen.
+
+## Automatisieren mit Node-RED
 
 Eine große und aktive Community rund um Node-RED hat zudem eine
 [Bibliothek von tausenden zusätzlichen Nodes](https://flows.nodered.org/?type=node&num_pages=1) geschaffen die auf
@@ -53,7 +92,7 @@ einfache Weise [installiert werden können](https://github.com/rdmtc/RedMatic/wi
 ermöglichen spezielle Automatismen zu implementieren und diverse weitere Services und Systeme komfortabel anzubinden - wie z.B. KNX, Loxone, Somfy Tahoma, Velux KLF200, Home Connect Haushaltsgeräte, verschiedene Smart TVs und AV-Receiver, Sonos, Netatmo, Hue, Amazon Alexa, Google Home, diverse Datenbanken wie z.B. InfluxDB oder MySQL, Webservices zur Abfrage von beispielsweise Wetterdaten und vieles mehr.
 
 _RedMatic_ kann damit - insbesondere auch für diejenigen die neben der CCU keinen weiteren Server betreiben möchten - eine Alternative zu einem "ausgewachsenen" Smart Home System wie z.B. Home Assistant oder ioBroker darstellen.
-Auch eine Koexistenz mit vorhandener anderer Smart Home Software kann sinnvoll sein, _RedMatic_ eignet sich z.B. auch sehr gut als Schnittstelle um eine Homematic CCU an ein übergeordnetes System via MQTT anzubinden.
+Auch eine Koexistenz mit vorhandener anderer Smart Home Software kann sinnvoll sein.
 Nicht zuletzt kann _RedMatic_ auch als stabile und mit wesentlich mehr Möglichkeiten aufwartende Alternative oder Ergänzung zu den WebUI-Programmen und Scripten der CCU Logikschicht "Rega" dienen.
 
 
@@ -164,6 +203,12 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Xiaomi / Roborock S1-S6 in Dashboard](https://github.com/rdmtc/RedMatic/wiki/Xiaomi-Staubsauger-in-Dashboard#roborock-oder-xiaomi-staubsauger-s1-s6-im-dashboard)
   * [Anrufsperre über Fritzbox für eingehende Anrufe](https://github.com/rdmtc/RedMatic/wiki/Anrufsperre-%C3%BCber-Fritzbox)
   * [AIO NEO Popup Subflow (öffnen von AIO-NEO Popups auf Tablet oder Smartphone)](https://github.com/Matten-Matten/AIO-NEO-Pop-up-Subflow)
+
+* Verwandte Projekte
+  * [RedMatic-HomeKit](https://github.com/rdmtc/RedMatic-HomeKit) - Homematic-Geräte in Apple HomeKit
+  * [RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter) - Homematic-Geräte als Matter-Bridge (in Vorbereitung)
+  * [feezal](https://github.com/feezal/feezal) - Dashboards und Apps für MQTT visuell bauen
+  * [she](https://github.com/hobbyquaker/she) - Smart Home Engine: Automationen als JavaScript-Scripte mit MQTT und Matter
 
 * Sonstiges
   * [Berichterstattung, Blogbeiträge, Videos über RedMatic](https://github.com/rdmtc/RedMatic/wiki/Berichterstattung)
