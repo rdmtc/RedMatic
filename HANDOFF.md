@@ -1,16 +1,19 @@
-# Handoff — RedMatic 9.0.0 (2026-09-03)
+# Handoff — RedMatic 9.4.0 (2026-09-06)
 
-State of the 9.0.0 modernization for continuing on another machine.
+State of the 9.x modernization for continuing on another machine.
 Written by Claude Fable on behalf of hobbyquaker at the end of the
 2026-09-03 session. Read `ROADMAP.md` first; completed tasks are in
 `roadmap-archive/`.
 
 ## Where things stand
 
-`master` is at **9.2.0** (2026-09-04): 9.0.0 and 9.0.1 were released that
-day, 9.1.0 came from the first automatic release (task 10), 9.2.0 adds the
-one-click self-update on the settings page (task 11: `bin/redmatic-update`,
-`www/update.cgi`, progress model measured on all three lab boxes).
+`master` is at **9.4.0** (2026-09-06): 9.0.0 and 9.0.1 were released on
+2026-09-04, 9.1.0 and 9.3.0 came from the automatic release workflow
+(task 10; 9.3.0 bumped node-red-contrib-ccu to 4.3.0 on 2026-09-05),
+9.2.0 added the one-click self-update on the settings page (task 11:
+`bin/redmatic-update`, `www/update.cgi`, progress model measured on all
+three lab boxes), and 9.4.0 makes RedMatic run on **openccu-lite**
+(task 12, see below) with node-red-contrib-ccu **4.4.0**.
 
 **Hardware verification (roadmap task 8) is complete on all three target
 platforms**:
@@ -109,15 +112,56 @@ and bugfix patches stay manual:
 
 1. Set the final version in `package.json` (e.g. `9.0.0-beta.0` or
    `9.0.0`), run `node update_package.js`.
-2. Run the **build-release** workflow (workflow_dispatch) — it tags
-   `v<version>`, creates a **draft prerelease** with tarballs + SBOMs +
-   RELEASE_BODY.md and pushes the wiki change history.
+2. Run the **build-release** workflow — either by hand
+   (workflow_dispatch) or by pushing the tag `v<version>`, which the
+   workflow now triggers on (it refuses a tag that does not match
+   `package.json`). It creates a **draft** release (prerelease only for a
+   version with a `-suffix`) with tarballs + SBOMs + RELEASE_BODY.md and
+   pushes the wiki change history.
 3. Release notes: breaking changes are pre-listed in roadmap task 8;
    state CCU3 firmware ≥ 3.61.5 / current OpenCCU as requirement (the
    addon no longer patches lighttpd.conf or the backup CGI); also mention that formerly bundled extra nodes in `var` (dashboard,
    email, rbe, sun-position, combine, redmatic-led, redmatic-webapp)
    survive an update but are no longer maintained by the addon.
 4. (done) The issue mass-close happened after the alpha, see task 5a.
+
+## openccu-lite (task 12, 9.4.0)
+
+RedMatic runs on [openccu-lite](https://github.com/hobbyquaker/openccu-lite),
+a CCU firmware without ReGaHSS, from the same package as on a CCU. The full
+audit (every ReGa touch point and what happened to it) is in
+`roadmap-archive/task-12.md`; the user-facing description is the
+*openccu-lite* section of the READMEs (generated from
+`docs/README.footer*.md`).
+
+The short version:
+
+- The session check of the settings CGIs (`www/settings.cgi`,
+  `lib/session.tcl`) is **unchanged** — it is exactly the one script the
+  box's `tclrega.so` shim answers. Do not add other `rega_script` calls,
+  the shim errors on anything else.
+- Node-RED's admin login goes through the new `lib/ccu-auth.js`: one probe
+  of `GET /api/meta/v1/version`, then either `lib/rega-auth.js` (CCU,
+  untouched) or `POST /api/auth/v1/login` (openccu-lite). Detection is
+  cached per process; a box that cannot be asked falls back to the ReGa
+  path and is retried after 30 s.
+- `lib/log.tcl` reads the journal when there is no `/var/log/messages`;
+  `www/backup.cgi` writes the archive to stdout when the CGI runs in
+  occulited (`SERVER_SOFTWARE`) instead of relying on lighttpd's
+  `X-Sendfile`; `bin/redmatic` starts without `start-stop-daemon` if it has
+  to and skips the telemetry uuid when `/etc/config` is read-only.
+- Names, rooms and functions in flows are node-red-contrib-ccu's business
+  (4.4.0), not the addon's; the box's local token is read by the connection
+  node itself because Node-RED runs as root there.
+- **Not verified on hardware**: there was no openccu-lite box in the lab
+  during this work. Everything was verified against fake servers, a
+  container with a real `tclsh`, and the usual build + e2e run.
+- Friction worth knowing: openccu-lite's `GET /addons` marks an addon as
+  `rega_dependent` by scanning its code for ReGa idioms, and
+  `lib/rega-auth.js` contains `dom.GetObject` **because the porting kit
+  requires the ReGa path to stay**. RedMatic is therefore flagged, and
+  after a migration from OpenCCU its rc.d script is disabled on the first
+  boot (one click to re-enable). Reported to openccu-lite.
 
 ## Open items (see ROADMAP.md)
 
@@ -130,6 +174,8 @@ and bugfix patches stay manual:
   started from the installer's deleted temp dir) and #600 (settings page
   said "stopped").
 - Task 10 (new): release strategy / automatic releases, see ROADMAP.
+- Task 12: done 2026-09-06 (9.4.0, openccu-lite; see above and
+  roadmap-archive/task-12.md).
 - Task 7: wiki overhaul done 2026-09-04 (see ROADMAP); remaining are the
   sibling-repo readmes (out of scope here) and re-testing the
   "Erfolgreich getestete Nodes" list with RedMatic 9.

@@ -1,3 +1,37 @@
+### RedMatic 9.4.0
+
+- **RedMatic läuft auf [openccu-lite](https://github.com/hobbyquaker/openccu-lite)**, einer
+  CCU-Firmware ohne ReGaHSS — mit demselben Paket, denselben Einstellungen und
+  denselben Flows wie auf CCU3, RaspberryMatic und OpenCCU. Um welche Zentrale
+  es sich handelt, erkennt RedMatic zur Laufzeit (`GET /api/meta/v1/version`),
+  konfiguriert werden muss nichts, und ein Backup lässt sich zwischen beiden
+  hin- und herschieben.
+  - **Namen, Räume, Gewerke** kommen dort aus der Metadaten-API der Zentrale
+    statt aus der ReGaHSS (node-red-contrib-ccu 4.4.0). Auf der Zentrale wird
+    der nur lesende Token aus `/usr/local/etc/occulite/local-token` automatisch
+    verwendet. Umbenennungen sind binnen einer Sekunde in den Flows, ohne
+    Deploy.
+  - **Systemvariablen und Programme gibt es dort nicht.** `ccu-sysvar`,
+    `ccu-program`, `ccu-script` und `ccu-poll` bleiben in der Palette und in
+    den Flows; sie beantworten jede Nachricht mit einer klaren Fehlermeldung,
+    statt die Verbindung zu stören.
+  - **Login des Editors:** die Einstellung „Benutzer der Zentrale" (bisher
+    „ReGaHSS (CCU WebUI User nutzen)") nutzt auf einer CCU unverändert die
+    ReGaHSS-Benutzer und auf openccu-lite die Benutzer der Zentrale.
+  - **Backup-Download, Log und Selbstupdate** funktionieren dort ebenfalls: das
+    Log kommt aus dem Journal, wenn es kein `/var/log/messages` gibt, und der
+    Backup-Download kommt ohne `X-Sendfile` aus.
+  - Details stehen im Abschnitt *openccu-lite* der
+    [README](https://github.com/rdmtc/RedMatic#openccu-lite).
+- **node-red-contrib-ccu 4.4.0** (vorher 4.3.0) — siehe dessen
+  [Changelog](https://github.com/rdmtc/node-red-contrib-ccu/blob/master/CHANGELOG.md):
+  openccu-lite-Unterstützung, dynamische Node-Konfiguration über `msg.config`,
+  Räume und Gewerke im Cache des Connection-Nodes.
+- **Release-Pakete:** für armv7l wird das Paket zusätzlich unter dem Namen
+  `redmatic-armv7l-<version>.tar.gz` veröffentlicht (Addon-Kataloge suchen
+  nach `redmatic-<uname -m>-<version>.tar.gz`); der bisherige Name
+  `redmatic-<version>.tar.gz` bleibt unverändert bestehen.
+
 ### RedMatic 9.2.0
 
 - **Update mit einem Klick:** Steht eine neue Version bereit, bietet die

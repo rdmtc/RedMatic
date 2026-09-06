@@ -28,3 +28,8 @@ index (marked ✅ there, linking here).
 - [task-9.md](task-9.md) — IPv6 link-local address for Matter on the
   CCU3 ✅ 2026-09-04 (`9.0.1-dev.0`, `bin/redmatic` creates fe80:: on eth0
   at start, verified on CCU3 firmware 3.89.8).
+- [task-12.md](task-12.md) — openccu-lite support ✅ 2026-09-06
+  (`9.4.0`, runtime detection instead of the ReGa where there is none:
+  admin login against the box's users, journal instead of
+  `/var/log/messages`, backup download without `X-Sendfile`,
+  node-red-contrib-ccu 4.4.0 for names/rooms/functions).
