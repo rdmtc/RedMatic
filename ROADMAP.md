@@ -18,7 +18,10 @@ issue backlog closed; what remains is feedback-driven follow-up work.
 the settings page (#600). **9.1.0** the same day was the first automatic
 release (task 10). **9.2.0 (2026-09-05)**: one-click self-update from the
 settings page (task 11) and the fix for the editor hanging with random
-401s (rega-auth user cache).
+401s (rega-auth user cache). **9.3.0 (2026-09-05)** was an automatic
+release (node-red-contrib-ccu 4.3.0). **9.4.0 (2026-09-06)**: RedMatic
+runs on openccu-lite, a CCU firmware without ReGaHSS (task 12), with
+node-red-contrib-ccu 4.4.0; the ReGa path of a CCU is untouched.
 
 ## Contents
 
@@ -36,6 +39,7 @@ settings page (task 11) and the fix for the editor hanging with random
 - 9. IPv6 link-local address for Matter on the CCU3 ✅ [archived](roadmap-archive/task-9.md)
 - [10. Release strategy and automatic releases](#10-release-strategy-and-automatic-releases)
 - 11. Self-update from the settings page ✅ [archived](roadmap-archive/task-11.md)
+- 12. openccu-lite support ✅ [archived](roadmap-archive/task-12.md)
 
 ## 3. Modernize tooling
 

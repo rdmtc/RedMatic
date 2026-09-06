@@ -333,4 +333,17 @@ else
     shasum -a 256 $BUILD_DIR/dist/$ADDON_FILE > $BUILD_DIR/dist/$ADDON_FILE.sha256
 fi
 
+# armv7l keeps its historic asset name (every wiki page, every installed
+# self-updater and the release body point at redmatic-<version>.tar.gz), and
+# gets the same package under the architecture name as well: addon catalogues
+# resolve redmatic-<uname -m>-<version>.tar.gz first (openccu-lite's
+# catalog-format.md) and only fall back to the generic name - which, without
+# this, would be an armv7l package offered to every architecture.
+if [ "$ARCH" == "armv7l" ]; then
+    ARCH_FILE=redmatic-$ARCH-$VERSION_ADDON.tar.gz
+    echo "copying $ADDON_FILE to $ARCH_FILE (architecture-named asset)"
+    cp $BUILD_DIR/dist/$ADDON_FILE $BUILD_DIR/dist/$ARCH_FILE
+    sed "s|$ADDON_FILE|$ARCH_FILE|" $BUILD_DIR/dist/$ADDON_FILE.sha256 > $BUILD_DIR/dist/$ARCH_FILE.sha256
+fi
+
 echo "done."

@@ -1,7 +1,14 @@
 name: build-release
 
+# Manually (workflow_dispatch) or by pushing the release tag: the tag pattern
+# is v<version of package.json>, e.g. v9.3.0. A tag whose name does not match
+# the version in package.json stops the run before anything is built.
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-*'
 
 jobs:
   release:
@@ -23,7 +30,13 @@ jobs:
 
       - name: Read addon version
         id: version
-        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.ref_type }}" = "tag" ] && [ "${{ github.ref_name }}" != "v$VERSION" ]; then
+            echo "error: tag ${{ github.ref_name }} does not match package.json version $VERSION" >&2
+            exit 1
+          fi
 
       - name: Build addon packages
         env:
@@ -37,7 +50,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           draft: true
-          prerelease: true
+          prerelease: ${{ contains(steps.version.outputs.version, '-') }}
           artifacts: dist/*
           bodyFile: RELEASE_BODY.md
           tag: "v${{ steps.version.outputs.version }}"

@@ -99,10 +99,14 @@ Start () {
         fi
     done
 
-    if [ ! -f /etc/config/rdmtc.uuid ]; then
+    # telemetry: needs a writable /etc/config and uuidgen - neither is a
+    # given when the addon runs confined (openccu-lite's systemd products)
+    if [ ! -f /etc/config/rdmtc.uuid ] && [ -w /etc/config ] && [ -x /usr/bin/uuidgen ]; then
         /usr/bin/uuidgen > /etc/config/rdmtc.uuid
     fi
-    /usr/local/addons/redmatic/bin/redmaticVersions | /usr/bin/curl -H "Content-Type: application/json" -H "X-RedMatic-uuid: `cat /etc/config/rdmtc.uuid`" --data @- -s --max-time 3 https://telemetry.redmatic.de
+    if [ -f /etc/config/rdmtc.uuid ]; then
+        /usr/local/addons/redmatic/bin/redmaticVersions | /usr/bin/curl -H "Content-Type: application/json" -H "X-RedMatic-uuid: `cat /etc/config/rdmtc.uuid`" --data @- -s --max-time 3 https://telemetry.redmatic.de
+    fi
 
     # quarantine corrupted context-store files that would prevent
     # Node-RED from starting (#452)
@@ -127,7 +131,17 @@ Start () {
         # OpenCCU installer's temp dir): spawning npm from a deleted cwd fails
         # and Node-RED disables the palette editor (#599)
         cd /
-        start-stop-daemon -S -q -b --exec $ADDON_DIR/bin/redmaticLoader
+        # backgrounded, so start returns right away: run-parts on a CCU and
+        # the generated systemd unit of openccu-lite (Type=oneshot,
+        # RemainAfterExit=yes, KillMode=control-group) both wait for it. The
+        # daemon stays in the caller's cgroup, which is what the unit tracks.
+        if command -v start-stop-daemon >/dev/null 2>&1; then
+            start-stop-daemon -S -q -b --exec $ADDON_DIR/bin/redmaticLoader
+        elif command -v setsid >/dev/null 2>&1; then
+            setsid $ADDON_DIR/bin/redmaticLoader >/dev/null 2>&1 &
+        else
+            $ADDON_DIR/bin/redmaticLoader >/dev/null 2>&1 &
+        fi
         echo "OK"
     fi
 

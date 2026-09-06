@@ -17,9 +17,24 @@ if {[info exists sid] && [check_session $sid]} {
 
     cd /
 
-    puts "X-Sendfile: /usr/local/tmp/redmatic.tar.gz"
-    puts "Content-Type: application/octet-stream"
-    puts "Content-Disposition: attachment; filename=\"$backupfile\"\n"
+    #   lighttpd delivers the file itself (X-Sendfile). openccu-lite runs the
+    #   addon CGIs in occulited (not in lighttpd's mod_cgi) and knows no
+    #   X-Sendfile, so there the archive is written to stdout.
+    if {[info exists env(SERVER_SOFTWARE)] && [string match -nocase "*occulited*" $env(SERVER_SOFTWARE)]} {
+        puts "Content-Type: application/octet-stream"
+        puts "Content-Disposition: attachment; filename=\"$backupfile\"\n"
+        flush stdout
+        if {![catch {set fp [open /usr/local/tmp/redmatic.tar.gz r]}]} {
+            fconfigure $fp -translation binary
+            fconfigure stdout -translation binary
+            fcopy $fp stdout
+            close $fp
+        }
+    } else {
+        puts "X-Sendfile: /usr/local/tmp/redmatic.tar.gz"
+        puts "Content-Type: application/octet-stream"
+        puts "Content-Disposition: attachment; filename=\"$backupfile\"\n"
+    }
 
 
 } else {

@@ -41,13 +41,15 @@ if (!defaults.editorTheme.projects) {
 }
 defaults.editorTheme.projects.enabled = defaults.editorTheme.projects.enabled || false;
 
-// Inject sessionExpiryTime to Rega Authentication
+// Inject sessionExpiryTime to CCU Authentication. lib/ccu-auth.js keeps the
+// ReGaHSS path of a CCU and uses the box's own users (/api/auth/v1) on an
+// openccu-lite, decided at runtime - the stored settings are the same on both.
 if (settings.adminAuth && settings.adminAuth.type === 'rega') {
-    const regaAuth = require('/usr/local/addons/redmatic/lib/rega-auth.js');
+    const ccuAuth = require('/usr/local/addons/redmatic/lib/ccu-auth.js');
     if (settings.adminAuth.sessionExpiryTime) {
-        regaAuth.sessionExpiryTime = settings.adminAuth.sessionExpiryTime;
+        ccuAuth.sessionExpiryTime = settings.adminAuth.sessionExpiryTime;
     }
-    settings.adminAuth = regaAuth;
+    settings.adminAuth = ccuAuth;
 }
 
 // Context Storage

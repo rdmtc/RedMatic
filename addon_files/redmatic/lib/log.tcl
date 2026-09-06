@@ -28,9 +28,17 @@ if {[file exists /usr/local/addons/redmatic/var/pkg-upgrade.log]} {
     puts ""
 }
 
-if {[file exists /var/log/messages.0]} {
-    catch {exec cat /var/log/messages.0 | grep node-red\\|redmatic } result
+#   busybox syslogd writes /var/log/messages (CCU3, OpenCCU, openccu-lite on
+#   busybox init); the systemd products of openccu-lite have no such file, the
+#   journal holds the same lines under the tags redmatic and node-red.
+if {[file exists /var/log/messages]} {
+    if {[file exists /var/log/messages.0]} {
+        catch {exec cat /var/log/messages.0 | grep node-red\\|redmatic } result
+        puts $result
+    }
+    catch {exec cat /var/log/messages | grep node-red\\|redmatic} result
+    puts $result
+} else {
+    catch {exec journalctl --no-pager -n 2000 -t redmatic -t node-red} result
     puts $result
 }
-catch {exec cat /var/log/messages | grep node-red\\|redmatic} result
-puts $result
