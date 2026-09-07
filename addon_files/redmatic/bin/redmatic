@@ -21,12 +21,55 @@ export GIT_TEMPLATE_DIR=$ADDON_DIR/share/git-core/templates
 # provides NODE_VERSION, VERSION_ADDON, RED_VERSION and (armv7l) ICU_DATA
 . $ADDON_DIR/versions
 
+# A start can be requested from several places within a few seconds: the
+# OpenCCU installer's update_script, bin/redmatic-update, the WebUI and rc.d.
+# The old check looked for a process named node-red only, which does not exist
+# yet while a start is still on its way (the boot delay below is 30 s alone) -
+# so two supervisors were started and the second Node-RED died with
+# "port in use" (BUGS.md bug 2, reported in #601).
+START_LOCK=$ADDON_DIR/var/start.lock
+
+# Node-RED itself, or a redmaticLoader that is about to start it.
+RedmaticPid () {
+    ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'
+}
+
+RedmaticStarting () {
+    # busybox ps prints "{redmaticLoader} /bin/sh /path/redmaticLoader", other
+    # ps only "/bin/sh /path/redmaticLoader" - hence both fields. $4 is anchored
+    # to a path so a shell that merely mentions the name cannot block a start.
+    ps -o pid,comm,args | awk '{if($2 == "redmaticLoader" || $3 ~ /redmaticLoader/ || $4 ~ /\/redmaticLoader$/){print $1}}'
+}
+
+# mkdir is atomic on every filesystem the addon runs on. A lock whose owner is
+# gone (killed, or a reboot in between) is stale and gets removed.
+AcquireStartLock () {
+    if mkdir $START_LOCK 2>/dev/null; then
+        echo $$ > $START_LOCK/pid
+        return 0
+    fi
+    LOCKPID=`cat $START_LOCK/pid 2>/dev/null`
+    if [ -z "$LOCKPID" ] || ! kill -0 "$LOCKPID" 2>/dev/null; then
+        logger -t redmatic -p daemon.warn "removing stale start lock of pid ${LOCKPID:-unknown}"
+        rm -rf $START_LOCK
+        if mkdir $START_LOCK 2>/dev/null; then
+            echo $$ > $START_LOCK/pid
+            return 0
+        fi
+    fi
+    return 1
+}
+
+ReleaseStartLock () {
+    rm -rf $START_LOCK
+}
+
 Stop () {
     if [ -f /usr/bin/monit ]; then
         /usr/bin/monit -g redmatic unmonitor
     fi
 
-    PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
+    PSPID=`RedmaticPid`
     if [ "$PSPID" != "" ]; then
         echo -n "Stopping Node-RED: "
         logger -t redmatic -p daemon.info "Stopping Node-RED"
@@ -112,17 +155,33 @@ Start () {
     # Node-RED from starting (#452)
     $ADDON_DIR/bin/checkContext 2>&1 | logger -t redmatic -p daemon.warn
 
-    PSPID=`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`
-    if [ "$PSPID" != "" ]; then
+    if [ "`RedmaticPid`" != "" ]; then
         echo "Node-RED already running"
         logger -t redmatic -p daemon.error "cant start - already running"
         exit 1
+    elif [ "`RedmaticStarting`" != "" ]; then
+        echo "Node-RED is already starting"
+        logger -t redmatic -p daemon.error "cant start - a start is already in progress"
+        exit 1
+    elif ! AcquireStartLock; then
+        echo "Node-RED is already starting"
+        logger -t redmatic -p daemon.error "cant start - another start holds the lock"
+        exit 1
     else
+        # the lock is held across the boot delay below, so a second start
+        # request during those 30 seconds is rejected instead of racing (#601)
         upSeconds="$(cat /proc/uptime | grep -o '^[0-9]\+')"
         if [ "${upSeconds}" -lt "120" ]; then
               logger -t redmatic -p daemon.info "Starting Node-RED after reboot ... waiting 30 seconds..."
               echo "Starting Node-RED ... waiting 30 seconds..."
               sleep 30
+        fi
+        # something else may have won the race while we waited
+        if [ "`RedmaticPid`" != "" ] || [ "`RedmaticStarting`" != "" ]; then
+            ReleaseStartLock
+            echo "Node-RED already running"
+            logger -t redmatic -p daemon.error "cant start - already running"
+            exit 1
         fi
         EnsureIpv6LinkLocal
         echo -n "Starting Node-RED: "
@@ -142,6 +201,15 @@ Start () {
         else
             $ADDON_DIR/bin/redmaticLoader >/dev/null 2>&1 &
         fi
+        # hold the lock until the loader is visible to the next caller, so the
+        # window between spawning it and its process appearing is covered too
+        i=0
+        while [ $i -lt 20 ]; do
+            [ "`RedmaticStarting`" != "" ] && break
+            sleep 1
+            i=$((i + 1))
+        done
+        ReleaseStartLock
         echo "OK"
     fi
 

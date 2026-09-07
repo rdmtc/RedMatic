@@ -6,6 +6,13 @@ task number (e.g. `task-1.md`). Open items live in
 reused, so an archived item stays findable from the roadmap's contents
 index (marked ✅ there, linking here).
 
+Fixed **bugs** are archived here too, as `bug-<n>.md`; open ones live in
+[../BUGS.md](../BUGS.md).
+
+- [bug-2.md](bug-2.md) — Node-RED could be started twice ✅ 2026-09-07
+  (`9.4.1`, loader-aware check plus an atomic start lock in `bin/redmatic`;
+  found in the log of [#601](https://github.com/rdmtc/RedMatic/issues/601)).
+
 ## Contents
 
 - [task-1.md](task-1.md) — Strip down included Node-RED nodes ✅

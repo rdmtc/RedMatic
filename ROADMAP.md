@@ -9,6 +9,9 @@ content moves to [roadmap-archive/](roadmap-archive/) (one file per task,
 e.g. `task-1.md`) and its line in the contents below gets a ✅ marker linking
 into the archive.
 
+Open **bugs** are tracked separately in [BUGS.md](BUGS.md) (same numbering and
+archiving scheme, files `roadmap-archive/bug-<n>.md`).
+
 Status 2026-09-04: **RedMatic 9.0.0 is released** (Node 24, Node-RED
 5.0.6, npm 11, node-red-contrib-ccu 4.0.0, zero native modules, zero
 Node-RED patching, GitHub Actions CI). The wiki is overhauled and the
@@ -22,6 +25,11 @@ settings page (task 11) and the fix for the editor hanging with random
 release (node-red-contrib-ccu 4.3.0). **9.4.0 (2026-09-06)**: RedMatic
 runs on openccu-lite, a CCU firmware without ReGaHSS (task 12), with
 node-red-contrib-ccu 4.4.0; the ReGa path of a CCU is untouched.
+**9.4.1 (2026-09-07)**: two crash fixes from [#601](https://github.com/rdmtc/RedMatic/issues/601) —
+node-red-contrib-ccu 4.4.1 catches the dropped promise of the deferred
+`setVariable` queue (an unhandled rejection killed Node-RED seconds after
+start on a busy CCU since 9.3.0), and `bin/redmatic` no longer starts a
+second instance (BUGS.md bug 2, archived).
 
 ## Contents
 

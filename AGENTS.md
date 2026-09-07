@@ -9,6 +9,12 @@ slimmed down and modernized; don't invest effort in components that are
 scheduled for removal (bundled extra nodes, the package manager, prebuilds,
 Travis config).
 
+**Known defects live in `BUGS.md`** — read it too before changing anything, and
+add any bug you find yourself (whether or not you fix it right away). Same
+scheme as the roadmap: stable, never-reused bug numbers, `BUGS.md` holds only
+open bugs, and a fixed bug moves to `roadmap-archive/bug-<n>.md` with a ✅
+marker linking there from the contents index.
+
 ## Layout
 
 - `build.sh` → `build_addon.sh` (per arch: x86_64, armv7l, aarch64) — downloads
@@ -58,3 +64,23 @@ Travis config).
 - Tests: ESLint plus the container e2e test (`npm run test:e2e`, needs docker).
 - User-facing docs live in the GitHub wiki (rdmtc/RedMatic/wiki), primarily in
   German.
+- **Answering GitHub issues on the maintainer's behalf**: **never post
+  without showing the maintainer the draft first and getting an explicit
+  OK** — comments go out under their name. State only what the log or the
+  code actually says: no numbers, versions or device counts read off a line
+  whose meaning has not been checked (a wrong figure confuses the reporter and
+  costs the maintainer credibility). Reply in the language
+  of the reporter (usually German), and always close the comment with a
+  separator and the attribution line, in italics:
+
+  ```
+  ---
+  *Written by Claude <model name> on behalf of hobbyquaker.*
+  ```
+
+  e.g. `*Written by Claude Opus 5 on behalf of hobbyquaker.*`. Link the wiki
+  for anything procedural instead of retyping it — for logs that is
+  [Loglevel](https://github.com/rdmtc/RedMatic/wiki/Loglevel) (raise the level
+  to `debug`, restart, wait, download the filtered log), plus
+  [Safe-Mode](https://github.com/rdmtc/RedMatic/wiki/Safe-Mode) and
+  [Probleme-Update-Installation](https://github.com/rdmtc/RedMatic/wiki/Probleme-Update-Installation).

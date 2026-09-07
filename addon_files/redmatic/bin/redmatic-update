@@ -158,8 +158,12 @@ vercmp() {
     if [ "$apre" \> "$bpre" ]; then echo 1; else echo -1; fi
 }
 
+# Node-RED itself, or a redmaticLoader that is on its way to starting it.
+# Looking for the node-red process alone missed a start still in progress and
+# made the updater launch a second instance (BUGS.md bug 2, #601).
 node_red_running() {
-    [ -n "`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`" ]
+    [ -n "`ps -o pid,comm,args | awk '{if($3 == "node-red" || $4 ~ /node-red/){print $1}}'`" ] ||
+        [ -n "`ps -o pid,comm,args | awk '{if($2 == "redmaticLoader" || $3 ~ /redmaticLoader/ || $4 ~ /\/redmaticLoader$/){print $1}}'`" ]
 }
 
 # directories the installer created below /usr/local/tmp since we started
