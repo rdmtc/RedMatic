@@ -55,7 +55,17 @@ cat >>RELEASE_BODY.md <<EOL
 
 EOL
 
-git log `git describe --tags --abbrev=0`..HEAD --pretty=format:'* %h @%an %s' \
+# The release build checks out the tag, so `git describe --tags --abbrev=0`
+# would return the tag on HEAD itself and the commit list came out empty.
+# Compare against the previous tag when HEAD carries one.
+if [ -n "`git tag --points-at HEAD`" ]; then
+    PREV_TAG=`git describe --tags --abbrev=0 HEAD^ 2>/dev/null`
+else
+    PREV_TAG=`git describe --tags --abbrev=0 2>/dev/null`
+fi
+echo "listing commits since ${PREV_TAG:-the beginning}"
+
+git log ${PREV_TAG:+$PREV_TAG..}HEAD --pretty=format:'* %h @%an %s' \
     | grep -v "Merge remote-tracking branch" \
     | grep -vi "update readme" \
     | grep -vi "bump version" \

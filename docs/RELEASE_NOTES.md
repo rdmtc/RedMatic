@@ -1,81 +1,35 @@
-### RedMatic 9.4.0
+### RedMatic 9.4.2
 
-- **RedMatic läuft auf [openccu-lite](https://github.com/hobbyquaker/openccu-lite)**, einer
-  CCU-Firmware ohne ReGaHSS — mit demselben Paket, denselben Einstellungen und
-  denselben Flows wie auf CCU3, RaspberryMatic und OpenCCU. Um welche Zentrale
-  es sich handelt, erkennt RedMatic zur Laufzeit (`GET /api/meta/v1/version`),
-  konfiguriert werden muss nichts, und ein Backup lässt sich zwischen beiden
-  hin- und herschieben.
-  - **Namen, Räume, Gewerke** kommen dort aus der Metadaten-API der Zentrale
-    statt aus der ReGaHSS (node-red-contrib-ccu 4.4.0). Auf der Zentrale wird
-    der nur lesende Token aus `/usr/local/etc/occulite/local-token` automatisch
-    verwendet. Umbenennungen sind binnen einer Sekunde in den Flows, ohne
-    Deploy.
-  - **Systemvariablen und Programme gibt es dort nicht.** `ccu-sysvar`,
-    `ccu-program`, `ccu-script` und `ccu-poll` bleiben in der Palette und in
-    den Flows; sie beantworten jede Nachricht mit einer klaren Fehlermeldung,
-    statt die Verbindung zu stören.
-  - **Login des Editors:** die Einstellung „Benutzer der Zentrale" (bisher
-    „ReGaHSS (CCU WebUI User nutzen)") nutzt auf einer CCU unverändert die
-    ReGaHSS-Benutzer und auf openccu-lite die Benutzer der Zentrale.
-  - **Backup-Download, Log und Selbstupdate** funktionieren dort ebenfalls: das
-    Log kommt aus dem Journal, wenn es kein `/var/log/messages` gibt, und der
-    Backup-Download kommt ohne `X-Sendfile` aus.
-  - Details stehen im Abschnitt *openccu-lite* der
-    [README](https://github.com/rdmtc/RedMatic#openccu-lite).
-- **node-red-contrib-ccu 4.4.0** (vorher 4.3.0) — siehe dessen
-  [Changelog](https://github.com/rdmtc/node-red-contrib-ccu/blob/master/CHANGELOG.md):
-  openccu-lite-Unterstützung, dynamische Node-Konfiguration über `msg.config`,
-  Räume und Gewerke im Cache des Connection-Nodes.
-- **Release-Pakete:** für armv7l wird das Paket zusätzlich unter dem Namen
-  `redmatic-armv7l-<version>.tar.gz` veröffentlicht (Addon-Kataloge suchen
-  nach `redmatic-<uname -m>-<version>.tar.gz`); der bisherige Name
-  `redmatic-<version>.tar.gz` bleibt unverändert bestehen.
+Zwei Absturzursachen aus [#601](https://github.com/rdmtc/RedMatic/issues/601).
+Wer 9.3.0 oder 9.4.0 einsetzt, sollte aktualisieren.
 
-### RedMatic 9.2.0
+- **Node-RED konnte kurz nach dem Start abstürzen und wurde endlos neu
+  gestartet** (`Error: socket hang up`, danach `Node-RED exited with non-zero
+  exit status 1` und schließlich `Maximum Node-RED restarts exceeded`).
+  Ein Schreibvorgang auf eine Systemvariable, der eintrifft, bevor die
+  Variablenliste bekannt ist, wird zwischengespeichert und nachgeholt, sobald
+  die Liste da ist — dabei wurde ein Fehlschlag nicht behandelt, was Node.js
+  als unbehandelte Promise-Ablehnung wertet und den Prozess beendet.
+  Betroffen waren vor allem größere Installationen, bei denen ReGaHSS beim
+  Start unter Last steht. Behoben in **node-red-contrib-ccu 4.4.1** (vorher
+  4.4.0), siehe dessen
+  [Changelog](https://github.com/rdmtc/node-red-contrib-ccu/blob/master/CHANGELOG.md).
 
-- **Update mit einem Klick:** Steht eine neue Version bereit, bietet die
-  RedMatic-Einstellungsseite neben dem Hinweis jetzt den Button
-  „Herunterladen und installieren" an. RedMatic lädt das Paket für die
-  Zentrale von GitHub, prüft die Prüfsumme und installiert es genauso wie
-  die Zusatzsoftware-Seite der CCU – mit Fortschrittsbalken für Download
-  und Installation und **ohne Neustart der Zentrale**, auch auf der CCU3.
-  Vorher werden freier Speicher und freie Datei-Einträge (Inodes) geprüft
-  und Reste abgebrochener Installationen aufgeräumt. Node-RED ist während
-  der Installation gestoppt; auf einer CCU3 dauert das rund sieben Minuten,
-  auf OpenCCU unter einer Minute. Der manuelle Weg über die
-  Zusatzsoftware-Seite bleibt bestehen. Wie immer gilt: vorher CCU-Backup
-  und Flow-Export.
-- **Editor blieb zufällig bei „Lade Plugins" / „Lade Node Kataloge" hängen**
-  (401 in der Browser-Konsole): Node-RED fragt bei jedem Zugriff auf die
-  Admin-API den Benutzer zum Token ab, und RedMatic hat dafür jedes Mal ein
-  Skript an die ReGaHSS geschickt. Beim Laden des Editors laufen Dutzende
-  Anfragen parallel, die ReGa arbeitet Skripte aber nacheinander ab – ein
-  Teil der Anfragen scheiterte. Der Benutzer wird jetzt 15 Minuten
-  zwischengespeichert, gleichzeitige Abfragen teilen sich einen Aufruf, und
-  wenn die ReGa gerade nicht antwortet, bleibt ein bekannter Benutzer
-  eingeloggt. Das Passwort wird beim Login unverändert gegen die CCU
-  geprüft.
-
-### RedMatic 9.0.1
-
-- **Paletten-Manager fehlte nach einem Update auf OpenCCU** (#599): Nach
-  einer Installation über die WebUI startete Node-RED aus dem temporären
-  Installationsverzeichnis, das OpenCCU anschließend löscht. Node-RED konnte
-  dann kein `npm` mehr starten und blendete „Palette verwalten" aus (bis
-  zum nächsten Neustart). Node-RED startet jetzt immer aus einem festen
-  Verzeichnis. Betroffene Installationen: einmal RedMatic neu starten (oder
-  auf 9.0.1 aktualisieren).
-- **RedMatic-Einstellungsseite zeigte „stopped"** obwohl Node-RED lief
-  (#600): Die Prozessanzeige erwartete noch den Prozessnamen von Node.js 14.
-  Status, Speicher und Uptime werden wieder richtig angezeigt.
-- **IPv6 für Matter:** Auf der CCU3 mit Original-Firmware fehlt `eth0` nach
-  dem Booten die IPv6 Link-Local-Adresse (`fe80::`). Matter-Controller
-  erreichen eine Bridge nur über IPv6, deshalb legt RedMatic die Adresse
-  jetzt beim Start an, falls sie fehlt (dauert etwa zwei Sekunden), und
-  schreibt eine Zeile ins Log. Auf OpenCCU ist die Adresse bereits vorhanden,
-  dort ändert sich nichts. Voraussetzung für
-  [RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter).
+  Auslöser war eine Änderung in 4.3.0 (ausgeliefert mit RedMatic 9.3.0): die
+  Erkennung „läuft direkt auf der Zentrale" greift dort wieder, wodurch die
+  ReGa-Anfragen direkt an ReGaHSS auf Port 8183 gehen statt über lighttpd auf
+  8181. Ein ausgelastetes ReGaHSS schließt die Verbindung dann einfach,
+  während lighttpd das vorher abgefangen hat.
+- **Node-RED konnte zweimal gestartet werden**, wobei die zweite Instanz mit
+  `Error: port in use` abbrach. Geprüft wurde nur, ob ein Prozess namens
+  `node-red` läuft — den gibt es während eines laufenden Starts noch nicht,
+  nach einem Neustart der Zentrale bis zu 30 Sekunden lang. Ein bereits
+  laufender Start wird jetzt erkannt und ein zweiter abgewiesen.
+- Jeder Startversuch protokolliert jetzt, **welcher Prozess ihn ausgelöst
+  hat** (`start requested by pid …`). Einen zweiten gleichzeitigen Start soll
+  es nie geben; falls er doch vorkommt, steht die Ursache damit im Log.
+- Die Liste der Commits einer Version fehlte bisher in den Release-Notes
+  (`### Changes` blieb leer) — behoben.
 
 ### RedMatic 9
 
