@@ -64,6 +64,23 @@ ReleaseStartLock () {
     rm -rf $START_LOCK
 }
 
+# Who asked for this start? There is no legitimate reason for a second
+# concurrent start - if one happens, the bug is in whatever issued it, and the
+# log has to name it (BUGS.md bug 3). Reports so far show a second start on a
+# plain start with no update running, and the origin is still unknown.
+# truncated: a caller can be a shell with a very long -c script, and this goes
+# into the CCU syslog that users download and attach to issues
+ProcessLine () {
+    ps -o pid,args 2>/dev/null | awk -v p="$1" '{if($1 == p){$1=""; sub(/^ +/, ""); print}}' | cut -c1-100 | head -1
+}
+
+LogCaller () {
+    CALLER_ARGS=`ProcessLine $PPID`
+    GRANDPARENT=`awk '{print $4}' /proc/$PPID/stat 2>/dev/null`
+    GRANDPARENT_ARGS=`ProcessLine ${GRANDPARENT:-0}`
+    logger -t redmatic -p "$1" "start requested by pid $PPID (${CALLER_ARGS:-unknown}), its parent pid ${GRANDPARENT:-unknown} (${GRANDPARENT_ARGS:-unknown})"
+}
+
 Stop () {
     if [ -f /usr/bin/monit ]; then
         /usr/bin/monit -g redmatic unmonitor
@@ -158,16 +175,22 @@ Start () {
     if [ "`RedmaticPid`" != "" ]; then
         echo "Node-RED already running"
         logger -t redmatic -p daemon.error "cant start - already running"
+        LogCaller daemon.error
         exit 1
     elif [ "`RedmaticStarting`" != "" ]; then
         echo "Node-RED is already starting"
         logger -t redmatic -p daemon.error "cant start - a start is already in progress"
+        LogCaller daemon.error
         exit 1
     elif ! AcquireStartLock; then
         echo "Node-RED is already starting"
         logger -t redmatic -p daemon.error "cant start - another start holds the lock"
+        LogCaller daemon.error
         exit 1
     else
+        # also on the accepted start, so a stray second one can be matched
+        # against the first in the log
+        LogCaller daemon.info
         # the lock is held across the boot delay below, so a second start
         # request during those 30 seconds is rejected instead of racing (#601)
         upSeconds="$(cat /proc/uptime | grep -o '^[0-9]\+')"
@@ -180,7 +203,8 @@ Start () {
         if [ "`RedmaticPid`" != "" ] || [ "`RedmaticStarting`" != "" ]; then
             ReleaseStartLock
             echo "Node-RED already running"
-            logger -t redmatic -p daemon.error "cant start - already running"
+            logger -t redmatic -p daemon.error "cant start - already running after the boot delay"
+            LogCaller daemon.error
             exit 1
         fi
         EnsureIpv6LinkLocal

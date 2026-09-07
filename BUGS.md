@@ -12,6 +12,7 @@ contents below gets a ✅ marker linking into the archive.
 
 - [1. Node-RED crashes shortly after start on OpenCCU since 9.3.0](#1-node-red-crashes-shortly-after-start-on-openccu-since-930)
 - 2. The self-update can start Node-RED twice ✅ [archived](roadmap-archive/bug-2.md)
+- [3. Something issues a second `redmatic start` on a plain start](#3-something-issues-a-second-redmatic-start-on-a-plain-start)
 
 ## 1. Node-RED crashes shortly after start on OpenCCU since 9.3.0
 
@@ -307,3 +308,49 @@ rejects by closing).
 
 Lab boxes are documented in the private lab notes (`~/repos/redmatic-lab.md`),
 not in this repo.
+
+## 3. Something issues a second `redmatic start` on a plain start
+
+**Open — found 2026-09-07, follow-up to [bug 2](roadmap-archive/bug-2.md) and [#601](https://github.com/rdmtc/RedMatic/issues/601)**
+
+Bug 2 fixed the *damage*: a second start no longer produces a second
+supervisor, it is rejected with `Node-RED is already starting` at
+`daemon.error`. It did not answer **who asks for the second start**, and
+there is no legitimate reason for one — a second concurrent `redmatic start`
+means something else is wrong.
+
+For the **self-update** path the origin is known and fixed: OpenCCU's
+`update_script` starts the service and `bin/redmatic-update` started it again
+because its `node_red_running` check only looked for a process named
+`node-red`.
+
+For a **plain start** it is not. The reporter's debug log shows Node-RED 5959
+running normally while 6148 comes up beside it and dies with
+`Unable to listen on http://127.0.0.1:1880/addons/red/` / `Error: port in use`
+— with no update in progress. Ruled out so far:
+
+- **monit** — `etc/monit.tmpl` is `MODE PASSIVE` with `if failed … then alert`;
+  it never runs the `start` program by itself.
+
+Still to check: the WebUI restart path (`www/` CGIs and `js/script.js`), the
+rc.d/`update_script` interaction on a plain addon install, and whether a
+leftover second `redmaticLoader` from an earlier double start survives and
+keeps retrying.
+
+**What is missing to solve it**: the `redmatic:`-tagged lines from around the
+second start. The reporter's excerpt contains only the `node-red`-tagged lines,
+so the `Starting Node-RED` banners that would identify the trigger are not in
+it. Since 9.4.1 the rejected start logs
+`cant start - a start is already in progress`, which pins the moment. **9.4.2
+adds the caller**: every start attempt now logs
+`start requested by pid <p> (<command>), its parent pid <g> (<command>)` —
+at `daemon.info` for the accepted start and at `daemon.error` for a rejected
+one, so the stray start can be matched against the legitimate one. Command
+lines are truncated to 100 characters, because this goes into the syslog users
+download and attach to issues.
+
+Verified on `ccu-arm64`: a rejected start logs the calling shell and
+`sshd-session: root@notty` as its parent.
+
+**Next step**: get a log from a box where the double start happens (the
+reporter's, or any 9.4.2 install) and read who the second caller is.

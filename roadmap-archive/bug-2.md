@@ -54,6 +54,13 @@ depend on the process name (check the port, or the loader's own pid/lock).
   permanently.
 - `bin/redmatic-update`'s `node_red_running` uses the same loader-aware check.
 
+Note what this is and is not: a second start is **rejected** (exit 1, logged at
+`daemon.error`), not queued behind the first. There is no legitimate reason for
+two concurrent starts — the guard is a safety net that keeps a stray second
+start from doing damage and makes it visible in the log. Whatever issues that
+second start is a bug in its own right; for the updater that bug is fixed here,
+for a plain start its origin is still unknown — see BUGS.md bug 3.
+
 Verified on `ccu-arm64` (OpenCCU on a Pi 4, aarch64): two starts one second
 apart leave exactly one Node-RED and one loader, the second exits 1 with
 `Node-RED is already starting`, the lock is released afterwards, a start while
