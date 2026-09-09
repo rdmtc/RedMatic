@@ -4,6 +4,6 @@
   "private": true,
   "dependencies": {
     "npm": "11.19.1",
-    "node-red": "5.0.6"
+    "node-red": "5.0.7"
   }
 }
