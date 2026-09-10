@@ -141,6 +141,70 @@ async function occuliteAuthenticate(username, password) {
     return user;
 }
 
+// Single sign-on with the box's own session (the maintainer, 2026-09-10: "node-red verlangt
+// username/passwort obwohl ich doch schon in openccu-lite eingeloggt bin").
+//
+// The editor is served under /addons/red/, behind the session gate of the box - a browser that
+// gets there has already logged in, and it carries the `occulite_session` cookie. Node-RED's
+// `tokens` hook is handed the header named by `tokenHeader`, so with `cookie` the raw cookie
+// arrives here and the box itself says whose session it is (GET /api/auth/v1/state, the same
+// endpoint the box's own shell asks). The strategy chain is ['bearer','tokens','anon'], so the
+// editor's own token still wins and this only fills in where there is none - which is the first
+// request of a fresh editor, the one that used to produce the login form.
+//
+// It widens nothing: the request has already passed lighttpd's gate for /addons/, and a cookie
+// that does not name a live session of the box is refused here as well.
+const sessionCacheTtl = 30 * 1000;
+const sessionCache = new Map(); // sid -> {user, ts}
+
+function sidFromCookie(header) {
+    if (typeof header !== 'string') {
+        return null;
+    }
+    // anchored at the start or at a separator, as the box's own gate does it: a cookie that
+    // merely *ends* in occulite_session is not the session cookie
+    const match = header.match(/(?:^|[;,\s])occulite_session=([\w@]+)/);
+    if (!match) {
+        return null;
+    }
+    return match[1].replace(/^@/, '').replace(/@$/, '');
+}
+
+async function occuliteTokens(cookieHeader) {
+    const sid = sidFromCookie(cookieHeader);
+    if (!sid) {
+        return null;
+    }
+    const cached = sessionCache.get(sid);
+    if (cached && Date.now() - cached.ts < sessionCacheTtl) {
+        return cached.user;
+    }
+    let res;
+    try {
+        res = await request({method: 'GET', path: '/api/auth/v1/state', headers: {Cookie: 'occulite_session=' + sid}});
+    } catch {
+        return null;
+    }
+    if (res.status !== 200) {
+        return null;
+    }
+    let state;
+    try {
+        state = JSON.parse(res.body);
+    } catch {
+        return null;
+    }
+    if (!state.authenticated || !state.user) {
+        return null;
+    }
+    // the box's roles: an administrator edits, a user reads. A box with the login switched off
+    // answers as its anonymous administrator, which is what that box asked for.
+    const user = {username: String(state.user), permissions: state.role === 'admin' ? '*' : 'read'};
+    sessionCache.set(sid, {user, ts: Date.now()});
+    userCache.set(user.username, user);
+    return user;
+}
+
 // Node-RED asks for a user when it resolves the token of an admin request -
 // with a name it issued that token to itself (editor-api auth/strategies.js:
 // Tokens.get(token) -> Users.get(token.user)). openccu-lite has no endpoint
@@ -158,6 +222,13 @@ function occuliteUser(username) {
 
 module.exports = {
     type: 'credentials',
+    // the whole Cookie header, not a bearer token: what the box's session lives in
+    tokenHeader: 'cookie',
+    tokens: async cookieHeader => {
+        const kind = await detect();
+        // a CCU keeps its login: ReGa has no endpoint that turns a WebUI session into a user
+        return kind === 'occulite' ? occuliteTokens(cookieHeader) : null;
+    },
     users: async username => {
         const kind = await detect();
         return kind === 'occulite' ? occuliteUser(username) : regaAuth.users(username);
