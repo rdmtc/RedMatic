@@ -1,6 +1,6 @@
 {
   "name": "redmatic",
-  "version": "9.6.0",
+  "version": "9.7.0",
   "description": "Node-RED packaged as Homematic CCU addon",
   "repository": "github:rdmtc/redmatic",
   "private": true,
@@ -28,10 +28,12 @@
     "update:package": "node update_package.js",
     "update:readme": "node update_readme.js",
     "update:versions": "node update_versions.js",
+    "test:unit": "node --test test/*.test.js",
     "test:e2e": "test/e2e.sh"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.9.1"
+    "eslint": "^10.9.1",
+    "got": "11.8.6"
   }
 }

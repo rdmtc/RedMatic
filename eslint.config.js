@@ -38,7 +38,7 @@ module.exports = [
         ignores: ['addon_tmp/**', 'node_modules/**', 'dist/**', 'RedMatic.wiki/**']
     },
     {
-        files: ['*.js', 'addon_files/redmatic/lib/*.js'],
+        files: ['*.js', 'addon_files/redmatic/lib/*.js', 'test/*.js'],
         languageOptions: {
             ecmaVersion: 2024,
             sourceType: 'commonjs',

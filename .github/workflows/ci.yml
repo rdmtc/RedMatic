@@ -36,6 +36,9 @@ jobs:
             node --check "$f"
           done
 
+      - name: Unit tests
+        run: npm run test:unit
+
   build:
     needs: check
     runs-on: ubuntu-latest

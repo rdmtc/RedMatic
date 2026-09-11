@@ -55,7 +55,8 @@ while [ "$status" != 0 ]; do
   fi
   # pipefail: busybox ash and bash have it, dash (debmatic) does not
   (set -o pipefail) 2>/dev/null && set -o pipefail
-  $NODE $RED $SAFE -s $SETTINGS 2>&1 | logger -p daemon.err -t node-red
+  # lib/compat.js: an old got 11 in a user's node must not stop Node-RED (#602)
+  $NODE --require $ADDON_DIR/lib/compat.js $RED $SAFE -s $SETTINGS 2>&1 | logger -p daemon.err -t node-red
   status=$?
   if [ "$status" != 0 ]; then
     echo "Node-RED exited with non-zero exit status $status" | logger -p daemon.err -t node-red
