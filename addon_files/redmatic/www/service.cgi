@@ -10,7 +10,7 @@ if {[info exists cmd]} {
 
         source ../lib/session.tcl
 
-        if {[info exists sid] && [check_session $sid]} {
+        if {[request_session_ok]} {
             catch {exec /usr/local/etc/config/rc.d/redmatic $cmd} result
             puts $result
             exit 0

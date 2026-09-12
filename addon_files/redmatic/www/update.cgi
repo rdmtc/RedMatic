@@ -10,7 +10,7 @@
 #   status needs no session, like service.cgi?cmd=ps: the page polls it every
 #   second for minutes and it exposes nothing but phase and version numbers.
 #   Everything else triggers or reads privileged things and needs the CCU
-#   session.
+#   session (on openccu-lite the gate's session header, lib/session.tcl).
 
 source ../lib/querystring.tcl
 
@@ -57,7 +57,7 @@ if {$cmd == "status"} {
 
 source ../lib/session.tcl
 
-if {![info exists sid] || ![check_session $sid]} {
+if {![request_session_ok]} {
     puts -nonewline "Content-Type: application/json; charset=utf-8\r\n\r\n"
     puts {{"error":"invalid session"}}
     exit 0

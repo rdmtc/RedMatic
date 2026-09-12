@@ -36,6 +36,9 @@ jobs:
             node --check "$f"
           done
 
+      - name: tclsh and busybox for the unit tests
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends tcl busybox
+
       - name: Unit tests
         run: npm run test:unit
 

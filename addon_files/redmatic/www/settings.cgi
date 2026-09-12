@@ -1,6 +1,7 @@
 #!/bin/tclsh
 
-load tclrega.so
+#   loads tclrega.so; the session header of openccu-lite
+source ../lib/session.tcl
 
 catch {
   set input $env(QUERY_STRING)
@@ -14,7 +15,16 @@ catch {
 
 puts -nonewline "Content-Type: text/html; charset=utf-8\r\n\r\n"
 
-if {[info exists sid] > 0} {
+if {[session_header] != ""} {
+    # openccu-lite: the gate's session header decides, checked with the box (lib/session.tcl)
+    if {[check_occulite_session [session_header]]} {
+        set fp [open "/usr/local/addons/redmatic/www/settings.html" r]
+        puts -nonewline [read $fp]
+        close $fp
+    } else {
+        puts {error: session invalid}
+    }
+} elseif {[info exists sid] > 0} {
     # Session prüfen
     if {
         ([string index $sid 0] != "@")

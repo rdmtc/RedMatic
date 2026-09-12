@@ -5,7 +5,7 @@ source ../lib/session.tcl
 
 puts -nonewline "Content-Type: text/plain; charset=utf-8\r\n\r\n"
 
-if {[info exists sid] && [check_session $sid]} {
+if {[request_session_ok]} {
     set filename "/usr/local/addons/redmatic/etc/settings.json"
     set fp [open $filename "w"]
     puts -nonewline $fp [read stdin]

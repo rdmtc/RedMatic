@@ -3,7 +3,7 @@
 source ../lib/querystring.tcl
 source ../lib/session.tcl
 
-if {[info exists sid] && [check_session $sid]} {
+if {[request_session_ok]} {
 
 
     set HOSTNAME [exec hostname]
