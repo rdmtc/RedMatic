@@ -16,12 +16,40 @@ mkdir -p $WWW_DIR && chmod 755 $WWW_DIR
 mkdir -p $CONF_DIR/lighttpd && chmod 755 $CONF_DIR/lighttpd
 
 #
+#   openccu-lite runs the addon in its own systemd unit, addon-redmatic.service,
+#   as the user addon-redmatic. There stop and start go to that unit: a start
+#   from here would run Node-RED as root in the installer's scope, beside the
+#   unit and outside its confinement (bug 8: that start failed on a file the
+#   confined Node-RED had left in /tmp, and the addon stayed stopped). The
+#   markers are the ones lib/ccu-auth.js uses: a LITE= line in /VERSION, or
+#   occulited. A CCU and OpenCCU have neither and behave as before, and so does
+#   an openccu-lite without systemd (no unit to start).
+#
+LITE_UNIT=addon-redmatic.service
+lite_unit() {
+    grep -q '^LITE=' /VERSION 2>/dev/null || [ -x /usr/bin/occulited ] || return 1
+    command -v systemctl >/dev/null 2>&1 || return 1
+    [ "`systemctl show -p LoadState $LITE_UNIT 2>/dev/null`" = "LoadState=loaded" ]
+}
+
+#
 #   Stop service on update
 #
 if [ -f $CONF_DIR/rc.d/redmatic ]; then
     EXITCODE=0
-    $CONF_DIR/rc.d/redmatic stop
+    if lite_unit; then
+        systemctl stop $LITE_UNIT
+    else
+        $CONF_DIR/rc.d/redmatic stop
+    fi
 fi
+
+#
+#   Versions up to 9.7.1 wrote the merged settings to /tmp/red-settings.json
+#   (credentialSecret included, readable for every local user). Nothing reads
+#   it; remove what an earlier start left behind.
+#
+rm -f /tmp/red-settings.json
 
 #
 #   Rename extra nodes package.json on update
@@ -150,7 +178,12 @@ if [ $EXITCODE -eq 0 ] && [ ! -f /etc/init.d/S00InstallAddon ]; then
     # never start from the installer's temp dir (OpenCCU deletes it afterwards,
     # spawning npm from a deleted cwd fails: palette editor disabled, #599)
     cd /
-    $CONF_DIR/rc.d/redmatic start
+    if lite_unit; then
+        # the unit starts rc.d/redmatic itself, as addon-redmatic
+        systemctl start $LITE_UNIT
+    else
+        $CONF_DIR/rc.d/redmatic start
+    fi
 fi
 
 exit $EXITCODE

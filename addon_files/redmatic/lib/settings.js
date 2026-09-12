@@ -103,6 +103,9 @@ if (fs.existsSync('/usr/local/addons/redmatic/etc/settings-user.js')) {
     Object.assign(result, require('/usr/local/addons/redmatic/etc/settings-user.js'));
 }
 
-fs.writeFileSync('/tmp/red-settings.json', JSON.stringify(result));
+// No copy of the merged settings in /tmp any more (it went to /tmp/red-settings.json until 9.7.1).
+// Nothing read it; it held credentialSecret readable for every local user, and on openccu-lite,
+// where Node-RED runs as the addon's own user, the file belonged to that user: a start as root
+// (an update's installer) could not open it in the sticky /tmp and Node-RED did not start (bug 8).
 
 module.exports = result;

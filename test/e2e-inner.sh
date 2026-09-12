@@ -99,6 +99,12 @@ check_running() {
         fail "syslog contains 'Palette editor disabled'"
     fi
 
+    if [ -e /tmp/red-settings.json ]; then
+        fail "/tmp/red-settings.json exists (lib/settings.js must not write it, bug 8)"
+    else
+        ok "no /tmp/red-settings.json"
+    fi
+
     if curl -s -H 'Accept: application/json' $RED/nodes | $ADDON_DIR/bin/node -e '
         let s = ""; process.stdin.on("data", d => s += d).on("end", () => {
             const sets = JSON.parse(s).filter(n => n.module === "node-red-contrib-ccu");
@@ -141,6 +147,39 @@ ok "update_script exit 0"
 sleep 3
 check_running
 grep -q '"node-red-contrib-ccu"' $ADDON_DIR/var/package.json || fail "var/package.json lost node-red-contrib-ccu in the merge"
+
+# --- update on openccu-lite (bug 8) --------------------------------------------
+# A pretend openccu-lite: /VERSION with a LITE= line and a systemctl that records
+# its calls and plays the unit (runs rc.d/redmatic as a child, so the start log
+# names it as the caller). update_script must stop and start addon-redmatic.service
+# instead of calling rc.d/redmatic itself, and remove the /tmp/red-settings.json
+# of an earlier version.
+log "update on a pretend openccu-lite (stop and start through addon-redmatic.service)"
+cat > /usr/local/bin/systemctl <<'EOF'
+#!/bin/sh
+echo "$*" >> /tmp/systemctl.log
+case "$1" in
+    show) if [ "$4" = addon-redmatic.service ]; then echo LoadState=loaded; else echo LoadState=not-found; fi ;;
+    start|stop) /usr/local/etc/config/rc.d/redmatic "$1"; exit $? ;;
+esac
+EOF
+chmod 755 /usr/local/bin/systemctl
+printf 'VERSION=3.89.8\nPRODUCT=e2e\nLITE=1.0.0-e2e\n' > /VERSION
+: > /tmp/systemctl.log
+echo '{"credentialSecret":"left by an earlier version"}' > /tmp/red-settings.json
+chown nobody /tmp/red-settings.json
+install_addon
+rc=$?
+[ $rc -eq 0 ] || { cat /tmp/update_script.log; die "update_script exit code $rc, expected 0"; }
+ok "update_script exit 0"
+echo "--- systemctl calls"; cat /tmp/systemctl.log
+grep -q '^stop addon-redmatic.service$' /tmp/systemctl.log && ok "stopped through the unit" || fail "update_script did not stop addon-redmatic.service"
+grep -q '^start addon-redmatic.service$' /tmp/systemctl.log && ok "started through the unit" || fail "update_script did not start addon-redmatic.service"
+sleep 3
+check_running
+grep "start requested by pid" /var/log/messages | tail -1 | grep -q "systemctl start addon-redmatic.service" &&
+    ok "the accepted start came from the unit" || fail "the last accepted start did not come from systemctl: `grep 'start requested by pid' /var/log/messages | tail -1`"
+rm -f /usr/local/bin/systemctl /VERSION /tmp/systemctl.log
 
 # --- palette install / uninstall ---------------------------------------------
 log "palette install node-red-node-random"
