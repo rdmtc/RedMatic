@@ -32,6 +32,12 @@ mkdir -p /usr/local/tmp $CONF_DIR/rc.d /etc/config
 ln -sf /bin/busybox /bin/sh
 ok "$PKG"
 
+# the published .sha256 files must verify next to a downloaded package: the
+# name only, no build path (they named the runner's dist directory until 9.7.1)
+log "checksum files"
+(cd /dist && sha256sum -c *.sha256) || die "sha256sum -c in the package directory"
+ok "sha256sum -c"
+
 # what OpenCCU's /bin/install_addon does: extract into a temp dir below
 # /usr/local/tmp, run update_script from inside it, delete the temp dir
 install_addon() {

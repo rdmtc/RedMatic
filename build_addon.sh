@@ -325,13 +325,18 @@ else
     tar --owner=root --group=root -czf $BUILD_DIR/dist/$ADDON_FILE *
 fi
 
-cd $BUILD_DIR
-
+# The checksum file names the package alone, so `sha256sum -c` works next to a
+# downloaded copy. Hashed by its absolute path it carried the build directory
+# (/home/runner/work/RedMatic/RedMatic/dist/... on the release runner), and the
+# check failed on every download.
+cd $BUILD_DIR/dist
 if command -v sha256sum >/dev/null 2>&1; then
-    sha256sum $BUILD_DIR/dist/$ADDON_FILE > $BUILD_DIR/dist/$ADDON_FILE.sha256
+    sha256sum $ADDON_FILE > $ADDON_FILE.sha256
 else
-    shasum -a 256 $BUILD_DIR/dist/$ADDON_FILE > $BUILD_DIR/dist/$ADDON_FILE.sha256
+    shasum -a 256 $ADDON_FILE > $ADDON_FILE.sha256
 fi
+
+cd $BUILD_DIR
 
 # armv7l keeps its historic asset name (every wiki page, every installed
 # self-updater and the release body point at redmatic-<version>.tar.gz), and
