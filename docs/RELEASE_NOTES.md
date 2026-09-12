@@ -1,22 +1,33 @@
-### RedMatic 9.7.1
+### RedMatic 9.7.2
 
-Behebt die Anmeldung am Node-RED-Editor auf **openccu-lite über HTTPS**. Wer
-openccu-lite über HTTPS nutzt, sollte aktualisieren.
+Stellt die Anmeldung am Node-RED-Editor auf **openccu-lite** auf den
+Session-Header der Zentrale um und behebt ein Update auf openccu-lite, nach dem
+RedMatic gestoppt blieb.
 
-- **Über HTTPS verlangte der Node-RED-Editor auf openccu-lite eine zweite
-  Anmeldung und hatte danach keine Verbindung zum Backend** („Lost connection
-  to server, reconnecting…“, im Log von lighttpd `/addons/red/comms` mit
-  Status 500). openccu-lite nennt sein Session-Cookie über HTTPS
-  `__Secure-occulite_session`, RedMatic kannte nur `occulite_session`. Der
-  Editor erkennt die Anmeldung an openccu-lite jetzt unter beiden Namen und
-  sollte ohne eigenen Login-Dialog öffnen.
-- **Das Cookie wird nur noch auf openccu-lite ausgewertet.** Node-RED prüft die
-  WebSocket-Verbindung des Editors allein anhand dieses Cookies, sobald RedMatic
-  das so einstellt, und trennt sie, wenn die Prüfung fehlschlägt. Auf einer CCU3
-  oder OpenCCU gibt es keine solche Anmeldung, dort hätte ein beliebiges Cookie
-  für die Adresse der Zentrale (etwa von einem anderen Addon) den Editor vom
-  Backend trennen können. Auf der CCU bleibt es beim Login von Node-RED mit dem
-  Benutzer der Zentrale, wie bisher.
+- **Auf openccu-lite nutzt der Node-RED-Editor jetzt den Session-Header der
+  Zentrale.** openccu-lite reicht die geprüfte Sitzung an Addons im Header
+  `X-Occulite-Session` weiter und entfernt vorher jeden Header dieses Namens,
+  den ein Browser selbst mitschickt. RedMatic liest die Anmeldung für den Editor
+  und für seine WebSocket-Verbindung daraus und muss die Namen des
+  Session-Cookies nicht mehr kennen. Die Sitzung wird weiterhin bei openccu-lite
+  selbst geprüft (`/api/auth/v1/state`).
+- **Ältere openccu-lite-Images ohne diesen Header funktionieren weiter** über
+  das Session-Cookie, wie mit 9.7.1. Auf einer CCU3 und OpenCCU bleibt es beim
+  Login von Node-RED mit dem Benutzer der Zentrale, wie bisher.
+- **Updates auf openccu-lite starten Node-RED nicht mehr als root.** Ein Update
+  über die Addon-Seite von openccu-lite konnte RedMatic gestoppt zurücklassen:
+  Das Installationsskript startete Node-RED als root außerhalb des Dienstes, in
+  dem openccu-lite das Addon mit eigenem Benutzer ausführt, und dieser Start
+  scheiterte an der Datei `/tmp/red-settings.json`, die diesem Benutzer gehörte.
+  Stopp und Start gehen auf openccu-lite jetzt an den Dienst
+  `addon-redmatic.service`. Das gilt auch für das Selbst-Update aus den
+  RedMatic-Einstellungen, wenn Node-RED nach der Installation nicht läuft.
+- **`/tmp/red-settings.json` wird nicht mehr geschrieben** und bei einem Update
+  entfernt. Die Datei las niemand, sie enthielt aber das `credentialSecret`,
+  lesbar für jeden lokalen Benutzer.
+- **Die Prüfsummen der Release-Anhänge** (`.sha256`) nennen nur noch den
+  Dateinamen, so dass `sha256sum -c` direkt neben dem heruntergeladenen Paket
+  funktioniert.
 
 ### RedMatic 9
 
