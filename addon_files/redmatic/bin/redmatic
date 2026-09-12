@@ -43,21 +43,55 @@ RedmaticStarting () {
 
 # mkdir is atomic on every filesystem the addon runs on. A lock whose owner is
 # gone (killed, or a reboot in between) is stale and gets removed.
+#
+# Only an existing lock directory is a held lock (BUGS.md bug 10). A mkdir that
+# fails while there is none - the addon's var/ not writable for the user the
+# start runs as, as on openccu-lite while an update has left var/ root's, or a
+# read-only filesystem - used to be reported as "another start holds the lock".
+# Such a failure is put into START_LOCK_ERROR instead, with mkdir's own reason.
 AcquireStartLock () {
-    if mkdir $START_LOCK 2>/dev/null; then
-        echo $$ > $START_LOCK/pid
-        return 0
-    fi
+    START_LOCK_ERROR=
+    CreateStartLock && return 0
+    [ -n "$START_LOCK_ERROR" ] && return 1
     LOCKPID=`cat $START_LOCK/pid 2>/dev/null`
     if [ -z "$LOCKPID" ] || ! kill -0 "$LOCKPID" 2>/dev/null; then
         logger -t redmatic -p daemon.warn "removing stale start lock of pid ${LOCKPID:-unknown}"
-        rm -rf $START_LOCK
-        if mkdir $START_LOCK 2>/dev/null; then
+        RM_ERROR=`rm -rf $START_LOCK 2>&1`
+        if [ -d $START_LOCK ]; then
+            START_LOCK_ERROR=`StartLockProblem "remove the stale" "$RM_ERROR"`
+            return 1
+        fi
+        CreateStartLock && return 0
+    fi
+    return 1
+}
+
+# 0: the lock directory is this start's. 1: it could not be created, and
+# START_LOCK_ERROR says why unless a lock directory is there (a held lock).
+# Tried twice, so a lock another start releases between mkdir and the check
+# is not taken for an error.
+CreateStartLock () {
+    for try in 1 2; do
+        if MKDIR_ERROR=`mkdir $START_LOCK 2>&1`; then
             echo $$ > $START_LOCK/pid
             return 0
         fi
-    fi
+        [ -d $START_LOCK ] && return 1
+    done
+    START_LOCK_ERROR=`StartLockProblem create "$MKDIR_ERROR"`
     return 1
+}
+
+# "cannot create /usr/local/addons/redmatic/var/start.lock: permission denied
+# (owner root, running as addon-redmatic)". The reason is the tool's own: busybox
+# and coreutils both end their message with the system's error text. The owner
+# is the one of the directory the lock lives in.
+StartLockProblem () {
+    REASON=`echo "$2" | head -1 | sed 's/.*: //' | tr 'A-Z' 'a-z'`
+    LOCK_PARENT=${START_LOCK%/*}
+    LOCK_OWNER=`stat -c %U $LOCK_PARENT 2>/dev/null || ls -ld $LOCK_PARENT 2>/dev/null | awk '{print $3}'`
+    RUNNING_AS=`id -un 2>/dev/null || id -u 2>/dev/null`
+    echo "cannot $1 $START_LOCK: ${REASON:-unknown error} (owner ${LOCK_OWNER:-unknown}, running as ${RUNNING_AS:-unknown})"
 }
 
 ReleaseStartLock () {
@@ -183,8 +217,13 @@ Start () {
         LogCaller daemon.error
         exit 1
     elif ! AcquireStartLock; then
-        echo "Node-RED is already starting"
-        logger -t redmatic -p daemon.error "cant start - another start holds the lock"
+        if [ -n "$START_LOCK_ERROR" ]; then
+            echo "Node-RED cannot start: $START_LOCK_ERROR"
+            logger -t redmatic -p daemon.error "cant start - $START_LOCK_ERROR"
+        else
+            echo "Node-RED is already starting"
+            logger -t redmatic -p daemon.error "cant start - another start holds the lock"
+        fi
         LogCaller daemon.error
         exit 1
     else

@@ -282,6 +282,27 @@ else
     fail "Node-RED still running after stop"
 fi
 
+# --- start lock (bug 10) ----------------------------------------------------------
+# On a confined openccu-lite the unit starts bin/redmatic as addon-redmatic. While an
+# update has left var/ root's, the start lock cannot be created there, and the start
+# reported that as "another start holds the lock". It has to name the problem.
+log "start lock: a start that cannot create var/start.lock names the permission problem (bug 10)"
+MARK=`wc -l < /var/log/messages`
+out=`su -s /bin/sh nobody -c "$CONF_DIR/rc.d/redmatic start" 2>&1`
+rc=$?
+echo "--- output (last 3 lines)"; echo "$out" | tail -3
+expected="cannot create $ADDON_DIR/var/start.lock: permission denied (owner root, running as nobody)"
+[ $rc -ne 0 ] && ok "the start as nobody exits $rc" || fail "the start as nobody exited 0"
+echo "$out" | grep -qF "Node-RED cannot start: $expected" &&
+    ok "its output names the permission problem" || fail "its output does not say: Node-RED cannot start: $expected"
+new_log=`tail -n +$((MARK + 1)) /var/log/messages`
+echo "$new_log" | grep -qF "cant start - $expected" &&
+    ok "the syslog names the permission problem" || fail "the syslog does not say: cant start - $expected"
+echo "$new_log" | grep -q "another start holds the lock\|removing stale start lock" &&
+    fail "the start still took the permission error for a held or stale lock"
+[ -z "`node_red_pid`" ] || fail "Node-RED runs after a start that could not take the lock"
+[ -d $ADDON_DIR/var/start.lock ] && fail "a start lock was left behind"
+
 dump
 echo ""
 if [ $FAILED -eq 0 ]; then
