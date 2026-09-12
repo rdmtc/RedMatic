@@ -157,24 +157,37 @@ async function occuliteAuthenticate(username, password) {
 const sessionCacheTtl = 30 * 1000;
 const sessionCache = new Map(); // sid -> {user, ts}
 
-function sidFromCookie(header) {
+// Every session id the Cookie header carries, in header order. Anchored at the start or at a
+// separator, as the box's own gate does it: a cookie that merely *ends* in occulite_session is
+// not the session cookie. openccu-lite names the cookie per scheme - occulite_session from a
+// login over http, __Secure-occulite_session from one over https - and a stale cookie of one name
+// can stand before a live one of the other, so every match is a candidate.
+function sidsFromCookie(header) {
     if (typeof header !== 'string') {
-        return null;
+        return [];
     }
-    // anchored at the start or at a separator, as the box's own gate does it: a cookie that
-    // merely *ends* in occulite_session is not the session cookie
-    const match = header.match(/(?:^|[;,\s])occulite_session=([\w@]+)/);
-    if (!match) {
-        return null;
+    const sids = [];
+    for (const match of header.matchAll(/(?:^|[;,\s])(?:__Secure-)?occulite_session=([\w@]+)/g)) {
+        const sid = match[1].replace(/^@/, '').replace(/@$/, '');
+        if (sid && !sids.includes(sid)) {
+            sids.push(sid);
+        }
     }
-    return match[1].replace(/^@/, '').replace(/@$/, '');
+    return sids;
 }
 
 async function occuliteTokens(cookieHeader) {
-    const sid = sidFromCookie(cookieHeader);
-    if (!sid) {
-        return null;
+    for (const sid of sidsFromCookie(cookieHeader)) {
+        const user = await userForSid(sid);
+        if (user) {
+            return user;
+        }
     }
+    return null;
+}
+
+// The box's own answer for one session id: its user, or null when it names no live session.
+async function userForSid(sid) {
     const cached = sessionCache.get(sid);
     if (cached && Date.now() - cached.ts < sessionCacheTtl) {
         return cached.user;
@@ -241,3 +254,6 @@ module.exports = {
     },
     default: () => Promise.resolve(null)
 };
+
+// for test/ccu-auth.test.js; not enumerable, so Node-RED sees only its adminAuth keys
+Object.defineProperty(module.exports, 'sidsFromCookie', {value: sidsFromCookie});
