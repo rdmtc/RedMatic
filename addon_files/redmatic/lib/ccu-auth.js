@@ -179,7 +179,7 @@ function sidsFromCookie(header) {
 
 async function occuliteTokens(cookieHeader) {
     for (const sid of sidsFromCookie(cookieHeader)) {
-        const user = await userForSid(sid);
+        const user = await userForSid(sid, false);
         if (user) {
             return user;
         }
@@ -187,15 +187,42 @@ async function occuliteTokens(cookieHeader) {
     return null;
 }
 
+// The session header (openccu-lite B-94, D-65). Since the header image, lighttpd removes any
+// X-Occulite-Session a client sent, and the gate in front of /addons/ hands the addon the bare id of
+// the session it accepted - from either cookie or ?sid= - on every request, the comms WebSocket
+// upgrade included. RedMatic no longer has to know the cookie's names there.
+//
+// The header is still no proof by itself: Node-RED's port is open to every process on the box, and
+// the contract says to validate the id with GET /api/auth/v1/state. A value that is not a bare
+// session id (a forged list, a line break) is refused without asking.
+const sessionHeader = 'x-occulite-session';
+const sessionIdPattern = /^[A-Za-z0-9]{1,64}$/;
+
+async function occuliteHeaderTokens(header) {
+    if (typeof header !== 'string' || !sessionIdPattern.test(header)) {
+        return null;
+    }
+    return userForSid(header, true);
+}
+
 // The box's own answer for one session id: its user, or null when it names no live session.
-async function userForSid(sid) {
-    const cached = sessionCache.get(sid);
+// `fromHeader`: the id came from the session header. It is sent as the contract says (Bearer), and
+// the session the box confirms has to be that one: /state also accepts an API token as Bearer, and a
+// box with the login switched off answers every request as its anonymous administrator - neither is
+// the session the gate let through. The cookie path of 9.7.1 is left exactly as it was released.
+async function userForSid(sid, fromHeader) {
+    const key = (fromHeader ? 'header:' : 'cookie:') + sid;
+    const cached = sessionCache.get(key);
     if (cached && Date.now() - cached.ts < sessionCacheTtl) {
         return cached.user;
     }
     let res;
     try {
-        res = await request({method: 'GET', path: '/api/auth/v1/state', headers: {Cookie: 'occulite_session=' + sid}});
+        res = await request({
+            method: 'GET',
+            path: '/api/auth/v1/state',
+            headers: fromHeader ? {Authorization: 'Bearer ' + sid} : {Cookie: 'occulite_session=' + sid}
+        });
     } catch {
         return null;
     }
@@ -211,10 +238,13 @@ async function userForSid(sid) {
     if (!state.authenticated || !state.user) {
         return null;
     }
+    if (fromHeader && state.sid !== sid) {
+        return null;
+    }
     // the box's roles: an administrator edits, a user reads. A box with the login switched off
     // answers as its anonymous administrator, which is what that box asked for.
     const user = {username: String(state.user), permissions: state.role === 'admin' ? '*' : 'read'};
-    sessionCache.set(sid, {user, ts: Date.now()});
+    sessionCache.set(key, {user, ts: Date.now()});
     userCache.set(user.username, user);
     return user;
 }
@@ -272,12 +302,34 @@ module.exports = {
     default: () => Promise.resolve(null)
 };
 
+// Whether this image's lighttpd hands addons the session header: the gate that sets it names it.
+// Read once, like the markers above - Node-RED takes one tokenHeader, and its comms authenticates an
+// upgrade by that header alone when it is there. An image with the header gets it; an openccu-lite
+// image from before it keeps the cookie hook of 9.7.1. An image update reboots the box, so Node-RED
+// reads this again.
+const gateScript = '/etc/lighttpd/occulite-gate.lua';
+function gateSetsSessionHeader() {
+    try {
+        return fs.readFileSync(gateScript, 'utf8').includes('X-Occulite-Session');
+    } catch {
+        return false;
+    }
+}
+
 if (isOpenccuLite()) {
-    // the whole Cookie header, not a bearer token: what the box's session lives in
-    module.exports.tokenHeader = 'cookie';
     // No runtime probe here: the box is openccu-lite, and a probe that timed out at boot would
     // answer 'rega' for 30 seconds - every comms upgrade in that window would be dropped.
-    module.exports.tokens = cookieHeader => occuliteTokens(cookieHeader);
+    if (gateSetsSessionHeader()) {
+        // the id of the session lighttpd's gate accepted, checked with the box again
+        module.exports.tokenHeader = sessionHeader;
+        module.exports.tokens = header => occuliteHeaderTokens(header);
+        console.log('openccu-lite: the Node-RED editor signs in with the box session from the X-Occulite-Session header');
+    } else {
+        // the whole Cookie header, not a bearer token: what the box's session lives in
+        module.exports.tokenHeader = 'cookie';
+        module.exports.tokens = cookieHeader => occuliteTokens(cookieHeader);
+        console.log('openccu-lite: the Node-RED editor signs in with the box session from its cookie (this image has no session header)');
+    }
 }
 
 // for test/ccu-auth.test.js; not enumerable, so Node-RED sees only its adminAuth keys
