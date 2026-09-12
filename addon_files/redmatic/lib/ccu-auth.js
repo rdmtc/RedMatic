@@ -19,6 +19,7 @@
 //
 // node:http on purpose: no new dependency, and the box is on the loopback.
 
+const fs = require('fs');
 const http = require('http');
 
 const regaAuth = require('/usr/local/addons/redmatic/lib/rega-auth.js');
@@ -233,15 +234,31 @@ function occuliteUser(username) {
     return {username: String(username), permissions: '*'};
 }
 
+// Whether this box is openccu-lite, read from its filesystem once, when Node-RED loads the
+// settings. The single sign-on hook has to be decided here and not by the runtime probe above:
+// Node-RED reads `tokens` and `tokenHeader` once at init (editor-api auth/users.js), and its comms
+// WebSocket authenticates an upgrade that carries the `tokenHeader` by that header alone - a
+// `null` from `tokens` destroys the socket, and the editor has no backend connection (bug 7). With
+// `tokenHeader: 'cookie'` on a CCU, any cookie the browser holds for the CCU's address would do
+// that. So a CCU gets no hook at all and keeps Node-RED's own login and its `auth` packet.
+//
+// The markers: openccu-lite's /VERSION carries a `LITE=` line (written by the image build), and
+// occulited is its system service. OpenCCU's and the CCU3's /VERSION have neither.
+function isOpenccuLite() {
+    try {
+        if (/^LITE=/m.test(fs.readFileSync('/VERSION', 'utf8'))) {
+            return true;
+        }
+    } catch {}
+    try {
+        return fs.existsSync('/usr/bin/occulited');
+    } catch {
+        return false;
+    }
+}
+
 module.exports = {
     type: 'credentials',
-    // the whole Cookie header, not a bearer token: what the box's session lives in
-    tokenHeader: 'cookie',
-    tokens: async cookieHeader => {
-        const kind = await detect();
-        // a CCU keeps its login: ReGa has no endpoint that turns a WebUI session into a user
-        return kind === 'occulite' ? occuliteTokens(cookieHeader) : null;
-    },
     users: async username => {
         const kind = await detect();
         return kind === 'occulite' ? occuliteUser(username) : regaAuth.users(username);
@@ -254,6 +271,14 @@ module.exports = {
     },
     default: () => Promise.resolve(null)
 };
+
+if (isOpenccuLite()) {
+    // the whole Cookie header, not a bearer token: what the box's session lives in
+    module.exports.tokenHeader = 'cookie';
+    // No runtime probe here: the box is openccu-lite, and a probe that timed out at boot would
+    // answer 'rega' for 30 seconds - every comms upgrade in that window would be dropped.
+    module.exports.tokens = cookieHeader => occuliteTokens(cookieHeader);
+}
 
 // for test/ccu-auth.test.js; not enumerable, so Node-RED sees only its adminAuth keys
 Object.defineProperty(module.exports, 'sidsFromCookie', {value: sidsFromCookie});
