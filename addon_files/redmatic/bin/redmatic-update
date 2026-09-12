@@ -166,6 +166,17 @@ node_red_running() {
         [ -n "`ps -o pid,comm,args | awk '{if($2 == "redmaticLoader" || $3 ~ /redmaticLoader/ || $4 ~ /\/redmaticLoader$/){print $1}}'`" ]
 }
 
+# openccu-lite runs the addon in its own systemd unit as the user
+# addon-redmatic. There a start goes to the unit, as in update_script (bug 8):
+# the same markers (a LITE= line in /VERSION, or occulited) and a loaded unit.
+# A CCU, OpenCCU and an openccu-lite without systemd keep rc.d/redmatic.
+LITE_UNIT=addon-redmatic.service
+lite_unit() {
+    grep -q '^LITE=' /VERSION 2>/dev/null || [ -x /usr/bin/occulited ] || return 1
+    command -v systemctl >/dev/null 2>&1 || return 1
+    [ "`systemctl show -p LoadState $LITE_UNIT 2>/dev/null`" = "LoadState=loaded" ]
+}
+
 # directories the installer created below /usr/local/tmp since we started
 new_tmp_dirs() {
     for d in /usr/local/tmp/tmp.*; do
@@ -529,7 +540,14 @@ if ! node_red_running; then
     # On the CCU3 firmware update_script does not start the service (it
     # cannot tell a live run from the chroot at shutdown), on OpenCCU it
     # already did. Never start from a directory that may vanish (#599).
-    (cd / && $CONF_DIR/rc.d/redmatic start) >> $LOG 2>&1
+    if lite_unit; then
+        # openccu-lite: never rc.d/redmatic from here, that would run Node-RED as
+        # root outside its unit; the unit starts it as addon-redmatic (bug 8)
+        log "Node-RED is not running after the install, starting $LITE_UNIT"
+        (cd / && systemctl start $LITE_UNIT) >> $LOG 2>&1
+    else
+        (cd / && $CONF_DIR/rc.d/redmatic start) >> $LOG 2>&1
+    fi
 fi
 i=0
 UP=0
