@@ -21,6 +21,11 @@ export GIT_TEMPLATE_DIR=$ADDON_DIR/share/git-core/templates
 # provides NODE_VERSION, VERSION_ADDON, RED_VERSION and (armv7l) ICU_DATA
 . $ADDON_DIR/versions
 
+# openccu-lite writes VARIANT=lite into /VERSION; UPTIME_FILE is /proc/uptime
+# (both variables so the test can point them elsewhere)
+VERSION_FILE=/VERSION
+UPTIME_FILE=/proc/uptime
+
 # A start can be requested from several places within a few seconds: the
 # OpenCCU installer's update_script, bin/redmatic-update, the WebUI and rc.d.
 # The old check looked for a process named node-red only, which does not exist
@@ -180,6 +185,29 @@ EnsureIpv6LinkLocal () {
     logger -t redmatic -p daemon.warn "IPv6 link-local address on $IFACE still missing after re-enabling IPv6"
 }
 
+IsOpenccuLite () {
+    grep -qx 'VARIANT=lite' $VERSION_FILE 2>/dev/null
+}
+
+# Within the first 120 s after a reboot a CCU and OpenCCU start the addons
+# with nothing to wait for (run-parts), so the start waits 30 s for ReGaHSS and
+# the interface processes. openccu-lite orders the addon's unit itself (and
+# node-red-contrib-ccu retries an init the interfaces do not answer yet), so
+# the pause is skipped there - detected by the firmware, not by the init
+# system, so that it stays if OpenCCU ever starts its addons from systemd.
+BootDelay () {
+    upSeconds="$(grep -o '^[0-9]\+' $UPTIME_FILE)"
+    if [ -n "$upSeconds" ] && [ "$upSeconds" -lt "120" ]; then
+        if IsOpenccuLite; then
+            logger -t redmatic -p daemon.info "openccu-lite: the unit is ordered after the interfaces, no boot delay"
+        else
+            logger -t redmatic -p daemon.info "Starting Node-RED after reboot ... waiting 30 seconds..."
+            echo "Starting Node-RED ... waiting 30 seconds..."
+            sleep 30
+        fi
+    fi
+}
+
 Start () {
     CCU_BACKUP=`$NODE -e "try { console.log(JSON.parse(require('fs').readFileSync('$ADDON_DIR/etc/settings.json', 'utf8')).ccuBackup || '') } catch (e) { console.log('') }"`
     for dir in bin include lib share tmp www; do
@@ -230,14 +258,9 @@ Start () {
         # also on the accepted start, so a stray second one can be matched
         # against the first in the log
         LogCaller daemon.info
-        # the lock is held across the boot delay below, so a second start
-        # request during those 30 seconds is rejected instead of racing (#601)
-        upSeconds="$(cat /proc/uptime | grep -o '^[0-9]\+')"
-        if [ "${upSeconds}" -lt "120" ]; then
-              logger -t redmatic -p daemon.info "Starting Node-RED after reboot ... waiting 30 seconds..."
-              echo "Starting Node-RED ... waiting 30 seconds..."
-              sleep 30
-        fi
+        # the lock is held across the boot delay, so a second start request
+        # during those 30 seconds is rejected instead of racing (#601)
+        BootDelay
         # something else may have won the race while we waited
         if [ "`RedmaticPid`" != "" ] || [ "`RedmaticStarting`" != "" ]; then
             ReleaseStartLock
