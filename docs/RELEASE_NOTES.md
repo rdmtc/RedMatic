@@ -1,16 +1,23 @@
-### RedMatic 9.7.3
+### RedMatic 9.7.4
 
-Lässt einen Start, der an fehlenden Rechten scheitert, den eigentlichen Grund
-nennen.
+Bringt node-red-contrib-ccu 4.4.4, das eine Schnittstelle nach einem
+fehlgeschlagenen `init` schnell erneut anmeldet, und lässt die feste
+Startpause dort weg, wo die Firmware das Addon ohnehin erst nach den
+Schnittstellenprozessen startet.
 
-- **Ein Start, der an fehlenden Rechten scheitert, nennt jetzt den Grund.**
-  RedMatic legt beim Start die Sperre `var/start.lock` an, damit Node-RED nicht
-  zweimal startet. Konnte dieses Verzeichnis nicht angelegt werden, etwa weil
-  `var/` einem anderen Benutzer gehörte, meldete RedMatic „another start holds
-  the lock“, als liefe schon ein anderer Start. Jetzt steht der eigentliche
-  Fehler im Log, zum Beispiel
-  `cannot create /usr/local/addons/redmatic/var/start.lock: permission denied`.
-  Eine gehaltene oder verwaiste Sperre wird behandelt wie bisher.
+- **node-red-contrib-ccu 4.4.4: Ein fehlgeschlagenes `init` wird nach 2, 4, 8
+  und 16 Sekunden und danach alle 30 Sekunden wiederholt.** Antwortete ein
+  Schnittstellenprozess (z. B. HmIP-RF) beim Start von Node-RED noch nicht,
+  kamen bisher minutenlang keine Ereignisse an (bei HmIP-RF bis zu 10 Minuten),
+  ohne zwischengespeicherte Geräte gar keine. Während des Wartens zeigen die
+  Nodes **waiting** (gelber Ring) statt getrennt, und das Log hat eine Warnung
+  statt Fehlerzeilen.
+- **Keine 30-Sekunden-Pause nach dem Booten, wo die Firmware das Addon nach den
+  Schnittstellenprozessen startet.** Bisher wartete RedMatic in den ersten
+  zwei Minuten nach einem Neustart immer 30 Sekunden, bevor Node-RED startete.
+  Auf Systemen, deren Startreihenfolge das Addon erst nach rfd und hmipserver
+  startet, entfällt diese Pause; das Log sagt dann „no boot delay“. Auf einer
+  CCU3 und OpenCCU bleibt die Pause wie bisher.
 
 ### RedMatic 9
 
