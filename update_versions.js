@@ -6,7 +6,12 @@
 //   node update_versions.js --apply    write the layer files, regenerate the
 //                                      root package.json mirror, write
 //                                      RELEASE_SUMMARY.md for the release body
-//   node update_versions.js --bump     also bump the addon minor (9.0.1 -> 9.1.0)
+//   node update_versions.js --bump     also bump the addon version: the patch
+//                                      (9.0.1 -> 9.0.2) when every update is
+//                                      a patch update, the minor (9.0.1 ->
+//                                      9.1.0) when at least one is a minor
+//                                      update or nothing was updated (a
+//                                      forced run)
 //   node update_versions.js --json     print a JSON result; with GITHUB_OUTPUT
 //                                      set, also write updates/version/summary
 //
@@ -51,6 +56,31 @@ function compare(a, b) {
 
 function isRelease(version) {
     return /^\d+\.\d+\.\d+$/.test(version);
+}
+
+// the part of a version an update changed: 'patch' or 'minor' ('major' does not
+// happen, the majors are pinned)
+function updateLevel(from, to) {
+    const [fromMajor, fromMinor] = parse(from);
+    const [toMajor, toMinor] = parse(to);
+    if (fromMajor !== toMajor) {
+        return 'major';
+    }
+    return fromMinor === toMinor ? 'patch' : 'minor';
+}
+
+// the addon's bump for a set of updates: patch when all of them are patch
+// updates, minor otherwise - also for a forced run that updated nothing
+function bumpLevel(updates) {
+    if (updates.length > 0 && updates.every(u => updateLevel(u.from, u.to) === 'patch')) {
+        return 'patch';
+    }
+    return 'minor';
+}
+
+function bumpVersion(version, level) {
+    const [major, minor, patch] = parse(version);
+    return level === 'patch' ? `${major}.${minor}.${patch + 1}` : `${major}.${minor + 1}.0`;
 }
 
 function newestOfMajor(versions, current) {
@@ -123,10 +153,10 @@ async function main() {
             if (!isRelease(root.version)) {
                 throw new Error(`addon version "${root.version}" is a prerelease - automatic bumps only run on releases`);
             }
-            const [major, minor] = parse(root.version);
-            result.version.to = `${major}.${minor + 1}.0`;
+            const level = bumpLevel(updates);
+            result.version.to = bumpVersion(root.version, level);
             root.version = result.version.to;
-            console.log(`addon version ${result.version.from} -> ${result.version.to}`);
+            console.log(`addon version ${result.version.from} -> ${result.version.to} (${level})`);
         }
         writeJson(FILES.root, root);
         writeJson(FILES.lib, lib);
@@ -164,7 +194,11 @@ unter „Changes".
 `;
 }
 
-main().catch(err => {
-    console.error(err.message);
-    process.exit(1);
-});
+if (require.main === module) {
+    main().catch(err => {
+        console.error(err.message);
+        process.exit(1);
+    });
+}
+
+module.exports = { updateLevel, bumpLevel, bumpVersion };

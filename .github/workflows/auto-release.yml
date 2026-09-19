@@ -2,9 +2,11 @@ name: auto-release
 
 # Automatic releases (ROADMAP task 10): once a day, check whether a newer
 # release of Node.js, npm, Node-RED or node-red-contrib-ccu exists within the
-# pinned majors. If so: bump the layer files and the addon minor version,
-# build all three architectures, run the end-to-end test, commit, and create
-# the release. A major switch is never done here.
+# pinned majors. If so: bump the layer files and the addon version, build all
+# three architectures, run the end-to-end test, commit, and create the
+# release. The addon's patch goes up when every update is a patch update, its
+# minor when at least one is a minor update (update_versions.js --bump). A
+# major switch is never done here.
 #
 # Repository variable AUTO_RELEASE_PUBLISH=true publishes the release right
 # away (latest); otherwise it is created as a draft for the maintainer.
@@ -16,7 +18,7 @@ on:
   workflow_dispatch:
     inputs:
       force:
-        description: 'Release even when nothing is new (still bumps the minor)'
+        description: 'Release even when nothing is new (bumps the minor then)'
         type: boolean
         default: false
 
