@@ -2,11 +2,19 @@ name: auto-release
 
 # Automatic releases (ROADMAP task 10): once a day, check whether a newer
 # release of Node.js, npm, Node-RED or node-red-contrib-ccu exists within the
-# pinned majors. If so: bump the layer files and the addon version, build all
-# three architectures, run the end-to-end test, commit, and create the
-# release. The addon's patch goes up when every update is a patch update, its
-# minor when at least one is a minor update (update_versions.js --bump). A
-# major switch is never done here.
+# pinned majors. There is no release without a new version of one of those
+# four, and a major switch is never done here.
+#
+# The release is built from the newest release tag, never from master: the
+# tag's tree gets the version bumps and nothing else, so commits on master
+# that the maintainer has not tagged yet are never released by this workflow
+# (his releases are his tags, build.yml). The steps: check out the tag,
+# bump the layer files and the addon version, commit that on the tag, build
+# all three architectures, run the end-to-end test, push the new tag, create
+# the release, and merge the release commit back into master.
+#
+# The addon's patch goes up when every update is a patch update, its minor
+# when at least one is a minor update (update_versions.js --bump).
 #
 # Repository variable AUTO_RELEASE_PUBLISH=true publishes the release right
 # away (latest); otherwise it is created as a draft for the maintainer.
@@ -16,11 +24,6 @@ on:
   schedule:
     - cron: '23 4 * * *'
   workflow_dispatch:
-    inputs:
-      force:
-        description: 'Release even when nothing is new (bumps the minor then)'
-        type: boolean
-        default: false
 
 permissions:
   contents: write
@@ -36,79 +39,133 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          fetch-depth: 0 # build_release_body.sh needs tags and history
+          fetch-depth: 0 # the release tags, and history for build_release_body.sh
 
       - uses: actions/setup-node@v5
         with:
           node-version: 24
 
+      # the highest v<x.y.z> overall, not only those on master: a release whose
+      # merge back into master failed is still the one the next builds on
+      - name: Check out the newest release tag
+        id: base
+        run: |
+          tag=$(git tag --list 'v*' --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1)
+          if [ -z "$tag" ]; then
+            echo "error: no release tag v<x.y.z> found" >&2
+            exit 1
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "base: $tag; commits on master after it (not released here): $(git rev-list --count "$tag"..HEAD)"
+          git worktree add --detach release "$tag"
+
+      # update_versions.js is master's (the rules of today), the files it
+      # reads and bumps are the tag's
       - name: Check for new versions
         id: check
-        run: node update_versions.js
+        run: node update_versions.js --root release
 
       - name: Nothing new
-        if: steps.check.outputs.updates != 'true' && inputs.force != true
+        if: steps.check.outputs.updates != 'true'
         run: echo "all bundled components are up to date, no release"
 
       - name: Apply version bumps
-        if: steps.check.outputs.updates == 'true' || inputs.force == true
+        if: steps.check.outputs.updates == 'true'
         id: bump
         run: |
-          node update_versions.js --apply --bump
-          echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
-          git diff --stat
+          node update_versions.js --root release --apply --bump
+          echo "version=$(node -p "require('./release/package.json').version")" >> "$GITHUB_OUTPUT"
+          git -C release diff --stat
+
+      # committed before the build, so that build_release_body.sh lists this
+      # commit alone under "Changes" (HEAD without a tag: since the base tag)
+      - name: Commit the version bump on the tag
+        if: steps.bump.outcome == 'success'
+        id: commit
+        working-directory: release
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json addon_files/redmatic/lib/package.json addon_files/redmatic/var/package.json
+          git commit -m "${{ steps.bump.outputs.version }}: automatic release (${{ steps.check.outputs.summary }})"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Install patchelf
-        if: steps.bump.outcome == 'success'
+        if: steps.commit.outcome == 'success'
         run: sudo apt-get update && sudo apt-get install -y patchelf
 
       - name: Build addon packages
-        if: steps.bump.outcome == 'success'
+        if: steps.commit.outcome == 'success'
+        working-directory: release
         env:
           GITHUB_OAUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./build.sh
 
       - name: End-to-end test (x86_64 package)
-        if: steps.bump.outcome == 'success'
+        if: steps.commit.outcome == 'success'
+        working-directory: release
         run: test/e2e.sh dist
 
-      - name: Commit and push the version bump
-        if: steps.bump.outcome == 'success'
-        id: commit
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add package.json addon_files/redmatic/lib/package.json addon_files/redmatic/var/package.json
-          git commit -m "${{ steps.bump.outputs.version }}: automatic release (${{ steps.check.outputs.summary || 'forced run' }})"
-          git push origin HEAD:master
-          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      # a push with GITHUB_TOKEN starts no workflow, so build.yml does not
+      # build this tag a second time
+      - name: Push the release tag
+        if: steps.commit.outcome == 'success'
+        id: tag
+        run: git push origin "${{ steps.commit.outputs.sha }}:refs/tags/v${{ steps.bump.outputs.version }}"
 
       - name: Create release
-        if: steps.commit.outcome == 'success'
+        if: steps.tag.outcome == 'success'
+        id: release
         uses: ncipollo/release-action@v1
         with:
           draft: ${{ vars.AUTO_RELEASE_PUBLISH != 'true' }}
           prerelease: false
           makeLatest: ${{ vars.AUTO_RELEASE_PUBLISH == 'true' }}
-          artifacts: dist/*
-          bodyFile: RELEASE_BODY.md
+          artifacts: release/dist/*
+          bodyFile: release/RELEASE_BODY.md
           tag: "v${{ steps.bump.outputs.version }}"
           commit: ${{ steps.commit.outputs.sha }}
+
+      # master gets the bumped pins and version; a fast-forward when master
+      # has nothing after the base tag, a merge commit otherwise
+      - name: Merge the release into master
+        if: steps.release.outcome == 'success'
+        id: merge
+        env:
+          SHA: ${{ steps.commit.outputs.sha }}
+          VERSION: ${{ steps.bump.outputs.version }}
+        run: |
+          git fetch origin master
+          git checkout -B master origin/master
+          if ! git merge --no-edit -m "Merge automatic release v$VERSION" "$SHA"; then
+            git merge --abort
+            echo "error: v$VERSION does not merge into master cleanly - merge it by hand" >&2
+            exit 1
+          fi
+          git push origin master
 
       - name: Open an issue when the run failed
         if: failure()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SUMMARY: ${{ steps.check.outputs.summary }}
+          BASE: ${{ steps.base.outputs.tag }}
           VERSION: ${{ steps.bump.outputs.version }}
+          RELEASED: ${{ steps.release.outcome }}
+          MERGE: ${{ steps.merge.outcome }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           {
             echo "The automatic release run failed: $RUN_URL"
             echo ""
+            echo "Base tag: ${BASE:-none found}"
             echo "Detected updates: ${SUMMARY:-none}"
             echo "Target version: ${VERSION:-not bumped}"
             echo ""
-            echo "Nothing was pushed or released unless the log says otherwise. Re-run the workflow after fixing the cause."
+            if [ "$RELEASED" = "success" ] && [ "$MERGE" = "failure" ]; then
+              echo "v$VERSION is tagged and released, but its commit did not merge into master cleanly. Merge the tag into master by hand; the next run builds on v$VERSION either way."
+            else
+              echo "Nothing was pushed or released unless the log says otherwise. Re-run the workflow after fixing the cause."
+            fi
           } > /tmp/issue.md
           gh issue create --title "auto-release failed (${SUMMARY:-no updates detected})" --body-file /tmp/issue.md

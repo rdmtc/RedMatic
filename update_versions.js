@@ -10,10 +10,12 @@
 //                                      (9.0.1 -> 9.0.2) when every update is
 //                                      a patch update, the minor (9.0.1 ->
 //                                      9.1.0) when at least one is a minor
-//                                      update or nothing was updated (a
-//                                      forced run)
+//                                      update; refused when nothing is new
 //   node update_versions.js --json     print a JSON result; with GITHUB_OUTPUT
 //                                      set, also write updates/version/summary
+//   node update_versions.js --root DIR work on the tree in DIR instead of this
+//                                      one: the auto-release bumps a checkout
+//                                      of the newest release tag, never master
 //
 // Tracked (all within the major that is currently pinned):
 //   Node.js               package.json engines.node          nodejs.org
@@ -22,16 +24,19 @@
 // A major switch stays a manual release (maintainer decision, 2026-09-04).
 
 const fs = require('fs');
+const path = require('path');
 const { execFileSync } = require('child_process');
 
-const ROOT = __dirname;
+const argv = process.argv.slice(2);
+const rootAt = argv.indexOf('--root');
+const ROOT = rootAt >= 0 ? path.resolve(argv[rootAt + 1] || '.') : __dirname;
 const FILES = {
     root: `${ROOT}/package.json`,
     lib: `${ROOT}/addon_files/redmatic/lib/package.json`,
     var: `${ROOT}/addon_files/redmatic/var/package.json`
 };
 
-const args = new Set(process.argv.slice(2));
+const args = new Set(argv);
 const apply = args.has('--apply');
 const bump = args.has('--bump');
 const json = args.has('--json');
@@ -70,9 +75,13 @@ function updateLevel(from, to) {
 }
 
 // the addon's bump for a set of updates: patch when all of them are patch
-// updates, minor otherwise - also for a forced run that updated nothing
+// updates, minor otherwise. Nothing new is no release: RedMatic's own changes
+// are released by the maintainer's tag, never by this script.
 function bumpLevel(updates) {
-    if (updates.length > 0 && updates.every(u => updateLevel(u.from, u.to) === 'patch')) {
+    if (updates.length === 0) {
+        throw new Error('no bundled component has a new version - nothing to release');
+    }
+    if (updates.every(u => updateLevel(u.from, u.to) === 'patch')) {
         return 'patch';
     }
     return 'minor';
@@ -186,10 +195,10 @@ function summary(updates, version) {
 
 Dieses Release wurde automatisch von einem GitHub-Workflow erstellt, weil
 neue Versionen der gebündelten Komponenten erschienen sind: **${list}**.
-RedMatic selbst wurde dabei nicht verändert; der Build und ein automatischer
+RedMatic selbst wurde dabei nicht verändert: das Release ist der Stand des
+vorigen Releases mit diesen neuen Versionen. Der Build und ein automatischer
 End-to-End-Test (Installation, Start, Paletten-Manager) sind erfolgreich
-durchgelaufen. Änderungen am Addon seit dem letzten Release stehen unten
-unter „Changes".
+durchgelaufen.
 
 `;
 }
