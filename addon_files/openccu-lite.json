@@ -1,0 +1,28 @@
+{
+  "format": 1,
+  "id": "redmatic",
+  "name": "RedMatic",
+  "description": {
+    "de": "Node-RED auf dem System: Logik, Dashboards, HomeKit, Matter, MQTT.",
+    "en": "Node-RED on the system: logic, dashboards, HomeKit, Matter, MQTT."
+  },
+  "homepage": "https://github.com/rdmtc/RedMatic",
+  "licence": "Apache-2.0",
+  "release": {
+    "github": "rdmtc/RedMatic",
+    "asset": "redmatic-{arch}-{version}.tar.gz",
+    "fallback_asset": "redmatic-{version}.tar.gz"
+  },
+  "requires": {
+    "architectures": ["armv7l", "aarch64", "x86_64"]
+  },
+  "ui": {
+    "icon": "redmatic/www/favicon-96x96.png",
+    "logo": "redmatic/www/redmatic5-wide.png",
+    "session_header": true,
+    "own_updater": true
+  },
+  "runtime": {
+    "needs": ["rfd", "hmipserver"]
+  }
+}
