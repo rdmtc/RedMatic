@@ -23,6 +23,7 @@
     "own_updater": true
   },
   "runtime": {
+    "daemon": true,
     "needs": ["rfd", "hmipserver"]
   }
 }

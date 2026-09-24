@@ -28,4 +28,6 @@ test('the UI facts: Node-RED reads the session header, the images come with the 
     assert.ok(fs.existsSync(path.join(__dirname, '..', 'assets', 'redmatic5-wide.png')));
     assert.ok(fs.existsSync(path.join(__dirname, '..', 'assets', 'favicon', 'favicon-96x96.png')));
     assert.deepStrictEqual(manifest.runtime.needs, ['rfd', 'hmipserver']);
+    // Node-RED keeps running after the rc.d start: an empty unit is a Node-RED that ended (openccu-lite B-158)
+    assert.strictEqual(manifest.runtime.daemon, true);
 });
