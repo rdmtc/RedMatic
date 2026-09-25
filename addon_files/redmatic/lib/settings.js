@@ -103,6 +103,22 @@ if (fs.existsSync('/usr/local/addons/redmatic/etc/settings-user.js')) {
     Object.assign(result, require('/usr/local/addons/redmatic/etc/settings-user.js'));
 }
 
+// openccu-lite's single sign-on (lib/ccu-auth.js sets tokenHeader there): the editor page gets
+// lib/editor-sso.js, which drops a stale Node-RED token the browser kept from an earlier login in
+// Node-RED's own form - sent over the comms socket, it made Node-RED show its login dialog over the
+// loaded workspace (bug 14). Added after settings-user.js, so an editorTheme set there keeps it.
+const editorSsoScript = '/usr/local/addons/redmatic/lib/editor-sso.js';
+if (result.adminAuth && result.adminAuth.tokenHeader) {
+    const editorTheme = Object.assign({}, result.editorTheme);
+    editorTheme.page = Object.assign({}, editorTheme.page);
+    const scripts = [].concat(editorTheme.page.scripts || []);
+    if (!scripts.includes(editorSsoScript)) {
+        scripts.unshift(editorSsoScript);
+    }
+    editorTheme.page.scripts = scripts;
+    result.editorTheme = editorTheme;
+}
+
 // No copy of the merged settings in /tmp any more (it went to /tmp/red-settings.json until 9.7.1).
 // Nothing read it; it held credentialSecret readable for every local user, and on openccu-lite,
 // where Node-RED runs as the addon's own user, the file belonged to that user: a start as root

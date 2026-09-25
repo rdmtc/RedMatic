@@ -50,6 +50,14 @@ module.exports = [
         }
     },
     {
+        // runs in the Node-RED editor page, not in Node-RED (lib/settings.js hands it to the editor)
+        files: ['addon_files/redmatic/lib/editor-sso.js'],
+        languageOptions: {
+            sourceType: 'script',
+            globals: browserGlobals
+        }
+    },
+    {
         files: ['*.mjs'],
         languageOptions: {
             ecmaVersion: 2024,
