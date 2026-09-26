@@ -191,15 +191,17 @@ IsOpenccuLite () {
 
 # Within the first 120 s after a reboot a CCU and OpenCCU start the addons
 # with nothing to wait for (run-parts), so the start waits 30 s for ReGaHSS and
-# the interface processes. openccu-lite orders the addon's unit itself (and
-# node-red-contrib-ccu retries an init the interfaces do not answer yet), so
-# the pause is skipped there - detected by the firmware, not by the init
-# system, so that it stays if OpenCCU ever starts its addons from systemd.
+# the interface processes. openccu-lite orders the addon's unit itself - after
+# rfd and hmipserver, or before them with the early start the manifest
+# declares, since node-red-contrib-ccu waits for an interface that does not
+# answer yet - so the pause is skipped there. Detected by the firmware, not by
+# the init system, so that it stays if OpenCCU ever starts its addons from
+# systemd.
 BootDelay () {
     upSeconds="$(grep -o '^[0-9]\+' $UPTIME_FILE)"
     if [ -n "$upSeconds" ] && [ "$upSeconds" -lt "120" ]; then
         if IsOpenccuLite; then
-            logger -t redmatic -p daemon.info "openccu-lite: the unit is ordered after the interfaces, no boot delay"
+            logger -t redmatic -p daemon.info "openccu-lite: the system orders the start, no boot delay"
         else
             logger -t redmatic -p daemon.info "Starting Node-RED after reboot ... waiting 30 seconds..."
             echo "Starting Node-RED ... waiting 30 seconds..."
@@ -226,7 +228,9 @@ Start () {
     if [ ! -f /etc/config/rdmtc.uuid ] && [ -w /etc/config ] && [ -x /usr/bin/uuidgen ]; then
         /usr/bin/uuidgen > /etc/config/rdmtc.uuid
     fi
-    if [ -f /etc/config/rdmtc.uuid ]; then
+    # -r: a confined addon cannot read the id root wrote (0600), and cat would
+    # put a "Permission denied" into the log at every start
+    if [ -r /etc/config/rdmtc.uuid ]; then
         /usr/local/addons/redmatic/bin/redmaticVersions | /usr/bin/curl -H "Content-Type: application/json" -H "X-RedMatic-uuid: `cat /etc/config/rdmtc.uuid`" --data @- -s --max-time 3 https://telemetry.redmatic.de
     fi
 
@@ -321,6 +325,11 @@ Start () {
 }
 
 case "$1" in
+
+    init)
+        # called before start (the CCU's S55InitAddons, openccu-lite's unit):
+        # nothing to prepare, and no usage line in the log
+    ;;
 
     stop)
         Stop || exit 1

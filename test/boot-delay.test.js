@@ -93,7 +93,7 @@ for (const shell of shells()) {
 
     test(`${shell.name}: openccu-lite after a reboot - no pause, one log line`, opts, t => {
         const r = bootDelay(shell, t, {version: LITE, uptime: '42.17 80.03\n'});
-        assert.deepStrictEqual(r.calls, ['logger daemon.info openccu-lite: the unit is ordered after the interfaces, no boot delay']);
+        assert.deepStrictEqual(r.calls, ['logger daemon.info openccu-lite: the system orders the start, no boot delay']);
         assert.doesNotMatch(r.stdout, /waiting/);
     });
 
