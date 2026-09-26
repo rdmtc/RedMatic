@@ -31,3 +31,14 @@ test('the UI facts: Node-RED reads the session header, the images come with the 
     // Node-RED keeps running after the rc.d start: an empty unit is a Node-RED that ended (openccu-lite B-158)
     assert.strictEqual(manifest.runtime.daemon, true);
 });
+
+test('the runtime: the early start, nothing beyond its own directories', () => {
+    // node-red-contrib-ccu >= 4.4.5 waits quietly for an interface that does not answer yet and stays in
+    // local mode before rfd listens, so the unit may start before rfd and hmipserver (openccu-lite D-75)
+    const {note, ...runtime} = manifest.runtime;
+    assert.deepStrictEqual(runtime, {daemon: true, needs: ['rfd', 'hmipserver'], start: 'early'});
+    assert.ok(note.de && note.en);
+    const pkg = JSON.parse(fs.readFileSync(path.join(root, 'redmatic', 'var', 'package.json'), 'utf8'));
+    const [major, minor, patch] = pkg.dependencies['node-red-contrib-ccu'].split('.').map(Number);
+    assert.ok(major > 4 || (major === 4 && (minor > 4 || patch >= 5)), 'node-red-contrib-ccu >= 4.4.5');
+});

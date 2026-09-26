@@ -24,6 +24,11 @@
   },
   "runtime": {
     "daemon": true,
-    "needs": ["rfd", "hmipserver"]
+    "needs": ["rfd", "hmipserver"],
+    "start": "early",
+    "note": {
+      "de": "Startet Node-RED vor den Schnittstellenprozessen; die CCU-Nodes verbinden sich, sobald sie antworten. Node-RED lauscht nur auf dem System selbst, der Editor läuft über dessen Webserver.",
+      "en": "Starts Node-RED before the interface processes; the CCU nodes connect as soon as they answer. Node-RED listens on the system itself only, the editor goes through its web server."
+    }
   }
 }
