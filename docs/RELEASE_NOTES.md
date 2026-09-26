@@ -1,23 +1,28 @@
-### RedMatic 9.7.4
+### RedMatic 9.9.0
 
-Bringt node-red-contrib-ccu 4.4.4, das eine Schnittstelle nach einem
-fehlgeschlagenen `init` schnell erneut anmeldet, und lässt die feste
-Startpause dort weg, wo die Firmware das Addon ohnehin erst nach den
-Schnittstellenprozessen startet.
+Bringt node-red-contrib-ccu 4.4.5 und startet auf openccu-lite beim Booten
+vor den Schnittstellenprozessen.
 
-- **node-red-contrib-ccu 4.4.4: Ein fehlgeschlagenes `init` wird nach 2, 4, 8
-  und 16 Sekunden und danach alle 30 Sekunden wiederholt.** Antwortete ein
-  Schnittstellenprozess (z. B. HmIP-RF) beim Start von Node-RED noch nicht,
-  kamen bisher minutenlang keine Ereignisse an (bei HmIP-RF bis zu 10 Minuten),
-  ohne zwischengespeicherte Geräte gar keine. Während des Wartens zeigen die
-  Nodes **waiting** (gelber Ring) statt getrennt, und das Log hat eine Warnung
-  statt Fehlerzeilen.
-- **Keine 30-Sekunden-Pause nach dem Booten, wo die Firmware das Addon nach den
-  Schnittstellenprozessen startet.** Bisher wartete RedMatic in den ersten
-  zwei Minuten nach einem Neustart immer 30 Sekunden, bevor Node-RED startete.
-  Auf Systemen, deren Startreihenfolge das Addon erst nach rfd und hmipserver
-  startet, entfällt diese Pause; das Log sagt dann „no boot delay“. Auf einer
-  CCU3 und OpenCCU bleibt die Pause wie bisher.
+- **node-red-contrib-ccu 4.4.5: Ein fehlgeschlagenes `init` wird nach 1, 2, 4
+  und 8 Sekunden und danach alle 15 Sekunden wiederholt** (bisher 2, 4, 8,
+  16 Sekunden, dann alle 30). Solange ein Schnittstellenprozess noch startet
+  und die Verbindung ablehnt, steht im Log eine Info-Zeile („HmIP-RF not
+  listening yet … waiting for it“) statt einer Warnung; lehnt er ab, nachdem
+  er schon verbunden war, bleibt es eine Warnung.
+- **node-red-contrib-ccu 4.4.5: Die direkte Verbindung zu den
+  Schnittstellenprozessen auch dann, wenn Node-RED vor rfd startet.** Die
+  CCU-Verbindung erkannte „läuft auf der CCU selbst“ bisher nur an rfds
+  offenem Port; startete Node-RED früher, lief jede Schnittstelle bis zum
+  nächsten Neustart über die Proxy-Ports des Webservers. Jetzt reicht dafür
+  auch die Schnittstellenliste der CCU (`/etc/config/InterfacesList.xml`).
+- **openccu-lite: Frühstart.** Das Manifest (`openccu-lite.json`) erklärt
+  `runtime.start: "early"`: das System startet RedMatic beim Booten vor rfd
+  und hmipserver, und die CCU-Nodes verbinden sich, sobald die
+  Schnittstellen antworten. Auf der Seite Zusatzsoftware lässt sich der
+  Frühstart abschalten. Auf einer CCU3 und OpenCCU ändert sich nichts.
+- **Zwei Zeilen weniger im Log bei jedem Start:** kein „Usage: node-red …“
+  mehr für den `init`-Aufruf vor dem Start, und kein „Permission denied“,
+  wenn das Addon die Telemetrie-Kennung des Systems nicht lesen darf.
 
 ### RedMatic 9
 
