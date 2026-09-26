@@ -135,6 +135,7 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
   * [Passwort Schutz für Node-RED einrichten](https://github.com/rdmtc/RedMatic/wiki/Passwort)
   * [Sicherheits-Hinweise](https://github.com/rdmtc/RedMatic/wiki/Sicherheit)
   * [Zusätzliche Nodes installieren](https://github.com/rdmtc/RedMatic/wiki/Node-Installation)
+  * [Nodes mit Binärmodulen selbst bauen](https://github.com/rdmtc/RedMatic/wiki/Binärmodule-selbst-bauen)
   * [Erfolgreich mit RedMatic getestete Nodes](https://github.com/rdmtc/RedMatic/wiki/Erfolgreich-getestete-Nodes) - bitte diese Liste ergänzen!
   * [Log-Level erhöhen für Fehleranalyse](https://github.com/rdmtc/RedMatic/wiki/Loglevel)
   * [Safe Mode](https://github.com/rdmtc/RedMatic/wiki/Safe-Mode)
@@ -222,6 +223,24 @@ Es werden keine Spenden angenommen, ich würde mich jedoch darüber freuen wenn 
 
 
 
+
+## openccu-lite
+
+[openccu-lite](https://github.com/hobbyquaker/openccu-lite) ist eine Homematic-CCU-Firmware auf Basis von OpenCCU
+**ohne ReGaHSS** (in Entwicklung, nur für Testsysteme). RedMatic läuft dort mit demselben Paket, denselben
+Einstellungen und denselben Flows wie auf einer CCU3 oder OpenCCU und wird aus dem Addon-Katalog des Systems
+installiert (*Zusatzsoftware → Katalog*). Ob RedMatic auf einer CCU oder auf openccu-lite läuft, wird zur Laufzeit
+erkannt; einzustellen ist nichts.
+
+* Die `node-red-contrib-ccu`-Nodes arbeiten wie gewohnt über `rfd`, `hs485d` und `hmipserver`. Geräte-, Kanal-, Raum-
+  und Gewerkenamen kommen aus der Metadaten-API des Systems statt aus der ReGaHSS; `msg.channelName`, `msg.rooms`,
+  `msg.functions` und die Raum-/Gewerke-Filter behalten ihre Form. Läuft Node-RED nicht auf dem System selbst, gehört
+  ein API-Token des Systems in das Feld **openccu-lite token** des Connection-Nodes.
+* Die Editor-Anmeldung mit *Benutzer der Zentrale* nutzt auf openccu-lite die Benutzer des Systems.
+* **Systemvariablen, Programme und HM-Script gibt es nicht.** Die Nodes `ccu-sysvar`, `ccu-program`, `ccu-script` und
+  `ccu-poll` bleiben in den Flows, beantworten aber jede Nachricht mit einer Fehlermeldung.
+* Node-RED und das Addon loggen ins Journal (`journalctl -t node-red -t redmatic`); das Log der Einstellungsseite liest
+  es von dort.
 
 ## Lizenzen
 

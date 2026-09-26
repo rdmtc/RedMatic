@@ -1,3 +1,20 @@
+## openccu-lite
+
+[openccu-lite](https://github.com/hobbyquaker/openccu-lite) is a Homematic CCU firmware based on OpenCCU **without
+ReGaHSS** (under development, for test systems only). RedMatic runs on it with the same package, the same settings and
+the same flows as on a CCU3 or OpenCCU, and is installed from the system's addon catalogue (*Addons → Catalogue*).
+Whether RedMatic runs on a CCU or on openccu-lite is detected at runtime; nothing has to be configured.
+
+* The `node-red-contrib-ccu` nodes work as usual over `rfd`, `hs485d` and `hmipserver`. Device, channel, room and
+  function names come from the system's metadata API instead of ReGaHSS; `msg.channelName`, `msg.rooms`,
+  `msg.functions` and the room/function filters keep their shape. When Node-RED does not run on the system itself, an
+  API token of the system goes into the connection node's **openccu-lite token** field.
+* The editor login with *Benutzer der Zentrale* uses the system's own users on openccu-lite.
+* **There are no system variables, programs or HM-Script.** The `ccu-sysvar`, `ccu-program`, `ccu-script` and
+  `ccu-poll` nodes stay in the flows but answer every message with an error.
+* Node-RED and the addon log into the journal (`journalctl -t node-red -t redmatic`); the settings page's log reads it
+  from there.
+
 ## Licenses
 
 * [RedMatic](https://github.com/rdmtc/RedMatic) © 2018-2026 Sebastian Raff and RedMatic Contributors, licensed under [Apache License 2.0](LICENSE)
