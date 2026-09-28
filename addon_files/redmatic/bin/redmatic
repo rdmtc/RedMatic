@@ -27,6 +27,12 @@ VERSION_FILE=/VERSION
 OCCULITED=/usr/bin/occulited
 UPTIME_FILE=/proc/uptime
 
+# the telemetry id (TelemetryIdFile), a CCU's and openccu-lite's place
+CCU_ID_FILE=/etc/config/rdmtc.uuid
+LITE_ID_FILE=$ADDON_DIR/var/rdmtc.uuid
+UUIDGEN=/usr/bin/uuidgen
+KERNEL_UUID=/proc/sys/kernel/random/uuid
+
 # A start can be requested from several places within a few seconds: the
 # OpenCCU installer's update_script, bin/redmatic-update, the WebUI and rc.d.
 # The old check looked for a process named node-red only, which does not exist
@@ -214,6 +220,34 @@ BootDelay () {
     fi
 }
 
+# The installation id the telemetry sends: prints the file that holds it, or
+# nothing. A CCU and OpenCCU keep it in /etc/config/rdmtc.uuid, created by the
+# first start. openccu-lite runs the addon confined, as addon-redmatic, where
+# /etc/config is root's and an id written there before is root's too (0600):
+# reading it failed with "Permission denied" at every start (bug 11). So there
+# the id lives in the addon's own var/, taken over once from /etc/config where
+# that copy is readable, otherwise a new one. Nothing here writes to stderr.
+TelemetryIdFile () {
+    if IsOpenccuLite; then
+        if [ ! -s $LITE_ID_FILE ]; then
+            if [ -r $CCU_ID_FILE ] && [ -s $CCU_ID_FILE ]; then
+                { cat $CCU_ID_FILE > $LITE_ID_FILE; } 2>/dev/null
+            elif [ -x $UUIDGEN ]; then
+                { $UUIDGEN > $LITE_ID_FILE; } 2>/dev/null
+            elif [ -r $KERNEL_UUID ]; then
+                { cat $KERNEL_UUID > $LITE_ID_FILE; } 2>/dev/null
+            fi
+        fi
+        [ -s $LITE_ID_FILE ] && echo $LITE_ID_FILE
+    else
+        if [ ! -f $CCU_ID_FILE ] && [ -w ${CCU_ID_FILE%/*} ] && [ -x $UUIDGEN ]; then
+            $UUIDGEN > $CCU_ID_FILE
+        fi
+        # -r: a copy root wrote with 0600 is not the start's to read
+        [ -r $CCU_ID_FILE ] && echo $CCU_ID_FILE
+    fi
+}
+
 Start () {
     CCU_BACKUP=`$NODE -e "try { console.log(JSON.parse(require('fs').readFileSync('$ADDON_DIR/etc/settings.json', 'utf8')).ccuBackup || '') } catch (e) { console.log('') }"`
     for dir in bin include lib share tmp www; do
@@ -227,15 +261,9 @@ Start () {
         fi
     done
 
-    # telemetry: needs a writable /etc/config and uuidgen - neither is a
-    # given when the addon runs confined (openccu-lite's systemd products)
-    if [ ! -f /etc/config/rdmtc.uuid ] && [ -w /etc/config ] && [ -x /usr/bin/uuidgen ]; then
-        /usr/bin/uuidgen > /etc/config/rdmtc.uuid
-    fi
-    # -r: a confined addon cannot read the id root wrote (0600), and cat would
-    # put a "Permission denied" into the log at every start
-    if [ -r /etc/config/rdmtc.uuid ]; then
-        /usr/local/addons/redmatic/bin/redmaticVersions | /usr/bin/curl -H "Content-Type: application/json" -H "X-RedMatic-uuid: `cat /etc/config/rdmtc.uuid`" --data @- -s --max-time 3 https://telemetry.redmatic.de
+    TELEMETRY_ID=`TelemetryIdFile`
+    if [ -n "$TELEMETRY_ID" ]; then
+        /usr/local/addons/redmatic/bin/redmaticVersions | /usr/bin/curl -H "Content-Type: application/json" -H "X-RedMatic-uuid: `cat $TELEMETRY_ID`" --data @- -s --max-time 3 https://telemetry.redmatic.de
     fi
 
     # quarantine corrupted context-store files that would prevent

@@ -138,6 +138,10 @@ log "start"
 $CONF_DIR/rc.d/redmatic start || die "rc.d/redmatic start"
 check_running
 
+# the telemetry id (bug 11): a CCU and OpenCCU keep it in /etc/config
+[ -s /etc/config/rdmtc.uuid ] && ok "telemetry id in /etc/config" || fail "no /etc/config/rdmtc.uuid after the first start"
+[ -e $ADDON_DIR/var/rdmtc.uuid ] && fail "var/rdmtc.uuid written outside openccu-lite"
+
 # --- update (the OpenCCU live path that broke #599) ---------------------------
 log "update with the same package (update_script must exit 0 and restart the service)"
 install_addon
@@ -199,6 +203,13 @@ sleep 3
 check_running
 last_accepted_start | grep -q "systemctl start addon-redmatic.service" &&
     ok "the accepted start came from the unit" || fail "the last accepted start did not come from systemctl: `last_accepted_start`"
+# the telemetry id (bug 11): on openccu-lite in var/, taken over from /etc/config
+if [ -s $ADDON_DIR/var/rdmtc.uuid ] && cmp -s /etc/config/rdmtc.uuid $ADDON_DIR/var/rdmtc.uuid; then
+    ok "telemetry id taken over into var/rdmtc.uuid"
+else
+    fail "var/rdmtc.uuid missing or not the id of /etc/config"
+fi
+grep -q "rdmtc.uuid" /tmp/update_script.log /var/log/messages && fail "a message about rdmtc.uuid: `grep -h rdmtc.uuid /tmp/update_script.log /var/log/messages | head -2`"
 lite_off
 
 # --- palette install / uninstall ---------------------------------------------
