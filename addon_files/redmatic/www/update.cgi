@@ -11,8 +11,16 @@
 #   second for minutes and it exposes nothing but phase and version numbers.
 #   Everything else triggers or reads privileged things and needs the CCU
 #   session (on openccu-lite the gate's session header, lib/session.tcl).
+#
+#   openccu-lite updates its addons itself, from its Addons page (task 15):
+#   there status answers managed "system" and the page hides its update, and
+#   every other command is refused with 403, so neither an old page nor a
+#   direct call installs past the system.
 
 source ../lib/querystring.tcl
+source ../lib/session.tcl
+
+set SYSTEM_UPDATES "Updates von RedMatic kommen auf diesem System von der Seite Addons (/addons). On this system, RedMatic is updated from the Addons page (/addons)."
 
 set STATE_DIR /tmp/redmatic-update
 set STATE $STATE_DIR/state.json
@@ -49,13 +57,22 @@ if {![info exists cmd]} {
     set cmd status
 }
 
+if {[is_openccu_lite]} {
+    if {$cmd == "status"} {
+        puts -nonewline "Content-Type: application/json; charset=utf-8\r\n\r\n"
+        puts "{\"phase\":\"idle\",\"managed\":\"system\",\"message\":\"$SYSTEM_UPDATES\"}"
+    } else {
+        puts -nonewline "Status: 403 Forbidden\r\nContent-Type: application/json; charset=utf-8\r\n\r\n"
+        puts "{\"error\":\"$SYSTEM_UPDATES\",\"managed\":\"system\"}"
+    }
+    exit 0
+}
+
 if {$cmd == "status"} {
     puts -nonewline "Content-Type: application/json; charset=utf-8\r\n\r\n"
     puts [read_state]
     exit 0
 }
-
-source ../lib/session.tcl
 
 if {![request_session_ok]} {
     puts -nonewline "Content-Type: application/json; charset=utf-8\r\n\r\n"

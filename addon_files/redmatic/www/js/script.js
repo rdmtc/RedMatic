@@ -128,9 +128,18 @@ $(document).ready(() => {
 
     let availableVersion = '';
 
+    // openccu-lite updates its addons itself (its Addons page): update.cgi's status says so with
+    // managed: 'system', and then this page offers no update of its own (task 15)
+    let systemUpdates = false;
+
     function checkUpdate() {
         $.getJSON(`update_check.cgi?cmd=versions&sid=${sid}`, (current, success) => {
             $('#redmatic-version').html('RedMatic Version ' + current.redmatic);
+            if (systemUpdates) {
+                availableVersion = '';
+                $('#update-notify').hide();
+                return;
+            }
             $.get(`update_check.cgi?sid=${sid}`, (available, success) => {
                 available = $.trim(available);
                 // the latest GitHub release can be older than a prerelease running here
@@ -145,8 +154,6 @@ $(document).ready(() => {
             });
         });
     }
-
-    checkUpdate();
 
     // --- self-update (bin/redmatic-update via update.cgi, ROADMAP task 11) ---
 
@@ -278,6 +285,9 @@ $(document).ready(() => {
     }
 
     $('#update-start').click(() => {
+        if (systemUpdates) {
+            return;
+        }
         $('#update-version').text(availableVersion);
         $updateError.hide();
         $updateSuccess.hide();
@@ -315,14 +325,21 @@ $(document).ready(() => {
         $.get(`update.cgi?cmd=reset&sid=${sid}`);
     });
 
-    // an update started earlier (page reloaded meanwhile?) - pick it up
+    // who updates RedMatic here, then the update check; an update started earlier (page
+    // reloaded meanwhile?) is picked up
     $.getJSON(`update.cgi?cmd=status&_=${Date.now()}`, state => {
+        if (state && state.managed === 'system') {
+            systemUpdates = true;
+            $('#update-notify').hide();
+            $('#update-system').show();
+            return;
+        }
         if (state && state.phase && state.phase !== 'idle' && state.phase !== 'done' && state.phase !== 'error') {
             renderUpdate(state);
             $modalUpdate.modal('show');
             updateTimer = setTimeout(pollUpdate, 1000);
         }
-    });
+    }).always(checkUpdate);
 
     function refresh() {
         checkUpdate();

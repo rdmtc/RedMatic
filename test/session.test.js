@@ -256,3 +256,44 @@ test('every CGI with a session check goes through request_session_ok', () => {
         'service.cgi', 'setconfig.cgi', 'setnick.cgi', 'settings.cgi', 'update.cgi',
     ]);
 });
+
+// Task 15: openccu-lite updates its addons from its Addons page. update.cgi's status says so
+// (managed: system, the page hides its own update), and every other command is refused with 403,
+// with or without a session - so neither an old page nor a direct call installs past the system.
+const JSON_HEAD = 'Content-Type: application/json; charset=utf-8\r\n\r\n';
+const SYSTEM_UPDATES = /Updates von RedMatic kommen auf diesem System von der Seite Addons \(\/addons\)\. On this system, RedMatic is updated from the Addons page \(\/addons\)\./;
+
+for (const kind of ['lite', 'occulited']) {
+    test(`update.cgi on openccu-lite (${kind}): status names the system as the updater`, {skip}, async t => {
+        const b = await box(t);
+        const r = await cgi(t, 'update.cgi', {kind, query: 'cmd=status', stateUrl: b.url});
+        assert.ok(r.stdout.startsWith(JSON_HEAD), r.stdout + r.stderr);
+        const body = JSON.parse(r.stdout.slice(JSON_HEAD.length));
+        assert.strictEqual(body.managed, 'system');
+        assert.strictEqual(body.phase, 'idle');
+        assert.match(body.message, SYSTEM_UPDATES);
+        assert.deepStrictEqual(b.requests, [], 'status asks nobody');
+    });
+
+    test(`update.cgi on openccu-lite (${kind}): start, log and reset are refused with 403, also with a live session`, {skip}, async t => {
+        const b = await box(t);
+        for (const query of ['cmd=start', 'cmd=start&force=1', 'cmd=log', 'cmd=reset', 'cmd=anything', 'cmd=start&sid=' + REGA_LIVE]) {
+            for (const header of [undefined, LIVE]) {
+                const r = await cgi(t, 'update.cgi', {kind, query, header, stateUrl: b.url});
+                assert.ok(r.stdout.startsWith('Status: 403 Forbidden\r\n' + JSON_HEAD), `${query}: ${r.stdout}${r.stderr}`);
+                const body = JSON.parse(r.stdout.slice(('Status: 403 Forbidden\r\n' + JSON_HEAD).length));
+                assert.match(body.error, SYSTEM_UPDATES);
+                assert.strictEqual(body.managed, 'system');
+            }
+        }
+    });
+}
+
+test('update.cgi on a CCU: status as before, no managed field; start without a session refused as before', {skip}, async t => {
+    const b = await box(t);
+    const r = await cgi(t, 'update.cgi', {kind: 'ccu', query: 'cmd=status', stateUrl: b.url});
+    assert.ok(r.stdout.startsWith(JSON_HEAD), r.stdout + r.stderr);
+    assert.strictEqual(JSON.parse(r.stdout.slice(JSON_HEAD.length)).managed, undefined);
+    const s = await cgi(t, 'update.cgi', {kind: 'ccu', query: 'cmd=start&sid=' + REGA_DEAD, stateUrl: b.url});
+    assert.strictEqual(s.stdout, JSON_HEAD + '{"error":"invalid session"}\n');
+});
