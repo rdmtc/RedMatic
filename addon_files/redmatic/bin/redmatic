@@ -33,6 +33,11 @@ LITE_ID_FILE=$ADDON_DIR/var/rdmtc.uuid
 UUIDGEN=/usr/bin/uuidgen
 KERNEL_UUID=/proc/sys/kernel/random/uuid
 
+# log files openccu-lite does without (NoLogFiles): npm's debug logs in its
+# cache (etc/npmrc), and the log of an earlier manual Matter install
+NPM_LOG_DIR=$ADDON_DIR/var/npm-cache/_logs
+MATTER_INSTALL_LOG=$ADDON_DIR/tmp/matter-install.log
+
 # A start can be requested from several places within a few seconds: the
 # OpenCCU installer's update_script, bin/redmatic-update, the WebUI and rc.d.
 # The old check looked for a process named node-red only, which does not exist
@@ -248,6 +253,19 @@ TelemetryIdFile () {
     fi
 }
 
+# openccu-lite logs to the journal only, and a file on the userfs is a write
+# to the SD card. npm writes a debug log into its cache for every run and keeps
+# ten; logs-max=0 writes none, and npm's output still goes to its caller
+# (Node-RED's palette installs log it, a shell sees it). Exported here, so
+# Node-RED and every npm it starts inherit it. The files of earlier runs go at
+# the start. A CCU and OpenCCU keep npm's default.
+NoLogFiles () {
+    IsOpenccuLite || return 0
+    export npm_config_logs_max=0
+    rm -f $NPM_LOG_DIR/*.log $MATTER_INSTALL_LOG 2>/dev/null
+    return 0
+}
+
 Start () {
     CCU_BACKUP=`$NODE -e "try { console.log(JSON.parse(require('fs').readFileSync('$ADDON_DIR/etc/settings.json', 'utf8')).ccuBackup || '') } catch (e) { console.log('') }"`
     for dir in bin include lib share tmp www; do
@@ -260,6 +278,8 @@ Start () {
             touch $ADDON_DIR/$dir/.nobackup
         fi
     done
+
+    NoLogFiles
 
     TELEMETRY_ID=`TelemetryIdFile`
     if [ -n "$TELEMETRY_ID" ]; then

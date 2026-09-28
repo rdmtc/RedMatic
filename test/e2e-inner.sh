@@ -188,8 +188,16 @@ last_accepted_start() {
     grep "start requested by pid" /var/log/messages | tail -1
 }
 
+# Node-RED's environment: what npm, started from it, inherits
+node_red_env() {
+    tr '\0' '\n' < /proc/`node_red_pid`/environ
+}
+
 log "update on a pretend openccu-lite (stop and start through addon-redmatic.service)"
 lite_on
+# npm debug logs of earlier runs (task 13)
+mkdir -p $ADDON_DIR/var/npm-cache/_logs
+echo old > $ADDON_DIR/var/npm-cache/_logs/2026-01-01T00_00_00_000Z-debug-0.log
 echo '{"credentialSecret":"left by an earlier version"}' > /tmp/red-settings.json
 chown nobody /tmp/red-settings.json
 install_addon
@@ -209,6 +217,9 @@ if [ -s $ADDON_DIR/var/rdmtc.uuid ] && cmp -s /etc/config/rdmtc.uuid $ADDON_DIR/
 else
     fail "var/rdmtc.uuid missing or not the id of /etc/config"
 fi
+# no log files of npm's (task 13)
+node_red_env | grep -qx 'npm_config_logs_max=0' && ok "Node-RED passes npm logs-max=0 on" || fail "Node-RED's environment has no npm_config_logs_max=0"
+ls $ADDON_DIR/var/npm-cache/_logs/*.log >/dev/null 2>&1 && fail "npm debug logs left in var/npm-cache/_logs: `ls $ADDON_DIR/var/npm-cache/_logs`" || ok "no npm debug logs in var/npm-cache/_logs"
 grep -q "rdmtc.uuid" /tmp/update_script.log /var/log/messages && fail "a message about rdmtc.uuid: `grep -h rdmtc.uuid /tmp/update_script.log /var/log/messages | head -2`"
 lite_off
 
@@ -255,6 +266,7 @@ grep -q '"error":""' /tmp/redmatic-update/state.json || die "worker reported an 
 ls -d /usr/local/tmp/tmp.* >/dev/null 2>&1 && fail "installer temp dir left behind"
 ok "worker finished: download, checksum, install, restart"
 check_running
+node_red_env | grep -q '^npm_config_logs_max=' && fail "npm_config_logs_max set outside openccu-lite" || ok "npm keeps its log default outside openccu-lite"
 grep -q '"node-red-contrib-ccu"' $ADDON_DIR/var/package.json || fail "var/package.json lost node-red-contrib-ccu after the self-update"
 
 # --- self-update worker on openccu-lite (bug 8) ---------------------------------
