@@ -1,8 +1,8 @@
 'use strict';
 
 // Task 14: bin/redmatic waits 30 s within the first 120 s after a reboot, because a CCU and OpenCCU start
-// the addons with nothing to wait for. On openccu-lite (VARIANT=lite in /VERSION) the addon's unit is
-// ordered by the firmware, so the pause is skipped there - and only there, whatever the init system.
+// the addons with nothing to wait for. On openccu-lite (a LITE= line in /VERSION, or occulited; bug 13)
+// the addon's unit is ordered by the firmware, so the pause is skipped there - and only there, whatever the init system.
 //
 // IsOpenccuLite and BootDelay are cut out of bin/redmatic and run in sh and, where busybox is
 // installed, in busybox sh with busybox's grep. `sleep` and `logger` are stubs that record their calls.
@@ -53,10 +53,14 @@ function scratch(t) {
     return dir;
 }
 
-// BootDelay with the given /VERSION content (null: no file) and uptime
-function bootDelay(shell, t, {version, uptime}) {
+// BootDelay with the given /VERSION content (null: no file), uptime, and whether occulited is there
+function bootDelay(shell, t, {version, uptime, occulited = false}) {
     const dir = scratch(t);
     const versionFile = path.join(dir, 'VERSION');
+    const occulitedFile = path.join(dir, 'occulited');
+    if (occulited) {
+        fs.writeFileSync(occulitedFile, '#!/bin/sh\n', {mode: 0o755});
+    }
     const uptimeFile = path.join(dir, 'uptime');
     const calls = path.join(dir, 'calls.log');
     if (version !== null) {
@@ -67,6 +71,7 @@ function bootDelay(shell, t, {version, uptime}) {
     fs.writeFileSync(script, [
         `VERSION_FILE=${versionFile}`,
         `UPTIME_FILE=${uptimeFile}`,
+        `OCCULITED=${occulitedFile}`,
         `sleep () { echo "sleep $*" >> ${calls}; }`,
         // bin/redmatic logs with `logger -t redmatic -p <priority> <message>`
         `logger () { echo "logger $4 $5" >> ${calls}; }`,
@@ -117,8 +122,23 @@ for (const shell of shells()) {
         assert.strictEqual(r.stderr, '');
     });
 
-    test(`${shell.name}: a VARIANT line that is not exactly lite - the pause`, opts, t => {
-        const r = bootDelay(shell, t, {version: 'VERSION=3.89.9\nVARIANT=lite-ish\n#VARIANT=lite\n', uptime: '10.00 12.00\n'});
+    test(`${shell.name}: a LITE= line alone is openccu-lite - no pause`, opts, t => {
+        const r = bootDelay(shell, t, {version: OPENCCU + 'LITE=1.0.0-dev.30\n', uptime: '10.00 12.00\n'});
+        assert.deepStrictEqual(r.calls, ['logger daemon.info openccu-lite: the system orders the start, no boot delay']);
+    });
+
+    test(`${shell.name}: occulited alone is openccu-lite - no pause`, opts, t => {
+        const r = bootDelay(shell, t, {version: OPENCCU, occulited: true, uptime: '10.00 12.00\n'});
+        assert.deepStrictEqual(r.calls, ['logger daemon.info openccu-lite: the system orders the start, no boot delay']);
+    });
+
+    test(`${shell.name}: a VARIANT=lite line without LITE= and occulited is no marker - the pause`, opts, t => {
+        const r = bootDelay(shell, t, {version: 'VERSION=3.89.9\nVARIANT=lite\n', uptime: '10.00 12.00\n'});
+        assert.deepStrictEqual(r.calls.slice(-1), ['sleep 30']);
+    });
+
+    test(`${shell.name}: a LITE line that does not start the line - the pause`, opts, t => {
+        const r = bootDelay(shell, t, {version: 'VERSION=3.89.9\n#LITE=1.0\nXLITE=1\n', uptime: '10.00 12.00\n'});
         assert.deepStrictEqual(r.calls.slice(-1), ['sleep 30']);
     });
 

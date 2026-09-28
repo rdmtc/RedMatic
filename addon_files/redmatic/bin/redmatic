@@ -21,9 +21,10 @@ export GIT_TEMPLATE_DIR=$ADDON_DIR/share/git-core/templates
 # provides NODE_VERSION, VERSION_ADDON, RED_VERSION and (armv7l) ICU_DATA
 . $ADDON_DIR/versions
 
-# openccu-lite writes VARIANT=lite into /VERSION; UPTIME_FILE is /proc/uptime
-# (both variables so the test can point them elsewhere)
+# openccu-lite's markers (IsOpenccuLite) and the uptime; variables so the test
+# can point them elsewhere
 VERSION_FILE=/VERSION
+OCCULITED=/usr/bin/occulited
 UPTIME_FILE=/proc/uptime
 
 # A start can be requested from several places within a few seconds: the
@@ -185,8 +186,11 @@ EnsureIpv6LinkLocal () {
     logger -t redmatic -p daemon.warn "IPv6 link-local address on $IFACE still missing after re-enabling IPv6"
 }
 
+# openccu-lite: a LITE= line in /VERSION (the image build writes it), or its
+# system service occulited. A CCU3 and OpenCCU have neither. The same rule as
+# update_script, bin/redmatic-update, lib/ccu-auth.js and lib/session.tcl.
 IsOpenccuLite () {
-    grep -qx 'VARIANT=lite' $VERSION_FILE 2>/dev/null
+    grep -q '^LITE=' $VERSION_FILE 2>/dev/null || [ -x $OCCULITED ]
 }
 
 # Within the first 120 s after a reboot a CCU and OpenCCU start the addons
