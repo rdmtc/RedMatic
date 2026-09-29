@@ -1,28 +1,20 @@
-### RedMatic 9.9.0
+### RedMatic 9.10.0
 
-Bringt node-red-contrib-ccu 4.4.5 und startet auf openccu-lite beim Booten
-vor den Schnittstellenprozessen.
+Auf openccu-lite aktualisiert das System RedMatic, und das Addon schreibt
+keine eigenen Logdateien mehr. Auf einer CCU3 und OpenCCU ändert sich nichts.
 
-- **node-red-contrib-ccu 4.4.5: Ein fehlgeschlagenes `init` wird nach 1, 2, 4
-  und 8 Sekunden und danach alle 15 Sekunden wiederholt** (bisher 2, 4, 8,
-  16 Sekunden, dann alle 30). Solange ein Schnittstellenprozess noch startet
-  und die Verbindung ablehnt, steht im Log eine Info-Zeile („HmIP-RF not
-  listening yet … waiting for it“) statt einer Warnung; lehnt er ab, nachdem
-  er schon verbunden war, bleibt es eine Warnung.
-- **node-red-contrib-ccu 4.4.5: Die direkte Verbindung zu den
-  Schnittstellenprozessen auch dann, wenn Node-RED vor rfd startet.** Die
-  CCU-Verbindung erkannte „läuft auf der CCU selbst“ bisher nur an rfds
-  offenem Port; startete Node-RED früher, lief jede Schnittstelle bis zum
-  nächsten Neustart über die Proxy-Ports des Webservers. Jetzt reicht dafür
-  auch die Schnittstellenliste der CCU (`/etc/config/InterfacesList.xml`).
-- **openccu-lite: Frühstart.** Das Manifest (`openccu-lite.json`) erklärt
-  `runtime.start: "early"`: das System startet RedMatic beim Booten vor rfd
-  und hmipserver, und die CCU-Nodes verbinden sich, sobald die
-  Schnittstellen antworten. Auf der Seite Zusatzsoftware lässt sich der
-  Frühstart abschalten. Auf einer CCU3 und OpenCCU ändert sich nichts.
-- **Zwei Zeilen weniger im Log bei jedem Start:** kein „Usage: node-red …“
-  mehr für den `init`-Aufruf vor dem Start, und kein „Permission denied“,
-  wenn das Addon die Telemetrie-Kennung des Systems nicht lesen darf.
+- **openccu-lite: Updates nur noch über die Seite Addons des Systems.** Die
+  Einstellungsseite zeigt dort keinen eigenen Update-Hinweis und keinen
+  Installieren-Knopf mehr, sondern verweist auf die Seite Addons;
+  `update.cgi` lehnt ein Update mit 403 ab.
+- **openccu-lite: keine npm-Logdateien mehr.** npm schreibt bei
+  Palette-Installationen keine Debug-Logs mehr nach `var/npm-cache/_logs`;
+  seine Ausgabe landet wie bisher im Log von Node-RED und damit im Journal.
+  Alte Logs werden beim Start entfernt.
+- **openccu-lite: Telemetrie-Kennung im Addon-Verzeichnis**
+  (`var/rdmtc.uuid`, einmal aus `/etc/config` übernommen, wo lesbar).
+- **openccu-lite wird überall gleich erkannt** (eine `LITE=`-Zeile in
+  `/VERSION` oder occulited), auch für die Startverzögerung nach dem Booten.
 
 ### RedMatic 9
 
