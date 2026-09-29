@@ -188,6 +188,16 @@ last_accepted_start() {
     grep "start requested by pid" /var/log/messages | tail -1
 }
 
+# the telemetry body (task 18): the e2e blocks the telemetry host, so check what
+# bin/redmaticVersions builds - the JSON bin/redmatic posts and update_check.cgi serves.
+# Prints PRODUCT|LITE of the ccu block, and "top-level LITE" if the key is anywhere else.
+telemetry_ccu() {
+    $ADDON_DIR/bin/redmaticVersions | $ADDON_DIR/bin/node -e '
+        const b = JSON.parse(require("fs").readFileSync(0, "utf8"));
+        if ("LITE" in b) console.log("top-level LITE");
+        console.log(b.ccu.PRODUCT + "|" + ("LITE" in b.ccu ? b.ccu.LITE : "(none)"));'
+}
+
 # Node-RED's environment: what npm, started from it, inherits
 node_red_env() {
     tr '\0' '\n' < /proc/`node_red_pid`/environ
@@ -221,7 +231,13 @@ fi
 node_red_env | grep -qx 'npm_config_logs_max=0' && ok "Node-RED passes npm logs-max=0 on" || fail "Node-RED's environment has no npm_config_logs_max=0"
 ls $ADDON_DIR/var/npm-cache/_logs/*.log >/dev/null 2>&1 && fail "npm debug logs left in var/npm-cache/_logs: `ls $ADDON_DIR/var/npm-cache/_logs`" || ok "no npm debug logs in var/npm-cache/_logs"
 grep -q "rdmtc.uuid" /tmp/update_script.log /var/log/messages && fail "a message about rdmtc.uuid: `grep -h rdmtc.uuid /tmp/update_script.log /var/log/messages | head -2`"
+body=`telemetry_ccu`
+[ "$body" = "lite-e2e|1.0.0-e2e" ] && ok "telemetry: PRODUCT lite-e2e, LITE 1.0.0-e2e in ccu" || fail "telemetry ccu block on openccu-lite: $body"
 lite_off
+printf 'VERSION=3.83.6\nPRODUCT=raspmatic_rpi4\nPLATFORM=rpi4\n' > /VERSION
+body=`telemetry_ccu`
+[ "$body" = "raspmatic_rpi4|(none)" ] && ok "telemetry: an OpenCCU's PRODUCT unchanged, no LITE" || fail "telemetry ccu block on OpenCCU: $body"
+rm -f /VERSION
 
 # --- palette install / uninstall ---------------------------------------------
 log "palette install node-red-node-random"

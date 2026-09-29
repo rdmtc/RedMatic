@@ -1,6 +1,6 @@
 // Outputs version information of the addon, Node.js, the CCU firmware and all
 // installed node modules as JSON. Called via bin/redmaticVersions by the
-// telemetry request, the log upload and www/update_check.cgi.
+// telemetry request and www/update_check.cgi.
 
 const fs = require('fs');
 const path = require('path');
@@ -58,26 +58,76 @@ function deviceTypes() {
     }
 }
 
-const addonVersions = readEnvFile(path.join(ADDON_DIR, 'versions'));
-const ccu = readEnvFile('/VERSION');
+// openccu-lite: a LITE= line in /VERSION (the image build writes it), or its system service
+// occulited. A CCU3 and OpenCCU have neither. The same rule as IsOpenccuLite in bin/redmatic.
+function isOpenccuLite(version, occulited) {
+    if (Object.prototype.hasOwnProperty.call(version, 'LITE')) {
+        return true;
+    }
+    try {
+        fs.accessSync(occulited, fs.constants.X_OK);
+        return true;
+    } catch {
+        return false;
+    }
+}
 
-let machine = '';
-try {
-    machine = execSync('uname -m').toString().trim();
-} catch {}
+// The ccu block of the telemetry (task 18). The server stores VERSION, PRODUCT and PLATFORM as they
+// arrive and groups by them. openccu-lite keeps upstream's PRODUCT in /VERSION (rpi4, ova, ...), so
+// it is sent as lite-<PRODUCT> to count as a product of its own, and its own version goes along as
+// LITE - inside ccu, never at the top level, where the server would take it for an npm module.
+// VERSION and PLATFORM stay as they are; a CCU3, OpenCCU and piVCCU send no LITE at all.
+function ccuInfo({
+    versionFile = '/VERSION',
+    piVCCUFile = '/etc/piVCCU3',
+    occulited = '/usr/bin/occulited',
+    machine = ''
+} = {}) {
+    const version = readEnvFile(versionFile);
+    const piVCCU = fs.existsSync(piVCCUFile);
+    const lite = !piVCCU && isOpenccuLite(version, occulited);
+    let product = version.PRODUCT || '';
+    if (piVCCU) {
+        product = 'pivccu3';
+    } else if (lite) {
+        product = 'lite-' + product;
+    }
+    const res = {
+        VERSION: version.VERSION || '',
+        PRODUCT: product,
+        PLATFORM: `${version.PLATFORM || ''}-${machine}`
+    };
+    if (lite && version.LITE) {
+        res.LITE = version.LITE;
+    }
+    return res;
+}
 
-const result = {
-    ccu: {
-        VERSION: ccu.VERSION || '',
-        PRODUCT: fs.existsSync('/etc/piVCCU3') ? 'pivccu3' : (ccu.PRODUCT || ''),
-        PLATFORM: `${ccu.PLATFORM || ''}-${machine}`,
-        deviceTypes: deviceTypes()
-    },
-    redmatic: addonVersions.VERSION_ADDON || '',
-    nodejs: process.version.replace(/^v/, '')
-};
+function main() {
+    const addonVersions = readEnvFile(path.join(ADDON_DIR, 'versions'));
 
-scanModules(path.join(ADDON_DIR, 'lib', 'node_modules'), result);
-scanModules(path.join(ADDON_DIR, 'var', 'node_modules'), result);
+    let machine = '';
+    try {
+        machine = execSync('uname -m').toString().trim();
+    } catch {}
 
-console.log(JSON.stringify(result, null, 3));
+    const result = {
+        ccu: {
+            ...ccuInfo({machine}),
+            deviceTypes: deviceTypes()
+        },
+        redmatic: addonVersions.VERSION_ADDON || '',
+        nodejs: process.version.replace(/^v/, '')
+    };
+
+    scanModules(path.join(ADDON_DIR, 'lib', 'node_modules'), result);
+    scanModules(path.join(ADDON_DIR, 'var', 'node_modules'), result);
+
+    console.log(JSON.stringify(result, null, 3));
+}
+
+if (require.main === module) {
+    main();
+}
+
+module.exports = {ccuInfo, isOpenccuLite, readEnvFile};
