@@ -144,6 +144,9 @@ check_running
 
 # --- update (the OpenCCU live path that broke #599) ---------------------------
 log "update with the same package (update_script must exit 0 and restart the service)"
+# what the log upload of 9.10.0 and earlier left on the system (task 19)
+UPLOAD_FILES="bin/redmatic-logupload www/logupload.cgi www/getnick.cgi www/setnick.cgi etc/nickname"
+for f in $UPLOAD_FILES; do echo old > $ADDON_DIR/$f; done
 install_addon
 rc=$?
 [ $rc -eq 0 ] || { cat /tmp/update_script.log; die "update_script exit code $rc, expected 0"; }
@@ -151,6 +154,11 @@ ok "update_script exit 0"
 sleep 3
 check_running
 grep -q '"node-red-contrib-ccu"' $ADDON_DIR/var/package.json || fail "var/package.json lost node-red-contrib-ccu in the merge"
+left=""
+for f in $UPLOAD_FILES; do [ -e $ADDON_DIR/$f ] && left="$left $f"; done
+[ -z "$left" ] && ok "the log upload of an earlier version removed" || fail "left after the update:$left"
+grep -rl "telemetry.redmatic.de/" $ADDON_DIR/bin $ADDON_DIR/www $ADDON_DIR/lib/*.js $ADDON_DIR/lib/*.tcl 2>/dev/null &&
+    fail "a file of the installed addon sends to a path of the telemetry host" || ok "nothing sends to a path of the telemetry host"
 
 # --- update on openccu-lite (bug 8) --------------------------------------------
 # A pretend openccu-lite: /VERSION with a LITE= line and a systemctl that records

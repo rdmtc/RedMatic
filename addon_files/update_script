@@ -86,6 +86,10 @@ done
 rm -rf $RED_DIR/libexec/git-core $RED_DIR/share/git-core
 rm -f $RED_DIR/www/pkg.cgi $RED_DIR/lib/pkg-repo.json
 rm -f $RED_DIR/var/do_pkg_upgrade $RED_DIR/var/pkg-upgrade.log $RED_DIR/var/example-flows.json
+#   the log upload to the telemetry server is gone (task 19): its script, its
+#   CGIs and the nickname it sent along
+rm -f $RED_DIR/bin/redmatic-logupload $RED_DIR/www/logupload.cgi \
+      $RED_DIR/www/getnick.cgi $RED_DIR/www/setnick.cgi $RED_DIR/etc/nickname
 
 #
 #   Install addon files

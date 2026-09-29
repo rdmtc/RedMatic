@@ -52,25 +52,6 @@
         <strong>Kommando ausgeführt</strong>
     </div>
 
-    <div id="modal-upload" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Log Datei erfolgreich hochgeladen</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Log Datei <strong><span id="log-name"></span></strong> hochgeladen</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schliessen</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div id="modal-update" class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -116,26 +97,6 @@
                     <button type="button" class="btn btn-warning" id="update-go"><i class="fa fa-download"></i> Update starten</button>
                     <button type="button" class="btn btn-secondary" id="update-close" style="display: none;" data-dismiss="modal">Schliessen</button>
                     <button type="button" class="btn btn-primary" id="update-reload" style="display: none;"><i class="fa fa-sync-alt"></i> Seite neu laden</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-nickname" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Log Versand</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input id="nickname" placeholder="Nickname" type="text" class="form-control" style="width: 240px;">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                    <button type="button" class="btn btn-primary" id="log-upload-do">Log versenden</button>
                 </div>
             </div>
         </div>
@@ -386,14 +347,6 @@
                 <div class="card-body">
                     <div class="form-group">
                         <button id="log" type="button" class="btn btn-sm btn-info"><i class="fa fa-download"></i> Log herunterladen</button>
-
-
-                        <button id="log-upload" type="button" class="btn btn-sm btn-info" style="display:none;"><i class="fa fa-upload"></i> Log versenden</button>
-                        <div id="log-upload-spinner" class="spinner-border spinner-border-sm ml-2 mr-2" role="status" style="color: #6a737d; display: none;">
-                            <span class="sr-only">Please wait...</span>
-                        </div>
-
-
                     </div>
                 </div>
             </div>

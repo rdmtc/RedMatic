@@ -470,27 +470,6 @@ $(document).ready(() => {
         });
     }
 
-    $.get('getnick.cgi' + location.search, (data, success) => {
-        if ($.trim(data) === 'error: invalid session') {
-            invalidSession();
-            return;
-        }
-        const nick = $.trim(data);
-        if (nick) {
-            $('#nickname').val(nick);
-            $('#log-upload').removeClass('disabled');
-        }
-    });
-
-    $('#nickname').change(() => {
-        const nick = $.trim($('#nickname').val());
-        if (nick) {
-            $('#log-upload').removeClass('disabled');
-        } else {
-            $('#log-upload').addClass('disabled');
-        }
-    });
-
     $.get('getconfig.cgi' + location.search, (data, success) => {
         if ($.trim(data) === 'error: invalid session') {
             invalidSession();
@@ -943,53 +922,6 @@ $(document).ready(() => {
 
     $('#log').on('click', () => {
         download('redmatic.' + (new Date()).toISOString() + '.log', 'log.cgi' + location.search);
-    });
-
-    function logUpload() {
-        $('#log-upload-spinner').show();
-        $('#log-upload').addClass('disabled');
-        $.post({
-            url: 'setnick.cgi' + location.search,
-            data: $.trim($('#nickname').val().toLowerCase()),
-            success: function (data) {
-                if ($.trim(data) === 'ok') {
-                    $.get({
-                        url: 'logupload.cgi?sid=' + sid,
-                        success: data => {
-                            $('#log-upload-spinner').hide();
-                            $('#log-upload').removeClass('disabled');
-                            $('#log-name').html(data);
-                            $('#modal-upload').modal('show')
-                        }
-                    }).fail(() => {
-                        $('#log-upload').removeClass('disabled');
-                        $('#log-upload-spinner').hide();
-                        alert($alertError);
-                    });
-                } else {
-                    $('#log-upload').removeClass('disabled');
-                    $('#log-upload-spinner').hide();
-                    if ($.trim(data) === 'error: invalid session') {
-                        invalidSession();
-                        return;
-                    }
-                    alert($alertError);
-                }
-            }
-        }).fail(() => {
-            alert($alertError);
-            $('#log-upload').removeClass('disabled');
-            $('#log-upload-spinner').hide();
-        });
-    }
-
-    $('#log-upload').on('click', () => {
-        $('#modal-nickname').modal('show');
-    });
-
-    $('#log-upload-do').on('click', () => {
-        $('#modal-nickname').modal('hide');
-        logUpload();
     });
 
     $('#autorestart').on('change', event => {

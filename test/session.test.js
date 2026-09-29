@@ -252,8 +252,8 @@ test('every CGI with a session check goes through request_session_ok', () => {
         assert.match(code, /\[request_session_ok\]/, `${name} does not use request_session_ok`);
     }
     assert.deepStrictEqual(checked.sort(), [
-        'backup.cgi', 'getconfig.cgi', 'getnick.cgi', 'log.cgi', 'logupload.cgi', 'safemode.cgi',
-        'service.cgi', 'setconfig.cgi', 'setnick.cgi', 'settings.cgi', 'update.cgi',
+        'backup.cgi', 'getconfig.cgi', 'log.cgi', 'safemode.cgi',
+        'service.cgi', 'setconfig.cgi', 'settings.cgi', 'update.cgi',
     ]);
 });
 

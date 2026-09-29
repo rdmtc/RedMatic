@@ -26,7 +26,7 @@ jobs:
           for f in addon_files/update_script addon_files/redmatic/bin/redmatic \
                    addon_files/redmatic/bin/redmaticLoader addon_files/redmatic/bin/redmaticVersions \
                    addon_files/redmatic/bin/checkContext addon_files/redmatic/bin/monit-start \
-                   addon_files/redmatic/bin/monit-du addon_files/redmatic/bin/redmatic-logupload; do
+                   addon_files/redmatic/bin/monit-du; do
             sh -n "$f"
           done
 
