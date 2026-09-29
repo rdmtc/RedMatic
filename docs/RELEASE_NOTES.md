@@ -1,20 +1,18 @@
-### RedMatic 9.10.0
+### RedMatic 9.10.1
 
-Auf openccu-lite aktualisiert das System RedMatic, und das Addon schreibt
-keine eigenen Logdateien mehr. Auf einer CCU3 und OpenCCU ändert sich nichts.
+Telemetrie für openccu-lite, und der seit Langem ausgeblendete
+Log-Versand entfällt. Auf einer CCU3 und OpenCCU ändert sich an der
+Telemetrie nichts.
 
-- **openccu-lite: Updates nur noch über die Seite Addons des Systems.** Die
-  Einstellungsseite zeigt dort keinen eigenen Update-Hinweis und keinen
-  Installieren-Knopf mehr, sondern verweist auf die Seite Addons;
-  `update.cgi` lehnt ein Update mit 403 ab.
-- **openccu-lite: keine npm-Logdateien mehr.** npm schreibt bei
-  Palette-Installationen keine Debug-Logs mehr nach `var/npm-cache/_logs`;
-  seine Ausgabe landet wie bisher im Log von Node-RED und damit im Journal.
-  Alte Logs werden beim Start entfernt.
-- **openccu-lite: Telemetrie-Kennung im Addon-Verzeichnis**
-  (`var/rdmtc.uuid`, einmal aus `/etc/config` übernommen, wo lesbar).
-- **openccu-lite wird überall gleich erkannt** (eine `LITE=`-Zeile in
-  `/VERSION` oder occulited), auch für die Startverzögerung nach dem Booten.
+- **openccu-lite: eigenes Produkt in der Telemetrie.** openccu-lite
+  übernimmt `PRODUCT` aus `/VERSION` von OpenCCU und wurde deshalb als
+  OpenCCU gezählt. RedMatic meldet dort jetzt `lite-<PRODUCT>`
+  (`lite-rpi4`, `lite-ova`, …) und die openccu-lite-Version als
+  `ccu.LITE`; die übrigen Daten bleiben dieselben.
+- **Log versenden entfällt.** Der Knopf auf der Einstellungsseite war
+  seit 5.6.0 ausgeblendet, der Server nimmt keine Logs mehr an. Die
+  zugehörigen Dateien und der gespeicherte Nickname werden beim Update
+  entfernt. **Log herunterladen** bleibt der Weg, ein Log zu teilen.
 
 ### RedMatic 9
 
