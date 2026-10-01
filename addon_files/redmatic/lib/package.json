@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "npm": "11.20.0",
+    "npm": "11.21.0",
     "node-red": "5.0.7"
   }
 }
