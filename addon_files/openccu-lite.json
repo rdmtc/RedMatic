@@ -19,6 +19,7 @@
   "ui": {
     "icon": "redmatic/www/favicon-96x96.png",
     "logo": "redmatic/www/redmatic5-wide.png",
+    "logo_dark": "redmatic/www/redmatic5-wide-dark.png",
     "session_header": true,
     "own_updater": true
   },
