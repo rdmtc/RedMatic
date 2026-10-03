@@ -1,18 +1,18 @@
-### RedMatic 9.10.1
+### RedMatic 9.12.1
 
-Telemetrie für openccu-lite, und der seit Langem ausgeblendete
-Log-Versand entfällt. Auf einer CCU3 und OpenCCU ändert sich an der
-Telemetrie nichts.
+node-red-contrib-ccu 4.5.2 und ein dunkles Logo für openccu-lite.
 
-- **openccu-lite: eigenes Produkt in der Telemetrie.** openccu-lite
-  übernimmt `PRODUCT` aus `/VERSION` von OpenCCU und wurde deshalb als
-  OpenCCU gezählt. RedMatic meldet dort jetzt `lite-<PRODUCT>`
-  (`lite-rpi4`, `lite-ova`, …) und die openccu-lite-Version als
-  `ccu.LITE`; die übrigen Daten bleiben dieselben.
-- **Log versenden entfällt.** Der Knopf auf der Einstellungsseite war
-  seit 5.6.0 ausgeblendet, der Server nimmt keine Logs mehr an. Die
-  zugehörigen Dateien und der gespeicherte Nickname werden beim Update
-  entfernt. **Log herunterladen** bleibt der Weg, ein Log zu teilen.
+- **node-red-contrib-ccu 4.5.2.** Nach einem Neustart von hmipserver
+  (Update des Interface-Prozesses, Wechsel des Funkmoduls, ein einfaches
+  `systemctl restart`) kamen bis zu zehn Minuten keine HmIP-RF-Ereignisse
+  an; jetzt meldet sich die Verbindung sofort neu an. Außerdem (4.5.1):
+  nach einem Update erzeugte ein in der Zwischenzeit gelöschtes Gerät
+  keine Flut von `Invalid device`-Fehlern mehr, und es verschwindet aus
+  den zwischengespeicherten Geräte- und Wertelisten.
+- **openccu-lite: dunkles Logo.** Das Manifest nennt eine Variante des
+  Logos mit heller Schrift, die das System im dunklen Design zeigt; die
+  Bilder liegen jetzt auch neben dem Manifest im Repository, so dass der
+  Addon-Katalog sie findet.
 
 ### RedMatic 9
 
