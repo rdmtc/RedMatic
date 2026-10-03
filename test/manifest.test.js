@@ -24,6 +24,10 @@ test('the manifest names this addon and its release source', () => {
 
 test('the UI facts: Node-RED reads the session header, the images come with the package', () => {
     assert.strictEqual(manifest.ui.session_header, true);
+    // no own updater on openccu-lite: update.cgi refuses every update there and the settings page
+    // hides its own (task 15, test/session.test.js), so the system's Addons page offers the updates
+    // and the manifest says nothing else (task 23)
+    assert.ok(!('own_updater' in manifest.ui), 'ui.own_updater');
     // the images are copied into www by build_addon.sh from assets/
     assert.ok(fs.existsSync(path.join(__dirname, '..', 'assets', 'redmatic5-wide.png')));
     assert.ok(fs.existsSync(path.join(__dirname, '..', 'assets', 'favicon', 'favicon-96x96.png')));
