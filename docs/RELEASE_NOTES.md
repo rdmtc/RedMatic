@@ -1,18 +1,12 @@
-### RedMatic 9.12.1
+### RedMatic 9.12.2
 
-node-red-contrib-ccu 4.5.2 und ein dunkles Logo für openccu-lite.
+openccu-lite: Updates kommen von der Seite Addons.
 
-- **node-red-contrib-ccu 4.5.2.** Nach einem Neustart von hmipserver
-  (Update des Interface-Prozesses, Wechsel des Funkmoduls, ein einfaches
-  `systemctl restart`) kamen bis zu zehn Minuten keine HmIP-RF-Ereignisse
-  an; jetzt meldet sich die Verbindung sofort neu an. Außerdem (4.5.1):
-  nach einem Update erzeugte ein in der Zwischenzeit gelöschtes Gerät
-  keine Flut von `Invalid device`-Fehlern mehr, und es verschwindet aus
-  den zwischengespeicherten Geräte- und Wertelisten.
-- **openccu-lite: dunkles Logo.** Das Manifest nennt eine Variante des
-  Logos mit heller Schrift, die das System im dunklen Design zeigt; die
-  Bilder liegen jetzt auch neben dem Manifest im Repository, so dass der
-  Addon-Katalog sie findet.
+- **openccu-lite: kein eigener Updater mehr im Manifest.** RedMatic
+  aktualisiert sich dort schon seit 9.10.0 nicht selbst; jetzt sagt das
+  auch das Manifest, und die Seite Addons zeigt das Abzeichen „eigener
+  Updater" nicht mehr. Auf einer CCU3 und OpenCCU bleibt das Update über
+  die Einstellungsseite, wie es ist.
 
 ### RedMatic 9
 
