@@ -36,12 +36,22 @@ test('the UI facts: Node-RED reads the session header, the images come with the 
     assert.strictEqual(manifest.runtime.daemon, true);
 });
 
-test('the runtime: the early start, nothing beyond its own directories', () => {
+test('the runtime: the early start, USB sticks, nothing else beyond its own directories', () => {
     // node-red-contrib-ccu >= 4.4.5 waits quietly for an interface that does not answer yet and stays in
     // local mode before rfd listens, so the unit may start before rfd and hmipserver (openccu-lite D-75)
     const {note, ...runtime} = manifest.runtime;
-    assert.deepStrictEqual(runtime, {daemon: true, needs: ['rfd', 'hmipserver'], start: 'early'});
+    // B-17: a context store or userDir on the USB stick (/media/usb0 -> /media/usb1, mounted
+    // root:usbstorage 0770 by the system) needs the group and /media writable under ProtectSystem=strict
+    assert.deepStrictEqual(runtime, {
+        daemon: true,
+        needs: ['rfd', 'hmipserver'],
+        start: 'early',
+        groups: ['usbstorage'],
+        paths: ['/media']
+    });
     assert.ok(note.de && note.en);
+    assert.match(note.de, /USB-Sticks/);
+    assert.match(note.en, /USB sticks/);
     const pkg = JSON.parse(fs.readFileSync(path.join(root, 'redmatic', 'var', 'package.json'), 'utf8'));
     const [major, minor, patch] = pkg.dependencies['node-red-contrib-ccu'].split('.').map(Number);
     assert.ok(major > 4 || (major === 4 && (minor > 4 || patch >= 5)), 'node-red-contrib-ccu >= 4.4.5');
