@@ -89,6 +89,11 @@ const defaultContextStorage = Object.assign({}, settings.contextStorage[settings
 delete settings.contextStorage[settings.contextStorage.default.module];
 settings.contextStorage.default = defaultContextStorage;
 
+// A file store in a directory Node-RED may not use (the USB stick of a CCU3 setting, confined on
+// openccu-lite without the stick, or no stick plugged in) would stop Node-RED's start: such a store
+// uses var/ for this run, with a loud log line (B-18). The setting itself is not changed.
+require('/usr/local/addons/redmatic/lib/context-dir.js').checkStores(settings.contextStorage);
+
 const result = Object.assign(
     defaults,
     settings,
