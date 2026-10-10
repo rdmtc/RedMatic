@@ -36,6 +36,8 @@ SETTINGS=$ADDON_DIR/lib/settings.js
 
 status=1
 restarts=0
+# the loader's own exit status: 1 once Node-RED ended with an error and is not restarted again
+failed=0
 limit=`$NODE -e "try { console.log(JSON.parse(require('fs').readFileSync('$ADDON_DIR/etc/settings.json', 'utf8')).restartOnCrash || 0) } catch (e) { console.log(0) }"`
 
 if [ -z "$limit" ]; then
@@ -56,7 +58,8 @@ while [ "$status" != 0 ]; do
   # pipefail: busybox ash and bash have it, dash (debmatic) does not
   (set -o pipefail) 2>/dev/null && set -o pipefail
   # lib/compat.js: an old got 11 in a user's node must not stop Node-RED (#602)
-  $NODE --require $ADDON_DIR/lib/compat.js $RED $SAFE -s $SETTINGS 2>&1 | logger -p daemon.err -t node-red
+  # lib/start-guard.js: a Node-RED that cannot start its server exits instead of idling (B-17)
+  $NODE --require $ADDON_DIR/lib/compat.js --require $ADDON_DIR/lib/start-guard.js $RED $SAFE -s $SETTINGS 2>&1 | logger -p daemon.err -t node-red
   status=$?
   if [ "$status" != 0 ]; then
     echo "Node-RED exited with non-zero exit status $status" | logger -p daemon.err -t node-red
@@ -66,6 +69,9 @@ while [ "$status" != 0 ]; do
             echo "Maximum Node-RED restarts exceeded" | logger -p daemon.err -t redmatic
         fi
         status=0
+        failed=1
     fi
   fi
 done
+
+exit $failed
