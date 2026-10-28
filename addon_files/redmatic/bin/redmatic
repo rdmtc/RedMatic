@@ -132,6 +132,28 @@ LogCaller () {
     logger -t redmatic -p "$1" "start requested by pid $PPID (${CALLER_ARGS:-unknown}), its parent pid ${GRANDPARENT:-unknown} (${GRANDPARENT_ARGS:-unknown})"
 }
 
+# No Node-RED, but a start on its way: a redmaticLoader between two restarts
+# (or before its first), and a start that waits in its boot delay with the
+# lock held (bug 3). Stop used to leave both alone - the loader spawned
+# Node-RED again after the stop, and a restart during the first 40 s after a
+# boot ran into "a start is already in progress" and then "port in use".
+StopPendingStart () {
+    if [ "`RedmaticStarting`" != "" ]; then
+        logger -t redmatic -p daemon.info "stopping a redmaticLoader that has no Node-RED (between two starts)"
+        killall redmaticLoader 2>/dev/null
+    fi
+    LOCKPID=`cat $START_LOCK/pid 2>/dev/null`
+    if [ -n "$LOCKPID" ] && [ "$LOCKPID" != "$$" ] && kill -0 $LOCKPID 2>/dev/null; then
+        logger -t redmatic -p daemon.info "ending the start of pid $LOCKPID that waits in its boot delay"
+        kill $LOCKPID 2>/dev/null
+        rm -rf $START_LOCK
+    fi
+}
+
+# 0 when Node-RED does not run afterwards - also when it was not running
+# (LSB: stopping a stopped service is success; on openccu-lite this is the
+# unit's ExecStop, and a 1 here left the unit failed at every stop or restart
+# while Node-RED was down, bug 19). 1 only when Node-RED survives SIGKILL.
 Stop () {
     if [ -f /usr/bin/monit ]; then
         /usr/bin/monit -g redmatic unmonitor
@@ -152,14 +174,22 @@ Stop () {
             then
                 logger -t redmatic -p daemon.warn "Killing Node-RED"
                 kill -SIGKILL $PSPID 2>/dev/null
+                sleep 1
+                if kill -0 $PSPID 2> /dev/null
+                then
+                    echo "FAILED"
+                    logger -t redmatic -p daemon.error "Node-RED (pid $PSPID) is still running after SIGKILL"
+                    return 1
+                fi
             fi
         fi
         echo "OK"
         logger -t redmatic -p daemon.info "Node-RED stopped"
         return 0
     else
+        StopPendingStart
         echo "Node-RED not running"
-        return 1
+        return 0
     fi
 }
 
