@@ -17,19 +17,45 @@ mkdir -p $CONF_DIR/lighttpd && chmod 755 $CONF_DIR/lighttpd
 
 #
 #   openccu-lite runs the addon in its own systemd unit, addon-redmatic.service,
-#   as the user addon-redmatic. There stop and start go to that unit: a start
-#   from here would run Node-RED as root in the installer's scope, beside the
-#   unit and outside its confinement (bug 8: that start failed on a file the
-#   confined Node-RED had left in /tmp, and the addon stayed stopped). The
-#   markers are the ones lib/ccu-auth.js uses: a LITE= line in /VERSION, or
-#   occulited. A CCU and OpenCCU have neither and behave as before, and so does
-#   an openccu-lite without systemd (no unit to start).
+#   as the user addon-redmatic, and occulited starts that unit itself once the
+#   installer is through. A start from here would run Node-RED as root in the
+#   installer's scope, beside the unit and outside its confinement (bug 8: that
+#   start failed on a file the confined Node-RED had left in /tmp, and the
+#   addon stayed stopped; bug 16: the unit was not loaded - the generator had
+#   dropped it for a disabled addon - so the old check took the CCU branch and
+#   started Node-RED as root after all). On openccu-lite nothing is started
+#   here, whatever the unit's state; the stop goes to the unit when it is
+#   loaded and to the rc script otherwise (a stale daemon is stopped either
+#   way). The markers are the ones lib/ccu-auth.js uses: a LITE= line in
+#   /VERSION, or occulited. A CCU and OpenCCU have neither and behave as before.
 #
 LITE_UNIT=addon-redmatic.service
-lite_unit() {
-    grep -q '^LITE=' /VERSION 2>/dev/null || [ -x /usr/bin/occulited ] || return 1
+VERSION_FILE=/VERSION
+OCCULITED=/usr/bin/occulited
+S00_INSTALL_ADDON=/etc/init.d/S00InstallAddon
+is_lite() {
+    grep -q '^LITE=' $VERSION_FILE 2>/dev/null || [ -x $OCCULITED ]
+}
+unit_loaded() {
     command -v systemctl >/dev/null 2>&1 || return 1
     [ "`systemctl show -p LoadState $LITE_UNIT 2>/dev/null`" = "LoadState=loaded" ]
+}
+stop_before_update() {
+    if is_lite && unit_loaded; then
+        systemctl stop $LITE_UNIT
+    else
+        $CONF_DIR/rc.d/redmatic stop
+    fi
+}
+start_after_update() {
+    # never start from the installer's temp dir (OpenCCU deletes it afterwards,
+    # spawning npm from a deleted cwd fails: palette editor disabled, #599)
+    cd /
+    if is_lite; then
+        echo "openccu-lite: the system starts the addon's unit"
+    else
+        $CONF_DIR/rc.d/redmatic start
+    fi
 }
 
 #
@@ -37,11 +63,7 @@ lite_unit() {
 #
 if [ -f $CONF_DIR/rc.d/redmatic ]; then
     EXITCODE=0
-    if lite_unit; then
-        systemctl stop $LITE_UNIT
-    else
-        $CONF_DIR/rc.d/redmatic stop
-    fi
+    stop_before_update
 fi
 
 #
@@ -178,16 +200,8 @@ sync
 #   firmware, so a self-update (ROADMAP task 11) has to start the service
 #   itself there.
 #
-if [ $EXITCODE -eq 0 ] && [ ! -f /etc/init.d/S00InstallAddon ]; then
-    # never start from the installer's temp dir (OpenCCU deletes it afterwards,
-    # spawning npm from a deleted cwd fails: palette editor disabled, #599)
-    cd /
-    if lite_unit; then
-        # the unit starts rc.d/redmatic itself, as addon-redmatic
-        systemctl start $LITE_UNIT
-    else
-        $CONF_DIR/rc.d/redmatic start
-    fi
+if [ $EXITCODE -eq 0 ] && [ ! -f $S00_INSTALL_ADDON ]; then
+    start_after_update
 fi
 
 exit $EXITCODE
