@@ -85,7 +85,7 @@ function detect() {
             }
             boxKind = kind;
             console.log(kind === 'occulite' ?
-                'openccu-lite detected: Node-RED admin login uses the users of the box (/api/auth/v1), there is no ReGaHSS' :
+                'openccu-lite detected: Node-RED admin login uses the users of the system (/api/auth/v1), there is no ReGaHSS' :
                 'CCU detected: Node-RED admin login uses the ReGaHSS users');
             return kind;
         })
@@ -323,12 +323,12 @@ if (isOpenccuLite()) {
         // the id of the session lighttpd's gate accepted, checked with the box again
         module.exports.tokenHeader = sessionHeader;
         module.exports.tokens = header => occuliteHeaderTokens(header);
-        console.log('openccu-lite: the Node-RED editor signs in with the box session from the X-Occulite-Session header');
+        console.log('openccu-lite: the Node-RED editor signs in with the openccu-lite session (X-Occulite-Session header)');
     } else {
         // the whole Cookie header, not a bearer token: what the box's session lives in
         module.exports.tokenHeader = 'cookie';
         module.exports.tokens = cookieHeader => occuliteTokens(cookieHeader);
-        console.log('openccu-lite: the Node-RED editor signs in with the box session from its cookie (this image has no session header)');
+        console.log('openccu-lite: the Node-RED editor signs in with the openccu-lite session from its cookie (this image has no session header)');
     }
 }
 

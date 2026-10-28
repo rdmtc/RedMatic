@@ -37,7 +37,13 @@ module.exports = {
             handler: () => {
                 return msg => {
                     if (msg && typeof msg.msg === 'string') {
-                        const severity = severities[msg.level] || 'info';
+                        let severity = severities[msg.level] || 'info';
+                        // Node-RED says at warn level that the projects feature is off, which is
+                        // RedMatic's default: information, not a warning (task 24)
+                        if (msg.level === 30 && /^Projects disabled\b/.test(msg.msg)) {
+                            severity = 'info';
+                        }
+
                         for (const line of msg.msg.split('\n')) {
                             if (line) {
                                 const message = (msg.type ? '[' + msg.type + ':' + (msg.name || msg.id) + '] ' : '') + line;

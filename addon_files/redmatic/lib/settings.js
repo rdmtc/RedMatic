@@ -19,6 +19,15 @@ if (settings.logging.ain) {
     delete settings.logging.ain;
     loggingMigrated = true;
 }
+// Migration: httpRoot is deprecated in Node-RED ("Use of httpRoot is DEPRECATED" at every start,
+// task 24); the default settings carry httpAdminRoot and httpNodeRoot since 9.15.3. A stored
+// settings.json that has httpRoot alone gets both from it, once.
+if (settings.httpRoot !== undefined && settings.httpAdminRoot === undefined && settings.httpNodeRoot === undefined) {
+    settings.httpAdminRoot = settings.httpRoot;
+    settings.httpNodeRoot = settings.httpRoot;
+    delete settings.httpRoot;
+    loggingMigrated = true;
+}
 if (loggingMigrated) {
     fs.writeFileSync('/usr/local/addons/redmatic/etc/settings.json', JSON.stringify(settings, null, '  '));
 }

@@ -71,6 +71,24 @@ test('the logging key migration writes etc/settings.json and nothing else', t =>
     assert.strictEqual(settings.logging.syslog.level, 'debug');
 });
 
+// task 24: Node-RED deprecates httpRoot ("Use of httpRoot is DEPRECATED" at every start); a stored
+// settings.json with httpRoot alone is moved to httpAdminRoot + httpNodeRoot once
+test('httpRoot alone becomes httpAdminRoot and httpNodeRoot, written once', t => {
+    const {settings, written} = loadWith(t, {httpRoot: '/addons/red', logging: {syslog: {level: 'info'}}});
+    assert.deepStrictEqual(written, [SETTINGS_JSON]);
+    assert.strictEqual(settings.httpRoot, undefined);
+    assert.strictEqual(settings.httpAdminRoot, '/addons/red');
+    assert.strictEqual(settings.httpNodeRoot, '/addons/red');
+    // already migrated (or set by hand): nothing written, nothing changed
+    const again = loadWith(t, {httpAdminRoot: '/addons/red', httpNodeRoot: '/addons/red', logging: {syslog: {level: 'info'}}});
+    assert.deepStrictEqual(again.written, []);
+    assert.strictEqual(again.settings.httpAdminRoot, '/addons/red');
+    // a user who set httpRoot beside one of the new keys keeps his settings as they are
+    const mixed = loadWith(t, {httpRoot: '/addons/red', httpNodeRoot: '/red', logging: {syslog: {level: 'info'}}});
+    assert.deepStrictEqual(mixed.written, []);
+    assert.strictEqual(mixed.settings.httpRoot, '/addons/red');
+});
+
 // Bug 14: on openccu-lite the editor signs in with the system's session; a Node-RED token the browser
 // kept from an earlier form login made Node-RED show its login dialog over the workspace. The editor
 // page gets lib/editor-sso.js, which drops that token, and only where the single sign-on is on.

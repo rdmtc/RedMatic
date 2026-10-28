@@ -59,7 +59,12 @@ while [ "$status" != 0 ]; do
   (set -o pipefail) 2>/dev/null && set -o pipefail
   # lib/compat.js: an old got 11 in a user's node must not stop Node-RED (#602)
   # lib/start-guard.js: a Node-RED that cannot start its server exits instead of idling (B-17)
-  $NODE --require $ADDON_DIR/lib/compat.js --require $ADDON_DIR/lib/start-guard.js $RED $SAFE -s $SETTINGS 2>&1 | logger -p daemon.err -t node-red
+  # Node-RED's own log goes through lib/logger.js with its levels; what is printed directly is
+  # stdout -> daemon.info (a settings file's or lib's console.log) and stderr -> daemon.warn
+  # (Node's warnings, a stack trace) - until 9.15.2 both went out as daemon.err (task 24).
+  # --disable-warning=DEP0040: the punycode deprecation a user's palette node triggers on
+  # Node 24 (two lines at every start, nothing RedMatic can fix in that node); that id alone.
+  { $NODE --disable-warning=DEP0040 --require $ADDON_DIR/lib/compat.js --require $ADDON_DIR/lib/start-guard.js $RED $SAFE -s $SETTINGS 2>&3 | logger -p daemon.info -t node-red; } 3>&1 | logger -p daemon.warn -t node-red
   status=$?
   if [ "$status" != 0 ]; then
     echo "Node-RED exited with non-zero exit status $status" | logger -p daemon.err -t node-red

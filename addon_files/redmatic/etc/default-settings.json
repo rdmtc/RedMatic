@@ -3,7 +3,8 @@
   "uiHost": "127.0.0.1",
   "flowFile": "flows.json",
   "userDir": "/usr/local/addons/redmatic/var",
-  "httpRoot": "/addons/red",
+  "httpAdminRoot": "/addons/red",
+  "httpNodeRoot": "/addons/red",
   "logging": {
     "syslog": {
       "level": "info",
