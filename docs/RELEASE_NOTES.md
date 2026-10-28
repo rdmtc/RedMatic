@@ -1,21 +1,22 @@
-### RedMatic 9.12.5
+### RedMatic 9.15.1
 
-openccu-lite: RedMatic darf den USB-Stick nutzen, und ein Node-RED, das nicht
-starten kann, zeigt das jetzt an.
+openccu-lite: die CCU-Nodes nutzen jetzt die RPC-Schnittstelle des Systems.
 
-- **openccu-lite: Zugriff auf den USB-Stick.** Auf openccu-lite läuft
-  RedMatic eingeschränkt unter einem eigenen Benutzer. Lag ein Context-Store
-  (oder anderes) auf dem USB-Stick unter `/media`, etwa noch von der CCU3,
-  scheiterte Node-RED beim Start mit „permission denied" – die Flows liefen
-  nicht. Das Manifest gibt RedMatic jetzt den Stick frei (Gruppe
-  `usbstorage`, `/media` beschreibbar).
-- **Ein Context-Store, den Node-RED nicht nutzen darf,** fällt für diesen
-  Lauf auf `var/` zurück, mit einer deutlichen Zeile im Log. Die Einstellung
-  und die Daten am alten Ort bleiben unverändert.
-- **Kann Node-RED seinen Server nicht starten, beendet es sich** statt
-  weiterzulaufen, ohne etwas zu tun. Auf openccu-lite zeigt die Seite
-  Addons/Dienste RedMatic dann als beendet, statt dauerhaft „Node-RED
-  startet". Auf einer CCU3 und OpenCCU ändert sich nichts.
+- **openccu-lite: lite-rpc als Standard.** node-red-contrib-ccu 4.7.0
+  (seit RedMatic 9.15.0 enthalten) erreicht die Schnittstellenprozesse auf
+  openccu-lite über die RPC-Schnittstelle des Systems, ohne eigene
+  Callback-Server. Dafür braucht es ein Token: das Manifest fordert jetzt
+  den Bereich `rpc:admin` an, das System stellt RedMatic bei jedem Start
+  ein eigenes Token aus. Eine bestehende Verbindung wird beim ersten Start
+  einmalig umgestellt, das Log sagt es in einer Zeile. Wer die direkte
+  Verbindung behalten will, stellt *openccu-lite interfaces* im
+  Connection-Node auf *CCU*. Auf einer CCU3 und OpenCCU ändert sich nichts.
+- **HomeKit:** redmatic-homekit 4.1.4 (nicht vorinstalliert, über den
+  Paletten-Manager zu aktualisieren) behebt den Absturz von Node-RED nach
+  einem Deploy, während der Node `homematic-devices` noch auf die CCU
+  wartet („This callback function has already been called"), und stellt
+  beim zweiten und dritten Empfängerkanal eines HmIP-Rollladen- oder
+  Jalousieaktors den richtigen Kanal.
 
 ### RedMatic 9
 

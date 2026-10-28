@@ -6,10 +6,13 @@ Einstellungen und denselben Flows wie auf einer CCU3 oder OpenCCU und wird aus d
 installiert (*Zusatzsoftware → Katalog*). Ob RedMatic auf einer CCU oder auf openccu-lite läuft, wird zur Laufzeit
 erkannt; einzustellen ist nichts.
 
-* Die `node-red-contrib-ccu`-Nodes arbeiten wie gewohnt über `rfd`, `hs485d` und `hmipserver`. Geräte-, Kanal-, Raum-
-  und Gewerkenamen kommen aus der Metadaten-API des Systems statt aus der ReGaHSS; `msg.channelName`, `msg.rooms`,
-  `msg.functions` und die Raum-/Gewerke-Filter behalten ihre Form. Läuft Node-RED nicht auf dem System selbst, gehört
-  ein API-Token des Systems in das Feld **openccu-lite token** des Connection-Nodes.
+* Die `node-red-contrib-ccu`-Nodes erreichen `rfd`, `hs485d` und `hmipserver` über die RPC-Schnittstelle des Systems
+  (lite-rpc), ohne eigene Callback-Server. Ab RedMatic 9.15.1 ist das der Standard: das System stellt RedMatic dafür ein
+  eigenes Token aus, eine bestehende Verbindung wird beim ersten Start einmalig umgestellt (eine Zeile im Log). Wer die
+  direkte Verbindung behalten will, stellt *openccu-lite interfaces* im Connection-Node auf *CCU*. Geräte-, Kanal-,
+  Raum- und Gewerkenamen kommen aus der Metadaten-API des Systems statt aus der ReGaHSS; `msg.channelName`,
+  `msg.rooms`, `msg.functions` und die Raum-/Gewerke-Filter behalten ihre Form. Läuft Node-RED nicht auf dem System
+  selbst, gehört ein API-Token des Systems in das Feld **openccu-lite token** des Connection-Nodes.
 * Die Editor-Anmeldung mit *Benutzer der Zentrale* nutzt auf openccu-lite die Benutzer des Systems.
 * **Systemvariablen, Programme und HM-Script gibt es nicht.** Die Nodes `ccu-sysvar`, `ccu-program`, `ccu-script` und
   `ccu-poll` bleiben in den Flows, beantworten aber jede Nachricht mit einer Fehlermeldung.

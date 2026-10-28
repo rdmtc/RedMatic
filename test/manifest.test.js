@@ -36,7 +36,7 @@ test('the UI facts: Node-RED reads the session header, the images come with the 
     assert.strictEqual(manifest.runtime.daemon, true);
 });
 
-test('the runtime: the early start, USB sticks, nothing else beyond its own directories', () => {
+test('the runtime: the early start, USB sticks, the RPC token, nothing else beyond its own directories', () => {
     // node-red-contrib-ccu >= 4.4.5 waits quietly for an interface that does not answer yet and stays in
     // local mode before rfd listens, so the unit may start before rfd and hmipserver (openccu-lite D-75)
     const {note, ...runtime} = manifest.runtime;
@@ -47,12 +47,17 @@ test('the runtime: the early start, USB sticks, nothing else beyond its own dire
         needs: ['rfd', 'hmipserver'],
         start: 'early',
         groups: ['usbstorage'],
-        paths: ['/media']
+        paths: ['/media'],
+        // node-red-contrib-ccu >= 4.7.0 goes through the system's lite-rpc with the addon token the
+        // system mints from this list (/run/occulite/addon-tokens/redmatic.api); rpc:admin because the
+        // rpc node may call any method (rpc:configure alone covers paramsets, links, install mode)
+        api_scopes: ['rpc:admin']
     });
     assert.ok(note.de && note.en);
     assert.match(note.de, /USB-Sticks/);
     assert.match(note.en, /USB sticks/);
+    assert.match(note.en, /RPC interface/);
     const pkg = JSON.parse(fs.readFileSync(path.join(root, 'redmatic', 'var', 'package.json'), 'utf8'));
-    const [major, minor, patch] = pkg.dependencies['node-red-contrib-ccu'].split('.').map(Number);
-    assert.ok(major > 4 || (major === 4 && (minor > 4 || patch >= 5)), 'node-red-contrib-ccu >= 4.4.5');
+    const [major, minor] = pkg.dependencies['node-red-contrib-ccu'].split('.').map(Number);
+    assert.ok(major > 4 || (major === 4 && minor >= 7), 'node-red-contrib-ccu >= 4.7.0 (reads the addon token)');
 });

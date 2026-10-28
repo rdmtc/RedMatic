@@ -9,7 +9,7 @@
 [![Installs](https://telemetry.redmatic.de/total.svg)](https://telemetry.redmatic.de/#36500)
 
 
-**[Node-RED](https://nodered.org/about/) als Addon für die 
+**[Node-RED](https://nodered.org/about/) als Addon für [openccu-lite](https://github.com/hobbyquaker/openccu-lite), 
 [Homematic CCU3](https://www.homematic-ip.com/produkte/detail/smart-home-zentrale-ccu3.html) und 
 [OpenCCU](https://github.com/jens-maus/OpenCCU)**
 <br><br>
