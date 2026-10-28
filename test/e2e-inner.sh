@@ -160,12 +160,13 @@ for f in $UPLOAD_FILES; do [ -e $ADDON_DIR/$f ] && left="$left $f"; done
 grep -rl "telemetry.redmatic.de/" $ADDON_DIR/bin $ADDON_DIR/www $ADDON_DIR/lib/*.js $ADDON_DIR/lib/*.tcl 2>/dev/null &&
     fail "a file of the installed addon sends to a path of the telemetry host" || ok "nothing sends to a path of the telemetry host"
 
-# --- update on openccu-lite (bug 8) --------------------------------------------
+# --- update on openccu-lite (bug 8, bug 16) ------------------------------------
 # A pretend openccu-lite: /VERSION with a LITE= line and a systemctl that records
 # its calls and plays the unit (runs rc.d/redmatic as a child, so the start log
-# names it as the caller). update_script must stop and start addon-redmatic.service
-# instead of calling rc.d/redmatic itself, and remove the /tmp/red-settings.json
-# of an earlier version.
+# names it as the caller). update_script must stop through addon-redmatic.service
+# instead of calling rc.d/redmatic itself, start nothing at all (occulited starts
+# the unit once the installer is through - played here by the test), and remove
+# the /tmp/red-settings.json of an earlier version.
 # With /tmp/systemctl.skip-start present, the next start is recorded but does nothing
 # (a unit start that did not bring Node-RED up), and the flag is removed.
 lite_on() {
@@ -211,7 +212,7 @@ node_red_env() {
     tr '\0' '\n' < /proc/`node_red_pid`/environ
 }
 
-log "update on a pretend openccu-lite (stop and start through addon-redmatic.service)"
+log "update on a pretend openccu-lite (stop through addon-redmatic.service, no start by the installer)"
 lite_on
 # npm debug logs of earlier runs (task 13)
 mkdir -p $ADDON_DIR/var/npm-cache/_logs
@@ -224,7 +225,11 @@ rc=$?
 ok "update_script exit 0"
 echo "--- systemctl calls"; cat /tmp/systemctl.log
 grep -q '^stop addon-redmatic.service$' /tmp/systemctl.log && ok "stopped through the unit" || fail "update_script did not stop addon-redmatic.service"
-grep -q '^start addon-redmatic.service$' /tmp/systemctl.log && ok "started through the unit" || fail "update_script did not start addon-redmatic.service"
+grep -q '^start addon-redmatic.service$' /tmp/systemctl.log && fail "update_script started addon-redmatic.service itself (occulited does that)" || ok "update_script started nothing through the unit"
+grep -q "the system starts the addon's unit" /tmp/update_script.log && ok "update_script left the start to the system" || fail "update_script did not say that the system starts the unit"
+[ -n "`node_red_pid`" ] && fail "Node-RED runs after the installer although nothing may start it there (bug 16)" || ok "nothing started Node-RED from the installer"
+# what occulited does once the installer is through
+systemctl start addon-redmatic.service
 sleep 3
 check_running
 last_accepted_start | grep -q "systemctl start addon-redmatic.service" &&
@@ -296,22 +301,20 @@ grep -q '"node-red-contrib-ccu"' $ADDON_DIR/var/package.json || fail "var/packag
 # --- self-update worker on openccu-lite (bug 8) ---------------------------------
 # When Node-RED is not up after the install, the worker starts it itself. On
 # openccu-lite that start must go to addon-redmatic.service as well: rc.d/redmatic
-# from the worker would run Node-RED as root outside the unit. The recording
-# systemctl lets update_script's start do nothing, so the worker's fallback runs.
+# from the worker would run Node-RED as root outside the unit. update_script
+# starts nothing on openccu-lite (bug 16), so the worker's fallback runs.
 log "self-update worker on a pretend openccu-lite (the fallback start goes to addon-redmatic.service)"
 lite_on
-touch /tmp/systemctl.skip-start
 REDMATIC_UPDATE_BASE_URL=http://127.0.0.1:8081 $ADDON_DIR/bin/redmatic-update --force $VERSION_ADDON
 rc=$?
 echo "--- update.log"; cat /tmp/redmatic-update/update.log
 echo "--- systemctl calls"; cat /tmp/systemctl.log
 [ $rc -eq 0 ] || die "redmatic-update exit code $rc"
 grep -q '"phase":"done"' /tmp/redmatic-update/state.json || die "worker did not reach phase done"
-[ -f /tmp/systemctl.skip-start ] && fail "update_script did not start through addon-redmatic.service"
 grep -q '^stop addon-redmatic.service$' /tmp/systemctl.log && ok "update_script stopped through the unit" || fail "update_script did not stop addon-redmatic.service"
 starts=`grep -c '^start addon-redmatic.service$' /tmp/systemctl.log`
-[ "$starts" = 2 ] && ok "update_script's start and the worker's fallback start both went to the unit" ||
-    fail "expected 2 starts of addon-redmatic.service (update_script, then the worker), got $starts"
+[ "$starts" = 1 ] && ok "the worker's fallback start went to the unit, and it was the only start" ||
+    fail "expected 1 start of addon-redmatic.service (the worker's fallback; update_script starts nothing), got $starts"
 grep -q "Node-RED is not running after the install, starting addon-redmatic.service" /tmp/redmatic-update/update.log &&
     ok "the worker logged its fallback start" || fail "the worker did not log a fallback start through the unit"
 check_running
