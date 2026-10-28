@@ -1,22 +1,16 @@
-### RedMatic 9.15.1
+### RedMatic 9.15.2
 
-openccu-lite: die CCU-Nodes nutzen jetzt die RPC-Schnittstelle des Systems.
+openccu-lite: Werte mit Nachkommastellen lassen sich wieder schreiben.
 
-- **openccu-lite: lite-rpc als Standard.** node-red-contrib-ccu 4.7.0
-  (seit RedMatic 9.15.0 enthalten) erreicht die Schnittstellenprozesse auf
-  openccu-lite über die RPC-Schnittstelle des Systems, ohne eigene
-  Callback-Server. Dafür braucht es ein Token: das Manifest fordert jetzt
-  den Bereich `rpc:admin` an, das System stellt RedMatic bei jedem Start
-  ein eigenes Token aus. Eine bestehende Verbindung wird beim ersten Start
-  einmalig umgestellt, das Log sagt es in einer Zeile. Wer die direkte
-  Verbindung behalten will, stellt *openccu-lite interfaces* im
-  Connection-Node auf *CCU*. Auf einer CCU3 und OpenCCU ändert sich nichts.
-- **HomeKit:** redmatic-homekit 4.1.4 (nicht vorinstalliert, über den
-  Paletten-Manager zu aktualisieren) behebt den Absturz von Node-RED nach
-  einem Deploy, während der Node `homematic-devices` noch auf die CCU
-  wartet („This callback function has already been called"), und stellt
-  beim zweiten und dritten Empfängerkanal eines HmIP-Rollladen- oder
-  Jalousieaktors den richtigen Kanal.
+- **openccu-lite: Kommazahlen über lite-rpc.** Mit node-red-contrib-ccu
+  4.7.0 (RedMatic 9.15.0 und 9.15.1) scheiterte auf openccu-lite jeder
+  Schreibzugriff auf einen Datenpunkt vom Typ `FLOAT` – das `LEVEL` eines
+  Dimmers oder Rollladens, eine Solltemperatur, eine Einschaltdauer: Die
+  Schnittstellenprozesse lehnten den Wert ab (`Failure` bzw.
+  `-5 Invalid parameter or value`). node-red-contrib-ccu 4.7.1 übergibt
+  solche Werte jetzt im Format der RPC-Schnittstelle des Systems. Fehler
+  der Schnittstellenprozesse erscheinen im Log jetzt mit Code und Text.
+  Auf einer CCU3 und OpenCCU ändert sich nichts.
 
 ### RedMatic 9
 
