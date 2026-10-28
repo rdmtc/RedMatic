@@ -1,16 +1,32 @@
-### RedMatic 9.15.2
+### RedMatic 9.15.3
 
-openccu-lite: Werte mit Nachkommastellen lassen sich wieder schreiben.
+Log-Prioritäten auf openccu-lite, ein sauberer Stopp, kein Node-RED als root nach einem Update.
 
-- **openccu-lite: Kommazahlen über lite-rpc.** Mit node-red-contrib-ccu
-  4.7.0 (RedMatic 9.15.0 und 9.15.1) scheiterte auf openccu-lite jeder
-  Schreibzugriff auf einen Datenpunkt vom Typ `FLOAT` – das `LEVEL` eines
-  Dimmers oder Rollladens, eine Solltemperatur, eine Einschaltdauer: Die
-  Schnittstellenprozesse lehnten den Wert ab (`Failure` bzw.
-  `-5 Invalid parameter or value`). node-red-contrib-ccu 4.7.1 übergibt
-  solche Werte jetzt im Format der RPC-Schnittstelle des Systems. Fehler
-  der Schnittstellenprozesse erscheinen im Log jetzt mit Code und Text.
-  Auf einer CCU3 und OpenCCU ändert sich nichts.
+- **Log: nur noch Fehler als Fehler.** Alles, was Node-RED direkt auf stdout
+  oder stderr schrieb, landete bisher im Journal als Fehler – die Zeile zur
+  Anmeldung des Editors auf openccu-lite, Deprecation-Warnungen von Node.
+  Jetzt geht stdout als Info und stderr als Warnung ins Log; die eigenen
+  Log-Zeilen von Node-RED behalten ihre Stufen. „Projects disabled“ ist eine
+  Information, keine Warnung. Die Warnung zum veralteten `httpRoot` ist weg
+  (die Einstellungen heißen jetzt `httpAdminRoot` und `httpNodeRoot`, eine
+  vorhandene `settings.json` wird einmalig umgestellt), ebenso die
+  Deprecation-Warnung zu `punycode`, die ein Node aus der Palette unter
+  Node.js 24 auslöst.
+- **Stopp eines nicht laufenden Node-RED ist kein Fehler.** `stop` und
+  `restart` lieferten Exit-Code 1, wenn Node-RED gerade nicht lief; auf
+  openccu-lite stand das Addon danach als fehlgeschlagen in den Diensten.
+  Außerdem beendet der Stopp jetzt auch einen Start, der noch unterwegs ist
+  (den Loader zwischen zwei Neustarts, einen Start in seiner Wartezeit nach
+  dem Booten) – ein Neustart kurz nach dem Booten lief sonst in „port in
+  use“ (#601).
+- **openccu-lite: der Installer startet Node-RED nicht mehr selbst.** Nach
+  einem Update, bei dem die Unit des Addons nicht geladen war, startete
+  `update_script` Node-RED als root außerhalb der Unit; das System startet
+  die Unit nach der Installation selbst.
+- **node-red-contrib-ccu 4.7.2:** auf openccu-lite wird die Gerätetabelle
+  beim Start nicht mehr einmal pro Schnittstelle neu geschrieben, die
+  Cache-Dateien werden atomar geschrieben, und die Zeile `Interfaces:` nennt
+  kein ReGaHSS mehr.
 
 ### RedMatic 9
 
