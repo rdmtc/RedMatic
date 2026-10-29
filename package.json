@@ -1,12 +1,12 @@
 {
   "name": "redmatic",
-  "version": "9.15.3",
+  "version": "9.15.4",
   "description": "Node-RED packaged as Homematic CCU addon",
   "repository": "github:rdmtc/redmatic",
   "private": true,
   "main": "none",
   "engines": {
-    "node": "24.22.1"
+    "node": "24.22.2"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.15.4",
