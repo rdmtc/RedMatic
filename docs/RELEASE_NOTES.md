@@ -1,32 +1,32 @@
-### RedMatic 9.15.3
+### RedMatic 9.16.0
 
-Log-Prioritäten auf openccu-lite, ein sauberer Stopp, kein Node-RED als root nach einem Update.
+Weniger Speicher: node-red-contrib-ccu 4.8.0.
 
-- **Log: nur noch Fehler als Fehler.** Alles, was Node-RED direkt auf stdout
-  oder stderr schrieb, landete bisher im Journal als Fehler – die Zeile zur
-  Anmeldung des Editors auf openccu-lite, Deprecation-Warnungen von Node.
-  Jetzt geht stdout als Info und stderr als Warnung ins Log; die eigenen
-  Log-Zeilen von Node-RED behalten ihre Stufen. „Projects disabled“ ist eine
-  Information, keine Warnung. Die Warnung zum veralteten `httpRoot` ist weg
-  (die Einstellungen heißen jetzt `httpAdminRoot` und `httpNodeRoot`, eine
-  vorhandene `settings.json` wird einmalig umgestellt), ebenso die
-  Deprecation-Warnung zu `punycode`, die ein Node aus der Palette unter
-  Node.js 24 auslöst.
-- **Stopp eines nicht laufenden Node-RED ist kein Fehler.** `stop` und
-  `restart` lieferten Exit-Code 1, wenn Node-RED gerade nicht lief; auf
-  openccu-lite stand das Addon danach als fehlgeschlagen in den Diensten.
-  Außerdem beendet der Stopp jetzt auch einen Start, der noch unterwegs ist
-  (den Loader zwischen zwei Neustarts, einen Start in seiner Wartezeit nach
-  dem Booten) – ein Neustart kurz nach dem Booten lief sonst in „port in
-  use“ (#601).
-- **openccu-lite: der Installer startet Node-RED nicht mehr selbst.** Nach
-  einem Update, bei dem die Unit des Addons nicht geladen war, startete
-  `update_script` Node-RED als root außerhalb der Unit; das System startet
-  die Unit nach der Installation selbst.
-- **node-red-contrib-ccu 4.7.2:** auf openccu-lite wird die Gerätetabelle
-  beim Start nicht mehr einmal pro Schnittstelle neu geschrieben, die
-  Cache-Dateien werden atomar geschrieben, und die Zeile `Interfaces:` nennt
-  kein ReGaHSS mehr.
+- **node-red-contrib-ccu 4.8.0 – die Verbindung braucht deutlich weniger
+  Arbeitsspeicher.** Bisher merkte sich die Verbindung für jeden Datenpunkt,
+  welche Subscriptions zu ihm passen und welche nicht – zwei Mengen je
+  Datenpunkt, die mit Datenpunkten × Subscriptions wuchsen (auf einer CCU3 mit
+  3.500 Datenpunkten und gut 500 Subscriptions aus Value-Nodes, RedMatic-HomeKit
+  und RedMatic-Matter etwa 70 MB), bei jedem Deploy weiter wuchsen und nie
+  wieder freigegeben wurden. Jetzt werden die Subscriptions über einen Index
+  nach ihrem genauesten Filtermerkmal zugestellt: ein Ereignis wird nur gegen
+  die Subscriptions geprüft, die zu ihm passen können, der Speicher wächst nur
+  mit der Zahl der Subscriptions, ein Deploy ist in Millisekunden statt
+  Sekunden erledigt. Was eine Subscription bekommt, und in welcher
+  Reihenfolge, ist unverändert.
+- **Parametersatz-Beschreibungen nur noch für die vorhandenen Gerätetypen im
+  Speicher.** Die `paramsets.json` (14 MB mitgeliefert plus das, was das System
+  selbst abgefragt hat) wurde bisher komplett geladen – rund 2.800 Typen,
+  16–20 MB Heap, wovon ein System die paar Dutzend Typen braucht, die es hat.
+  Die Datei auf der Platte bleibt vollständig; im Speicher liegen die
+  Beschreibungen der Geräte aus der Gerätetabelle, neue Geräte werden zuerst
+  in der Datei nachgeschlagen, erst dann an der Schnittstelle. Eine veraltete
+  `ccu_paramsets_v2.json` im Verzeichnis wird beim Start entfernt.
+- Das ist eine Verringerung, nicht die ganze Erklärung für ein großes Node-RED:
+  Flows und andere Nodes behalten, was sie belegen. Auf einem großen System
+  sind es in der Größenordnung 100 MB weniger belegter Heap.
+
+Node.js 24.22.2 und Node-RED 5.0.9 wie in 9.15.4.
 
 ### RedMatic 9
 
