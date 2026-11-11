@@ -14,7 +14,11 @@
     "fallback_asset": "redmatic-{version}.tar.gz"
   },
   "requires": {
-    "architectures": ["armv7l", "aarch64", "x86_64"]
+    "architectures": [
+      "armv7l",
+      "aarch64",
+      "x86_64"
+    ]
   },
   "ui": {
     "icon": "redmatic/www/favicon-96x96.png",
@@ -24,14 +28,44 @@
   },
   "runtime": {
     "daemon": true,
-    "needs": ["rfd", "hmipserver"],
+    "needs": [
+      "rfd",
+      "hmipserver"
+    ],
     "start": "early",
-    "groups": ["usbstorage"],
-    "paths": ["/media"],
-    "api_scopes": ["rpc:admin"],
+    "groups": [
+      "usbstorage"
+    ],
+    "paths": [
+      "/media"
+    ],
+    "api_scopes": [
+      "rpc:admin"
+    ],
+    "ports": [
+      51800,
+      5540
+    ],
+    "port_info": {
+      "51800": {
+        "to": 51899,
+        "proto": "tcp",
+        "label": {
+          "de": "HomeKit-Brücken (RedMatic-HomeKit): jede Brücke ein eigener TCP-Port in diesem Bereich",
+          "en": "HomeKit bridges (RedMatic-HomeKit): every bridge a TCP port of its own in this range"
+        }
+      },
+      "5540": {
+        "proto": "udp",
+        "label": {
+          "de": "Matter-Brücke (RedMatic-Matter), Kommissionierung und Betrieb",
+          "en": "Matter bridge (RedMatic-Matter), commissioning and operation"
+        }
+      }
+    },
     "note": {
-      "de": "Startet Node-RED vor den Schnittstellenprozessen; die CCU-Nodes verbinden sich, sobald sie antworten. Node-RED lauscht nur auf dem System selbst, der Editor läuft über dessen Webserver. Liest und schreibt USB-Sticks unter /media, etwa einen Kontextspeicher auf dem Stick. Die CCU-Nodes erreichen die Schnittstellenprozesse über die RPC-Schnittstelle des Systems, mit einem eigenen Token, das jede Methode aufrufen darf, wie der RPC-Node es braucht.",
-      "en": "Starts Node-RED before the interface processes; the CCU nodes connect as soon as they answer. Node-RED listens on the system itself only, the editor goes through its web server. Reads and writes USB sticks under /media, such as a context store on the stick. The CCU nodes reach the interface processes through the system's RPC interface, with a token of their own that may call any method, as the RPC node needs."
+      "de": "Startet Node-RED vor den Schnittstellenprozessen; die CCU-Nodes verbinden sich, sobald sie antworten. Node-RED lauscht nur auf dem System selbst, der Editor läuft über dessen Webserver. Liest und schreibt USB-Sticks unter /media, etwa einen Kontextspeicher auf dem Stick. Die CCU-Nodes erreichen die Schnittstellenprozesse über die RPC-Schnittstelle des Systems, mit einem eigenen Token, das jede Methode aufrufen darf, wie der RPC-Node es braucht. HomeKit-Brücken und die Matter-Brücke lauschen im Netz: ihre Ports sind Schalter auf der Seite Zusatzsoftware, geschlossen bis sie geöffnet werden; eine HomeKit-Brücke bekommt in Node-RED einen Port aus 51800 bis 51899. mDNS (UDP 5353) nimmt die Firewall aus den lokalen Netzen ohnehin an.",
+      "en": "Starts Node-RED before the interface processes; the CCU nodes connect as soon as they answer. Node-RED listens on the system itself only, the editor goes through its web server. Reads and writes USB sticks under /media, such as a context store on the stick. The CCU nodes reach the interface processes through the system's RPC interface, with a token of their own that may call any method, as the RPC node needs. HomeKit bridges and the Matter bridge listen on the network: their ports are switches on the Addons page, closed until opened; a HomeKit bridge gets a port out of 51800 to 51899 in Node-RED. mDNS (UDP 5353) the firewall accepts from the local networks anyway."
     }
   }
 }
