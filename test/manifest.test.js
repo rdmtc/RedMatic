@@ -39,7 +39,7 @@ test('the UI facts: Node-RED reads the session header, the images come with the 
 test('the runtime: the early start, USB sticks, the RPC token, nothing else beyond its own directories', () => {
     // node-red-contrib-ccu >= 4.4.5 waits quietly for an interface that does not answer yet and stays in
     // local mode before rfd listens, so the unit may start before rfd and hmipserver (openccu-lite D-75)
-    const {note, ...runtime} = manifest.runtime;
+    const {note, port_info: portInfo, ...runtime} = manifest.runtime;
     // B-17: a context store or userDir on the USB stick (/media/usb0 -> /media/usb1, mounted
     // root:usbstorage 0770 by the system) needs the group and /media writable under ProtectSystem=strict
     assert.deepStrictEqual(runtime, {
@@ -51,8 +51,19 @@ test('the runtime: the early start, USB sticks, the RPC token, nothing else beyo
         // node-red-contrib-ccu >= 4.7.0 goes through the system's lite-rpc with the addon token the
         // system mints from this list (/run/occulite/addon-tokens/redmatic.api); rpc:admin because the
         // rpc node may call any method (rpc:configure alone covers paramsets, links, install mode)
-        api_scopes: ['rpc:admin']
+        api_scopes: ['rpc:admin'],
+        // openccu-lite's firewall (policy DROP) opens a declared port only on the user's switch:
+        // tcp 51800-51899 for the HomeKit bridges (one range, port_info.to), udp 5540 for Matter
+        ports: [51800, 5540]
     });
+    assert.deepStrictEqual(Object.keys(portInfo).sort(), ['51800', '5540']);
+    assert.strictEqual(portInfo['51800'].proto, 'tcp');
+    assert.strictEqual(portInfo['51800'].to, 51899);
+    assert.strictEqual(portInfo['5540'].proto, 'udp');
+    assert.strictEqual(portInfo['5540'].to, undefined);
+    for (const info of Object.values(portInfo)) {
+        assert.ok(info.label.de && info.label.en);
+    }
     assert.ok(note.de && note.en);
     assert.match(note.de, /USB-Sticks/);
     assert.match(note.en, /USB sticks/);
