@@ -1,17 +1,29 @@
-### RedMatic 9.17.6
+### RedMatic 9.18.0
 
-node-red-contrib-ccu 4.10.3: Rollläden im Home-Assistant-Node zeigen den
-richtigen Zustand.
+Deutlich weniger Schreibzugriffe auf die SD-Karte: Kontextspeicher,
+Updates, Palette-Installationen und node-red-contrib-ccu 4.11.0.
 
-- **node-red-contrib-ccu 4.10.3: ein geschlossener Rollladen erscheint in
-  Home Assistant nicht mehr als „offen“ (und ein aus 0 % geöffneter nicht
-  als „geschlossen“).** Der Zustand kam aus der Fahrtrichtung, die „gestoppt“
-  meldet, bevor die Endposition ankommt; Home Assistant legte offen/geschlossen
-  dann nach der alten Position fest. Der Zustand kommt jetzt aus der Position
-  selbst. Home Assistant übernimmt die geänderte Erkennung beim nächsten
-  Deploy (hobbyquaker/hm2mqtt.js#35, @sgybas).
+- **Der Datei-Kontextspeicher schreibt nur noch, was sich geändert hat.**
+  Node-RED schrieb beim Speichern (alle 30 Sekunden) jeden Bereich des
+  Kontexts komplett neu, auch wenn sich nichts geändert hatte – bei einem
+  großen globalen Kontext viele Megabyte pro Stunde. Unveränderte Bereiche
+  werden jetzt übersprungen. Das Intervall bleibt einstellbar; das Feld auf
+  der Einstellungsseite hat jetzt eine Einheit und erklärt, was ein längeres
+  Intervall bedeutet.
+- **Ein Update schreibt das Paket nur noch einmal.** Bisher wurde das
+  ausgepackte Paket ein zweites Mal kopiert; jetzt wird es verschoben. Ein
+  Update schreibt dadurch etwa 40 % weniger.
+- **Der npm-Cache für Palette-Installationen liegt im Arbeitsspeicher** und
+  wird bei jedem Start geleert, statt die Pakete dauerhaft auf der SD-Karte
+  zu behalten. Auf der Einstellungsseite lässt er sich wieder auf den
+  Speicher legen (eine Neuinstallation derselben Version geht dann schneller).
+- **node-red-contrib-ccu 4.11.0: weniger Schreibzugriffe.** Gerätetabelle und
+  Namen werden nur bei Änderungen geschrieben, `paramsets.json` einmal pro
+  Abrufrunde, der Wertecache beim Stoppen und sonst höchstens alle 60 Minuten
+  (neue Einstellung im Verbindungs-Node, 0 = nur beim Stoppen). Ein Deploy
+  schreibt etwa halb so viel.
 
-Node.js 24.22.3, Node-RED 5.0.10 und npm 11.21.3 wie in 9.17.5.
+Node.js 24.22.3, Node-RED 5.0.10 und npm 11.21.3 wie in 9.17.6.
 
 ### RedMatic 9
 
