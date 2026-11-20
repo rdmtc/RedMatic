@@ -1,33 +1,36 @@
-### RedMatic 9.17.0
+### RedMatic 9.17.5
 
-Koppeln mit openccu-lite im Verbindungsdialog, ein Client für Namen und
-Schnittstellen: node-red-contrib-ccu 4.10.0.
+Fehlerbehebungen für openccu-lite: die Einstellungsseite nach einem Neustart,
+node-red-contrib-ccu 4.10.2, und die Ports der HomeKit- und Matter-Brücken.
 
-- **Koppeln mit einem openccu-lite-System direkt im Verbindungs-Node.** Für
-  ein Node-RED, das nicht auf dem System selbst läuft, muss kein Token mehr
-  von der API-Token-Seite des Systems kopiert werden: _Pair with the system_
-  fragt das System unter der eingetragenen Adresse um Zugriff, der Dialog
-  zeigt einen sechsstelligen Code, ein Administrator vergleicht und bestätigt
-  ihn auf der Status-Seite des Systems, danach trägt der Dialog Token und
-  Zertifikats-Fingerabdruck selbst ein. Das selbstsignierte Zertifikat des
-  Systems funktioniert damit ohne _Ignore invalid TLS Certificates_, ein
-  anderes Zertifikat wird abgelehnt, bevor das Token gesendet wird.
-- **RedMatic auf openccu-lite selbst: nichts zu tun.** Die Verbindung zum
-  eigenen System richtet sich wie bisher selbst ein, der Dialog zeigt dort
-  kein Koppeln.
-- **Namen, Räume und Gewerke kommen von occulite-client.** Die Verbindung
-  folgt den Namen des Systems über die gemeinsame Client-Bibliothek von
-  openccu-lite statt über einen eigenen HTTP-Client, im gewohnten Format.
-  Hat der Verbindungs-Node ein eigenes Token (wie nach dem Koppeln), bedient
-  ein Client Namen und Schnittstellen – eine Verbindung zum System statt
-  zwei.
-- **Ein System, das beim ersten Verbindungsversuch nicht antwortet, wird
-  später verbunden.** Bisher wurde die Schnittstellen-Verbindung zu
-  openccu-lite nach einem gescheiterten ersten Versuch aufgegeben, obwohl das
-  Log weitere Versuche ankündigte; jetzt wird nach 5 s erneut verbunden,
-  wachsend bis zu einer Minute.
+- **Die Einstellungsseite meldet nach Neustart, Stopp oder Start kein „Ein
+  Fehler ist aufgetreten“ mehr.** Auf openccu-lite startet das System
+  Node-RED als Dienst neu; die Rückmeldung „Starting Node-RED: OK“ landet
+  dabei im Journal statt auf der Seite, die Seite hielt den Neustart deshalb
+  für gescheitert, obwohl Node-RED wieder lief. Die Seite entscheidet jetzt
+  nach dem Ergebnis des Befehls. Auf einer CCU ändert sich nur eins: das
+  Stoppen eines bereits gestoppten Node-RED gilt nicht mehr als Fehler.
+- **node-red-contrib-ccu 4.10.2: openccu-lite wird auch ohne Haken bei
+  ReGaHSS erkannt.** War im Verbindungs-Node ReGaHSS nicht angehakt, wurden
+  die Schnittstellen direkt mit Callbacks statt über das System verbunden und
+  keine Namen geladen. Auf openccu-lite ist der Haken jetzt ohne Wirkung:
+  Namen und Schnittstellen kommen in jedem Fall vom System.
+- **node-red-contrib-ccu 4.10.2: der Home-Assistant-Node wartet nicht mehr
+  bis zu fünf Minuten** („waiting for CCU“) auf Gerätebeschreibungen, die nie
+  kommen (Kanäle ohne Werte, abgelehnte Beschreibungen, fehlende Geräte).
+- **openccu-lite: Ports für HomeKit- und Matter-Brücken.** RedMatic meldet
+  dem System TCP 51800 bis 51899 für die HomeKit-Brücken (RedMatic-HomeKit;
+  jede Brücke braucht in Node-RED einen eigenen Port aus diesem Bereich) und
+  UDP 5540 für die Matter-Brücke (RedMatic-Matter). Unter der Firewall von
+  openccu-lite lassen sie sich auf der Seite Zusatzsoftware freigeben und
+  bleiben geschlossen, bis sie geöffnet werden; ältere Versionen von
+  openccu-lite zeigen vom HomeKit-Bereich nur den ersten Port. mDNS braucht
+  keine Freigabe.
 
-Node.js 24.22.2, Node-RED 5.0.9 und npm 11.21.2 wie in 9.16.1.
+Seit 9.17.0 kamen automatisch node-red-contrib-ccu 4.10.1 (ein Token nur für
+Namen verliert auf openccu-lite keine Ereignisse und Befehle mehr,
+rdmtc/node-red-contrib-ccu#189, @reini12345), Node.js 24.22.3, Node-RED 5.0.10
+und npm 11.21.3.
 
 ### RedMatic 9
 
