@@ -795,6 +795,25 @@ $(document).ready(() => {
         }
     });
 
+    // service.cgi's answer to start/stop/restart: 'ok', 'error' or 'session' (bug 22). Its first
+    // line is the exit status of rc.d/redmatic - "ok" or "error: ..." - because on openccu-lite
+    // the addon-rc wrapper hands the command to systemd, which prints nothing. An answer without
+    // that line (an older service.cgi) is judged by the script's own text, as before.
+    function serviceResult(data, okText) {
+        const text = String(data || '');
+        const first = $.trim(text.split('\n')[0]);
+        if (first === 'error: invalid session') {
+            return 'session';
+        }
+        if (first === 'ok') {
+            return 'ok';
+        }
+        if (/^error: /.test(first)) {
+            return 'error';
+        }
+        return okText.test(text) ? 'ok' : 'error';
+    }
+
     function restart() {
         clearTimeout(psTimeout);
         $dropdownRestart.addClass('disabled');
@@ -807,14 +826,12 @@ $(document).ready(() => {
         $.get({
             url: `service.cgi?sid=${sid}&cmd=restart`,
             success: data => {
-                if (data.match(/Starting Node-RED: OK/)) {
-                    alert($alertExec);
-                } else if ($.trim(data) === 'error: invalid session') {
+                const result = serviceResult(data, /Starting Node-RED: OK/);
+                if (result === 'session') {
                     invalidSession();
                     return;
-                } else {
-                    alert($alertError);
                 }
+                alert(result === 'ok' ? $alertExec : $alertError);
                 psInterval = 1000;
                 setTimeout(() => {
                     ps();
@@ -851,12 +868,13 @@ $(document).ready(() => {
         $.get({
             url: `service.cgi?sid=${sid}&cmd=start`,
             success: data => {
-                if ($.trim(data) === 'error: invalid session') {
+                const result = serviceResult(data, /Starting Node-RED: OK/);
+                if (result === 'session') {
                     invalidSession();
                     return;
                 }
 
-                if (data.match(/Starting Node-RED: OK/)) {
+                if (result === 'ok') {
                     psInterval = 2000;
                     setTimeout(() => {
                         ps();
@@ -887,11 +905,12 @@ $(document).ready(() => {
         $.get({
             url: `service.cgi?sid=${sid}&cmd=stop`,
             success: data => {
-                if ($.trim(data) === 'error: invalid session') {
+                const result = serviceResult(data, /Stopping Node-RED: OK/);
+                if (result === 'session') {
                     invalidSession();
                     return;
                 }
-                if (data.match(/Stopping Node-RED: OK/)) {
+                if (result === 'ok') {
                     alert($alertExec);
                     psInterval = 2000;
                     setTimeout(() => {
