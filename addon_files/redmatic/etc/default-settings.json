@@ -32,7 +32,7 @@
     "sessionExpiryTime": 86400
   },
   "restartOnCrash": 0,
-  "npmCache": "ram",
+  "npmCache": "storage",
   "editorTheme": {
     "projects": {
       "enabled": false

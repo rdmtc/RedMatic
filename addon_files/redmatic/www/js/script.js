@@ -572,7 +572,7 @@ $(document).ready(() => {
 
         $('#autorestart').val(config.restartOnCrash);
         $('#backup').val(config.ccuBackup || 'reduce');
-        $('#npm-cache').val(config.npmCache === 'storage' ? 'storage' : 'ram');
+        $('#npm-cache').val(config.npmCache === 'ram' ? 'ram' : 'storage');
     });
 
     $loglevel.change(() => {
@@ -960,9 +960,11 @@ $(document).ready(() => {
         save();
     });
 
-    // npm's cache for palette installs: in RAM (default) or on the storage, read by bin/redmaticLoader
+    // npm's cache for palette installs: on the storage (default) or in RAM, read by bin/redmaticLoader;
+    // the marker tells lib/npm-cache.js that this is the user's choice, not 9.18.0's default
     $('#npm-cache').on('change', event => {
-        config.npmCache = event.target.value === 'storage' ? 'storage' : 'ram';
+        config.npmCache = event.target.value === 'ram' ? 'ram' : 'storage';
+        config.npmCacheMigrated = true;
         save();
     });
 

@@ -179,17 +179,19 @@
                     <div class="form-group mb-0">
                         <label for="npm-cache">npm-Cache <span class="text-muted">&middot; npm cache</span></label>
                         <select class="form-control" id="npm-cache">
-                            <option value="ram">Im Arbeitsspeicher (RAM) &middot; in memory</option>
                             <option value="storage">Auf dem Speicher (SD-Karte) &middot; on the storage (SD card)</option>
+                            <option value="ram">Im Arbeitsspeicher (RAM) &middot; in memory</option>
                         </select>
                         <div class="small text-muted mt-1" id="npm-cache-hint">
-                            Wohin npm die Pakete der Paletten-Installationen zwischenspeichert. Im RAM landet davon nichts
-                            auf der SD-Karte, eine erneute Installation lädt das Paket aber wieder herunter (geleert bei jedem
-                            Start von Node-RED). Auf dem Speicher geht eine erneute Installation schneller, die Pakete bleiben
-                            aber auf der SD-Karte liegen.
-                            <br>&middot; Where npm caches the packages of palette installs. In RAM nothing of it lands on the
-                            SD card, but a reinstall downloads the package again (emptied at every start of Node-RED). On the
-                            storage a reinstall is faster, but the packages stay on the SD card.
+                            Wohin npm die Pakete der Paletten-Installationen zwischenspeichert. Auf dem Speicher (Standard)
+                            werden die heruntergeladenen Pakete bei einer Installation ein weiteres Mal auf die SD-Karte
+                            geschrieben. Im RAM landet davon nichts auf der SD-Karte, es braucht aber für die Dauer einer
+                            Installation Arbeitsspeicher (ein großes Paket kann einige zehn MB belegen); geleert nach jeder
+                            Installation.
+                            <br>&middot; Where npm caches the packages of palette installs. On the storage (default) an install
+                            writes the downloaded packages to the SD card once more. In RAM nothing of it lands on the SD card,
+                            but it needs memory for the duration of an install (a large package can take tens of MB); emptied
+                            after each install.
                         </div>
                     </div>
                 </div>

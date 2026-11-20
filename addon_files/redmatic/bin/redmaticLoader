@@ -35,11 +35,10 @@ RED=$RED_DIR/red.js
 
 SETTINGS=$ADDON_DIR/lib/settings.js
 
-# npm's cache for the palette installs Node-RED runs (settings page, lib/npm-cache.js): by
-# default in RAM (/tmp), not in var/npm-cache on the SD card, where every install wrote each
-# package twice (the tarball into the cache, the files into var/node_modules) and the tarballs
-# stayed for good. Emptied at every start; per user, so a cache another user (root) made cannot
-# stand in the way. "On the storage" keeps etc/npmrc's var/npm-cache, as a shell's npm does.
+# npm's cache for the palette installs Node-RED runs (settings page, lib/npm-cache.js): on the
+# storage by default (etc/npmrc's var/npm-cache); "in RAM" puts it in /tmp, per user, so a cache
+# another user (root) made cannot stand in the way - emptied here at every start and by
+# lib/settings.js after each palette install, update or removal.
 npm_cache=`$NODE $ADDON_DIR/lib/npm-cache.js dir 2>/dev/null`
 if [ -n "$npm_cache" ]; then
   export npm_config_cache=$npm_cache

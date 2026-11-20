@@ -274,9 +274,9 @@ if [ -d $ADDON_DIR/var/node_modules/node-red-node-random ]; then
 else
     fail "var/node_modules/node-red-node-random missing"
 fi
-# npm's cache in RAM for Node-RED's installs, not in var/npm-cache on the SD card
-node_red_env | grep -qx "npm_config_cache=/tmp/redmatic-npm-cache-`id -u`" && ok "Node-RED's npm caches in /tmp" || fail "Node-RED's environment has no npm_config_cache in /tmp"
-[ -d $ADDON_DIR/var/npm-cache/_cacache ] && fail "the palette install wrote npm's cache into var/npm-cache" || ok "no npm cache in var/npm-cache after the palette install"
+# npm's cache on the storage by default: etc/npmrc's var/npm-cache
+node_red_env | grep -q '^npm_config_cache=' && fail "npm_config_cache set although the default is the storage" || ok "storage (default): Node-RED's npm keeps etc/npmrc's cache"
+[ -d $ADDON_DIR/var/npm-cache/_cacache ] && ok "storage (default): the palette install cached in var/npm-cache" || fail "storage (default): no var/npm-cache/_cacache after the palette install"
 if [ -f $ADDON_DIR/var/package-lock.json ]; then
     fail "package-lock.json written in var (npmrc package-lock=false not honoured)"
 fi
@@ -289,26 +289,40 @@ else
     fail "palette uninstall failed (http $code)"
 fi
 
-# --- npm cache on the storage (the settings page's switch) ---------------------
+# --- npm cache in RAM (the settings page's switch) ------------------------------
+# $1 the value, $2 "chosen" for the settings page's marker (without it: 9.18.0's default)
 set_npm_cache() {
     $ADDON_DIR/bin/node -e '
         const fs = require("fs");
-        const [file, value] = process.argv.slice(1);
+        const [file, value, chosen] = process.argv.slice(1);
         const s = JSON.parse(fs.readFileSync(file, "utf8"));
         s.npmCache = value;
-        fs.writeFileSync(file, JSON.stringify(s, null, 2));' $ADDON_DIR/etc/settings.json "$1"
+        if (chosen) s.npmCacheMigrated = true; else delete s.npmCacheMigrated;
+        fs.writeFileSync(file, JSON.stringify(s, null, 2));' $ADDON_DIR/etc/settings.json "$1" "$2"
 }
-log "npm cache on the storage: Node-RED's npm uses var/npm-cache, the update keeps it"
-set_npm_cache storage
+npm_cache_setting() {
+    $ADDON_DIR/bin/node -e 'const s = require(process.argv[1]); console.log(s.npmCache + "|" + (s.npmCacheMigrated === true))' $ADDON_DIR/etc/settings.json
+}
+RAM_CACHE=/tmp/redmatic-npm-cache-`id -u`
+log "npm cache in RAM: Node-RED's npm uses /tmp, emptied after each install, the update keeps var/npm-cache"
+set_npm_cache ram chosen
 $CONF_DIR/rc.d/redmatic stop
 sleep 2
 $CONF_DIR/rc.d/redmatic start || die "rc.d/redmatic start"
 check_running
-node_red_env | grep -q '^npm_config_cache=' && fail "npm_config_cache set although the setting says storage" || ok "storage: Node-RED's npm keeps etc/npmrc's cache"
+node_red_env | grep -qx "npm_config_cache=$RAM_CACHE" && ok "RAM: Node-RED's npm caches in /tmp" || fail "RAM: Node-RED's environment has no npm_config_cache=$RAM_CACHE"
+before=`ls $ADDON_DIR/var/npm-cache/_cacache/index-v5 2>/dev/null | wc -l`
 code=`curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{"module":"node-red-node-random"}' $RED/nodes`
-[ "$code" = "200" ] || fail "palette install with the cache on the storage failed (http $code)"
-[ -d $ADDON_DIR/var/npm-cache/_cacache ] && ok "storage: the palette install cached in var/npm-cache" || fail "storage: no var/npm-cache/_cacache after the palette install"
-curl -s -o /dev/null -X DELETE $RED/nodes/node-red-node-random
+[ "$code" = "200" ] || fail "palette install with the cache in RAM failed (http $code)"
+[ -d $ADDON_DIR/var/node_modules/node-red-node-random ] || fail "RAM: the module did not land in var/node_modules"
+# npm used the RAM cache (its debug log is kept there until the next start) and it was emptied
+[ -d $RAM_CACHE/_logs ] && ok "RAM: npm ran with the cache in /tmp (its _logs kept)" || fail "RAM: no $RAM_CACHE/_logs - npm did not use the RAM cache"
+[ -d $RAM_CACHE/_cacache ] && fail "RAM: the cache was not emptied after the install: `ls $RAM_CACHE`" || ok "RAM: the cache in /tmp was emptied after the install"
+after=`ls $ADDON_DIR/var/npm-cache/_cacache/index-v5 2>/dev/null | wc -l`
+[ "$before" = "$after" ] && ok "RAM: the install wrote nothing to var/npm-cache" || fail "RAM: var/npm-cache changed during the install ($before -> $after)"
+code=`curl -s -o /dev/null -w '%{http_code}' -X DELETE $RED/nodes/node-red-node-random`
+[ "$code" = "204" ] || fail "palette uninstall with the cache in RAM failed (http $code)"
+[ -d $RAM_CACHE/_cacache ] && fail "RAM: the cache was not emptied after the removal" || ok "RAM: the cache in /tmp was emptied after the removal"
 
 # --- self-update worker (ROADMAP task 11) -------------------------------------
 log "self-update worker: same package from a local http server"
@@ -328,7 +342,9 @@ ok "worker finished: download, checksum, install, restart"
 check_running
 node_red_env | grep -q '^npm_config_logs_max=' && fail "npm_config_logs_max set outside openccu-lite" || ok "npm keeps its log default outside openccu-lite"
 grep -q '"node-red-contrib-ccu"' $ADDON_DIR/var/package.json || fail "var/package.json lost node-red-contrib-ccu after the self-update"
-[ -d $ADDON_DIR/var/npm-cache/_cacache ] && ok "storage: the update kept var/npm-cache" || fail "storage: the update removed var/npm-cache/_cacache"
+[ -d $ADDON_DIR/var/npm-cache/_cacache ] && ok "the update kept var/npm-cache" || fail "the update removed var/npm-cache/_cacache"
+[ "`npm_cache_setting`" = "ram|true" ] && ok "a chosen RAM cache survives the update" || fail "the update changed a chosen RAM cache: `npm_cache_setting`"
+# what a fresh 9.18.0 install has: "ram" from its default, no marker
 set_npm_cache ram
 
 # --- self-update worker on openccu-lite (bug 8) ---------------------------------
@@ -353,8 +369,9 @@ grep -q "Node-RED is not running after the install, starting addon-redmatic.serv
 check_running
 last_accepted_start | grep -q "systemctl start addon-redmatic.service" &&
     ok "the accepted start came from the unit" || fail "the last accepted start did not come from systemctl: `last_accepted_start`"
-[ -d $ADDON_DIR/var/npm-cache/_cacache ] && fail "RAM: the update left var/npm-cache/_cacache" || ok "RAM: the update removed the old var/npm-cache"
-node_red_env | grep -qx "npm_config_cache=/tmp/redmatic-npm-cache-`id -u`" && ok "RAM again: Node-RED's npm caches in /tmp" || fail "RAM again: no npm_config_cache in /tmp"
+[ "`npm_cache_setting`" = "storage|true" ] && ok "9.18.0's default RAM cache went back to the storage" || fail "migration: settings say `npm_cache_setting`, expected storage|true"
+node_red_env | grep -q '^npm_config_cache=' && fail "migrated to the storage, but npm_config_cache is set" || ok "migrated: Node-RED's npm keeps etc/npmrc's cache"
+[ -d $ADDON_DIR/var/npm-cache/_cacache ] && ok "the update kept var/npm-cache" || fail "the update removed var/npm-cache/_cacache"
 lite_off
 
 # --- stop -----------------------------------------------------------------------

@@ -108,6 +108,20 @@ require('/usr/local/addons/redmatic/lib/context-dir.js').checkStores(settings.co
 // flow that stores the same state on every event no longer rewrites global.json all day.
 require('/usr/local/addons/redmatic/lib/context-store.js').wrapStores(settings.contextStorage);
 
+// npm's cache in RAM (settings page, exported by bin/redmaticLoader): emptied right after every
+// palette install, update or removal, so it takes RAM only while one runs (lib/npm-cache.js).
+if (process.env.npm_config_cache && process.env.npm_config_cache.startsWith('/tmp/redmatic-npm-cache-')) {
+    const npmCache = require('/usr/local/addons/redmatic/lib/npm-cache.js');
+    let exec;
+    try {
+        // Node-RED's own copy (nested below node-red or hoisted, as npm laid it out)
+        exec = require(require.resolve('@node-red/util', {paths: ['/usr/local/addons/redmatic/lib/node_modules/node-red']})).exec;
+    } catch {}
+    if (!npmCache.emptyAfterNpm(exec, process.env.npm_config_cache)) {
+        console.warn('[redmatic] npm cache in RAM: Node-RED\'s exec.run not found, the cache is emptied at the next start only');
+    }
+}
+
 const result = Object.assign(
     defaults,
     settings,

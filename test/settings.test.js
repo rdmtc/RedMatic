@@ -22,9 +22,12 @@ const CCU_AUTH = ADDON + '/lib/ccu-auth.js';
 const EDITOR_SSO = ADDON + '/lib/editor-sso.js';
 const CONTEXT_DIR = ADDON + '/lib/context-dir.js';
 const CONTEXT_STORE = ADDON + '/lib/context-store.js';
+const NPM_CACHE = ADDON + '/lib/npm-cache.js';
+// lib/settings.js resolves it from node-red's directory; the stub stands in for the request itself
+const NODE_RED_UTIL = '@node-red/util';
 
 // settings.js requires these by their absolute paths on the box; stand in for them here
-const STUBS = [NODE_RED_DEFAULTS, SETTINGS_JSON, LOGGER, CCU_AUTH, CONTEXT_DIR, CONTEXT_STORE];
+const STUBS = [NODE_RED_DEFAULTS, SETTINGS_JSON, LOGGER, CCU_AUTH, CONTEXT_DIR, CONTEXT_STORE, NPM_CACHE, NODE_RED_UTIL];
 const resolve = Module._resolveFilename;
 Module._resolveFilename = function (request, ...rest) {
     return STUBS.includes(request) ? request : resolve.call(this, request, ...rest);
@@ -156,4 +159,30 @@ test('the context stores are handed to context-store.js after the directory chec
     assert.strictEqual(wrapped[0].checkedBefore, 1);
     assert.strictEqual(wrapped[0].stores.file.module, 'localfilesystem');
     assert.strictEqual(wrapped[0].stores.file.config.flushInterval, 300);
+});
+
+// npm's cache in RAM (bin/redmaticLoader exported it): Node-RED's exec.run is wrapped so the cache is
+// emptied after each palette npm run; on the storage (no such variable) nothing is wrapped
+test('a RAM npm cache gets emptied after npm runs, the storage leaves exec alone', t => {
+    const exec = {run: () => Promise.resolve()};
+    const wrapped = [];
+    stub(NODE_RED_UTIL, {exec});
+    stub(NPM_CACHE, {emptyAfterNpm: (e, dir) => wrapped.push([e, dir]) > 0});
+    const saved = process.env.npm_config_cache;
+    t.after(() => {
+        if (saved === undefined) {
+            delete process.env.npm_config_cache;
+        } else {
+            process.env.npm_config_cache = saved;
+        }
+    });
+    process.env.npm_config_cache = '/tmp/redmatic-npm-cache-30000';
+    loadWith(t, {});
+    assert.deepStrictEqual(wrapped, [[exec, '/tmp/redmatic-npm-cache-30000']]);
+    // npm's own variable (a test run under npm sets it) or none: not ours
+    process.env.npm_config_cache = '/root/.npm';
+    loadWith(t, {});
+    delete process.env.npm_config_cache;
+    loadWith(t, {});
+    assert.strictEqual(wrapped.length, 1);
 });
