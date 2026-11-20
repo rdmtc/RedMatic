@@ -289,6 +289,27 @@ else
     fail "palette uninstall failed (http $code)"
 fi
 
+# --- npm cache on the storage (the settings page's switch) ---------------------
+set_npm_cache() {
+    $ADDON_DIR/bin/node -e '
+        const fs = require("fs");
+        const [file, value] = process.argv.slice(1);
+        const s = JSON.parse(fs.readFileSync(file, "utf8"));
+        s.npmCache = value;
+        fs.writeFileSync(file, JSON.stringify(s, null, 2));' $ADDON_DIR/etc/settings.json "$1"
+}
+log "npm cache on the storage: Node-RED's npm uses var/npm-cache, the update keeps it"
+set_npm_cache storage
+$CONF_DIR/rc.d/redmatic stop
+sleep 2
+$CONF_DIR/rc.d/redmatic start || die "rc.d/redmatic start"
+check_running
+node_red_env | grep -q '^npm_config_cache=' && fail "npm_config_cache set although the setting says storage" || ok "storage: Node-RED's npm keeps etc/npmrc's cache"
+code=`curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{"module":"node-red-node-random"}' $RED/nodes`
+[ "$code" = "200" ] || fail "palette install with the cache on the storage failed (http $code)"
+[ -d $ADDON_DIR/var/npm-cache/_cacache ] && ok "storage: the palette install cached in var/npm-cache" || fail "storage: no var/npm-cache/_cacache after the palette install"
+curl -s -o /dev/null -X DELETE $RED/nodes/node-red-node-random
+
 # --- self-update worker (ROADMAP task 11) -------------------------------------
 log "self-update worker: same package from a local http server"
 # the container has no /bin/install_addon, so this runs the worker's own
@@ -307,6 +328,8 @@ ok "worker finished: download, checksum, install, restart"
 check_running
 node_red_env | grep -q '^npm_config_logs_max=' && fail "npm_config_logs_max set outside openccu-lite" || ok "npm keeps its log default outside openccu-lite"
 grep -q '"node-red-contrib-ccu"' $ADDON_DIR/var/package.json || fail "var/package.json lost node-red-contrib-ccu after the self-update"
+[ -d $ADDON_DIR/var/npm-cache/_cacache ] && ok "storage: the update kept var/npm-cache" || fail "storage: the update removed var/npm-cache/_cacache"
+set_npm_cache ram
 
 # --- self-update worker on openccu-lite (bug 8) ---------------------------------
 # When Node-RED is not up after the install, the worker starts it itself. On
@@ -330,6 +353,8 @@ grep -q "Node-RED is not running after the install, starting addon-redmatic.serv
 check_running
 last_accepted_start | grep -q "systemctl start addon-redmatic.service" &&
     ok "the accepted start came from the unit" || fail "the last accepted start did not come from systemctl: `last_accepted_start`"
+[ -d $ADDON_DIR/var/npm-cache/_cacache ] && fail "RAM: the update left var/npm-cache/_cacache" || ok "RAM: the update removed the old var/npm-cache"
+node_red_env | grep -qx "npm_config_cache=/tmp/redmatic-npm-cache-`id -u`" && ok "RAM again: Node-RED's npm caches in /tmp" || fail "RAM again: no npm_config_cache in /tmp"
 lite_off
 
 # --- stop -----------------------------------------------------------------------

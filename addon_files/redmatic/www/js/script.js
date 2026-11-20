@@ -572,6 +572,7 @@ $(document).ready(() => {
 
         $('#autorestart').val(config.restartOnCrash);
         $('#backup').val(config.ccuBackup || 'reduce');
+        $('#npm-cache').val(config.npmCache === 'storage' ? 'storage' : 'ram');
     });
 
     $loglevel.change(() => {
@@ -956,6 +957,12 @@ $(document).ready(() => {
 
     $backup.on('change', () => {
         config.ccuBackup = $backup.val();
+        save();
+    });
+
+    // npm's cache for palette installs: in RAM (default) or on the storage, read by bin/redmaticLoader
+    $('#npm-cache').on('change', event => {
+        config.npmCache = event.target.value === 'storage' ? 'storage' : 'ram';
         save();
     });
 

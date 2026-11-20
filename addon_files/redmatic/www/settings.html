@@ -176,6 +176,27 @@
 
             <div class="card mb-4 pr-4">
                 <div class="card-body">
+                    <div class="form-group mb-0">
+                        <label for="npm-cache">npm-Cache <span class="text-muted">&middot; npm cache</span></label>
+                        <select class="form-control" id="npm-cache">
+                            <option value="ram">Im Arbeitsspeicher (RAM) &middot; in memory</option>
+                            <option value="storage">Auf dem Speicher (SD-Karte) &middot; on the storage (SD card)</option>
+                        </select>
+                        <div class="small text-muted mt-1" id="npm-cache-hint">
+                            Wohin npm die Pakete der Paletten-Installationen zwischenspeichert. Im RAM landet davon nichts
+                            auf der SD-Karte, eine erneute Installation lädt das Paket aber wieder herunter (geleert bei jedem
+                            Start von Node-RED). Auf dem Speicher geht eine erneute Installation schneller, die Pakete bleiben
+                            aber auf der SD-Karte liegen.
+                            <br>&middot; Where npm caches the packages of palette installs. In RAM nothing of it lands on the
+                            SD card, but a reinstall downloads the package again (emptied at every start of Node-RED). On the
+                            storage a reinstall is faster, but the packages stay on the SD card.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4 pr-4">
+                <div class="card-body">
                     <div class="form-group">
                         <label>Context Storage <a href="https://github.com/rdmtc/RedMatic/wiki/Context-Storage" class="help-link" target="_blank"><i class="far fa-question-circle"></i></a></label>
                         <div class="row mb-2">

@@ -181,10 +181,13 @@ if [ -f $RED_DIR/var/package.json.old ]; then
 fi
 
 #
-#   npm's cache moved to RAM (bin/redmaticLoader): the tarballs earlier palette
-#   installs left in var/npm-cache are only a cache, and they take SD card space
+#   npm's cache in RAM (the default, bin/redmaticLoader): the tarballs earlier
+#   palette installs left in var/npm-cache are only a cache, and they take SD
+#   card space. Kept when the settings page says "on the storage".
 #
-rm -rf $RED_DIR/var/npm-cache/_cacache
+if [ "`$RED_DIR/bin/node $RED_DIR/lib/npm-cache.js mode 2>/dev/null`" = ram ]; then
+    rm -rf $RED_DIR/var/npm-cache/_cacache
+fi
 
 #
 #   Remove package-lock
