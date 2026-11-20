@@ -206,8 +206,20 @@
                                 <input class="form-control" id="context-storage-file-path" placeholder="Path" required>
                             </div>
                             <div class="col-sm-3">
-                                <input class="form-control" type="number" id="context-storage-file-interval" placeholder="Schreibintervall">
+                                <div class="input-group">
+                                    <input class="form-control" type="number" min="0" id="context-storage-file-interval" placeholder="Schreibintervall" title="Schreibintervall in Sekunden / write interval in seconds">
+                                    <div class="input-group-append"><span class="input-group-text">s</span></div>
+                                </div>
                             </div>
+                        </div>
+                        <div class="small text-muted" id="context-storage-file-hint">
+                            Schreibintervall in Sekunden: so lange sammelt Node-RED Änderungen im Speicher, bevor es sie in die
+                            Datei schreibt. Ein längeres Intervall schont die SD-Karte, bei einem Stromausfall gehen aber die
+                            Änderungen seit dem letzten Schreiben verloren. Beim Stoppen von Node-RED wird immer geschrieben,
+                            und ein Context, dessen Werte sich nicht geändert haben, wird nicht neu geschrieben.
+                            <br>&middot; Write interval in seconds: how long Node-RED collects changes in memory before it writes
+                            them to the file. A longer interval spares the SD card, but a power loss loses the changes since
+                            the last write. Node-RED always writes when it stops, and a context whose values did not change is not rewritten.
                         </div>
 
                     </div>

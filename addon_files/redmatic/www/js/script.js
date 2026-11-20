@@ -621,7 +621,13 @@ $(document).ready(() => {
     });
 
     $contextStorageFileInterval.change(() => {
-        config.contextStorage.file.config.flushInterval = parseInt($contextStorageFileInterval.val(), 10);
+        const interval = parseInt($contextStorageFileInterval.val(), 10);
+        // Node-RED takes 30 s when the setting is missing; a negative or empty value is not saved
+        if (!Number.isFinite(interval) || interval < 0) {
+            $contextStorageFileInterval.val(config.contextStorage.file.config.flushInterval);
+            return;
+        }
+        config.contextStorage.file.config.flushInterval = interval;
         save();
     });
 

@@ -21,9 +21,10 @@ const LOGGER = ADDON + '/lib/logger.js';
 const CCU_AUTH = ADDON + '/lib/ccu-auth.js';
 const EDITOR_SSO = ADDON + '/lib/editor-sso.js';
 const CONTEXT_DIR = ADDON + '/lib/context-dir.js';
+const CONTEXT_STORE = ADDON + '/lib/context-store.js';
 
 // settings.js requires these by their absolute paths on the box; stand in for them here
-const STUBS = [NODE_RED_DEFAULTS, SETTINGS_JSON, LOGGER, CCU_AUTH, CONTEXT_DIR];
+const STUBS = [NODE_RED_DEFAULTS, SETTINGS_JSON, LOGGER, CCU_AUTH, CONTEXT_DIR, CONTEXT_STORE];
 const resolve = Module._resolveFilename;
 Module._resolveFilename = function (request, ...rest) {
     return STUBS.includes(request) ? request : resolve.call(this, request, ...rest);
@@ -39,9 +40,13 @@ const clone = o => JSON.parse(JSON.stringify(o));
 
 // `checked`: what lib/context-dir.js's checkStores was handed (B-18), the stores as Node-RED gets them
 let checked;
+// `wrapped`: the stores lib/context-store.js's wrapStores was handed, after context-dir.js's check
+let wrapped;
 function loadWith(t, stored, ccuAuth = {type: 'credentials'}) {
     checked = [];
+    wrapped = [];
     stub(CONTEXT_DIR, {checkStores: stores => checked.push(clone(stores))});
+    stub(CONTEXT_STORE, {wrapStores: stores => wrapped.push({stores: clone(stores), checkedBefore: checked.length})});
     stub(NODE_RED_DEFAULTS, {logging: {console: {level: 'info'}}, editorTheme: {}});
     stub(CCU_AUTH, Object.assign({}, ccuAuth));
     stub(SETTINGS_JSON, stored);
@@ -136,4 +141,19 @@ test('the context stores are handed to context-dir.js as Node-RED gets them', t 
     assert.deepStrictEqual(Object.keys(checked[0]).sort(), ['default', 'memory']);
     assert.strictEqual(checked[0].default.config.dir, '/media/usb0/redmatic');
     assert.strictEqual(settings.contextStorage.default.module, 'localfilesystem');
+});
+
+// the file stores go to lib/context-store.js after context-dir.js has pointed them at a usable
+// directory, so the wrapped store writes where Node-RED would
+test('the context stores are handed to context-store.js after the directory check', t => {
+    loadWith(t, {
+        contextStorage: {
+            default: {module: 'memory'},
+            file: {module: 'localfilesystem', config: {dir: '/usr/local/addons/redmatic/var', flushInterval: 300}}
+        }
+    });
+    assert.strictEqual(wrapped.length, 1);
+    assert.strictEqual(wrapped[0].checkedBefore, 1);
+    assert.strictEqual(wrapped[0].stores.file.module, 'localfilesystem');
+    assert.strictEqual(wrapped[0].stores.file.config.flushInterval, 300);
 });

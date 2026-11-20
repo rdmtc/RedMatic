@@ -103,6 +103,11 @@ settings.contextStorage.default = defaultContextStorage;
 // uses var/ for this run, with a loud log line (B-18). The setting itself is not changed.
 require('/usr/local/addons/redmatic/lib/context-dir.js').checkStores(settings.contextStorage);
 
+// A file store rewrites a whole scope file at every flush once anything in it was set, also when
+// the value set is the one it already held: such a flush is skipped (lib/context-store.js), so a
+// flow that stores the same state on every event no longer rewrites global.json all day.
+require('/usr/local/addons/redmatic/lib/context-store.js').wrapStores(settings.contextStorage);
+
 const result = Object.assign(
     defaults,
     settings,
