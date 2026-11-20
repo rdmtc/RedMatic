@@ -1,29 +1,24 @@
-### RedMatic 9.18.0
+### RedMatic 9.18.1
 
-Deutlich weniger Schreibzugriffe auf die SD-Karte: Kontextspeicher,
-Updates, Palette-Installationen und node-red-contrib-ccu 4.11.0.
+Der npm-Cache für Palette-Installationen liegt wieder auf dem Speicher.
 
-- **Der Datei-Kontextspeicher schreibt nur noch, was sich geändert hat.**
-  Node-RED schrieb beim Speichern (alle 30 Sekunden) jeden Bereich des
-  Kontexts komplett neu, auch wenn sich nichts geändert hatte – bei einem
-  großen globalen Kontext viele Megabyte pro Stunde. Unveränderte Bereiche
-  werden jetzt übersprungen. Das Intervall bleibt einstellbar; das Feld auf
-  der Einstellungsseite hat jetzt eine Einheit und erklärt, was ein längeres
-  Intervall bedeutet.
-- **Ein Update schreibt das Paket nur noch einmal.** Bisher wurde das
-  ausgepackte Paket ein zweites Mal kopiert; jetzt wird es verschoben. Ein
-  Update schreibt dadurch etwa 40 % weniger.
-- **Der npm-Cache für Palette-Installationen liegt im Arbeitsspeicher** und
-  wird bei jedem Start geleert, statt die Pakete dauerhaft auf der SD-Karte
-  zu behalten. Auf der Einstellungsseite lässt er sich wieder auf den
-  Speicher legen (eine Neuinstallation derselben Version geht dann schneller).
-- **node-red-contrib-ccu 4.11.0: weniger Schreibzugriffe.** Gerätetabelle und
-  Namen werden nur bei Änderungen geschrieben, `paramsets.json` einmal pro
-  Abrufrunde, der Wertecache beim Stoppen und sonst höchstens alle 60 Minuten
-  (neue Einstellung im Verbindungs-Node, 0 = nur beim Stoppen). Ein Deploy
-  schreibt etwa halb so viel.
+- **npm-Cache: Standard wieder „Auf dem Speicher“.** npm braucht den Cache
+  während einer Installation, und ein großes Paket kann dort einige zehn MB
+  belegen – mehr Arbeitsspeicher, als manche Zentrale übrig hat. Wie bis 9.17
+  liegt der Cache deshalb wieder in `var/npm-cache`; eine Installation
+  schreibt die heruntergeladenen Pakete dabei ein weiteres Mal auf die
+  SD-Karte. Wer genug Arbeitsspeicher hat, kann auf der Einstellungsseite
+  „Im Arbeitsspeicher (RAM)“ wählen: Der Cache wird jetzt direkt nach jeder
+  Installation, Aktualisierung oder Entfernung eines Nodes geleert und belegt
+  nur noch während einer Installation Speicher.
+- **Wer 9.18.0 neu installiert hat, bekommt die Einstellung einmalig auf
+  „Auf dem Speicher“ zurückgesetzt**, weil 9.18.0 „RAM“ als Standard
+  eingetragen hat. Wer RAM bewusst gewählt hatte, stellt es auf der
+  Einstellungsseite bitte wieder ein.
 
-Node.js 24.22.3, Node-RED 5.0.10 und npm 11.21.3 wie in 9.17.6.
+Alles andere wie in 9.18.0: weniger Schreibzugriffe durch den
+Kontextspeicher, Updates und node-red-contrib-ccu 4.11.0. Node.js 24.22.3,
+Node-RED 5.0.10 und npm 11.21.3.
 
 ### RedMatic 9
 
