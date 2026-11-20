@@ -13,6 +13,15 @@ export GIT_TEMPLATE_DIR=$ADDON_DIR/share/git-core/templates
 
 export NO_UPDATE_NOTIFIER=true
 
+# npm's cache for the palette installs Node-RED runs: in RAM (/tmp), not in
+# var/npm-cache on the SD card, where every install wrote each package twice
+# (the tarball into the cache, the files into var/node_modules) and the
+# tarballs stayed for good. It only speeds up a reinstall of the same version;
+# emptied at every start. Per user, so a cache another user (root) made cannot
+# stand in the way. A shell's npm keeps etc/npmrc's var/npm-cache.
+export npm_config_cache=/tmp/redmatic-npm-cache-`id -u`
+rm -rf $npm_config_cache 2>/dev/null
+
 # provides NODE_VERSION, VERSION_ADDON, RED_VERSION and (armv7l) ICU_DATA
 . $ADDON_DIR/versions
 

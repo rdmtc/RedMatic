@@ -46,6 +46,8 @@ install_addon() {
     tar -C "$dir" --no-same-owner --no-same-permissions -xf "$PKG" || die "extract"
     (cd "$dir" && ./update_script HM-RASPBERRYMATIC >/tmp/update_script.log 2>&1)
     rc=$?
+    # the big parts update_script moves instead of copying: what is left of them in the package
+    INSTALL_LEFT=`cd "$dir/redmatic" && ls -d bin/node include lib/node_modules www/node_modules 2>/dev/null | tr '\n' ' '`
     rm -rf "$dir"
     return $rc
 }
@@ -151,6 +153,11 @@ install_addon
 rc=$?
 [ $rc -eq 0 ] || { cat /tmp/update_script.log; die "update_script exit code $rc, expected 0"; }
 ok "update_script exit 0"
+# moved into place, not copied a second time (fewer SD card writes); a stale file in an owned tree goes
+[ -z "$INSTALL_LEFT" ] && ok "node, headers and modules moved into place" || fail "update_script copied instead of moving: $INSTALL_LEFT"
+for f in bin/node include/node/node.h lib/node_modules/node-red/red.js www/node_modules/jquery; do
+    [ -e $ADDON_DIR/$f ] || fail "$f missing after the update"
+done
 sleep 3
 check_running
 grep -q '"node-red-contrib-ccu"' $ADDON_DIR/var/package.json || fail "var/package.json lost node-red-contrib-ccu in the merge"
@@ -267,6 +274,9 @@ if [ -d $ADDON_DIR/var/node_modules/node-red-node-random ]; then
 else
     fail "var/node_modules/node-red-node-random missing"
 fi
+# npm's cache in RAM for Node-RED's installs, not in var/npm-cache on the SD card
+node_red_env | grep -qx "npm_config_cache=/tmp/redmatic-npm-cache-`id -u`" && ok "Node-RED's npm caches in /tmp" || fail "Node-RED's environment has no npm_config_cache in /tmp"
+[ -d $ADDON_DIR/var/npm-cache/_cacache ] && fail "the palette install wrote npm's cache into var/npm-cache" || ok "no npm cache in var/npm-cache after the palette install"
 if [ -f $ADDON_DIR/var/package-lock.json ]; then
     fail "package-lock.json written in var (npmrc package-lock=false not honoured)"
 fi

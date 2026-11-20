@@ -116,6 +116,30 @@ rm -f $RED_DIR/bin/redmatic-logupload $RED_DIR/www/logupload.cgi \
 #
 #   Install addon files
 #
+#   The installer has just unpacked the package next to the addon (its temp
+#   dir in /usr/local/tmp, the same partition), so a copy writes the whole
+#   package - about 340 MB - a second time to the SD card. The big parts the
+#   addon owns whole are moved instead, a rename that writes almost nothing:
+#   the node binary, the node headers, the core modules and libraries, git
+#   and the settings page's modules. Their old copies go first (lib/ and
+#   git-core are already cleared, see above), so nothing stale survives
+#   either. Where a
+#   rename is not possible (the CCU3 firmware's chroot sees /usr/local as a
+#   mount of its own), mv copies by itself, and whatever is left is copied
+#   by cp below as before.
+#
+mkdir -p $RED_DIR/bin $RED_DIR/lib $RED_DIR/libexec $RED_DIR/share $RED_DIR/www
+rm -rf $RED_DIR/include $RED_DIR/www/node_modules
+for d in bin/node include lib/node_modules libexec/git-core share/git-core www/node_modules; do
+    # a directory only onto nothing: mv would put it inside an existing one
+    if [ -f redmatic/$d ] || { [ -d redmatic/$d ] && [ ! -e $RED_DIR/$d ]; }; then
+        mv -f redmatic/$d $RED_DIR/$d 2>/dev/null
+    fi
+done
+# the bundled libraries (musl, git's): the old ones are gone, see above
+for f in redmatic/lib/lib*; do
+    [ -f "$f" ] && mv -f "$f" $RED_DIR/lib/ 2>/dev/null
+done
 cp -af redmatic $ADDONS_DIR/
 
 #
@@ -155,6 +179,12 @@ if [ -f $RED_DIR/var/package.json.old ]; then
     ' $RED_DIR/var/package.json.old $RED_DIR/var/package.json.new $RED_DIR/var/package.json
     rm $RED_DIR/var/package.json.old $RED_DIR/var/package.json.new
 fi
+
+#
+#   npm's cache moved to RAM (bin/redmaticLoader): the tarballs earlier palette
+#   installs left in var/npm-cache are only a cache, and they take SD card space
+#
+rm -rf $RED_DIR/var/npm-cache/_cacache
 
 #
 #   Remove package-lock
