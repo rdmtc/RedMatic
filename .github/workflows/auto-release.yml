@@ -23,7 +23,10 @@ name: auto-release
 # While master carries a prerelease version (e.g. 10.0.0-beta.0, a new major in
 # beta), the run does nothing: the release tags are still the previous
 # major's, whose release commit would not merge into master, and a major's
-# betas are the maintainer's tags (build.yml marks them prerelease).
+# betas are the maintainer's tags (build.yml marks them prerelease). The same
+# when the newest release tag is not of master's major (master at 10.0.0
+# before v10.0.0 is tagged): no 9.x is ever cut once master moved on. Prerelease
+# tags (v10.0.0-beta.0) are never a base.
 
 on:
   schedule:
@@ -67,6 +70,16 @@ jobs:
           if [ -z "$tag" ]; then
             echo "error: no release tag v<x.y.z> found" >&2
             exit 1
+          fi
+          # a new major on master before its first release tag: the newest tag
+          # is the previous major's, and a release cut from it would neither be
+          # the current line nor merge into master
+          tag_major=${tag#v}
+          tag_major=${tag_major%%.*}
+          if [ "$tag_major" != "${master_version%%.*}" ]; then
+            echo "the newest release tag $tag is not of master's major ${master_version%%.*} - no automatic release until that major is tagged"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
           echo "base: $tag; commits on master after it (not released here): $(git rev-list --count "$tag"..HEAD)"
