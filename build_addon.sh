@@ -13,6 +13,12 @@
 #            with the musl loader and its shared libraries, and rewrite its ELF
 #            interpreter and RPATH to point inside the addon. The CCU's own libc
 #            is then irrelevant: the runtime is self-contained.
+#            It comes from a stable Alpine branch (ALPINE_BRANCH, default v3.24),
+#            not from edge, whose Node line moves under a release: on a stable
+#            branch the newer Node is community's nodejs-current (v3.24: 26),
+#            main's nodejs the older line (v3.24: 24). The build takes the one
+#            whose major is engines.node's; ALPINE_NODE_PACKAGE forces one, and
+#            ALPINE_BRANCH=edge stays an override for trying a newer Node.
 #   aarch64  OpenCCU (formerly RaspberryMatic) 64-bit, glibc is current -> stock nodejs.org tarball.
 #   x86_64   OpenCCU/debmatic on x86, glibc is current -> stock nodejs.org tarball.
 #
@@ -36,7 +42,7 @@ NODE_VERSION=`node -p "require('$BUILD_DIR/package.json').engines.node"`
 NODE_MAJOR=${NODE_VERSION%%.*}
 
 PREFIX=/usr/local/addons/redmatic
-ALPINE_BRANCH=${ALPINE_BRANCH:-edge}
+ALPINE_BRANCH=${ALPINE_BRANCH:-v3.24}
 ALPINE_MIRROR=${ALPINE_MIRROR:-https://dl-cdn.alpinelinux.org/alpine}
 
 echo ""
@@ -116,24 +122,30 @@ ICU_VERSION=""
 if [ "$ARCH" == "armv7l" ]; then
     mkdir -p $ADDON/bin $ADDON/lib
 
-    # Resolve nodejs and everything it needs from the Alpine package index,
-    # then download and unpack the .apk files (concatenated gzipped tars).
-    PACKAGES=`node $BUILD_DIR/alpine-packages.mjs nodejs $ALPINE_ARCH $ALPINE_BRANCH $ALPINE_MIRROR` || exit 1
-    APK_VERSION=`echo "$PACKAGES" | sed -n 's|.*/nodejs-\(.*\)\.apk$|\1|p' | head -1`
+    # Resolve the Node package of engines.node's major and everything it needs
+    # from the Alpine package index (main and community), then download and
+    # unpack the .apk files (concatenated gzipped tars).
+    NODE_PKG=""
+    OFFERED=""
+    for pkg in ${ALPINE_NODE_PACKAGE:-nodejs nodejs-current}; do
+        PACKAGES=`node $BUILD_DIR/alpine-packages.mjs $pkg $ALPINE_ARCH $ALPINE_BRANCH $ALPINE_MIRROR` || continue
+        APK_VERSION=`echo "$PACKAGES" | head -1 | sed -n "s|.*/$pkg-\\([0-9][^/]*\\)\\.apk$|\\1|p"`
+        case ${APK_VERSION%%-r*} in
+            $NODE_MAJOR.*) NODE_PKG=$pkg; break ;;
+        esac
+        OFFERED="$OFFERED $pkg ${APK_VERSION:-?}"
+    done
+    if [ -z "$NODE_PKG" ]; then
+        echo "error: alpine/$ALPINE_BRANCH/$ALPINE_ARCH has no nodejs ${NODE_MAJOR}.x (offers:${OFFERED:- nothing})." >&2
+        echo "       Pick another ALPINE_BRANCH or move engines.node in package.json." >&2
+        exit 1
+    fi
     NODE_VERSION_ARMV7L=${APK_VERSION%%-r*}
-    case $NODE_VERSION_ARMV7L in
-        $NODE_MAJOR.*) ;;
-        *)
-            echo "error: alpine/$ALPINE_BRANCH/$ALPINE_ARCH ships nodejs $NODE_VERSION_ARMV7L, expected ${NODE_MAJOR}.x." >&2
-            echo "       Pick another ALPINE_BRANCH or move engines.node in package.json." >&2
-            exit 1
-            ;;
-    esac
-    echo "alpine/$ALPINE_BRANCH/$ALPINE_ARCH: nodejs $APK_VERSION"
+    echo "alpine/$ALPINE_BRANCH/$ALPINE_ARCH: $NODE_PKG $APK_VERSION"
     NODE_VERSION=$NODE_VERSION_ARMV7L
 
     SRCROOT=$ADDON_TMP/alpine-root
-    alpine_fetch nodejs $SRCROOT || exit 1
+    alpine_fetch $NODE_PKG $SRCROOT || exit 1
 
     [ -f $SRCROOT/usr/bin/node ] || { echo "error: the nodejs package did not contain usr/bin/node" >&2; exit 1; }
     cp -a $SRCROOT/usr/bin/node $ADDON/bin/node
