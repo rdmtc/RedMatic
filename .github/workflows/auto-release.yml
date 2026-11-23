@@ -19,6 +19,11 @@ name: auto-release
 # Repository variable AUTO_RELEASE_PUBLISH=true publishes the release right
 # away (latest); otherwise it is created as a draft for the maintainer.
 # Note: GitHub disables scheduled workflows after 60 days without commits.
+#
+# While master carries a prerelease version (e.g. 10.0.0-beta.0, a new major in
+# beta), the run does nothing: the release tags are still the previous
+# major's, whose release commit would not merge into master, and a major's
+# betas are the maintainer's tags (build.yml marks them prerelease).
 
 on:
   schedule:
@@ -43,13 +48,21 @@ jobs:
 
       - uses: actions/setup-node@v5
         with:
-          node-version: 24
+          node-version: 26
 
       # the highest v<x.y.z> overall, not only those on master: a release whose
       # merge back into master failed is still the one the next builds on
       - name: Check out the newest release tag
         id: base
         run: |
+          master_version=$(node -p "require('./package.json').version")
+          case "$master_version" in
+            *-*)
+              echo "master is at the prerelease $master_version - no automatic release until its major is released"
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              exit 0
+              ;;
+          esac
           tag=$(git tag --list 'v*' --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1)
           if [ -z "$tag" ]; then
             echo "error: no release tag v<x.y.z> found" >&2
@@ -63,10 +76,11 @@ jobs:
       # reads and bumps are the tag's
       - name: Check for new versions
         id: check
+        if: steps.base.outputs.skip != 'true'
         run: node update_versions.js --root release
 
       - name: Nothing new
-        if: steps.check.outputs.updates != 'true'
+        if: steps.base.outputs.skip != 'true' && steps.check.outputs.updates != 'true'
         run: echo "all bundled components are up to date, no release"
 
       - name: Apply version bumps

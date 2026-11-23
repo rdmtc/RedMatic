@@ -24,7 +24,9 @@ dump() {
 log "prepare container"
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq >/dev/null || die "apt-get update"
-apt-get install -y -qq --no-install-recommends curl ca-certificates iproute2 procps busybox uuid-runtime >/dev/null || die "apt-get install"
+# libatomic1: nodejs.org's binaries need libatomic.so.1 since Node 25; OpenCCU and
+# openccu-lite ship it in /lib, a slim Debian image does not
+apt-get install -y -qq --no-install-recommends curl ca-certificates iproute2 procps busybox uuid-runtime libatomic1 >/dev/null || die "apt-get install"
 echo "127.0.0.1 telemetry.redmatic.de" >> /etc/hosts
 busybox syslogd -O /var/log/messages || die "syslogd"
 mkdir -p /usr/local/tmp $CONF_DIR/rc.d /etc/config

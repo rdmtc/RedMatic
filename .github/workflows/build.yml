@@ -23,7 +23,7 @@ jobs:
 
       - uses: actions/setup-node@v5
         with:
-          node-version: 24
+          node-version: 26
 
       - name: Install patchelf
         run: sudo apt-get update && sudo apt-get install -y patchelf
