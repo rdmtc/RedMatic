@@ -11,8 +11,7 @@ GitHub Issue.
   sie wird jetzt aus Alpine 3.24 statt aus dem Entwicklungszweig
   zusammengestellt, ebenso das mitgelieferte git auf allen drei
   Architekturen. Für aarch64 und x86_64 kommt Node.js wie bisher von
-  nodejs.org; es braucht ab Node.js 26 die Bibliothek `libatomic.so.1`, die
-  OpenCCU und openccu-lite mitbringen (unter Debian: Paket `libatomic1`).
+  nodejs.org.
 - Flows, Einstellungen und installierte Nodes werden beim Update von 9.x
   übernommen.
 - Die Update-Prüfung bietet Vorabversionen nicht an: Diese Version wird von
