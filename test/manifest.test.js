@@ -39,7 +39,7 @@ test('the UI facts: Node-RED reads the session header, the images come with the 
 test('the runtime: the early start, USB sticks, the RPC token, nothing else beyond its own directories', () => {
     // node-red-contrib-ccu >= 4.4.5 waits quietly for an interface that does not answer yet and stays in
     // local mode before rfd listens, so the unit may start before rfd and hmipserver (openccu-lite D-75)
-    const {note, port_info: portInfo, ...runtime} = manifest.runtime;
+    const {note, technical, port_info: portInfo, ...runtime} = manifest.runtime;
     // B-17: a context store or userDir on the USB stick (/media/usb0 -> /media/usb1, mounted
     // root:usbstorage 0770 by the system) needs the group and /media writable under ProtectSystem=strict
     assert.deepStrictEqual(runtime, {
@@ -64,9 +64,13 @@ test('the runtime: the early start, USB sticks, the RPC token, nothing else beyo
     for (const info of Object.values(portInfo)) {
         assert.ok(info.label.de && info.label.en);
     }
-    // the note is the catalogue's text for users (occulited task 188), shown behind Details and in the
-    // install question; what the addon needs is what the keys above declare
+    // the note is the catalogue's text for users, the technical text says what the addon needs, opens
+    // and contacts (D-90); both behind Details and in the install question (occulited task 188)
     assert.ok(note.de && note.en);
+    assert.ok(technical.de && technical.en);
+    assert.match(technical.de, /USB-Sticks/);
+    assert.match(technical.en, /USB sticks/);
+    assert.match(technical.en, /RPC interface/);
     const pkg = JSON.parse(fs.readFileSync(path.join(root, 'redmatic', 'var', 'package.json'), 'utf8'));
     const [major, minor] = pkg.dependencies['node-red-contrib-ccu'].split('.').map(Number);
     assert.ok(major > 4 || (major === 4 && minor >= 7), 'node-red-contrib-ccu >= 4.7.0 (reads the addon token)');
