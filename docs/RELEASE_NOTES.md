@@ -1,22 +1,38 @@
-### RedMatic 10.0.0-beta.0
+### RedMatic 10.0.0
 
-**Vorabversion** der nächsten Hauptversion – bitte nur installieren, wer
-testen möchte, und vorher ein Backup anlegen. Rückmeldungen bitte als
-GitHub Issue.
+Neue Hauptversion: **Node.js 26** und node-red-contrib-ccu 4.14.1. Flows,
+Einstellungen und installierte Nodes werden beim Update von 9.x
+übernommen; vorher wie immer ein Backup anlegen.
 
-- **Node.js 26** (LTS, bisher Node.js 24). Node-RED 5.0.10,
-  node-red-contrib-ccu 4.13.0 und npm 11.21.3 bleiben wie in 9.20.0.
+- **Node.js 26** (LTS, bisher Node.js 24), Node-RED 5.0.10, npm 11.21.3.
 - **CCU3 (armv7l): Node.js aus einem stabilen Alpine-Zweig.** Die
   CCU3-Variante bringt ihr Node.js als eigenständige musl-Laufzeit mit;
   sie wird jetzt aus Alpine 3.24 statt aus dem Entwicklungszweig
   zusammengestellt, ebenso das mitgelieferte git auf allen drei
   Architekturen. Für aarch64 und x86_64 kommt Node.js wie bisher von
-  nodejs.org.
-- Flows, Einstellungen und installierte Nodes werden beim Update von 9.x
-  übernommen.
-- Die Update-Prüfung bietet Vorabversionen nicht an: Diese Version wird von
-  Hand als Zusatzsoftware installiert. Die nächste stabile Version wird
-  danach wieder wie gewohnt angeboten.
+  nodejs.org. Getestet auf der CCU3 mit der Original-Firmware 3.89.11, auf
+  OpenCCU und auf openccu-lite.
+- **node-red-contrib-ccu 4.14.1: Systemvariablen und Programme auf
+  openccu-lite.** openccu-lite hat keine ReGaHSS; die Systemvariablen und
+  Programme stellt dort das Addon *Logic* als Geräte seiner Schnittstelle
+  `Logic` bereit. Die Nodes *sysvar* und *program* nutzen sie über die
+  lite-rpc des Systems und finden eine Variable oder ein Programm wie auf
+  der CCU über den Namen – Flows laufen nach dem Umstieg weiter, sobald
+  Variablen und Programme in Logic importiert sind. Ohne das Addon zeigen
+  die Nodes *Logic addon not installed*. Die Verbindung folgt außerdem
+  jeder Schnittstelle, die das System anbietet, auch der eines Addons.
+- **openccu-lite:** RedMatic läuft dort wie seit 9.15 ohne Einrichtung –
+  die Schnittstellen über die lite-rpc des Systems mit RedMatics eigenem
+  Token, die Namen, Räume und Gewerke aus den Metadaten des Systems.
+- **Hinweise zum Update von 9.x:**
+  - Nodes werden mit Node.js 26 ausgeführt. Ein zusätzlich installierter
+    Node, der eine ältere Node.js-Version voraussetzt, kann nach dem Update
+    eine Warnung oder einen Fehler im Log zeigen; dann über den
+    Paletten-Manager aktualisieren.
+  - Die automatischen Updates von RedMatic gehen ab jetzt mit 10.x weiter;
+    9.x bekommt keine Updates mehr.
+- Die Vorabversion 10.0.0-beta.0 kann direkt auf 10.0.0 aktualisiert
+  werden.
 
 ### RedMatic 9
 
