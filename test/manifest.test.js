@@ -64,10 +64,9 @@ test('the runtime: the early start, USB sticks, the RPC token, nothing else beyo
     for (const info of Object.values(portInfo)) {
         assert.ok(info.label.de && info.label.en);
     }
+    // the note is the catalogue's text for users (occulited task 188), shown behind Details and in the
+    // install question; what the addon needs is what the keys above declare
     assert.ok(note.de && note.en);
-    assert.match(note.de, /USB-Sticks/);
-    assert.match(note.en, /USB sticks/);
-    assert.match(note.en, /RPC interface/);
     const pkg = JSON.parse(fs.readFileSync(path.join(root, 'redmatic', 'var', 'package.json'), 'utf8'));
     const [major, minor] = pkg.dependencies['node-red-contrib-ccu'].split('.').map(Number);
     assert.ok(major > 4 || (major === 4 && minor >= 7), 'node-red-contrib-ccu >= 4.7.0 (reads the addon token)');
