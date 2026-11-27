@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
+<meta name="color-scheme" content="light dark">
 
 <title>RedMatic</title>
 
@@ -19,7 +20,7 @@
 </div>
 
 <nav class="navbar sticky-top navbar-light bg-light mb-4" >
-    <a href="https://github.com/rdmtc/RedMatic" target="_blank"><img src="redmatic5-compact.png" style="height: 42px; "></a>
+    <a href="https://github.com/rdmtc/RedMatic" target="_blank"><picture><source srcset="redmatic5-compact-dark.png" media="(prefers-color-scheme: dark)"><img src="redmatic5-compact.png" style="height: 42px; "></picture></a>
 
     <ul class="nav navbar-nav mr-auto d-flex flex-row mt-2" role="tablist" id="myTab">
         <li class="nav-item ml-3">
@@ -112,7 +113,7 @@
                 </div>
             </div>
 
-            <div id="update-notify" class="card mb-4" style="border-color: orange; display: none;">
+            <div id="update-notify" class="card mb-4 card-notify" style="display: none;">
                 <div class="card-body">
                     RedMatic Update steht zur Verfügung: <span id="update-link"></span>
                     <button id="update-start" type="button" class="btn btn-sm btn-warning ml-3"><i class="fa fa-download"></i> Herunterladen und installieren</button>
@@ -150,12 +151,12 @@
                     </div>
 
                     <div style="width: 30px; display: inline-block">
-                        <div id="status-spinner" class="spinner-border spinner-border-sm ml-2 mr-2" role="status" style="color: #6a737d; display: inline-block;">
+                        <div id="status-spinner" class="spinner-border spinner-border-sm ml-2 mr-2 text-dim" role="status" style="display: inline-block;">
                             <span class="sr-only">Please wait...</span>
                         </div>
                     </div>
 
-                    <div style="vertical-align: middle; display: inline-block; width: 210px; font-size: 11px; color: grey;" class="">
+                    <div style="vertical-align: middle; display: inline-block; width: 210px; font-size: 11px;" class="text-dim">
                         <div><span id="node-red-status" style="font-weight: bold;"></span></div>
                         <div><span id="node-red-cpu" style="font-weight: bold;"></span><span id="node-red-memory"  style="font-weight: bold;"></span></div>
                     </div>
@@ -243,7 +244,7 @@
                             <div class="col-sm-3" style="line-height: 38px;">
                                 <code id="context-memory-title">memory</code>
                             </div>
-                            <div class="col-sm-9" style="min-height: 26px; padding: 6px 22px; vertical-align: middle; color: grey; font-style: italic;">
+                            <div class="col-sm-9 text-dim" style="min-height: 26px; padding: 6px 22px; vertical-align: middle; font-style: italic;">
                                 memory
                             </div>
                         </div>
@@ -428,7 +429,7 @@
                             <option value="2147483647">Unbegrenzt</option>
                         </select>
                     </div>
-                    <p>Node-RED Abstürze seit letztem RedMatic-Start: <span id="restarts">keine</span></p>
+                    <p id="restarts-line" class="mb-0">Node-RED Abstürze seit letztem RedMatic-Start: <span id="restarts">keine</span></p>
                 </div>
             </div>
 

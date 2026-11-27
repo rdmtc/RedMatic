@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="utf-8">
+    <meta name="color-scheme" content="light dark">
     <title>RedMatic Lizenzen</title>
     <style>
         body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 2em; color: #222; }
@@ -9,6 +10,11 @@
         h2 { font-size: 1.1em; margin-top: 1.5em; }
         li { margin-bottom: 0.3em; }
         code { background: #f0f0f0; padding: 0 0.3em; }
+        @media (prefers-color-scheme: dark) {
+            body { background: #1b1e22; color: #d7dade; }
+            a { color: #6cb2ff; }
+            code { background: #2c3137; }
+        }
     </style>
 </head>
 <body>

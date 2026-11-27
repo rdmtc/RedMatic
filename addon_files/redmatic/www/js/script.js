@@ -332,14 +332,16 @@ $(document).ready(() => {
             systemUpdates = true;
             $('#update-notify').hide();
             $('#update-system').show();
+            $('#restarts-line').hide();
             return;
         }
+        loadRestarts();
         if (state && state.phase && state.phase !== 'idle' && state.phase !== 'done' && state.phase !== 'error') {
             renderUpdate(state);
             $modalUpdate.modal('show');
             updateTimer = setTimeout(pollUpdate, 1000);
         }
-    }).always(checkUpdate);
+    }).fail(loadRestarts).always(checkUpdate);
 
     function refresh() {
         checkUpdate();
@@ -932,9 +934,14 @@ $(document).ready(() => {
         });
     });
 
-    $.get('restart_count', data => {
-        $('#restarts').html(data || 'keine');
-    });
+    // Node-RED's crashes since the last RedMatic start. Not on openccu-lite (hidden below, with
+    // managed: 'system'): systemd watches the unit there, and the link to var/restart_count is not
+    // served by its web server.
+    function loadRestarts() {
+        $.get('restart_count', data => {
+            $('#restarts').html(data || 'keine');
+        });
+    }
 
     function download(filename, dataUrl) {
         let link = document.createElement("a");
