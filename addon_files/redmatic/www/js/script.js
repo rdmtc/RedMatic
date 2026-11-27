@@ -573,6 +573,8 @@ $(document).ready(() => {
         $('#autorestart').val(config.restartOnCrash);
         $('#backup').val(config.ccuBackup || 'reduce');
         $('#npm-cache').val(config.npmCache === 'ram' ? 'ram' : 'storage');
+        // on unless switched off: a settings.json from before the setting has no value
+        $('#update-nodes').prop('checked', config.updateRedmaticNodes !== false);
     });
 
     $loglevel.change(() => {
@@ -959,6 +961,101 @@ $(document).ready(() => {
         config.ccuBackup = $backup.val();
         save();
     });
+
+    // RedMatic-HomeKit and RedMatic-Matter are updated after a RedMatic update (lib/update-redmatic-nodes.js,
+    // started by bin/redmaticLoader); stored as a boolean, a missing value is "on"
+    $('#update-nodes').on('change', event => {
+        config.updateRedmaticNodes = event.target.checked;
+        save();
+    });
+
+    // The last run of lib/update-redmatic-nodes.js: its state file, from nodes_update.cgi. Two
+    // lines (de, en) that are always there and cut off with the full text as tooltip, so the card
+    // keeps its height whatever the state.
+    const nodesUpdateNames = {'redmatic-homekit': 'RedMatic-HomeKit', 'redmatic-matter': 'RedMatic-Matter'};
+
+    function nodesUpdateText(state) {
+        if (!state || !state.state) {
+            return {
+                de: 'Seit der Installation dieser Version noch nicht gelaufen.',
+                en: 'Not run yet since this version was installed.'
+            };
+        }
+        const date = state.ts ? new Date(state.ts * 1000) : null;
+        const when = lang => (date ? ', ' + date.toLocaleString(lang === 'de' ? 'de-DE' : 'en-GB') : '');
+        const packages = lang => Object.keys(state.packages || {}).map(name => {
+            const p = state.packages[name];
+            const label = nodesUpdateNames[name] || name;
+            if (p.result === 'updated') {
+                return `${label} ${p.installed || '?'} \u2192 ${p.target}`;
+            }
+            if (p.result === 'pinned') {
+                return `${label} ${p.installed || ''} ` + (lang === 'de' ? `unverändert (festgelegt: ${p.spec})` : `unchanged (pinned: ${p.spec})`);
+            }
+            if (p.result === 'current') {
+                return `${label} ${p.installed || ''} ` + (lang === 'de' ? 'ist aktuell' : 'is up to date');
+            }
+            if (p.target) {
+                return `${label} ${p.installed || '?'} \u2192 ${p.target}`;
+            }
+            return `${label} ${p.installed || ''}`;
+        }).join(', ');
+        const after = lang => (lang === 'de' ? `Nach dem Update auf RedMatic ${state.addon}` : `After the update to RedMatic ${state.addon}`);
+        switch (state.state) {
+            case 'running':
+                return {
+                    de: `Läuft gerade (${state.phase === 'install' ? 'Installation' : 'Prüfung'}): ${packages('de')}`,
+                    en: `Running (${state.phase === 'install' ? 'installing' : 'checking'}): ${packages('en')}`
+                };
+            case 'updated':
+                return {de: `${after('de')}: ${packages('de')}${when('de')}`, en: `${after('en')}: ${packages('en')}${when('en')}`};
+            case 'current':
+                return {de: `${after('de')}: ${packages('de')}${when('de')}`, en: `${after('en')}: ${packages('en')}${when('en')}`};
+            case 'disabled':
+                return {
+                    de: `${after('de')} nicht aktualisiert, die Einstellung war aus${when('de')}`,
+                    en: `${after('en')} not updated, the setting was off${when('en')}`
+                };
+            case 'not-installed':
+                return {
+                    de: `${after('de')}: RedMatic-HomeKit und RedMatic-Matter sind nicht installiert${when('de')}`,
+                    en: `${after('en')}: RedMatic-HomeKit and RedMatic-Matter are not installed${when('en')}`
+                };
+            case 'failed':
+                return {
+                    error: true,
+                    de: `Fehlgeschlagen (Versuch ${state.attempts} von 3), nächster Versuch beim nächsten Start von RedMatic${when('de')}: ${state.error || ''}`,
+                    en: `Failed (attempt ${state.attempts} of 3), next attempt at the next start of RedMatic${when('en')}: ${state.error || ''}`
+                };
+            case 'gave-up':
+                return {
+                    error: true,
+                    de: `Nach ${state.attempts} Versuchen nicht aktualisiert, bitte über die Palette aktualisieren${when('de')}: ${state.error || ''}`,
+                    en: `Not updated after ${state.attempts} attempts, please update through the palette${when('en')}: ${state.error || ''}`
+                };
+            default:
+                return {de: String(state.state), en: String(state.state)};
+        }
+    }
+
+    function nodesUpdateStatus() {
+        $.getJSON(`nodes_update.cgi?_=${Date.now()}`)
+            .done(state => {
+                showNodesUpdate(state);
+                if (state && state.state === 'running') {
+                    setTimeout(nodesUpdateStatus, 5000);
+                }
+            })
+            .fail(() => showNodesUpdate(null));
+    }
+
+    function showNodesUpdate(state) {
+        const text = nodesUpdateText(state);
+        $('#update-nodes-status-de').text(text.de).attr('title', text.de).toggleClass('text-danger', Boolean(text.error));
+        $('#update-nodes-status-en').text(text.en).attr('title', text.en);
+    }
+
+    nodesUpdateStatus();
 
     // npm's cache for palette installs: on the storage (default) or in RAM, read by bin/redmaticLoader;
     // the marker tells lib/npm-cache.js that this is the user's choice, not 9.18.0's default

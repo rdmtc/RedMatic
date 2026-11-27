@@ -45,6 +45,14 @@ if [ -n "$npm_cache" ]; then
   rm -rf $npm_config_cache 2>/dev/null
 fi
 
+# After a RedMatic update: RedMatic-HomeKit and RedMatic-Matter in var/ are updated too (settings
+# page, lib/update-redmatic-nodes.js), beside Node-RED so that nothing of it can hold up or stop the
+# start. When it installed something it leaves var/restart_once and ends Node-RED, which the loop
+# below then starts again - once for both packages, and not counted as a crash. A restart_once of
+# an earlier loader is stale.
+rm -f $ADDON_DIR/var/restart_once
+$NODE $ADDON_DIR/lib/update-redmatic-nodes.js run 2>&1 </dev/null | logger -p daemon.warn -t redmatic &
+
 status=1
 restarts=0
 # the loader's own exit status: 1 once Node-RED ended with an error and is not restarted again
@@ -77,6 +85,16 @@ while [ "$status" != 0 ]; do
   # Node 24 (two lines at every start, nothing RedMatic can fix in that node); that id alone.
   { $NODE --disable-warning=DEP0040 --require $ADDON_DIR/lib/compat.js --require $ADDON_DIR/lib/start-guard.js $RED $SAFE -s $SETTINGS 2>&3 | logger -p daemon.info -t node-red; } 3>&1 | logger -p daemon.warn -t node-red
   status=$?
+  if [ -f $ADDON_DIR/var/restart_once ]; then
+    rm -f $ADDON_DIR/var/restart_once
+    echo "Node-RED ended for the update of RedMatic-HomeKit/RedMatic-Matter, starting it again" | logger -p daemon.info -t redmatic
+    if [ -f /usr/bin/monit ]; then
+      # unmonitored before Node-RED was ended, as a stop does
+      nohup $ADDON_DIR/bin/monit-start > /dev/null 2>&1 &
+    fi
+    status=1
+    continue
+  fi
   if [ "$status" != 0 ]; then
     echo "Node-RED exited with non-zero exit status $status" | logger -p daemon.err -t node-red
     restarts=$((restarts + 1))

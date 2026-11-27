@@ -199,6 +199,33 @@
 
             <div class="card mb-4 pr-4">
                 <div class="card-body">
+                    <div class="form-group mb-0">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="update-nodes" checked>
+                            <label class="custom-control-label" for="update-nodes">RedMatic-HomeKit und RedMatic-Matter nach einem RedMatic-Update aktualisieren <span class="text-muted">&middot; update RedMatic-HomeKit and RedMatic-Matter after a RedMatic update</span></label>
+                        </div>
+                        <div class="small text-muted mt-1" id="update-nodes-hint">
+                            Nach einem Update von RedMatic werden die Nodes RedMatic-HomeKit und RedMatic-Matter auf ihre
+                            neueste passende Version gebracht, sofern sie installiert sind, und Node-RED startet danach
+                            einmal neu. Andere Nodes bleiben, wie sie sind, ebenso ein Paket, für das in der
+                            <code>package.json</code> des Node-RED-Verzeichnisses eine feste Version steht. Ohne Verbindung
+                            zur npm-Registry bleibt alles beim Alten, der nächste Start von RedMatic versucht es erneut.
+                            <br>&middot; After an update of RedMatic, the nodes RedMatic-HomeKit and RedMatic-Matter are brought
+                            to their newest matching version, if they are installed, and Node-RED then restarts once. Other
+                            nodes stay as they are, as does a package with an exact version in the <code>package.json</code>
+                            of the Node-RED directory. Without a connection to the npm registry nothing changes, and the
+                            next start of RedMatic tries again.
+                        </div>
+                        <div class="small mt-2" id="update-nodes-status">
+                            <div class="text-truncate" id="update-nodes-status-de">&nbsp;</div>
+                            <div class="text-truncate text-muted" id="update-nodes-status-en">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4 pr-4">
+                <div class="card-body">
                     <div class="form-group">
                         <label>Context Storage <a href="https://github.com/rdmtc/RedMatic/wiki/Context-Storage" class="help-link" target="_blank"><i class="far fa-question-circle"></i></a></label>
                         <div class="row mb-2">

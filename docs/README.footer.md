@@ -1,3 +1,25 @@
+## RedMatic-HomeKit und RedMatic-Matter nach einem RedMatic-Update
+
+Nach einem Update von RedMatic bringt RedMatic auch die Nodes
+[RedMatic-HomeKit](https://github.com/rdmtc/RedMatic-HomeKit) und
+[RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter) auf ihre neueste Version – auf jedem Weg, auf dem RedMatic
+aktualisiert wird (Zusatzsoftware-Seite der CCU, Update-Knopf der RedMatic-Einstellungen, Addons-Seite von
+openccu-lite). Die Einstellung dazu steht auf der Einstellungsseite von RedMatic und ist **eingeschaltet**, auch auf
+Systemen, die von einer älteren Version kommen.
+
+* Beim ersten Start nach dem Update startet Node-RED wie gewohnt. Daneben fragt RedMatic die npm-Registry nach neueren
+  Versionen der beiden Pakete, installiert sie in einem Durchgang ins Node-RED-Verzeichnis (so wie die Palette es tut)
+  und startet Node-RED danach **einmal** neu. Gibt es nichts Neueres, passiert nichts.
+* Nur diese beiden Pakete, und nur, wenn sie installiert sind. Andere Nodes bleiben, wie sie sind.
+* Genommen wird die neueste Version, die zum Node.js und Node-RED dieser RedMatic-Version passt; Vorabversionen nie.
+* Ein Paket, für das in `/usr/local/addons/redmatic/var/package.json` eine feste Version (`4.1.4` statt `~4.1.4`)
+  oder eine andere Quelle (Datei, Git, URL) steht, wird nicht angefasst.
+* Ohne Verbindung zur npm-Registry oder bei einem Fehler von npm bleibt alles, wie es ist: Node-RED läuft weiter, die
+  Meldung steht im Log und auf der Einstellungsseite, und die nächsten Starts von RedMatic versuchen es erneut
+  (insgesamt dreimal je RedMatic-Update).
+* Ist die Einstellung beim Update ausgeschaltet, bleiben die Pakete bis zum nächsten RedMatic-Update unberührt; über
+  die Palette von Node-RED lassen sie sich jederzeit von Hand aktualisieren.
+
 ## openccu-lite
 
 [openccu-lite](https://github.com/hobbyquaker/openccu-lite) ist eine Homematic-CCU-Firmware auf Basis von OpenCCU

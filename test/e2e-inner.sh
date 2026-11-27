@@ -291,6 +291,113 @@ else
     fail "palette uninstall failed (http $code)"
 fi
 
+# --- RedMatic-HomeKit and RedMatic-Matter after a RedMatic update -------------------
+# lib/update-redmatic-nodes.js, started by the loader beside Node-RED: at the first start after a
+# RedMatic update the two packages are updated when they are installed and the setting is on (also
+# without a stored value), and Node-RED restarts once. The package installed here is the one that is
+# running, so "an update" is played by a state file that names another RedMatic version.
+NODES_STATE=$ADDON_DIR/var/redmatic-nodes-update.json
+HOMEKIT_OLD=4.1.4
+MATTER_OLD=1.0.1
+nodes_state() {
+    $ADDON_DIR/bin/node -e 'try { console.log(JSON.parse(require("fs").readFileSync(process.argv[1], "utf8")).state) } catch { console.log("none") }' $NODES_STATE
+}
+module_version() {
+    $ADDON_DIR/bin/node -e 'try { console.log(require(process.argv[1]).version) } catch { console.log("missing") }' $ADDON_DIR/var/node_modules/$1/package.json
+}
+set_update_nodes() {
+    $ADDON_DIR/bin/node -e '
+        const fs = require("fs");
+        const [file, value] = process.argv.slice(1);
+        const s = JSON.parse(fs.readFileSync(file, "utf8"));
+        if (value === "unset") delete s.updateRedmaticNodes; else s.updateRedmaticNodes = value === "true";
+        fs.writeFileSync(file, JSON.stringify(s, null, 2));' $ADDON_DIR/etc/settings.json "$1"
+}
+# $1 the state to wait for, $2 seconds
+wait_for_nodes_state() {
+    local i
+    for i in `seq 1 $(($2 / 2))`; do
+        [ "`nodes_state`" = "$1" ] && return 0
+        sleep 2
+    done
+    return 1
+}
+log "RedMatic-HomeKit and RedMatic-Matter after a RedMatic update"
+[ "`nodes_state`" = "not-installed" ] && ok "neither package installed: recorded for this version, nothing done" || fail "state file after the installs so far: `cat $NODES_STATE 2>&1`"
+[ -x $ADDON_DIR/www/nodes_update.cgi ] && ok "www/nodes_update.cgi installed for the settings page" || fail "www/nodes_update.cgi missing or not executable"
+for spec in redmatic-homekit@$HOMEKIT_OLD redmatic-matter@$MATTER_OLD; do
+    code=`curl -s -o /tmp/install.json -w '%{http_code}' -X POST -H 'Content-Type: application/json' \
+        -d "{\"module\":\"${spec%@*}\",\"version\":\"${spec#*@}\"}" $RED/nodes`
+    [ "$code" = "200" ] || die "palette install of $spec failed (http $code): `head -c 300 /tmp/install.json`"
+done
+[ "`module_version redmatic-homekit`|`module_version redmatic-matter`" = "$HOMEKIT_OLD|$MATTER_OLD" ] || die "old versions not installed: `module_version redmatic-homekit` `module_version redmatic-matter`"
+ok "installed redmatic-homekit $HOMEKIT_OLD and redmatic-matter $MATTER_OLD through the palette"
+
+# the setting off: an update leaves both alone
+set_update_nodes false
+echo '{"addon":"0.0.1","state":"current"}' > $NODES_STATE
+install_addon
+[ $? -eq 0 ] || { cat /tmp/update_script.log; die "update_script exit code (expected 0)"; }
+check_running
+wait_for_nodes_state disabled 60 && ok "setting off: recorded as not updated" || fail "setting off: state `cat $NODES_STATE`"
+sleep 5
+[ "`module_version redmatic-homekit`|`module_version redmatic-matter`" = "$HOMEKIT_OLD|$MATTER_OLD" ] && ok "setting off: both packages untouched" \
+    || fail "setting off: versions changed to `module_version redmatic-homekit` `module_version redmatic-matter`"
+
+# no stored value (a settings.json from before the setting): on. Both updated in one npm run, one restart.
+set_update_nodes unset
+echo '{"addon":"0.0.1","state":"current"}' > $NODES_STATE
+restarts_before=`grep -c "starting it again" /var/log/messages`
+install_addon
+[ $? -eq 0 ] || { cat /tmp/update_script.log; die "update_script exit code (expected 0)"; }
+check_running
+pid_before=`node_red_pid`
+if wait_for_nodes_state updated 600; then
+    ok "no stored value: updated (`tr -d '\n ' < $NODES_STATE`)"
+else
+    fail "no stored value: not updated within 600 s: `cat $NODES_STATE`"
+fi
+[ "`module_version redmatic-homekit`" != "$HOMEKIT_OLD" ] && [ "`module_version redmatic-homekit`" != "missing" ] \
+    && ok "redmatic-homekit $HOMEKIT_OLD -> `module_version redmatic-homekit`" || fail "redmatic-homekit is `module_version redmatic-homekit`"
+[ "`module_version redmatic-matter`" != "$MATTER_OLD" ] && [ "`module_version redmatic-matter`" != "missing" ] \
+    && ok "redmatic-matter $MATTER_OLD -> `module_version redmatic-matter`" || fail "redmatic-matter is `module_version redmatic-matter`"
+grep -q '"node-red-contrib-ccu"' $ADDON_DIR/var/package.json || fail "var/package.json lost node-red-contrib-ccu"
+sleep 10
+wait_for_node_red || die "Node-RED did not come back after the update of the two packages"
+[ "`node_red_pid`" != "$pid_before" ] && ok "Node-RED was restarted (pid $pid_before -> `node_red_pid`)" || fail "Node-RED was not restarted"
+restarts=$((`grep -c "starting it again" /var/log/messages` - restarts_before))
+[ "$restarts" = "1" ] && ok "one restart for both packages" || fail "$restarts restarts for the update of the two packages"
+[ "`cat $ADDON_DIR/var/restart_count`" = "0" ] && ok "the restart is not counted as a crash" || fail "restart_count is `cat $ADDON_DIR/var/restart_count`"
+[ -e $ADDON_DIR/var/restart_once ] && fail "var/restart_once left behind"
+if curl -s -H 'Accept: application/json' $RED/nodes | $ADDON_DIR/bin/node -e '
+    let s = ""; process.stdin.on("data", d => s += d).on("end", () => {
+        const wanted = {"redmatic-homekit": process.argv[1], "redmatic-matter": process.argv[2]};
+        const sets = JSON.parse(s);
+        let good = true;
+        for (const name of Object.keys(wanted)) {
+            const set = sets.find(n => n.module === name);
+            console.log(name + " loaded by Node-RED: " + (set ? set.version : "not at all"));
+            good = good && Boolean(set) && set.version === wanted[name];
+        }
+        process.exit(good ? 0 : 1);
+    })' "`module_version redmatic-homekit`" "`module_version redmatic-matter`"; then
+    ok "Node-RED runs the new versions"
+else
+    fail "Node-RED does not run the new versions"
+fi
+# the next start is a normal one: nothing is asked or installed again
+stamp=`stat -c %Y $NODES_STATE`
+$CONF_DIR/rc.d/redmatic stop
+sleep 2
+$CONF_DIR/rc.d/redmatic start || die "rc.d/redmatic start"
+check_running
+sleep 5
+[ "`stat -c %Y $NODES_STATE`" = "$stamp" ] && [ "`nodes_state`" = "updated" ] && ok "a normal start leaves it alone" || fail "a normal start ran the update again: `cat $NODES_STATE`"
+for module in redmatic-homekit redmatic-matter; do
+    code=`curl -s -o /dev/null -w '%{http_code}' -X DELETE $RED/nodes/$module`
+    [ "$code" = "204" ] || fail "palette uninstall of $module failed (http $code)"
+done
+
 # --- npm cache in RAM (the settings page's switch) ------------------------------
 # $1 the value, $2 "chosen" for the settings page's marker (without it: 9.18.0's default)
 set_npm_cache() {

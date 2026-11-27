@@ -33,6 +33,7 @@
   },
   "restartOnCrash": 0,
   "npmCache": "storage",
+  "updateRedmaticNodes": true,
   "editorTheme": {
     "projects": {
       "enabled": false

@@ -125,6 +125,27 @@ No donations will be accepted, but I would be happy if the successful usage of t
 Sorry, the Documentation is not yet translated into English. [German Documentation](https://github.com/rdmtc/RedMatic/wiki/Home)
 
 
+## RedMatic-HomeKit and RedMatic-Matter after a RedMatic update
+
+After an update of RedMatic, RedMatic also brings the nodes
+[RedMatic-HomeKit](https://github.com/rdmtc/RedMatic-HomeKit) and
+[RedMatic-Matter](https://github.com/rdmtc/RedMatic-Matter) to their newest version - whichever way RedMatic is updated
+(the CCU's additional software page, the update button of the RedMatic settings, the Addons page of openccu-lite). The
+setting for it is on RedMatic's settings page and is **switched on**, also on systems that come from an older version.
+
+* At the first start after the update Node-RED starts as usual. Beside it RedMatic asks the npm registry for newer
+  versions of the two packages, installs them in one run into the Node-RED directory (the way the palette does) and
+  then restarts Node-RED **once**. When there is nothing newer, nothing happens.
+* Only these two packages, and only when they are installed. Other nodes stay as they are.
+* It takes the newest version that fits this RedMatic version's Node.js and Node-RED; never a prerelease.
+* A package that has an exact version (`4.1.4` instead of `~4.1.4`) or another source (file, git, URL) in
+  `/usr/local/addons/redmatic/var/package.json` is not touched.
+* Without a connection to the npm registry, or when npm fails, everything stays as it is: Node-RED keeps running, the
+  message is in the log and on the settings page, and the next starts of RedMatic try again (three times per RedMatic
+  update in all).
+* When the setting is off at the update, the packages stay untouched until the next RedMatic update; they can be
+  updated by hand in Node-RED's palette at any time.
+
 ## openccu-lite
 
 [openccu-lite](https://github.com/hobbyquaker/openccu-lite) is a Homematic CCU firmware based on OpenCCU **without
