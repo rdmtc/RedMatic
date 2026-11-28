@@ -29,7 +29,7 @@ installiert (*Zusatzsoftware → Katalog*). Ob RedMatic auf einer CCU oder auf o
 erkannt; einzustellen ist nichts.
 
 * Die `node-red-contrib-ccu`-Nodes erreichen `rfd`, `hs485d` und `hmipserver` über die RPC-Schnittstelle des Systems
-  (lite-rpc), ohne eigene Callback-Server. Ab RedMatic 9.15.1 ist das der Standard: das System stellt RedMatic dafür ein
+  (lite-rpc), ohne eigene Callback-Server. Das ist der Standard: das System stellt RedMatic dafür ein
   eigenes Token aus, eine bestehende Verbindung wird beim ersten Start einmalig umgestellt (eine Zeile im Log). Wer die
   direkte Verbindung behalten will, stellt *openccu-lite interfaces* im Connection-Node auf *CCU*. Geräte-, Kanal-,
   Raum- und Gewerkenamen kommen aus der Metadaten-API des Systems statt aus der ReGaHSS; `msg.channelName`,

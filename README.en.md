@@ -13,24 +13,13 @@
 [Homematic CCU3](https://www.homematic-ip.com/en/products/detail/smart-home-central-control-unit-ccu3.html) and
 [OpenCCU](https://github.com/jens-maus/OpenCCU)**
 
-> **⚠️ RedMatic 9:** RedMatic has been radically slimmed down and
-> modernized (Node.js 24, Node-RED 5). As of version 9 only
-> [node-red-contrib-ccu](https://github.com/rdmtc/node-red-contrib-ccu)
+> Only [node-red-contrib-ccu](https://github.com/rdmtc/node-red-contrib-ccu)
 > comes preinstalled — any additional nodes (e.g. dashboard, HomeKit, Matter)
 > are installed on demand via the Node-RED palette manager.
-> The RedMatic package manager and the RedMatic-WebApp are deprecated
-> and removed without replacement.
 > **Known and accepted limitation:** npm packages / nodes with binary
 > (native) dependencies can **not** be installed on the CCU — there is
-> no compiler toolchain on the CCU, and precompiled binaries are no
-> longer shipped.
->
-> RedMatic 9 is **released** - see
-> [Releases](https://github.com/rdmtc/RedMatic/releases). Requirements:
-> CCU3 with firmware 3.61.5 or newer, or current OpenCCU. **Before updating
-> from RedMatic 7, create a CCU backup - the backup is your own
-> responsibility and the only way back.** Please read the
-> [migration notes](https://github.com/rdmtc/RedMatic/wiki/RedMatic-9-Migration).
+> no compiler toolchain on the CCU, and precompiled binaries are not
+> shipped.
 
 _RedMatic_ packages [Node-RED](https://nodered.org/about/) as a CCU Addon, a software package that can be comfortably installed on a Homematic CCU3 or [OpenCCU](https://github.com/jens-maus/OpenCCU) (formerly RaspberryMatic) via the WebUI. Homematic is a series of smart home automation products by the manufacturer [eQ-3](https://eq-3.de), popular especially in Germany.
 
@@ -154,7 +143,7 @@ the same flows as on a CCU3 or OpenCCU, and is installed from the system's addon
 Whether RedMatic runs on a CCU or on openccu-lite is detected at runtime; nothing has to be configured.
 
 * The `node-red-contrib-ccu` nodes reach `rfd`, `hs485d` and `hmipserver` through the system's RPC interface
-  (lite-rpc), without callback servers of their own. From RedMatic 9.15.1 this is the default: the system issues
+  (lite-rpc), without callback servers of their own. This is the default: the system issues
   RedMatic a token of its own for it, and an existing connection is moved over once at the first start (one line in
   the log). To keep the direct connection, set *openccu-lite interfaces* in the connection node to *CCU*. Device,
   channel, room and function names come from the system's metadata API instead of ReGaHSS; `msg.channelName`,

@@ -27,7 +27,7 @@ the same flows as on a CCU3 or OpenCCU, and is installed from the system's addon
 Whether RedMatic runs on a CCU or on openccu-lite is detected at runtime; nothing has to be configured.
 
 * The `node-red-contrib-ccu` nodes reach `rfd`, `hs485d` and `hmipserver` through the system's RPC interface
-  (lite-rpc), without callback servers of their own. From RedMatic 9.15.1 this is the default: the system issues
+  (lite-rpc), without callback servers of their own. This is the default: the system issues
   RedMatic a token of its own for it, and an existing connection is moved over once at the first start (one line in
   the log). To keep the direct connection, set *openccu-lite interfaces* in the connection node to *CCU*. Device,
   channel, room and function names come from the system's metadata API instead of ReGaHSS; `msg.channelName`,

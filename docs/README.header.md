@@ -17,22 +17,12 @@
 ### [🚀&nbsp;Schnellstart](#voraussetzungen)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;[📚&nbsp;Dokumentation](https://github.com/rdmtc/RedMatic/wiki)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;[📦&nbsp;Download](https://github.com/rdmtc/RedMatic/releases/latest)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;[🚑&nbsp;Support](#support-mitarbeit)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;[👮&nbsp;Lizenzen](#lizenzen)
 ___
 
-> **⚠️ RedMatic 9:** RedMatic wurde radikal verschlankt und modernisiert
-> (Node.js 24, Node-RED 5). Ab Version 9 ist nur noch
-> [node-red-contrib-ccu](https://github.com/rdmtc/node-red-contrib-ccu)
-> vorinstalliert — alle weiteren Nodes (z.&nbsp;B. Dashboard, HomeKit, Matter)
-> werden bei Bedarf über den Node-RED Paletten-Manager installiert.
-> Der RedMatic-Paketmanager und die RedMatic-WebApp sind deprecated und
-> entfallen ersatzlos.
+> Vorinstalliert ist nur
+> [node-red-contrib-ccu](https://github.com/rdmtc/node-red-contrib-ccu) —
+> alle weiteren Nodes (z.&nbsp;B. Dashboard, HomeKit, Matter) werden bei
+> Bedarf über den Node-RED Paletten-Manager installiert.
 > **Bekannte und akzeptierte Einschränkung:** npm-Pakete bzw. Nodes mit
 > binären (nativen) Abhängigkeiten können auf der CCU **nicht**
 > installiert werden — auf der CCU gibt es keine Compiler-Toolchain,
-> und vorkompilierte Binaries werden nicht mehr mitgeliefert.
->
-> RedMatic 9 ist **veröffentlicht** - siehe
-> [Releases](https://github.com/rdmtc/RedMatic/releases). Voraussetzung:
-> CCU3 mit Firmware ab 3.61.5 oder aktuelles OpenCCU. **Vor einem Update
-> von RedMatic 7 unbedingt ein CCU-Backup anlegen - das Backup liegt in
-> der Verantwortung des Anwenders, ein Weg zurück führt nur darüber.**
-> Bitte die [Release-Hinweise](https://github.com/rdmtc/RedMatic/wiki/RedMatic-9-Migration) lesen.
+> und vorkompilierte Binaries werden nicht mitgeliefert.
 
